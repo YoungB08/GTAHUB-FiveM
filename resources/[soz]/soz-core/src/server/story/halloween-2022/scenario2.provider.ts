@@ -1,0 +1,125 @@
+import { InventoryFactory } from '@public/server/inventory/inventory.factory';
+
+import { Inject } from '../../../core/decorators/injectable';
+import { Provider } from '../../../core/decorators/provider';
+import { Rpc } from '../../../core/decorators/rpc';
+import { Feature } from '../../../shared/features';
+import { ADD_ERROR_MESSAGE } from '../../../shared/inventory';
+import { RpcServerEvent } from '../../../shared/rpc';
+import { Halloween2022Scenario2 } from '../../../shared/story/halloween-2022/scenario2';
+import { Dialog, ScenarioState } from '../../../shared/story/story';
+import { FeatureProvider } from '../../feature/feature.provider';
+import { Notifier } from '../../notifier';
+import { PlayerService } from '../../player/player.service';
+
+const DEFAULT_PART = 'part1';
+
+@Provider()
+export class Halloween2022Scenario2Provider {
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(InventoryFactory)
+    private inventoryFactory: InventoryFactory;
+
+    @Inject(FeatureProvider)
+    private featureProvider: FeatureProvider;
+
+    @Rpc(RpcServerEvent.STORY_HALLOWEEN_SCENARIO2)
+    public async onScenario2(source: number): Promise<Dialog | null> {
+        const inventory = await this.inventoryFactory.getPlayerInventory(source);
+
+        if (!this.featureProvider.isFeatureEnabled(Feature.HalloweenScenario2)) {
+            return;
+        }
+
+        const player = this.playerService.getPlayer(source);
+
+        const parts = Object.entries(player.metadata.halloween2022?.scenario2 ?? {}).find(
+            scenario => scenario[1] === ScenarioState.Running
+        );
+        const currentPart = parts ? parts[0] : DEFAULT_PART;
+
+        switch (currentPart) {
+            case 'part1':
+                this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                    ...player.metadata.halloween2022,
+                    scenario2: { part1: ScenarioState.Finished, part2: ScenarioState.Running },
+                });
+                return Halloween2022Scenario2.dialog['part1'];
+            case 'part2':
+                this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                    ...player.metadata.halloween2022,
+                    scenario2: {
+                        ...player.metadata.halloween2022.scenario2,
+                        part2: ScenarioState.Finished,
+                        part3: ScenarioState.Running,
+                    },
+                });
+                return Halloween2022Scenario2.dialog['part2'];
+            case 'part3':
+                if (inventory.remove('horror_cauldron', 1, false)) {
+                    this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                        ...player.metadata.halloween2022,
+                        scenario2: {
+                            ...player.metadata.halloween2022.scenario2,
+                            part3: ScenarioState.Finished,
+                            part4: ScenarioState.Running,
+                        },
+                    });
+                    return Halloween2022Scenario2.dialog['part3'];
+                }
+                return;
+            case 'part4':
+                this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                    ...player.metadata.halloween2022,
+                    scenario2: {
+                        ...player.metadata.halloween2022.scenario2,
+                        part4: ScenarioState.Finished,
+                        part5: ScenarioState.Running,
+                    },
+                });
+                return Halloween2022Scenario2.dialog['part4'];
+            case 'part5':
+                if (inventory.canCarryItem('old_relic', 1)) {
+                    inventory.add('old_relic', 1);
+                    this.notifier.notify(
+                        source,
+                        `Une ancienne relique ? Je devrais la ramener au vieux monsieur pour lui raconter la vraie histoire !`,
+                        'success'
+                    );
+                    this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                        ...player.metadata.halloween2022,
+                        scenario2: {
+                            ...player.metadata.halloween2022.scenario2,
+                            part5: ScenarioState.Finished,
+                            part6: ScenarioState.Running,
+                        },
+                    });
+                    return;
+                }
+                this.notifier.notify(source, ADD_ERROR_MESSAGE['not_enough_space'], 'error');
+                return;
+            case 'part6':
+                if (
+                    inventory.canSwapItems(
+                        [{ name: 'old_relic', amount: 1 }],
+                        [{ name: 'halloween2022_story', amount: 1 }]
+                    ) &&
+                    inventory.remove('old_relic', 1, false)
+                ) {
+                    inventory.add('halloween2022_story', 1);
+
+                    this.playerService.setPlayerMetadata(source, 'halloween2022', {
+                        ...player.metadata.halloween2022,
+                        scenario2: { ...player.metadata.halloween2022.scenario2, part6: ScenarioState.Finished },
+                    });
+                    return Halloween2022Scenario2.dialog['part6'];
+                }
+                return;
+        }
+    }
+}

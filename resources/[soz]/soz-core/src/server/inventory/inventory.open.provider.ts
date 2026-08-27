@@ -1,0 +1,426 @@
+import { On, OnEvent } from '@public/core/decorators/event';
+import { ClientEvent, ServerEvent } from '@public/shared/event';
+import { Gauge } from 'prom-client';
+
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Rpc } from '../../core/decorators/rpc';
+import { Tick } from '../../core/decorators/tick';
+import { uuidv4 } from '../../core/utils';
+import { InventoryPosition, InventoryPositionDynamic, InventoryType } from '../../shared/inventory';
+import { getDistance, Vector3 } from '../../shared/polyzone/vector';
+import { RpcServerEvent } from '../../shared/rpc';
+import { VehicleClass } from '../../shared/vehicle/vehicle';
+import { ItemService } from '../item/item.service';
+import { Monitor } from '../monitor/monitor';
+import { Notifier } from '../notifier';
+import { PlayerService } from '../player/player.service';
+import { ProgressService } from '../player/progress.service';
+import { VehicleStateService } from '../vehicle/vehicle.state.service';
+import { Inventory } from './inventory';
+import { InventoryFactory } from './inventory.factory';
+import { InventoryPositionChecker } from './inventory.position.checker';
+
+/**
+ * Exposition of some methods from the InventoryManager to the clients
+ */
+@Provider()
+export class InventoryOpenProvider {
+    @Inject(InventoryFactory)
+    private inventoryFactory: InventoryFactory;
+
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(VehicleStateService)
+    private vehicleStateService: VehicleStateService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(ProgressService)
+    private progressService: ProgressService;
+
+    @Inject(ItemService)
+    private itemService: ItemService;
+
+    @Inject(InventoryPositionChecker)
+    private inventoryPositionChecker: InventoryPositionChecker;
+
+    @Inject(Monitor)
+    private monitor: Monitor;
+
+    private subscriptions: Map<string, Map<number, string>> = new Map();
+
+    private subscriptionGauge: Gauge<string> = new Gauge({
+        name: 'soz_inventory_subscriptions',
+        help: 'number of subscriptions to inventories',
+        labelNames: ['inventory_id'],
+    });
+
+    private loadedGauge: Gauge<string> = new Gauge({
+        name: 'soz_inventory_loaded',
+        help: 'number of loaded inventories',
+        labelNames: [],
+    });
+
+    @Tick(5000, 'monitor:inventory:metrics')
+    public async collectMetrics() {
+        for (const [inventoryId, subscriptions] of this.subscriptions) {
+            this.subscriptionGauge.set({ inventory_id: inventoryId }, subscriptions.size);
+        }
+
+        this.loadedGauge.set({}, this.inventoryFactory.getLoadedInventories().size);
+    }
+
+    @Tick()
+    public async tick() {
+        await this.inventoryFactory.observe();
+    }
+
+    @Rpc(RpcServerEvent.INVENTORY_SELF_FETCH)
+    public async fetch(source: number) {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return [null, null];
+        }
+
+        const storageId = `player_${player.citizenid}`;
+        const clotheStorageId = `player_clothing_${player.citizenid}`;
+        const inventory = await this.inventoryFactory.getOrCreate(storageId, InventoryType.Player);
+        const clothesInventory = await this.inventoryFactory.getOrCreate(clotheStorageId, InventoryType.PlayerClothing);
+
+        if (!inventory || !clothesInventory) {
+            return [null, null, null];
+        }
+
+        this.doSubscribe(source, inventory);
+        this.doSubscribe(source, clothesInventory);
+
+        return [inventory.configuration(), inventory.items(), clothesInventory.items()];
+    }
+
+    @OnEvent(ServerEvent.INVENTORY_OPEN)
+    public async onOpen(source: number, type: InventoryType, id: string, position?: Vector3) {
+        const inventory = await this.inventoryFactory.getOrCreate(id, type);
+
+        if (!inventory) {
+            return;
+        }
+
+        if (!inventory.canAccess(source)) {
+            return;
+        }
+
+        this.doSubscribe(source, inventory);
+
+        const inventoryPosition: InventoryPosition = position
+            ? {
+                  type: 'fixed',
+                  position,
+              }
+            : null;
+
+        if (position) {
+            this.inventoryPositionChecker.openInventory(source, inventory.id, inventoryPosition);
+        }
+
+        TriggerClientEvent(
+            ClientEvent.INVENTORY_OPEN,
+            source,
+            inventory.id,
+            inventory.type(),
+            inventory.configuration(),
+            inventory.items(),
+            inventoryPosition,
+            false,
+            await inventory.state(source)
+        );
+    }
+
+    @OnEvent(ServerEvent.INVENTORY_OPEN_TARGET)
+    public async onOpenTarget(source: number, target: number, canForceConsume: boolean) {
+        const sourcePlayer = this.playerService.getPlayer(source);
+        const targetPlayer = this.playerService.getPlayer(target);
+
+        if (!sourcePlayer || !targetPlayer) {
+            return;
+        }
+
+        this.notifier.notify(target, "Quelqu'un fouille vos poches...");
+
+        const { completed } = await this.progressService.progress(
+            source,
+            'police-search',
+            'Fouille en cours...',
+            Math.floor(Math.random() * (7000 - 5000 + 1) + 5000),
+            {
+                dictionary: 'anim@gangops@morgue@table@',
+                name: 'player_search',
+                options: { repeat: true },
+            },
+            {
+                disableMovement: true,
+                disableCarMovement: true,
+                disableMouse: false,
+                disableCombat: true,
+            }
+        );
+
+        if (!completed) {
+            return;
+        }
+
+        const playerPosition = GetEntityCoords(GetPlayerPed(source)) as Vector3;
+        const targetPosition = GetEntityCoords(GetPlayerPed(target)) as Vector3;
+
+        if (getDistance(playerPosition, targetPosition) > 3) {
+            this.notifier.error(source, 'La cible est trop loin.');
+
+            return;
+        }
+
+        const inventory = await this.inventoryFactory.getPlayerInventory(target);
+
+        if (!inventory) {
+            return;
+        }
+
+        this.doSubscribe(source, inventory);
+
+        const inventoryPosition: InventoryPosition = {
+            type: 'dynamic',
+            entity: NetworkGetNetworkIdFromEntity(GetPlayerPed(target)),
+        };
+
+        this.inventoryPositionChecker.openInventory(source, inventory.id, inventoryPosition);
+
+        TriggerClientEvent(
+            ClientEvent.INVENTORY_OPEN,
+            source,
+            inventory.id,
+            inventory.type(),
+            inventory.configuration(),
+            inventory.items(),
+            inventoryPosition,
+            canForceConsume,
+            await inventory.state(source),
+            targetPlayer.money.money + targetPlayer.money.marked_money
+        );
+
+        this.monitor.traceEvent('job_police_search_player', {
+            player_source: source,
+            target_source: target,
+        });
+    }
+
+    @OnEvent(ServerEvent.INVENTORY_OPEN_TRUNK)
+    public async onOpenTrunk(
+        source: number,
+        vehicleNetworkId: number,
+        vehicleClass: VehicleClass,
+        dimension: { min: Vector3; max: Vector3 }
+    ) {
+        const vehicleState = this.vehicleStateService.getVehicleState(vehicleNetworkId);
+        const inventory = await this.inventoryFactory.getVehicleInventory(vehicleNetworkId, vehicleClass, vehicleState);
+
+        if (!inventory) {
+            return;
+        }
+
+        this.doSubscribe(source, inventory);
+
+        const inventoryPosition: InventoryPosition = {
+            type: 'dynamic',
+            entity: vehicleNetworkId,
+            dimension,
+        };
+
+        this.inventoryPositionChecker.openInventory(
+            source,
+            inventory.id,
+            inventoryPosition as InventoryPositionDynamic
+        );
+        this.inventoryPositionChecker.openTrunk(source, inventory.id, vehicleNetworkId);
+
+        TriggerClientEvent(
+            ClientEvent.INVENTORY_OPEN,
+            source,
+            inventory.id,
+            inventory.type(),
+            inventory.configuration(),
+            inventory.items(),
+            inventoryPosition,
+            false,
+            await inventory.state(source)
+        );
+    }
+
+    @OnEvent(ServerEvent.INVENTORY_OPEN_SUB_INVENTORY)
+    public async onOpenSubInventory(source: number, inventoryId: string, slot: number) {
+        const inventory = await this.inventoryFactory.get(inventoryId);
+
+        if (!inventory) {
+            return;
+        }
+
+        const inventoryItem = inventory.getItemAtSlot(slot);
+
+        if (!inventoryItem) {
+            return;
+        }
+
+        const item = this.itemService.getItem(inventoryItem.name);
+
+        if (!item || !item.storageItemType) {
+            return;
+        }
+
+        if (item.name === 'detective_board' && !inventoryItem.metadata?.originalDetectiveBoard) {
+            return;
+        }
+
+        if (!inventoryItem.metadata?.id) {
+            inventory.updateMetadataAtSlot(slot, { id: uuidv4() });
+        }
+
+        if (!inventoryItem.metadata?.storageElements) {
+            inventory.updateMetadataAtSlot(slot, { storageElements: {} });
+        }
+
+        // Migrate old storage elements to new format
+        if (Array.isArray(inventoryItem.metadata.storageElements)) {
+            const newItems = {};
+
+            for (const item of inventoryItem.metadata.storageElements) {
+                newItems[item.slot] = item;
+            }
+
+            inventory.updateMetadataAtSlot(slot, { storageElements: newItems });
+        }
+
+        const id = inventoryItem.metadata.id;
+        const subInventory = await this.inventoryFactory.getOrCreate(
+            id,
+            item.storageItemType as InventoryType,
+            {
+                allowedItemTypes: [item.storageItemType],
+                notAllowedItems: ['detective_board'],
+                persistent: false,
+                maxWeight: item.storageItemWeight || 1_000_000,
+                requiredMetadata: item.storageItemMandatoryMetadata,
+            },
+            () => inventoryItem.metadata.storageElements
+        );
+
+        await subInventory.observe();
+        await inventory.observe();
+
+        this.doSubscribe(source, subInventory);
+
+        TriggerClientEvent(
+            ClientEvent.INVENTORY_OPEN,
+            source,
+            subInventory.id,
+            subInventory.type(),
+            subInventory.configuration(),
+            subInventory.items(),
+            null,
+            false,
+            await inventory.state(source)
+        );
+    }
+
+    @OnEvent(ServerEvent.INVENTORY_UNSUBSCRIBE)
+    public async onUnsubscribe(source: number, storageId: string) {
+        if (!this.subscriptions.has(storageId)) {
+            this.inventoryPositionChecker.closeInventory(source, storageId);
+
+            return;
+        }
+
+        if (!this.subscriptions.get(storageId).has(source)) {
+            this.inventoryPositionChecker.closeInventory(source, storageId);
+
+            return;
+        }
+
+        const inventory = await this.inventoryFactory.get(storageId);
+
+        if (!inventory) {
+            this.inventoryPositionChecker.closeInventory(source, storageId);
+
+            return;
+        }
+
+        inventory.unsubscribe(this.subscriptions.get(storageId).get(source));
+
+        this.subscriptions.get(storageId).delete(source);
+        this.inventoryPositionChecker.closeInventory(source, storageId);
+    }
+
+    public closeInventory(storageId: string) {
+        const sources = [];
+
+        if (!this.subscriptions.has(storageId)) {
+            return;
+        }
+
+        for (const [source] of this.subscriptions.get(storageId)) {
+            sources.push(source);
+        }
+
+        for (const source of sources) {
+            TriggerClientEvent(ClientEvent.INVENTORY_CLOSE, source, storageId);
+        }
+    }
+
+    public hasSubscription(storageId: string) {
+        const subscriptions = this.subscriptions.get(storageId);
+        return subscriptions && subscriptions.size > 0;
+    }
+
+    private doSubscribe(source: number, inventory: Inventory) {
+        if (!this.subscriptions.has(inventory.id)) {
+            this.subscriptions.set(inventory.id, new Map());
+        }
+
+        if (this.subscriptions.get(inventory.id).has(source)) {
+            return;
+        }
+
+        const id = inventory.subscribe((changes, _, configuration) => {
+            TriggerClientEvent(ClientEvent.INVENTORY_UPDATE, source, inventory.id, changes, configuration);
+        });
+
+        this.subscriptions.get(inventory.id).set(source, id);
+    }
+
+    @On('QBCore:Server:PlayerUnload', false)
+    async onPlayerUnload(source: number) {
+        for (const [storageId, subscriptions] of this.subscriptions) {
+            if (subscriptions.has(source)) {
+                const inventory = await this.inventoryFactory.get(storageId);
+                inventory.unsubscribe(subscriptions.get(source));
+
+                this.inventoryPositionChecker.closeInventory(source, storageId);
+
+                subscriptions.delete(source);
+            }
+        }
+    }
+
+    @Tick(100)
+    async checkInventoryTrunkOpened() {
+        for (const [storageId, subscriptions] of this.subscriptions) {
+            if (subscriptions.size > 0) {
+                continue;
+            }
+
+            if (this.inventoryPositionChecker.isTrunkOpened(storageId)) {
+                this.inventoryPositionChecker.forceCloseTrunk(storageId);
+            }
+        }
+    }
+}

@@ -1,0 +1,265 @@
+import { MenuSmugglingPricesData } from '@private/shared/business.smuggling';
+import { BlackjackMenuData } from '@private/shared/casino.blackjack';
+import { PokerMenuData } from '@private/shared/casino.poker';
+import { RouletteMenuData } from '@private/shared/casino.roulette';
+import { SlotMachineMenuData } from '@private/shared/casino.slot';
+import { PetJobKennelMenuData, PetShopMenuData } from '@public/shared/animal';
+import { LaserGameAdminInfo, LaserGameData } from '@public/shared/games/laser';
+import { ApartmentMenuData, ApartmentSelectUpgradesMenuData } from '@public/shared/housing/housing';
+import { HudSettings } from '@public/shared/hud';
+import { JobType } from '@public/shared/job';
+import { MenuOilData } from '@public/shared/job/oil';
+import { NuiJobEmployeeOnDuty, PromoteMenuData } from '@public/shared/nui/job';
+import { PlayerPersonalMenuData } from '@public/shared/nui/player';
+import { EditorMenuData } from '@public/shared/object';
+
+import { AdminMenuStateProps } from '../../nui/components/Admin/AdminMenu';
+import { PlayerCloakroomItem, WardrobeMenuData } from '../cloth';
+import { DrivingSchoolMenuData } from '../driving-school';
+import { FuelType } from '../fuel';
+import { AdminMapperMenuData, HousingUpgradesMenuData } from '../housing/menu';
+import { DmcJobMenuData } from '../job/dmc';
+import { GouvJobMenuPropData } from '../job/gouv';
+import { PlasterMenuData } from '../job/lsmc';
+import {
+    PoliceJobFineMenuData,
+    PoliceJobLicencesMenuData,
+    PoliceJobMenuData,
+    PoliceJobMoneycheckerMenuData,
+} from '../job/police';
+import { MenuUpwData } from '../job/upw';
+import { BossShopMenu, ShopProduct } from '../shop';
+import { GarageMenuData } from '../vehicle/garage';
+import { VehicleCustomMenuData } from '../vehicle/modification';
+import {
+    VehicleAuctionMenuData,
+    VehicleDealershipMenuData,
+    VehicleMenuData,
+    VehicleOrderMenuData,
+} from '../vehicle/vehicle';
+import { WeaponsMenuData } from '../weapons/weapon';
+import { HousingPropPlacementMenuData } from './prop_placement';
+
+export interface NuiMenuMethodMap {
+    ArrowDown: never;
+    ArrowLeft: never;
+    ArrowRight: never;
+    ArrowUp: never;
+    Backspace: never;
+    CloseMenu: boolean;
+    ResetMenu: never;
+    Enter: never;
+    SetMenuType: SetMenuType;
+    ToggleFocus: never;
+    SetMenuVisibility: boolean;
+    Shift: never;
+}
+
+export type SetMenuType = {
+    menuType: MenuType;
+    data: any;
+    useMouse?: boolean;
+    subMenuId?: string;
+    originMenuType?: MenuType;
+};
+
+export enum MenuType {
+    AdminMenu = 'AdminMenu',
+    AdminMapperMenu = 'AdminMapperMenu',
+    BahamaUnicornJobMenu = 'baun_job',
+    BennysUpgradeVehicle = 'bennys_upgrade_vehicle',
+    Demo = 'demo',
+    DrivingSchool = 'driving_school',
+    BossShop = 'boss_shop',
+    SuperetteShop = 'superette_shop',
+    TattooShop = 'tattoo_shop',
+    JewelryShop = 'jewelry_shop',
+    JewelryEngraveShop = 'jewelry_engrave_shop',
+    BarberShop = 'barber_shop',
+    PetShop = 'pet_shop',
+    PetJobKennel = 'pet_job_kennel',
+    FightForStyleJobMenu = 'ffs_job',
+    FoodJobMenu = 'food_job_menu',
+    HousingUpgrades = 'housing_upgrades',
+    Garage = 'garage_menu',
+    JobBennys = 'job_bennys',
+    JobUpw = 'job_upw',
+    JobNews = 'job_news',
+    JobOil = 'job_oil',
+    JobPawl = 'job_pawl',
+    VehicleOrderMenu = 'vehicle_order',
+    OilSetStationPrice = 'oil_set_station_price',
+    SetHealthState = 'set_health_state',
+    StonkJobMenu = 'stonk_job',
+    Vehicle = 'vehicle',
+    VehicleAuction = 'vehicle_auction',
+    VehicleCustom = 'vehicle_custom',
+    VehicleDealership = 'vehicle_dealership',
+    Wardrobe = 'wardrobe',
+    GarbageJobMenu = 'garbage_job_menu',
+    GunSmith = 'gunsmith',
+    LsmcPharmacy = 'lsmc_pharmacy',
+    MandatoryJobMenu = 'mdr_job',
+    IllegalShop = 'illegal_shop',
+    EasterShop = 'easter_shop',
+    TaxiJobMenu = 'taxi_job',
+    PlayerPersonal = 'player_personal',
+    PropPlacementMenu = 'prop_placement_menu',
+    HousingPropPlacementMenu = 'housing_prop_placement_menu',
+    LsmcJobMenu = 'lsmc_job_menu',
+    JobOnDutyMenu = 'job_on_duty',
+    Album = 'album',
+    DrugShop = 'drug_shop',
+    DrugGarden = 'drug_garden',
+    DrugAdmin = 'drug_admin',
+    RentBoat = 'rent_boat',
+    RentMule = 'rent_mule',
+    RaceAdmin = 'RaceAdmin',
+    RaceRank = 'RaceRank',
+    GouvJobMenu = 'gouv_job',
+    FDFJobMenu = 'fdf_job',
+    DmcJobMenu = 'dmc_job',
+    ObjectEditor = 'object_editor',
+    PoliceJobMenu = 'police_job_menu',
+    PoliceJobLicences = 'police_job_licences',
+    PoliceJobMoneychecker = 'police_job_moneychecker',
+    PoliceJobFines = 'police_job_fines',
+    PoliceSwatPickCase = 'policeswat_pick_case',
+    PitStopPriceMenu = 'pitstop_price',
+    Promote = 'promote',
+    HubEntryAdmin = 'hub_entry_admin',
+    HousingBuyMenu = 'housing_buy_menu',
+    HousingSellMenu = 'housing_sell_menu',
+    HousingVisitMenu = 'housing_visit_menu',
+    HousingBellMenu = 'housing_bell_menu',
+    HousingUpgradesSelectMenu = 'housing_upgrades_select_menu',
+    HousingStoreFounitureSelectMenu = 'housing_store_fourniture_select_menu',
+    HousingEnterMenu = 'housing_enter_menu',
+    HousingChangePrincipalApartementMenu = 'housingchange_principal_apartment_menu',
+    HousingAddRoommateMenu = 'housing_add_roommate_menu',
+    HousingAddTenantMenu = 'housing_add_tenant_menu',
+    HousingRemoveRoommateMenu = 'housing_remove_roommate_menu',
+    HousingRemoveTenantMenu = 'housing_remove_tenant_menu',
+    HousingCloakroomMenu = 'housing_cloakroom_menu',
+    HousingSearchWarrantMenu = 'housing_search_warrant_menu',
+    HousingSearchWarrantCloseMenu = 'housing_search_warrant_close_menu',
+    ZkeaFournitureMenu = 'zkea_fourniture_menu',
+    LsmcPlaster = 'lsmc_plaster',
+    GangAdmin = 'gang_admin',
+    DoorAdmin = 'door_admin',
+    GangMember = 'gang_member',
+    SafeStorage = 'safe_storage',
+    CyberAlertInjector = 'cyber_alert_injector',
+    SmugglingBlackMarketPrices = 'smuggling_blackMarket_prices',
+    SmugglingBlackMarketOwners = 'smuggling_blackMarket_owners',
+    SmugglingContainerOrderMenu = 'smuggling_container_order',
+    SmugglingMenu = 'smuggling',
+    GangZoneEditMenu = 'gang_zone_edit',
+    GangMenu = 'gang',
+    GangVehiculeMenu = 'gang_vehicule_menu',
+    WatchMenu = 'watch_menu',
+    HalloweenVampire = 'halloween_vampire',
+    LaserGameCreate = 'laser_game_create',
+    LaserGameManage = 'laser_game_manage',
+    LaserGameAdmin = 'laser_game_admin',
+    Traveling = 'traveling',
+    CasinoSubscription = 'casino_subscription',
+    CasinoSlotMachine = 'casino_slot_machine',
+    CasinoPoker = 'casino_poker',
+    CasinoBlackjack = 'casino_blackjack',
+    CasinoRoulette = 'casino_roulette',
+    CasinoInsideTrack = 'casino_inside_track',
+    CasinoLuckyWheel = 'casino_lucky_wheel',
+    WhatIfHammer = 'whatif_hammer',
+}
+
+export interface MenuTypeMap extends Record<MenuType, any> {
+    [MenuType.AdminMenu]: AdminMenuStateProps['data'];
+    [MenuType.AdminMapperMenu]: AdminMapperMenuData;
+    [MenuType.BahamaUnicornJobMenu]: any;
+    [MenuType.BennysUpgradeVehicle]: VehicleCustomMenuData;
+    [MenuType.BossShop]: BossShopMenu;
+    [MenuType.Demo]: never;
+    [MenuType.DrivingSchool]: DrivingSchoolMenuData;
+    [MenuType.FightForStyleJobMenu]: any;
+    [MenuType.HousingUpgrades]: HousingUpgradesMenuData;
+    [MenuType.Garage]: GarageMenuData;
+    [MenuType.JobBennys]: {
+        insideUpgradeZone: boolean;
+    };
+    [MenuType.JobUpw]: MenuUpwData;
+    [MenuType.JobOil]: MenuOilData;
+    [MenuType.VehicleOrderMenu]: VehicleOrderMenuData;
+    [MenuType.OilSetStationPrice]: Record<FuelType, number>;
+    [MenuType.SetHealthState]: number;
+    [MenuType.Vehicle]: VehicleMenuData;
+    [MenuType.VehicleAuction]: VehicleAuctionMenuData;
+    [MenuType.VehicleCustom]: VehicleCustomMenuData;
+    [MenuType.VehicleDealership]: VehicleDealershipMenuData;
+    [MenuType.Wardrobe]: WardrobeMenuData;
+    [MenuType.GunSmith]: WeaponsMenuData;
+    [MenuType.LsmcPharmacy]: any;
+    [MenuType.MandatoryJobMenu]: { displayRadar: boolean };
+    [MenuType.IllegalShop]: Map<string, ShopProduct[]>;
+    [MenuType.EasterShop]: ShopProduct[];
+    [MenuType.TaxiJobMenu]: any;
+    [MenuType.PlayerPersonal]: PlayerPersonalMenuData;
+    [MenuType.LsmcJobMenu]: any;
+    [MenuType.JobOnDutyMenu]: NuiJobEmployeeOnDuty;
+    [MenuType.Album]: { tracks: Record<string, string>; volume: number };
+    [MenuType.DrugShop]: ShopProduct[];
+    [MenuType.DrugAdmin]: never;
+    [MenuType.RentBoat]: null;
+    [MenuType.RentMule]: null;
+    [MenuType.RaceAdmin]: null;
+    [MenuType.RaceRank]: { id: number; name: string };
+    [MenuType.GouvJobMenu]: GouvJobMenuPropData;
+    [MenuType.PropPlacementMenu]: { loaded: string[] };
+    [MenuType.HousingPropPlacementMenu]: HousingPropPlacementMenuData;
+    [MenuType.FDFJobMenu]: any;
+    [MenuType.JobNews]: { job: JobType };
+    [MenuType.DmcJobMenu]: DmcJobMenuData;
+    [MenuType.PoliceJobLicences]: PoliceJobLicencesMenuData;
+    [MenuType.PoliceJobMoneychecker]: PoliceJobMoneycheckerMenuData;
+    [MenuType.PoliceJobFines]: PoliceJobFineMenuData;
+    [MenuType.PoliceJobMenu]: PoliceJobMenuData;
+    [MenuType.PoliceSwatPickCase]: null;
+    [MenuType.PitStopPriceMenu]: never;
+    [MenuType.Promote]: PromoteMenuData;
+    [MenuType.HousingAddRoommateMenu]: ApartmentMenuData;
+    [MenuType.HousingBellMenu]: ApartmentMenuData;
+    [MenuType.HousingSearchWarrantMenu]: ApartmentMenuData;
+    [MenuType.HousingSearchWarrantCloseMenu]: ApartmentMenuData;
+    [MenuType.HousingUpgradesSelectMenu]: ApartmentSelectUpgradesMenuData;
+    [MenuType.HousingBuyMenu]: ApartmentMenuData;
+    [MenuType.HousingEnterMenu]: ApartmentMenuData;
+    [MenuType.HousingStoreFounitureSelectMenu]: ApartmentMenuData;
+    [MenuType.HousingRemoveRoommateMenu]: ApartmentMenuData;
+    [MenuType.HousingRemoveTenantMenu]: ApartmentMenuData;
+    [MenuType.HousingSellMenu]: ApartmentMenuData;
+    [MenuType.HousingVisitMenu]: ApartmentMenuData;
+    [MenuType.HousingCloakroomMenu]: {
+        items: PlayerCloakroomItem[];
+        title: string;
+    };
+    [MenuType.ZkeaFournitureMenu]: never;
+    [MenuType.LsmcPlaster]: PlasterMenuData;
+    [MenuType.ObjectEditor]: EditorMenuData;
+    [MenuType.DoorAdmin]: string;
+    [MenuType.SmugglingBlackMarketPrices]: MenuSmugglingPricesData;
+    [MenuType.WatchMenu]: HudSettings;
+    [MenuType.HalloweenVampire]: never;
+    [MenuType.LaserGameCreate]: null;
+    [MenuType.LaserGameManage]: LaserGameData;
+    [MenuType.LaserGameAdmin]: Record<string, LaserGameAdminInfo>;
+    [MenuType.CasinoSubscription]: number[];
+    [MenuType.CasinoSlotMachine]: SlotMachineMenuData;
+    [MenuType.CasinoBlackjack]: BlackjackMenuData;
+    [MenuType.CasinoPoker]: PokerMenuData;
+    [MenuType.CasinoRoulette]: RouletteMenuData;
+    [MenuType.PetShop]: PetShopMenuData;
+    [MenuType.PetJobKennel]: PetJobKennelMenuData;
+    [MenuType.GangZoneEditMenu]: string;
+}
+
+export const ALLOWED_MENU_NAVIGATE: MenuType[] = [MenuType.AdminMenu, MenuType.PropPlacementMenu];

@@ -1,0 +1,450 @@
+import { SozRole } from '@core/permissions';
+import { DrugSkill } from '@private/shared/drugs';
+import { Talent } from '@private/shared/talent';
+import { BankMoneyType } from '@public/shared/bank';
+import { VampireGameRole } from '@public/shared/halloween';
+import { ApartementTiers } from '@public/shared/housing/housing';
+import { SenatePartyMember } from '@public/shared/senate';
+import { Radio } from '@public/shared/voip';
+import { WhatIfGuild } from '@public/shared/whatif';
+
+import { ClothConfig, OutfitType } from './cloth';
+import { Disease, Organ } from './disease';
+import { DrivingSchoolLicenseType } from './driving-school';
+import { joaat } from './joaat';
+import { JobType } from './job';
+import { PlasterLocation } from './job/lsmc';
+import { Halloween2022, Halloween2023 } from './story/halloween2022';
+
+export type QBCorePlayer = {
+    Functions: {
+        SetApartment: (data: any) => void;
+        SetApartmentTier: (tier: Partial<ApartementTiers>) => void;
+        SetPartyMember: (data: SenatePartyMember | null) => void;
+        SetApartmentHasParkingPlace: (hasParkingPlace: boolean) => void;
+        SetMetaData: (key: string, val: any) => void;
+        SetMetaDatas: (data: Record<string, any>) => void;
+        SetValidated: (validated: boolean) => void;
+        UpdateMaxWeight: () => void;
+        AddMoney: (type: BankMoneyType, amount: number) => boolean;
+        RemoveMoney: (type: BankMoneyType, amount: number) => boolean;
+        SetClothConfig: (config: ClothConfig, skipApply: boolean) => void;
+        GetMoney: (type: BankMoneyType) => number;
+        SetJobDuty: (onDuty: boolean) => void;
+        SetJob: (job: JobType, grade: number) => void;
+        SetSkin: (skin: Skin, skipApply: boolean) => void;
+        SetGang: (gangId: number, isboss: boolean) => void;
+    };
+    PlayerData: PlayerData;
+};
+
+export type GangPlayerData = {
+    id: number;
+    isboss: boolean;
+};
+
+export type PlayerData = {
+    address: string;
+    partyMember: SenatePartyMember | null;
+    apartment:
+        | {
+              id: number;
+              property_id: number;
+              identifier: string;
+              tier: number;
+              cloth_tier: number;
+              money_tier: number;
+              park_tier: number;
+              price: number;
+              owner: string;
+          }
+        | null
+        | undefined;
+    citizenid: string;
+    license: string;
+    name: string;
+    money: {
+        marked_money: number;
+        money: number;
+    };
+    charinfo: PlayerCharInfo;
+    role: SozRole;
+    metadata: PlayerMetadata;
+    job: PlayerJob;
+    skin: Skin;
+    cloth_config: ClothConfig;
+    source: number;
+    gang: GangPlayerData;
+    position: { x: number; y: number; z: number };
+    is_validated: boolean;
+    created_at: number;
+};
+
+export type FakeId = {
+    id: string;
+    charinfo: PlayerCharInfo;
+    address: string;
+    job: JobType;
+    licenses: Record<DrivingSchoolLicenseType, number>;
+};
+
+// TODO: Finish to implement the other properties
+export type Skin = {
+    Hair: {
+        HairType?: number;
+        Collection?: string;
+        HairColor?: number;
+        HairSecondaryColor?: number;
+        BeardType?: number;
+        BeardOpacity?: number;
+        BeardColor?: number;
+        EyebrowType?: number;
+        EyebrowOpacity?: number;
+        EyebrowColor?: number;
+        ChestHairType?: number;
+        ChestHairOpacity?: number;
+        ChestHairColor?: number;
+        Scalp?: {
+            Collection: string;
+            Overlay: string;
+        };
+    };
+    Makeup?: {
+        BeardType?: number;
+        BeardColor?: number;
+        FullMakeupType?: number;
+        FullMakeupOpacity?: number;
+        FullMakeupDefaultColor?: boolean;
+        FullMakeupPrimaryColor?: number;
+        FullMakeupSecondaryColor?: number;
+        BlushType?: number;
+        BlushOpacity?: number;
+        BlushColor?: number;
+        LipstickType?: number;
+        LipstickOpacity?: number;
+        LipstickColor?: number;
+    };
+    FaceTrait?: {
+        EyeColor?: number;
+        Blemish?: number;
+        Ageing?: number;
+        Complexion?: number;
+        Moles?: number;
+        BodyBlemish?: number;
+        AddBodyBlemish?: number;
+        EyebrowHigh?: number;
+        EyebrowForward?: number;
+        EyesOpening?: number;
+        CheeksBoneHigh?: number;
+        CheeksBoneWidth?: number;
+        CheeksWidth?: number;
+        ChimpBoneLength?: number;
+        ChimpBoneLower?: number;
+        ChimpBoneWidth?: number;
+        ChimpHole?: number;
+        JawBoneBackLength?: number;
+        JawBoneWidth?: number;
+        LipsThickness?: number;
+        NeckThickness?: number;
+        NoseBoneHigh?: number;
+        NoseBoneTwist?: number;
+        NosePeakLength?: number;
+        NosePeakLower?: number;
+        NosePeakHeight?: number;
+        NoseWidth?: number;
+    };
+    Model?: {
+        Hash: number;
+        Father: number;
+        Mother: number;
+        ShapeMix: number;
+        SkinMix: number;
+    };
+    Tattoos?: {
+        Collection: number;
+        Overlay: number;
+    }[];
+};
+
+export enum PlayerPedHash {
+    Male = joaat('mp_m_freemode_01'),
+    Female = joaat('mp_f_freemode_01'),
+}
+
+export const TenueComponents = {
+    [1]: { label: 'Chapeau', propId: 0, value: 'HideHead' },
+    [2]: { label: 'Masque', componentId: 1, value: 'HideMask' },
+    [3]: { label: 'Lunettes', propId: 1, value: 'HideGlasses' },
+    [4]: { label: 'Boucles', propId: 2, value: 'HideEar' },
+    [5]: { label: 'Collier', componentId: 7, value: 'HideChain' },
+    [6]: { label: 'Gilet', componentId: 9, value: 'HideBulletproof' },
+    [7]: { label: 'Haut', componentId: [3, 8, 10, 11], value: 'HideTop' },
+    [8]: { label: 'Montre', propId: 6, value: 'HideLeftHand' },
+    [9]: { label: 'Bracelet', propId: 7, value: 'HideRightHand' },
+    [10]: { label: 'Sac', componentId: 5, value: 'HideBag' },
+    [11]: { label: 'Pantalon', componentId: 4, value: 'HidePants' },
+    [12]: { label: 'Chaussures', componentId: 6, value: 'HideShoes' },
+};
+
+export const TenueIdToHide = {
+    Props: {
+        0: 'HideHead',
+        1: 'HideGlasses',
+        2: 'HideEar',
+        6: 'HideLeftHand',
+        7: 'HideRightHand',
+    },
+    Components: {
+        1: 'HideMask',
+        3: 'HideTop',
+        4: 'HidePants',
+        5: 'HideBag',
+        6: 'HideShoes',
+        7: 'HideChain',
+        8: 'HideTop',
+        9: 'HideBulletproof',
+        10: 'HideTop',
+        11: 'HideTop',
+    },
+};
+
+export type PlayerCharInfo = {
+    firstname: string;
+    lastname: string;
+    account: string;
+    gender: number;
+    phone: string;
+};
+
+export type PlayerJob = {
+    onduty: boolean;
+    id: JobType;
+    grade: number | string;
+};
+
+export type PlayerHealthBook = {
+    health_book_health_level: number | null;
+    health_book_max_stamina: number | null;
+    health_book_strength: number | null;
+    health_book_stress_level: number | null;
+    health_book_fiber: number | null;
+    health_book_lipid: number | null;
+    health_book_sugar: number | null;
+    health_book_protein: number | null;
+};
+
+export type PlayerServerStateExercise = {
+    pushUp: boolean;
+    sitUp: boolean;
+    chinUp: boolean;
+    freeWeight: boolean;
+};
+
+export type PlayerServerState = {
+    yoga: boolean;
+    lostStamina: number;
+    lostStrength: number;
+    runTime: number;
+    exercisePushUp: boolean;
+    exercise: PlayerServerStateExercise & {
+        completed: number;
+    };
+    lastStrengthUpdate: number;
+    lastMaxStaminaUpdate: number;
+    lastStressLevelUpdate: number;
+};
+
+export type PlayerClientState = {
+    isDead: boolean;
+    isInventoryBusy: boolean;
+    isHandcuffed: boolean;
+    isZipped: boolean;
+    isEscorted: boolean;
+    isEscorting: boolean;
+    isKnockedOut: boolean;
+    escorting: number | null;
+    isInShop: boolean;
+    isInHospital: boolean;
+    isInHub: boolean;
+    isInGame: boolean;
+    isInGameHub: boolean;
+    disableMoneyCase: boolean;
+    hasPrisonerClothes: boolean;
+    isWearingPatientOutfit: boolean;
+    isLooted: boolean;
+    carryBox: boolean;
+    halloweenRole: VampireGameRole | null;
+    inCyberHeist: boolean;
+    nbArmorPlates: number;
+    usedArmorPlates: number;
+    maxArmorPlates: number;
+    radioShortRange: Radio;
+};
+
+export enum PlayerLicenceType {
+    Car = 'car',
+    Truck = 'truck',
+    Moto = 'motorcycle',
+    Boat = 'boat',
+    Heli = 'heli',
+    Weapon = 'weapon',
+    Fishing = 'fishing',
+    Hunting = 'hunting',
+    Rescuer = 'rescuer',
+}
+
+export const PlayerLicencePointType: Record<PlayerLicenceType, boolean> = {
+    [PlayerLicenceType.Car]: true,
+    [PlayerLicenceType.Truck]: true,
+    [PlayerLicenceType.Moto]: true,
+    [PlayerLicenceType.Boat]: true,
+    [PlayerLicenceType.Heli]: true,
+    [PlayerLicenceType.Weapon]: false,
+    [PlayerLicenceType.Fishing]: false,
+    [PlayerLicenceType.Hunting]: false,
+    [PlayerLicenceType.Rescuer]: false,
+};
+
+export const PlayerLicenceLabels = {
+    [PlayerLicenceType.Car]: 'Permis voiture',
+    [PlayerLicenceType.Truck]: 'Permis poids lourd',
+    [PlayerLicenceType.Moto]: 'Permis moto',
+    [PlayerLicenceType.Boat]: 'Permis maritime',
+    [PlayerLicenceType.Heli]: "Permis d'aviation",
+    [PlayerLicenceType.Weapon]: "Permis port d'arme",
+    [PlayerLicenceType.Fishing]: 'Permis de pêche',
+    [PlayerLicenceType.Hunting]: 'Permis de chasse',
+    [PlayerLicenceType.Rescuer]: 'Secouriste',
+};
+
+export const ShortPlayerLicenceLabels = {
+    [PlayerLicenceType.Car]: 'Voiture',
+    [PlayerLicenceType.Truck]: 'Poids lourd',
+    [PlayerLicenceType.Moto]: 'Moto',
+    [PlayerLicenceType.Boat]: 'Maritime',
+    [PlayerLicenceType.Heli]: 'Aviation',
+    [PlayerLicenceType.Weapon]: "Port d'arme",
+    [PlayerLicenceType.Fishing]: 'Pêche',
+    [PlayerLicenceType.Hunting]: 'Chasse',
+    [PlayerLicenceType.Rescuer]: 'Secouriste',
+};
+
+export type PlayerListStateKey = 'dead' | 'zipped' | 'wearingPatientOutfit' | 'escorted' | 'knockedOut' | 'validated';
+
+export enum PlayerCriminalState {
+    None,
+    Allowed,
+}
+
+export type PlayerInsideState = {
+    apartment: number | false;
+    property: number | null;
+    exitCoord: { x: number; y: number; z: number; w: number } | false;
+};
+
+export type PlayerMetadata = PlayerHealthBook & {
+    godmode: boolean;
+    isdead: boolean;
+    ishandcuffed: boolean;
+    inlaststand: boolean;
+    health: number;
+    hunger: number;
+    thirst: number;
+    alcohol: number;
+    drug: number;
+    last_drug_eaten?: string;
+    fiber: number;
+    lipid: number;
+    sugar: number;
+    protein: number;
+    max_stamina: number;
+    max_health: number;
+    strength: number;
+    stress_level: number;
+    health_level: number;
+    armor: {
+        current: number;
+        hidden: boolean;
+    };
+    organ: Organ | null;
+    walk: string | null;
+    disease: Disease | null;
+    last_disease_at: number | null;
+    // Typing is intentionally in that way so that you could program future items that gives clothes.
+    isWearingItem: string | null;
+    gym_subscription_expire_at: number | null;
+    gym_state: PlayerServerState;
+    halloween2022: Halloween2022 | null;
+    halloween2023: Halloween2023 | null;
+    licences: Partial<Record<PlayerLicenceType, number>>;
+    shortcuts: Record<
+        number,
+        {
+            name: string;
+            metadata?: {
+                type?: string;
+                serial?: string;
+                url?: string;
+            };
+        }
+    >;
+    mort: string | null;
+    missive_count: number;
+    criminal_state: PlayerCriminalState;
+    criminal_reputation: number;
+    criminal_talents: Talent[];
+    criminal_lastaction: number;
+    criminal_can_craft_missive: boolean;
+    drugs_skills: DrugSkill[];
+    drugs_heavy_contract_date: number;
+    vehiclelimit: number;
+    inside: PlayerInsideState;
+    injuries_count: number;
+    injuries_date: number;
+    itt: boolean;
+    itt_end: number;
+    hazmat: boolean;
+    mood?: string | null;
+    rp_death: boolean;
+    is_senator: boolean;
+    injail: boolean;
+    scuba: boolean;
+    health_book_update_date: number | null;
+    plaster: PlasterLocation[];
+    plate?: boolean;
+    special_plate?: boolean;
+    casino_alice_frame?: boolean;
+    reputation_token_date?: number;
+    main_residence_last_change?: number;
+    noclip: boolean;
+    cloth_type?: OutfitType;
+    // casino
+    casino_bundle_claim?: boolean;
+    casino_vip_standard_subscription_expire_at: number | null;
+    casino_vip_premium_subscription_expire_at: number | null;
+    casino_vip_point?: number;
+    casino_vip_rewards?: number[];
+    casino_diamond_frame?: boolean;
+    whatif_guild?: WhatIfGuild;
+    hazmat_protection?: number;
+};
+
+export const isAdmin = (player: PlayerData) => {
+    return player.role === 'admin';
+};
+
+export const isStaff = (player: PlayerData) => {
+    return player.role === 'staff' || isAdmin(player);
+};
+
+export const isGameMaster = (player: PlayerData) => {
+    return player.role === 'gamemaster' || isStaff(player);
+};
+
+export const expirationVisaDuration = 2 * 7 * 24 * 3600 * 1000;
+
+export enum PedType {
+    ANIMAL = 28,
+}
+
+export const IsPedAnAnimal = (entity: number) => GetPedType(entity) === PedType.ANIMAL;

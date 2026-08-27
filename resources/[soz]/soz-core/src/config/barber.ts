@@ -1,0 +1,141 @@
+import { PlayerPedHash } from '@public/shared/player';
+import { BarberShopContent } from '@public/shared/shop';
+
+export const PositionInBarberShop = {
+    PLAYER_HEADING: 199.156,
+    Other: {
+        CAMERA_OFFSET_X: 0.0,
+        CAMERA_OFFSET_Y: -0.5,
+        CAMERA_OFFSET_Z: 0.7,
+        CAMERA_TARGET_Z: 0.7,
+    },
+    ChestHair: {
+        CAMERA_OFFSET_X: 0.0,
+        CAMERA_OFFSET_Y: -0.7,
+        CAMERA_OFFSET_Z: 0.2,
+        CAMERA_TARGET_Z: 0.2,
+    },
+};
+
+export const BarberShopItems: BarberShopContent = {
+    [PlayerPedHash.Male]: [
+        {
+            price: 27,
+            category: 'Hair',
+            label: 'Cheveux',
+            overlay: 'Hair',
+            components: { ['HairType']: true, ['HairColor']: true, ['HairSecondaryColor']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'Beard',
+            label: 'Barbe',
+            overlay: 'Hair',
+            components: { ['BeardType']: true, ['BeardColor']: true, ['BeardOpacity']: true },
+            items: undefined,
+        },
+        {
+            price: 18,
+            category: 'Makeup',
+            label: 'Maquillage',
+            overlay: 'Makeup',
+            components: {
+                ['FullMakeupType']: true,
+                ['FullMakeupDefaultColor']: true,
+                ['FullMakeupPrimaryColor']: true,
+                ['FullMakeupSecondaryColor']: true,
+                ['FullMakeupOpacity']: true,
+            },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'FaceTrait',
+            label: 'Lentilles',
+            overlay: 'FaceTrait',
+            components: { ['EyeColor']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'Eyebrow',
+            label: 'Sourcils',
+            overlay: 'Hair',
+            components: { ['EyebrowType']: true, ['EyebrowColor']: true, ['EyebrowOpacity']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'ChestHair',
+            label: 'Torse',
+            overlay: 'Hair',
+            components: { ['ChestHairType']: true, ['ChestHairOpacity']: true, ['ChestHairColor']: true },
+            items: undefined,
+        },
+    ],
+    [PlayerPedHash.Female]: [
+        {
+            price: 27,
+            category: 'Hair',
+            label: 'Cheveux',
+            overlay: 'Hair',
+            components: { ['HairType']: true, ['HairColor']: true, ['HairSecondaryColor']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'Blush',
+            label: 'Blush',
+            overlay: 'Makeup',
+            components: { ['BlushType']: true, ['BlushColor']: true, ['BlushOpacity']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'Lipstick',
+            label: 'Rouge à lèvre',
+            overlay: 'Makeup',
+            components: { ['LipstickType']: true, ['LipstickColor']: true, ['LipstickOpacity']: true },
+            items: undefined,
+        },
+        {
+            price: 18,
+            category: 'Makeup',
+            label: 'Maquillage',
+            overlay: 'Makeup',
+            components: {
+                ['FullMakeupType']: true,
+                ['FullMakeupDefaultColor']: true,
+                ['FullMakeupPrimaryColor']: true,
+                ['FullMakeupSecondaryColor']: true,
+                ['FullMakeupOpacity']: true,
+            },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'FaceTrait',
+            label: 'Lentilles',
+            overlay: 'FaceTrait',
+            components: { ['EyeColor']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'Eyebrow',
+            label: 'Sourcils',
+            overlay: 'Hair',
+            components: { ['EyebrowType']: true, ['EyebrowColor']: true, ['EyebrowOpacity']: true },
+            items: undefined,
+        },
+        {
+            price: 13,
+            category: 'ChestHair',
+            label: 'Torse',
+            overlay: 'Hair',
+            components: { ['ChestHairType']: true, ['ChestHairOpacity']: true, ['ChestHairColor']: true },
+            items: undefined,
+        },
+    ],
+};

@@ -1,0 +1,60 @@
+import { WhatIf2CraftsLists } from '@public/shared/whatif';
+
+import { AnimationInfo } from '../animation';
+import { Feature } from '../features';
+import { InventoryItemMetadata } from '../inventory';
+import { JobType } from '../job';
+import { BaunCraftsLists } from '../job/baun';
+import { DmcCraftsLists } from '../job/dmc';
+import { FDFCraftsLists } from '../job/fdf';
+import { FFSCraftsLists } from '../job/ffs';
+import { FoodCraftsLists } from '../job/food';
+import { PawlCraftsLists } from './pawl';
+
+export type CraftCategory = {
+    recipes: Record<string, CraftRecipe>;
+    duration: number;
+    feature?: Feature;
+    icon?: string;
+    animation?: AnimationInfo;
+    event: string;
+};
+
+export type CraftRecipe = {
+    inputs: Record<string, CraftInput>;
+    outputItem?: string;
+    amount: number;
+    canCraft?: boolean;
+    rewardTier?: Record<string, CraftRewardTier>;
+    feature?: Feature;
+};
+
+export type CraftRewardTier = {
+    id: number;
+    chance: number;
+};
+
+export type CraftInput = {
+    check?: boolean;
+    checkAmount?: number;
+    count: number;
+    metadata?: InventoryItemMetadata;
+};
+
+export type CraftsList = {
+    cancelled: boolean;
+    type: string;
+    categories: Record<string, CraftCategory>;
+    title?: string;
+    subtitle?: string;
+};
+
+export const Crafts: Record<string, Record<string, CraftCategory>> = {
+    [JobType.Food]: FoodCraftsLists,
+    [JobType.Baun]: BaunCraftsLists,
+    [JobType.Ffs]: FFSCraftsLists,
+    [JobType.Pawl]: PawlCraftsLists,
+    [JobType.FDF]: FDFCraftsLists,
+    [JobType.DMC]: DmcCraftsLists,
+    whatif2: WhatIf2CraftsLists,
+};

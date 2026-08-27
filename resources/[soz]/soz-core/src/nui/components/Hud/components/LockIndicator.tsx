@@ -1,0 +1,33 @@
+import { animated, useSpring } from '@react-spring/web';
+import { FunctionComponent } from 'react';
+import { useSelector } from 'react-redux';
+
+import { VehicleLockStatus } from '../../../../shared/vehicle/vehicle';
+import { useAssetPath } from '../../../hook/assets';
+import { RootState } from '../../../store';
+import { useHudColor } from '../hooks/useHudColor';
+import { useZoom } from '../hooks/useZoom';
+
+export const LockIndicator: FunctionComponent = () => {
+    const state = useSelector((state: RootState) => state.vehicle.lockStatus);
+    const { width, height } = useZoom();
+    const { getPath } = useAssetPath();
+    const { imagePrefix } = useHudColor();
+
+    const styles = useSpring({
+        from: {
+            opacity: 0,
+        },
+        to: {
+            opacity: state === VehicleLockStatus.Locked ? 0 : 1,
+        },
+    });
+
+    return (
+        <animated.img
+            style={{ ...styles, width, height }}
+            className="drop-shadow-bg"
+            src={getPath(`images/hud/vehicle/${imagePrefix}lock.webp`)}
+        />
+    );
+};

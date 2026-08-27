@@ -1,0 +1,168 @@
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Rpc } from '../../core/decorators/rpc';
+import { Invoice } from '../../shared/bank';
+import { ClientEvent } from '../../shared/event/client';
+import { getDistance, Vector3 } from '../../shared/polyzone/vector';
+import { RpcServerEvent } from '../../shared/rpc';
+import { InventoryFactory } from '../inventory/inventory.factory';
+import { Monitor } from '../monitor/monitor';
+import { Notifier } from '../notifier';
+import { PlayerService } from '../player/player.service';
+import { ProgressService } from '../player/progress.service';
+import { BankInvoiceRepository } from '../repository/bank.invoice.repository';
+import { BankInvoiceService } from './bank.invoice.service';
+
+@Provider()
+export class BankInvoiceProvider {
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(Monitor)
+    private monitor: Monitor;
+
+    @Inject(InventoryFactory)
+    private inventoryFactory: InventoryFactory;
+
+    @Inject(BankInvoiceService)
+    private bankInvoiceService: BankInvoiceService;
+
+    @Inject(BankInvoiceRepository)
+    private bankInvoiceRepository: BankInvoiceRepository;
+
+    @Inject(ProgressService)
+    private progressService: ProgressService;
+
+    @Rpc(RpcServerEvent.BANK_GET_INVOICES)
+    public async getInvoices(source: number): Promise<Invoice[]> {
+        return this.bankInvoiceService.getInvoicesForPlayer(source);
+    }
+
+    @Rpc(RpcServerEvent.BANK_CREATE_INVOICE)
+    public async createInvoice(
+        source: number,
+        target: number,
+        type: 'personal' | 'society',
+        label: string,
+        amount: number,
+        kind?: string
+    ) {
+        if (source === target) return false;
+        if (amount <= 0) return false;
+
+        const playerSource = this.playerService.getPlayer(source);
+        if (!playerSource) return false;
+
+        const playerTarget = this.playerService.getPlayer(target);
+        if (!playerTarget) return false;
+
+        const sourcePosition = GetEntityCoords(GetPlayerPed(source)) as Vector3;
+        const targetPosition = GetEntityCoords(GetPlayerPed(target)) as Vector3;
+
+        if (getDistance(sourcePosition, targetPosition) > 5) {
+            this.notifier.error(source, "Personne n'est à proximité.");
+            return false;
+        }
+
+        const inventory = await this.inventoryFactory.getPlayerInventory(source);
+
+        if (!inventory) {
+            return false;
+        }
+
+        if (!inventory.remove('paper', 1)) {
+            this.notifier.error(source, "Vous n'avez pas de papier sur vous.");
+            return false;
+        }
+
+        const { completed } = await this.progressService.progress(
+            source,
+            'invoice-create',
+            kind === 'fine' ? "Rédaction de l'amende" : 'Rédaction de la facture',
+            5000,
+            {
+                dictionary: 'missheistdockssetup1clipboard@base',
+                name: 'base',
+                options: { repeat: true },
+                props: [
+                    {
+                        model: 'prop_notepad_01',
+                        bone: 18905,
+                        position: [0.09999999999999432, 0.020000000000003126, 0.04999999999999716],
+                        rotation: [10, 0, 0],
+                    },
+                    {
+                        model: 'prop_pencil_01',
+                        bone: 58866,
+                        position: [0.11000000000001364, -0.020000000000003126, 0.0009999999999998899],
+                        rotation: [-120, 0, 0],
+                    },
+                ],
+            },
+            {
+                disableMovement: false,
+                disableCarMovement: true,
+                disableMouse: false,
+                disableCombat: true,
+            }
+        );
+
+        if (!completed) return;
+
+        const targetAccount = type === 'society' ? playerTarget.job.id : playerTarget.charinfo.account;
+
+        const invoice = await this.bankInvoiceRepository.create(
+            playerSource,
+            playerTarget,
+            targetAccount,
+            label,
+            amount,
+            kind
+        );
+        if (!invoice) return false;
+
+        if (await this.bankInvoiceService.playerHasPermission(playerTarget, invoice)) {
+            TriggerClientEvent(
+                ClientEvent.BANK_PHONE_INVOICE_RECEIVED,
+                target,
+                invoice.id,
+                invoice.label,
+                invoice.amount,
+                invoice.emitterName
+            );
+        }
+
+        this.monitor.traceEvent('invoice_emit', {
+            player_source: source,
+            target_source: target,
+            invoice_kind: invoice.kind,
+            invoice_job: type === 'society' ? playerTarget.job.id : '',
+            position: sourcePosition,
+            title: invoice.label,
+            id: invoice.id,
+            amount: invoice.amount,
+            target_account: invoice.targetAccount,
+        });
+
+        if (type === 'society') {
+            this.notifier.notify(source, `Votre facture ~g~Société~s~ a bien été émise.`);
+        } else {
+            this.notifier.notify(source, `Votre facture a bien été émise.`);
+        }
+
+        return true;
+    }
+
+    @Rpc(RpcServerEvent.BANK_PAY_INVOICE)
+    public async onInvoicePay(source: number, invoiceId: number, useMarkedMoney = false) {
+        return this.bankInvoiceService.payInvoice(source, invoiceId, useMarkedMoney);
+    }
+
+    @Rpc(RpcServerEvent.BANK_REJECT_INVOICE)
+    public async onInvoiceReject(source: number, invoiceId: number) {
+        return this.bankInvoiceService.rejectInvoice(source, invoiceId);
+    }
+}

@@ -1,0 +1,25 @@
+import { Module } from '../../core/decorators/module';
+import { BarberShopProvider } from './barber.shop.provider';
+import { BossShopProvider } from './boss.shop.provider';
+import { ClothingShopProvider } from './cloth.shop.provider';
+import { EasterShopProvider } from './easter.shop.provider';
+import { JewelryShopProvider } from './jewelry.shop.provider';
+import { ShopProvider } from './shop.provider';
+import { SuperetteShopProvider } from './superette.shop.provider';
+import { TattooShopProvider } from './tattoo.shop.provider';
+import { ZkeaFournitureShopProvider } from './zkea.fourniture.shop.provider';
+
+@Module({
+    providers: [
+        BossShopProvider,
+        ClothingShopProvider,
+        ShopProvider,
+        SuperetteShopProvider,
+        TattooShopProvider,
+        JewelryShopProvider,
+        BarberShopProvider,
+        EasterShopProvider,
+        ZkeaFournitureShopProvider,
+    ],
+})
+export class ShopModule {}

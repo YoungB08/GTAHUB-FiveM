@@ -1,0 +1,117 @@
+import { Vector2 } from '@public/shared/polyzone/vector';
+
+export type BankMoneyType = 'money' | 'marked_money';
+export type BankAccountType =
+    | 'player'
+    | 'housestorages'
+    | 'business'
+    | 'safestorages'
+    | 'offshore'
+    | 'bank_atm'
+    | 'gang';
+export type BankActionType = 'deposit' | 'withdraw';
+export type BankHistoryFilter = 'all' | BankActionType | 'transfer';
+
+export type BankAtmConfig = { type?: AtmType; maxMoney: number; maxWithdrawal?: number; limit?: number };
+
+export type BankAccount = {
+    id: string;
+    type: BankAccountType;
+    label: string;
+    owner: string;
+    money: number;
+    marked_money: number;
+    maxCapacity: number | null;
+    config: BankAtmConfig | null;
+    coords: Vector2 | null;
+};
+
+export type BankContact = {
+    id: number;
+    label: string;
+    accountid: string;
+    avatar?: string;
+};
+
+export type BankStatement = {
+    id: number;
+    date: number;
+    source_accountid: string;
+    source_label?: string;
+    target_accountid: string;
+    target_label?: string;
+    reason: string;
+    amount: number;
+};
+
+export type AtmUiData = {
+    account: BankAccount;
+    atm: BankAccount;
+    atmType: AtmType;
+    atmAccountId: string;
+};
+
+export type BankUiData = {
+    accounts: {
+        personal: BankAccount;
+        enterprise?: BankAccount;
+        offshore?: BankAccount;
+    };
+    contacts: BankContact[];
+    history: {
+        personal: BankStatement[];
+        enterprise?: BankStatement[];
+        offshore?: BankStatement[];
+    };
+    bankType?: string;
+};
+
+export type BankAtm = {
+    accountId: string;
+    coords: Vector2;
+    hideBlip?: boolean;
+};
+
+export enum AtmType {
+    PACIFIC = 'pacific',
+    FLEECA = 'fleeca',
+    BIG = 'big',
+    SMALL = 'small',
+    ENTERPRISE = 'ent',
+}
+
+export type Invoice = {
+    id: number;
+    citizenid: string;
+    emitter: string;
+    emitterName: string;
+    emitterSafe: string;
+    targetAccount: string;
+    label: string;
+    amount: number;
+    payed: boolean;
+    kind: string;
+    refused: boolean;
+    createdAt: number;
+};
+
+export type MenuSafeStorageData = {
+    id: string;
+    banner: string;
+    money: number;
+    marked_money: number;
+    showMoney: boolean;
+    maxMarked?: number;
+};
+
+export enum MenuSafeStorageAction {
+    deposit = 'Déposer',
+    depositAll = 'Tout déposer',
+    withdraw = 'Retirer',
+}
+
+export type MenuSafeStorageInput = {
+    id: string;
+    type: 'money' | 'marked_money';
+    action: MenuSafeStorageAction;
+};

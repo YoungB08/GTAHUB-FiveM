@@ -1,0 +1,184 @@
+import { Inject, Injectable } from '@core/decorators/injectable';
+import { PlayerListStateService } from '@public/server/player/player.list.state.service';
+import { ClientEvent } from '@public/shared/event';
+import { getDefaultRadioState } from '@public/shared/voip';
+
+import { PlayerClientState, PlayerServerState } from '../../shared/player';
+import { PlayerService } from './player.service';
+
+@Injectable()
+export class PlayerStateService {
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(PlayerListStateService)
+    private playerListStateService: PlayerListStateService;
+
+    private resetStateHour = new Date().setHours(6, 0, 0, 0);
+
+    private serverStateByCitizenId: Record<string, PlayerServerState> = {};
+
+    private clientStateByCitizenId: Record<string, PlayerClientState> = {};
+
+    public getServerStateByCitizenId(citizenId: string, playerState?: PlayerServerState) {
+        if (!this.serverStateByCitizenId[citizenId]) {
+            this.serverStateByCitizenId[citizenId] = playerState ?? this.getDefaultPlayerServerState();
+        }
+
+        if (
+            this.serverStateByCitizenId[citizenId].lastStrengthUpdate < this.resetStateHour ||
+            this.serverStateByCitizenId[citizenId].lastMaxStaminaUpdate < this.resetStateHour ||
+            this.serverStateByCitizenId[citizenId].lastStressLevelUpdate < this.resetStateHour
+        ) {
+            this.serverStateByCitizenId[citizenId] = this.getDefaultPlayerServerState();
+        }
+
+        return this.serverStateByCitizenId[citizenId];
+    }
+
+    public getClientStateByCitizenId(citizenId: string) {
+        if (!this.clientStateByCitizenId[citizenId]) {
+            this.clientStateByCitizenId[citizenId] = this.getDefaultPlayerClientState();
+        }
+
+        return this.clientStateByCitizenId[citizenId];
+    }
+
+    private getPlayerIdentifierByType(source: string, type: string): string | null {
+        return GetPlayerIdentifierByType(source, type);
+    }
+
+    public getIdentifier(source: string): string | null {
+        const forcedIdentifier = GetConvar('soz_force_player_identifier', '');
+
+        if (forcedIdentifier !== '') {
+            return forcedIdentifier;
+        }
+
+        if (GetConvar('soz_disable_steam_credential', 'false') === 'true') {
+            return this.getPlayerIdentifierByType(source, 'license');
+        }
+
+        const steamIdentifier = this.getPlayerIdentifierByType(source, 'steam');
+
+        if (!steamIdentifier) {
+            return null;
+        }
+
+        const steamHex = steamIdentifier.replace('steam:', '');
+
+        return BigInt(`0x${steamHex}`).toString();
+    }
+
+    public getServerState(source: number): PlayerServerState {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return this.getDefaultPlayerServerState();
+        }
+
+        return this.getServerStateByCitizenId(player.citizenid, player.metadata.gym_state);
+    }
+
+    public getClientState(source: number): PlayerClientState {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return this.getDefaultPlayerClientState();
+        }
+
+        return this.getClientStateByCitizenId(player.citizenid);
+    }
+
+    public setServerState(source: number, state: Partial<PlayerServerState>) {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return;
+        }
+
+        const serverState = this.getServerStateByCitizenId(player.citizenid);
+
+        this.serverStateByCitizenId[player.citizenid] = {
+            ...serverState,
+            ...state,
+        };
+    }
+
+    public setClientState(source: number, state: Partial<PlayerClientState>) {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return;
+        }
+
+        const clientState = this.getClientStateByCitizenId(player.citizenid);
+
+        this.clientStateByCitizenId[player.citizenid] = {
+            ...clientState,
+            ...state,
+        };
+
+        TriggerClientEvent(ClientEvent.PLAYER_UPDATE_STATE, source, this.clientStateByCitizenId[player.citizenid]);
+
+        this.playerListStateService.handlePlayer(player, this.clientStateByCitizenId[player.citizenid]);
+
+        return this.clientStateByCitizenId[player.citizenid];
+    }
+
+    public setAllClientsState(state: Partial<PlayerClientState>) {
+        for (const citizenId in this.clientStateByCitizenId) {
+            const playerSource = this.playerService.getPlayerByCitizenId(citizenId)?.source;
+            if (!playerSource) continue;
+
+            this.setClientState(playerSource, state);
+        }
+    }
+
+    private getDefaultPlayerServerState(): PlayerServerState {
+        return {
+            exercise: { chinUp: false, pushUp: false, sitUp: false, freeWeight: false, completed: 0 },
+            exercisePushUp: false,
+            lostStamina: 0,
+            lostStrength: 0,
+            runTime: 0,
+            yoga: false,
+            lastStrengthUpdate: new Date().getTime(),
+            lastMaxStaminaUpdate: new Date().getTime(),
+            lastStressLevelUpdate: new Date().getTime(),
+        };
+    }
+
+    private getDefaultPlayerClientState(): PlayerClientState {
+        return {
+            disableMoneyCase: false,
+            isDead: false,
+            isEscorted: false,
+            isEscorting: false,
+            isHandcuffed: false,
+            isKnockedOut: false,
+            isInventoryBusy: false,
+            isInShop: false,
+            isInHub: false,
+            isInGame: false,
+            isInGameHub: false,
+            hasPrisonerClothes: false,
+            isInHospital: false,
+            isWearingPatientOutfit: false,
+            escorting: null,
+            isLooted: false,
+            isZipped: false,
+            carryBox: false,
+            halloweenRole: null,
+            inCyberHeist: false,
+            nbArmorPlates: 0,
+            maxArmorPlates: 0,
+            usedArmorPlates: 0,
+            radioShortRange: getDefaultRadioState(),
+        };
+    }
+
+    public resetClientState(source: number) {
+        this.setClientState(source, this.getDefaultPlayerClientState());
+    }
+}

@@ -1,0 +1,59 @@
+import { OnEvent } from '@public/core/decorators/event';
+import { Inject } from '@public/core/decorators/injectable';
+import { Provider } from '@public/core/decorators/provider';
+import { Door } from '@public/shared/door';
+import { ServerEvent } from '@public/shared/event';
+
+import { PrismaService } from '../database/prisma.service';
+import { Notifier } from '../notifier';
+import { DoorRepository } from '../repository/door.repository';
+
+@Provider()
+export class DoorProvider {
+    @Inject(DoorRepository)
+    public doorRepository: DoorRepository;
+
+    @Inject(PrismaService)
+    public prismaService: PrismaService;
+
+    @Inject(Notifier)
+    public notifier: Notifier;
+
+    @OnEvent(ServerEvent.DOOR_ADD_UPDATE)
+    public async doorAddUpdate(source: number, door: Door, lock: boolean) {
+        door.subdoors.forEach(sub => delete sub['entity']);
+
+        await this.prismaService.door.upsert({
+            create: {
+                id: door.id,
+                data: JSON.stringify(door),
+            },
+            update: {
+                data: JSON.stringify(door),
+            },
+            where: {
+                id: door.id,
+            },
+        });
+
+        await this.doorRepository.set(door.id, door);
+        if (lock === true) {
+            this.notifier.notify(source, 'La porte est ~r~verrouillée~s~.');
+        } else if (lock === false) {
+            this.notifier.notify(source, 'La porte est ~g~déverrouillée~s~.');
+        } else {
+            this.notifier.notify(source, 'Porte créée/modifiée');
+        }
+    }
+
+    @OnEvent(ServerEvent.DOOR_DELETE)
+    public async doorDelete(source: number, doorId: string) {
+        this.doorRepository.delete(doorId);
+        await this.prismaService.door.delete({
+            where: {
+                id: doorId,
+            },
+        });
+        this.notifier.notify(source, 'Porte supprimée');
+    }
+}

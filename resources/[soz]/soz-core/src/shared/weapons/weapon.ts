@@ -1,0 +1,1313 @@
+import { POLICE_SHIELD_MODEL, POLICE_SHIELD_OBJECT } from '@private/shared/police';
+
+import { InventoryItem } from '../inventory';
+import { Vector3 } from '../polyzone/vector';
+import { WeaponAttachment, WeaponComponentType } from './attachment';
+import { WeaponMk2TintColor, WeaponTintColor, WeaponTintColorChoiceItem } from './tint';
+
+export type WeaponsMenuData = {
+    weapons: InventoryItem[];
+    tints: { slot: number; tints: Record<WeaponTintColor, WeaponTintColorChoiceItem> }[];
+    attachments: { slot: number; attachments: WeaponAttachment[] }[];
+    admin: boolean;
+};
+
+export type WeaponConfiguration = {
+    label?: boolean;
+    repair?: boolean;
+    tint?: WeaponTintColor | WeaponMk2TintColor;
+    attachments?: Record<WeaponComponentType, string>;
+};
+
+export const GlobalWeaponConfig = {
+    MaxAmmoRefill: (weapon_name: string) => {
+        return maxAmmoRefill[weapon_name.toUpperCase()] || 5;
+    },
+    MaxHealth: 2000,
+    RecoilOnUsedWeapon: 1.0,
+};
+
+type DrawPositionType = 'AR' | 'SMG' | 'RPG' | 'LMG' | 'PUMP' | 'PIX' | 'SHIELD';
+
+export const DrawPositions: Record<DrawPositionType, WeaponDrawPosition> = {
+    AR: { position: [0.173, -0.14, 0.05], rotation: [0, 0, 0] },
+    SMG: { position: [0.23, 0.187, -0.02], rotation: [10, 45, 10] },
+    RPG: { position: [0.173, -0.14, -0.02], rotation: [0, 0, 0] }, // RPG & Sniper
+    LMG: { position: [0.05, -0.14, -0.15], rotation: [0, 45, 0] }, // LMG & Corps à corps
+    PUMP: { position: [0.05, -0.14, -0.15], rotation: [0, -40, 0] }, // Pompe
+    PIX: { position: [0.05, -0.14, -0.15], rotation: [60, 90, -85] }, // Custom Pickaxe
+    SHIELD: { position: [0.13, -0.27, 0], rotation: [0, 90, 7] }, // Custom Shield
+};
+
+export const DrawPositionsWithShield: Record<DrawPositionType, WeaponDrawPosition> = {
+    ...DrawPositions,
+    AR: { position: [0.15, 0.2, 0.23], rotation: [260, 165, 10] },
+    SMG: { position: [0.33, -0.18, 0], rotation: [190, 165, -5] },
+    RPG: { position: [0.15, 0.2, 0.23], rotation: [260, 165, 10] }, // RPG & Sniper
+    PUMP: { position: [0.15, 0.2, 0.23], rotation: [260, 165, 10] }, // Pompe
+};
+
+export type WeaponDrawPositionInfo = {
+    model: string;
+    type: DrawPositionType;
+};
+
+export type WeaponDrawPosition = {
+    position: Vector3;
+    rotation: Vector3;
+};
+
+export type ExtraWeaponDrawPosition = {
+    model: string;
+    bone: string;
+};
+
+export type WeaponConfig = {
+    recoil?: number;
+    ammo?:
+        | 'ammo_01'
+        | 'ammo_02'
+        | 'ammo_03'
+        | 'ammo_04'
+        | 'ammo_05'
+        | 'ammo_06'
+        | 'ammo_07'
+        | 'ammo_08'
+        | 'ammo_09'
+        | 'ammo_10'
+        | 'ammo_11'
+        | 'ammo_12'
+        | 'ammo_13'
+        | 'ammo_14'
+        | 'ammo_15'
+        | 'ammo_16'
+        | 'ammo_17'
+        | 'ammo_18'
+        | 'ammo_19';
+    drawPositionInfo?: WeaponDrawPositionInfo;
+    extaDraw?: ExtraWeaponDrawPosition[];
+    attachments?: WeaponAttachment[];
+};
+
+export enum WeaponName {
+    // Melee
+    BAT = 'WEAPON_BAT',
+    CROWBAR = 'WEAPON_CROWBAR',
+    FLASHLIGHT = 'WEAPON_FLASHLIGHT',
+    GOLFCLUB = 'WEAPON_GOLFCLUB',
+    HAMMER = 'WEAPON_HAMMER',
+    KNUCKLE = 'WEAPON_KNUCKLE',
+    NIGHTSTICK = 'WEAPON_NIGHTSTICK',
+    WRENCH = 'WEAPON_WRENCH',
+    POOLCUE = 'WEAPON_POOLCUE',
+    UNARMED = 'WEAPON_UNARMED',
+    DAGGER = 'WEAPON_DAGGER',
+    BOTTE = 'WEAPON_BOTTLE',
+    HATCHET = 'WEAPON_HATCHET',
+    KNIFE = 'WEAPON_KNIFE',
+    MACHETE = 'WEAPON_MACHETE',
+    SWITCHBLADE = 'WEAPON_SWITCHBLADE',
+    BATTLEAXE = 'WEAPON_BATTLEAXE',
+    STONE_HATCHET = 'WEAPON_STONE_HATCHET',
+    CANDYCANE = 'WEAPON_CANDYCANE',
+    PICKAXE = 'WEAPON_PICKAXE',
+    STUNROD = 'WEAPON_STUNROD',
+
+    // Handguns
+    PISTOL = 'WEAPON_PISTOL',
+    PISTOL_MK2 = 'WEAPON_PISTOL_MK2',
+    REVOLVER_MK2 = 'WEAPON_REVOLVER_MK2',
+    STUNGUN = 'WEAPON_STUNGUN',
+    COMBATPISTOL = 'WEAPON_COMBATPISTOL',
+    APPISTOL = 'WEAPON_APPISTOL',
+    PISTOL50 = 'WEAPON_PISTOL50',
+    SNSPISTOL = 'WEAPON_SNSPISTOL',
+    HEAVYPISTOL = 'WEAPON_HEAVYPISTOL',
+    VINTAGEPISTOL = 'WEAPON_VINTAGEPISTOL',
+    FLAREGUN = 'WEAPON_FLAREGUN',
+    MARKSMANPISTOL = 'WEAPON_MARKSMANPISTOL',
+    REVOLVER = 'WEAPON_REVOLVER',
+    DOUBLEACTION = 'WEAPON_DOUBLEACTION',
+    SNSPISTOL_MK2 = 'WEAPON_SNSPISTOL_MK2',
+    RAYPISTOL = 'WEAPON_RAYPISTOL',
+    CERAMICPISTOL = 'WEAPON_CERAMICPISTOL',
+    NAVYREVOLVER = 'WEAPON_NAVYREVOLVER',
+    GADGETPISTOL = 'WEAPON_GADGETPISTOL',
+    PISTOLXM3 = 'WEAPON_PISTOLXM3',
+
+    // SMG
+    MICROSMG = 'WEAPON_MICROSMG',
+    SMG = 'WEAPON_SMG',
+    ASSAULTSMG = 'WEAPON_ASSAULTSMG',
+    COMBATPDW = 'WEAPON_COMBATPDW',
+    SMG_MK2 = 'WEAPON_SMG_MK2',
+    MACHINEPISTOL = 'WEAPON_MACHINEPISTOL',
+    MINISMG = 'WEAPON_MINISMG',
+    RAYCARBINE = 'WEAPON_RAYCARBINE',
+    TECPISTOL = 'WEAPON_TECPISTOL',
+
+    // Assault Rifles
+    ASSAULTRIFLE = 'WEAPON_ASSAULTRIFLE',
+    ASSAULTRIFLE_MK2 = 'WEAPON_ASSAULTRIFLE_MK2',
+    CARBINERIFLE = 'WEAPON_CARBINERIFLE',
+    CARBINERIFLE_MK2 = 'WEAPON_CARBINERIFLE_MK2',
+    ADVANCEDRIFLE = 'WEAPON_ADVANCEDRIFLE',
+    SPECIALCARBINE = 'WEAPON_SPECIALCARBINE',
+    BULLPUPRIFLE = 'WEAPON_BULLPUPRIFLE',
+    COMPACTRIFLE = 'WEAPON_COMPACTRIFLE',
+    SPECIALCARBINE_MK2 = 'WEAPON_SPECIALCARBINE_MK2',
+    BULLPUPRIFLE_MK2 = 'WEAPON_BULLPUPRIFLE_MK2',
+    MILITARYRIFLE = 'WEAPON_MILITARYRIFLE',
+    HEAVYRIFLE = 'WEAPON_HEAVYRIFLE',
+    TACTICALRIFLE = 'WEAPON_TACTICALRIFLE',
+    BATTLERIFLE = 'WEAPON_BATTLERIFLE',
+
+    // Shotguns
+    PUMPSHOTGUN = 'WEAPON_PUMPSHOTGUN',
+    SAWNOFFSHOTGUN = 'WEAPON_SAWNOFFSHOTGUN',
+    ASSAULTSHOTGUN = 'WEAPON_ASSAULTSHOTGUN',
+    BULLPUPSHOTGUN = 'WEAPON_BULLPUPSHOTGUN',
+    MUSKET = 'WEAPON_MUSKET',
+    HEAVYSHOTGUN = 'WEAPON_HEAVYSHOTGUN',
+    DBSHOTGUN = 'WEAPON_DBSHOTGUN',
+    AUTOSHOTGUN = 'WEAPON_AUTOSHOTGUN',
+    PUMPSHOTGUN_MK2 = 'WEAPON_PUMPSHOTGUN_MK2',
+    COMBATSHOTGUN = 'WEAPON_COMBATSHOTGUN',
+
+    // Machine Guns
+    MG = 'WEAPON_MG',
+    COMBATMG = 'WEAPON_COMBATMG',
+    GUSENBERG = 'WEAPON_GUSENBERG',
+    COMBATMG_MK2 = 'WEAPON_COMBATMG_MK2',
+
+    // Heavy Weapons
+    RPG = 'WEAPON_RPG',
+    GRENADELAUNCHER = 'WEAPON_GRENADELAUNCHER',
+    GRENADELAUNCHER_SMOKE = 'WEAPON_GRENADELAUNCHER_SMOKE',
+    MINIGUN = 'WEAPON_MINIGUN',
+    FIREWORK = 'WEAPON_FIREWORK',
+    RAILGUN = 'WEAPON_RAILGUN',
+    HOMINGLAUNCHER = 'WEAPON_HOMINGLAUNCHER',
+    COMPACTLAUNCHER = 'WEAPON_COMPACTLAUNCHER',
+    RAYMINIGUN = 'WEAPON_RAYMINIGUN',
+    EMPLAUNCHER = 'WEAPON_EMPLAUNCHER',
+    RAILGUNXM3 = 'WEAPON_RAILGUNXM3',
+
+    // Sniper Rifles
+    SNIPERRIFLE = 'WEAPON_SNIPERRIFLE',
+    HEAVYSNIPER = 'WEAPON_HEAVYSNIPER',
+    HEAVYSNIPER_MK2 = 'WEAPON_HEAVYSNIPER_MK2',
+    MARKSMANRIFLE = 'WEAPON_MARKSMANRIFLE',
+    MARKSMANRIFLE_MK2 = 'WEAPON_MARKSMANRIFLE_MK2',
+    PRECISIONRIFLE = 'WEAPON_PRECISIONRIFLE',
+
+    // Launcher
+    GRENADE = 'WEAPON_GRENADE',
+    BZGAS = 'WEAPON_BZGAS',
+    MOLOTOV = 'WEAPON_MOLOTOV',
+    STICKYBOMB = 'WEAPON_STICKYBOMB',
+    PROXMINE = 'WEAPON_PROXMINE',
+    SNOWBALL = 'WEAPON_SNOWBALL',
+    PIPEBOMB = 'WEAPON_PIPEBOMB',
+    BALL = 'WEAPON_BALL',
+    SMOKEGRENADE = 'WEAPON_SMOKEGRENADE',
+    FLARE = 'WEAPON_FLARE',
+    ACIDPACKAGE = 'WEAPON_ACIDPACKAGE',
+    FLASHBANG = 'WEAPON_FLASHBANG',
+
+    // Other
+    PETROLCAN = 'WEAPON_PETROLCAN',
+    FIREEXTINGUISHER = 'WEAPON_FIREEXTINGUISHER',
+    HAZARDCAN = 'WEAPON_HAZARDCAN',
+    SNOWLAUNCHER = 'WEAPON_SNOWLAUNCHER',
+}
+
+const maxAmmoRefill: Partial<Record<WeaponName, number>> = {
+    [WeaponName.MUSKET]: 1,
+    [WeaponName.SNOWLAUNCHER]: 1,
+    [WeaponName.GRENADELAUNCHER_SMOKE]: 2,
+};
+
+export const WeaponType = {
+    Melee: 2685387236,
+    Handgun: 416676503,
+    'Submachine Gun': -957766203,
+    Shotgun: 860033945,
+    'Assault Rifle': 970310034,
+    'Light Machine Gun': 1159398588,
+    Sniper: 3082541095,
+    'Heavy Weapon': 2725924767,
+    Throwables: 1548507267,
+    Misc: 4257178988,
+};
+
+export enum ExtraWeaponName {
+    REMOTESNIPER = 'WEAPON_REMOTESNIPER',
+    ASSAULTSNIPER = 'WEAPON_ASSAULTSNIPER',
+
+    // Vehicle
+    TANK = 'VEHICLE_WEAPON_TANK',
+    SPACE_ROCKET = 'VEHICLE_WEAPON_SPACE_ROCKET',
+    PLAYER_LASER = 'VEHICLE_WEAPON_PLAYER_LASER',
+    ROCKET = 'WEAPON_VEHICLE_ROCKET',
+    DROWNING_IN_VEHICLE = 'WEAPON_DROWNING_IN_VEHICLE',
+    ROTORS = 'VEHICLE_WEAPON_ROTORS',
+    RAMMED_BY_CAR = 'WEAPON_RAMMED_BY_CAR',
+    RUN_OVER_BY_CAR = 'WEAPON_RUN_OVER_BY_CAR',
+    HELI_CRASH = 'WEAPON_HELI_CRASH',
+    FALL = 'WEAPON_FALL',
+    HIT_BY_WATER_CANNON = 'WEAPON_HIT_BY_WATER_CANNON',
+
+    WEAPON_PASSENGER_ROCKET = 'WEAPON_PASSENGER_ROCKET',
+    WEAPON_AIRSTRIKE_ROCKET = 'WEAPON_AIRSTRIKE_ROCKET',
+    WEAPON_STINGER = 'WEAPON_STINGER',
+    OBJECT = 'OBJECT',
+    AMMO_RPG = 'AMMO_RPG',
+    AMMO_TANK = 'AMMO_TANK',
+    AMMO_SPACE_ROCKET = 'AMMO_SPACE_ROCKET',
+    AMMO_PLAYER_LASER = 'AMMO_PLAYER_LASER',
+    AMMO_ENEMY_LASER = 'AMMO_ENEMY_LASER',
+    WEAPON_FIRE = 'WEAPON_FIRE',
+    WEAPON_EXHAUSTION = 'WEAPON_EXHAUSTION',
+    WEAPON_EXPLOSION = 'WEAPON_EXPLOSION',
+    WEAPON_ELECTRIC_FENCE = 'WEAPON_ELECTRIC_FENCE',
+    WEAPON_BLEEDING = 'WEAPON_BLEEDING',
+    WEAPON_DROWNING = 'WEAPON_DROWNING',
+    WEAPON_BARBED_WIRE = 'WEAPON_BARBED_WIRE',
+    WEAPON_AIR_DEFENCE_GUN = 'WEAPON_AIR_DEFENCE_GUN',
+    WEAPON_ANIMAL = 'WEAPON_ANIMAL',
+    WEAPON_COUGAR = 'WEAPON_COUGAR',
+}
+
+export const POLICE_SHIELD_AS_WEAPONS = POLICE_SHIELD_OBJECT.toUpperCase();
+export type WeaponsType = WeaponName | typeof POLICE_SHIELD_AS_WEAPONS;
+
+export const Weapons: Record<WeaponsType, WeaponConfig> = {
+    // Melee
+    [WeaponName.BAT]: {
+        drawPositionInfo: { model: 'w_me_bat', type: 'LMG' },
+    },
+    [WeaponName.CROWBAR]: {
+        drawPositionInfo: { model: 'w_me_crowbar', type: 'LMG' },
+    },
+    [WeaponName.FLASHLIGHT]: {},
+    [WeaponName.GOLFCLUB]: {
+        drawPositionInfo: { model: 'w_me_gclub', type: 'LMG' },
+    },
+    [WeaponName.HAMMER]: {},
+    [WeaponName.KNUCKLE]: {
+        attachments: [
+            { label: 'Base', component: 'COMPONENT_KNUCKLE_VARMOD_BASE', type: WeaponComponentType.PrimarySkin },
+            { label: 'Pimp', component: 'COMPONENT_KNUCKLE_VARMOD_PIMP', type: WeaponComponentType.PrimarySkin },
+            { label: 'Ballas', component: 'COMPONENT_KNUCKLE_VARMOD_BALLAS', type: WeaponComponentType.PrimarySkin },
+            { label: 'Dollar', component: 'COMPONENT_KNUCKLE_VARMOD_DOLLAR', type: WeaponComponentType.PrimarySkin },
+            { label: 'Diamond', component: 'COMPONENT_KNUCKLE_VARMOD_DIAMOND', type: WeaponComponentType.PrimarySkin },
+            { label: 'Hate', component: 'COMPONENT_KNUCKLE_VARMOD_HATE', type: WeaponComponentType.PrimarySkin },
+            { label: 'Love', component: 'COMPONENT_KNUCKLE_VARMOD_LOVE', type: WeaponComponentType.PrimarySkin },
+            { label: 'Player', component: 'COMPONENT_KNUCKLE_VARMOD_PLAYER', type: WeaponComponentType.PrimarySkin },
+            { label: 'King', component: 'COMPONENT_KNUCKLE_VARMOD_KING', type: WeaponComponentType.PrimarySkin },
+            { label: 'Vagos', component: 'COMPONENT_KNUCKLE_VARMOD_VAGOS', type: WeaponComponentType.PrimarySkin },
+        ],
+    },
+    [WeaponName.NIGHTSTICK]: {},
+    [WeaponName.WRENCH]: {
+        drawPositionInfo: { model: 'prop_tool_wrench', type: 'LMG' },
+    },
+    [WeaponName.POOLCUE]: {
+        drawPositionInfo: { model: 'prop_pool_cue', type: 'LMG' },
+    },
+    [WeaponName.UNARMED]: {},
+    [WeaponName.DAGGER]: {},
+    [WeaponName.BOTTE]: {},
+    [WeaponName.HATCHET]: {
+        drawPositionInfo: { model: 'w_me_hatchet', type: 'LMG' },
+    },
+    [WeaponName.KNIFE]: {},
+    [WeaponName.MACHETE]: {
+        drawPositionInfo: { model: 'prop_ld_w_me_machette', type: 'LMG' },
+    },
+    [WeaponName.SWITCHBLADE]: {
+        attachments: [
+            { label: 'Base', component: 'COMPONENT_SWITCHBLADE_VARMOD_BASE', type: WeaponComponentType.PrimarySkin },
+            { label: 'VIP', component: 'COMPONENT_SWITCHBLADE_VARMOD_VAR1', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Garde du corp',
+                component: 'COMPONENT_SWITCHBLADE_VARMOD_VAR2',
+                type: WeaponComponentType.PrimarySkin,
+            },
+        ],
+    },
+    [WeaponName.BATTLEAXE]: {
+        drawPositionInfo: { model: 'w_me_battleaxe', type: 'LMG' },
+    },
+    [WeaponName.STONE_HATCHET]: {
+        drawPositionInfo: { model: 'w_me_stonehatchet', type: 'LMG' },
+    },
+    [WeaponName.CANDYCANE]: {
+        drawPositionInfo: { model: 'W_ME_Candy_XM3', type: 'LMG' },
+    },
+    [WeaponName.PICKAXE]: {
+        drawPositionInfo: { model: 'w_me_pickaxe', type: 'PIX' },
+    },
+    [WeaponName.STUNROD]: {},
+
+    // Handguns
+    [WeaponName.PISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_PISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.PISTOL_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_PISTOL_MK2_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_PI_RAIL', type: WeaponComponentType.Scope },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH_02', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Compensateur', component: 'COMPONENT_AT_PI_COMP', type: WeaponComponentType.Suppressor },
+            { label: 'Digital', component: 'COMPONENT_PISTOL_MK2_CAMO', type: WeaponComponentType.PrimarySkin },
+            { label: 'Brushstroke', component: 'COMPONENT_PISTOL_MK2_CAMO_02', type: WeaponComponentType.PrimarySkin },
+            { label: 'Woodland ', component: 'COMPONENT_PISTOL_MK2_CAMO_03', type: WeaponComponentType.PrimarySkin },
+            { label: 'Skull', component: 'COMPONENT_PISTOL_MK2_CAMO_04', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Sessanta Nove',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_05',
+                type: WeaponComponentType.PrimarySkin,
+            },
+            { label: 'Perseus', component: 'COMPONENT_PISTOL_MK2_CAMO_06', type: WeaponComponentType.PrimarySkin },
+            { label: 'Leopard', component: 'COMPONENT_PISTOL_MK2_CAMO_07', type: WeaponComponentType.PrimarySkin },
+            { label: 'Zebra', component: 'COMPONENT_PISTOL_MK2_CAMO_08', type: WeaponComponentType.PrimarySkin },
+            { label: 'Geometric', component: 'COMPONENT_PISTOL_MK2_CAMO_09', type: WeaponComponentType.PrimarySkin },
+            { label: 'Boom', component: 'COMPONENT_PISTOL_MK2_CAMO_10', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Patriotic',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_IND_01',
+                type: WeaponComponentType.PrimarySkin,
+            },
+            { label: 'Digital', component: 'COMPONENT_PISTOL_MK2_CAMO_SLIDE', type: WeaponComponentType.SecondarySkin },
+            {
+                label: 'Brushstroke',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_02_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Woodland ',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_03_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Skull',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_04_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Sessanta Nove',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_05_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Perseus',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_06_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Leopard',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_07_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Zebra',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_08_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            {
+                label: 'Geometric',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_09_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+            { label: 'Boom', component: 'COMPONENT_PISTOL_MK2_CAMO_10_SLIDE', type: WeaponComponentType.SecondarySkin },
+            {
+                label: 'Patriotic',
+                component: 'COMPONENT_PISTOL_MK2_CAMO_IND_01_SLIDE',
+                type: WeaponComponentType.SecondarySkin,
+            },
+        ],
+    },
+    [WeaponName.REVOLVER_MK2]: {
+        recoil: 0.15,
+        ammo: 'ammo_02',
+        attachments: [
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_MK2', type: WeaponComponentType.Scope },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Compensateur', component: 'COMPONENT_AT_PI_COMP_03', type: WeaponComponentType.Suppressor },
+            { label: 'Digital', component: 'COMPONENT_REVOLVER_MK2_CAMO', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Brushstroke',
+                component: 'COMPONENT_REVOLVER_MK2_CAMO_02',
+                type: WeaponComponentType.PrimarySkin,
+            },
+            { label: 'Woodland', component: 'COMPONENT_REVOLVER_MK2_CAMO_03', type: WeaponComponentType.PrimarySkin },
+            { label: 'Skull', component: 'COMPONENT_REVOLVER_MK2_CAMO_04', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Sessanta Nove',
+                component: 'COMPONENT_REVOLVER_MK2_CAMO_05',
+                type: WeaponComponentType.PrimarySkin,
+            },
+            { label: 'Perseus', component: 'COMPONENT_REVOLVER_MK2_CAMO_06', type: WeaponComponentType.PrimarySkin },
+            { label: 'Leopard', component: 'COMPONENT_REVOLVER_MK2_CAMO_07', type: WeaponComponentType.PrimarySkin },
+            { label: 'Zebra', component: 'COMPONENT_REVOLVER_MK2_CAMO_08', type: WeaponComponentType.PrimarySkin },
+            { label: 'Geometric', component: 'COMPONENT_REVOLVER_MK2_CAMO_09', type: WeaponComponentType.PrimarySkin },
+            { label: 'Boom', component: 'COMPONENT_REVOLVER_MK2_CAMO_10', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Patriotic',
+                component: 'COMPONENT_REVOLVER_MK2_CAMO_IND_01',
+                type: WeaponComponentType.PrimarySkin,
+            },
+        ],
+    },
+    [WeaponName.STUNGUN]: { recoil: 0.1 },
+    [WeaponName.COMBATPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_COMBATPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.APPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_APPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Luxe', component: 'COMPONENT_APPISTOL_VARMOD_LUXE', type: WeaponComponentType.PrimarySkin },
+        ],
+    },
+    [WeaponName.PISTOL50]: {
+        recoil: 0.15,
+        ammo: 'ammo_02',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_PISTOL50_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.SNSPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_SNSPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+        ],
+    },
+    [WeaponName.HEAVYPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_HEAVYPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.VINTAGEPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_VINTAGEPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.FLAREGUN]: {
+        recoil: 0.05,
+        ammo: 'ammo_03',
+    },
+    [WeaponName.MARKSMANPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+    },
+    [WeaponName.REVOLVER]: {
+        recoil: 0.15,
+        ammo: 'ammo_02',
+        attachments: [
+            { label: 'VIP', component: 'COMPONENT_REVOLVER_VARMOD_BOSS', type: WeaponComponentType.PrimarySkin },
+            {
+                label: 'Garde du corp',
+                component: 'COMPONENT_REVOLVER_VARMOD_GOON',
+                type: WeaponComponentType.PrimarySkin,
+            },
+        ],
+    },
+    [WeaponName.DOUBLEACTION]: {
+        recoil: 0.05,
+        ammo: 'ammo_02',
+    },
+    [WeaponName.SNSPISTOL_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_SNSPISTOL_MK2_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_PI_RAIL_02', type: WeaponComponentType.Scope },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH_03', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.RAYPISTOL]: {
+        recoil: 0.05,
+    },
+    [WeaponName.CERAMICPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+    },
+    [WeaponName.NAVYREVOLVER]: {
+        recoil: 0.05,
+        ammo: 'ammo_02',
+    },
+    [WeaponName.GADGETPISTOL]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+    },
+    [WeaponName.PISTOLXM3]: {
+        recoil: 0.05,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Silencieux', component: 'COMPONENT_PISTOLXM3_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+
+    // SMGs
+    [WeaponName.MICROSMG]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MICROSMG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_PI_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.SMG]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        drawPositionInfo: { model: 'w_sb_smg', type: 'SMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_SMG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Très grand chargeur', component: 'COMPONENT_SMG_CLIP_03', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO_02', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.ASSAULTSMG]: {
+        recoil: 0.025,
+        ammo: 'ammo_04',
+        drawPositionInfo: { model: 'w_sb_assaultsmg', type: 'SMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_ASSAULTSMG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Skin', component: 'COMPONENT_ASSAULTSMG_VARMOD_LOWRIDER', type: WeaponComponentType.PrimarySkin },
+        ],
+    },
+    [WeaponName.COMBATPDW]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        drawPositionInfo: { model: 'w_sb_pdw', type: 'SMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_COMBATPDW_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Très grand chargeur', component: 'COMPONENT_COMBATPDW_CLIP_03', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.SMG_MK2]: {
+        recoil: 0.025,
+        ammo: 'ammo_04',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_SMG_MK2_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS_SMG', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_02_SMG_MK2', type: WeaponComponentType.Scope },
+            { label: 'Petit', component: 'COMPONENT_AT_SCOPE_SMALL_SMG_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.MACHINEPISTOL]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MACHINEPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_MACHINEPISTOL_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Silencieux', component: 'COMPONENT_AT_PI_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.MINISMG]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MINISMG_CLIP_02', type: WeaponComponentType.Clip },
+        ],
+    },
+    [WeaponName.RAYCARBINE]: {
+        recoil: 0.025,
+        ammo: 'ammo_14',
+        drawPositionInfo: { model: 'w_sb_assaultsmg', type: 'SMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_ASSAULTSMG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.TECPISTOL]: {
+        recoil: 0.025,
+        ammo: 'ammo_01',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_TECPISTOL_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+
+    // Assault Rifles
+    [WeaponName.ASSAULTRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_05',
+        drawPositionInfo: { model: 'w_ar_assaultrifle', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_ASSAULTRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_ASSAULTRIFLE_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MACRO', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.ASSAULTRIFLE_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_05',
+        drawPositionInfo: { model: 'w_ar_assaultriflemk2', type: 'AR' },
+        extaDraw: [
+            {
+                bone: 'WAPBarrel',
+                model: 'w_at_ar_barrel_1',
+            },
+        ],
+        attachments: [
+            {
+                label: 'Grand chargeur',
+                component: 'COMPONENT_ASSAULTRIFLE_MK2_CLIP_02',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Grip', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_MK2', type: WeaponComponentType.Scope },
+            { label: 'Petit', component: 'COMPONENT_AT_SCOPE_MEDIUM_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.CARBINERIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_carbinerifle', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_CARBINERIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_CARBINERIFLE_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MEDIUM', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.CARBINERIFLE_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_carbineriflemk2', type: 'AR' },
+        extaDraw: [
+            {
+                bone: 'WAPBarrel',
+                model: 'w_at_cr_barrel_1',
+            },
+        ],
+        attachments: [
+            {
+                label: 'Grand chargeur',
+                component: 'COMPONENT_CARBINERIFLE_MK2_CLIP_02',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Grip', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_MK2', type: WeaponComponentType.Scope },
+            { label: 'Petit', component: 'COMPONENT_AT_SCOPE_MEDIUM_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.ADVANCEDRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_07',
+        drawPositionInfo: { model: 'w_ar_advancedrifle', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_ADVANCEDRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.SPECIALCARBINE]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_specialcarbine', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_SPECIALCARBINE_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_SPECIALCARBINE_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MEDIUM', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.BULLPUPRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_bullpuprifle', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_BULLPUPRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.COMPACTRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_COMPACTRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_COMPACTRIFLE_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+        ],
+    },
+    [WeaponName.SPECIALCARBINE_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_specialcarbinemk2', type: 'AR' },
+        extaDraw: [
+            {
+                bone: 'WAPBarrel',
+                model: 'w_ar_sc_barrel_1',
+            },
+        ],
+        attachments: [
+            {
+                label: 'Grand chargeur',
+                component: 'COMPONENT_SPECIALCARBINE_MK2_CLIP_02',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_MK2', type: WeaponComponentType.Scope },
+            { label: 'Moyen', component: 'COMPONENT_AT_SCOPE_MEDIUM_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.BULLPUPRIFLE_MK2]: {
+        recoil: 0.05,
+        ammo: 'ammo_05',
+        attachments: [
+            {
+                label: 'Grand chargeur',
+                component: 'COMPONENT_BULLPUPRIFLE_MK2_CLIP_02',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_02_MK2', type: WeaponComponentType.Scope },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.MILITARYRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_07',
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MILITARYRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MEDIUM', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Viseur', component: 'COMPONENT_MILITARYRIFLE_SIGHT_01', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.HEAVYRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_07',
+        drawPositionInfo: { model: 'w_ar_heavyrifleh', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_HEAVYRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MEDIUM', type: WeaponComponentType.Scope },
+            { label: 'Families', component: 'COMPONENT_HEAVYRIFLE_CAMO1', type: WeaponComponentType.PrimarySkin },
+        ],
+    },
+    [WeaponName.TACTICALRIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_06',
+        drawPositionInfo: { model: 'w_ar_carbinerifle_reh', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_TACTICALRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH_REH', type: WeaponComponentType.Flashlight },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.BATTLERIFLE]: {
+        recoil: 0.05,
+        ammo: 'ammo_07',
+        drawPositionInfo: { model: 'w_sl_battlerifle_m32', type: 'AR' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_BATTLERIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+
+    // Shotguns
+    [WeaponName.PUMPSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_17',
+        drawPositionInfo: { model: 'w_sg_pumpshotgun', type: 'PUMP' },
+        attachments: [
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_SR_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.SAWNOFFSHOTGUN]: { recoil: 0.4, ammo: 'ammo_08' },
+    [WeaponName.ASSAULTSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+        drawPositionInfo: { model: 'w_sg_assaultshotgun', type: 'PUMP' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_ASSAULTSHOTGUN_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.BULLPUPSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+        drawPositionInfo: { model: 'w_sg_bullpupshotgun', type: 'PUMP' },
+        attachments: [
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.MUSKET]: {
+        recoil: 0.4,
+        ammo: 'ammo_09',
+        drawPositionInfo: { model: 'w_ar_musket', type: 'PUMP' },
+    },
+    [WeaponName.HEAVYSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+        drawPositionInfo: { model: 'w_sg_heavyshotgun', type: 'PUMP' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_HEAVYSHOTGUN_CLIP_02', type: WeaponComponentType.Clip },
+            {
+                label: 'Très grand chargeur',
+                component: 'COMPONENT_HEAVYSHOTGUN_CLIP_03',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.DBSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+    },
+    [WeaponName.AUTOSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+    },
+    [WeaponName.PUMPSHOTGUN_MK2]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+        drawPositionInfo: { model: 'w_sg_pumpshotgunmk2', type: 'PUMP' },
+        attachments: [
+            { label: 'Viseur', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Moyen', component: 'COMPONENT_AT_SCOPE_SMALL_MK2', type: WeaponComponentType.Scope },
+            { label: 'Macro', component: 'COMPONENT_AT_SCOPE_MACRO_MK2', type: WeaponComponentType.Scope },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_SR_SUPP_03', type: WeaponComponentType.Suppressor },
+            { label: 'Silencieux 2', component: 'COMPONENT_AT_MUZZLE_08', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.COMBATSHOTGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_08',
+        drawPositionInfo: { model: 'w_sg_pumpshotgunh4', type: 'PUMP' },
+        attachments: [
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+        ],
+    },
+
+    // Machine Guns
+    [WeaponName.MG]: {
+        recoil: 0.4,
+        ammo: 'ammo_10',
+        drawPositionInfo: { model: 'w_mg_mg', type: 'LMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL_02', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.COMBATMG]: {
+        recoil: 0.4,
+        ammo: 'ammo_10',
+        drawPositionInfo: { model: 'w_mg_combatmg', type: 'LMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_COMBATMG_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_MEDIUM', type: WeaponComponentType.Scope },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.GUSENBERG]: {
+        recoil: 0.4,
+        ammo: 'ammo_10',
+        drawPositionInfo: { model: 'w_sb_gusenberg', type: 'LMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_GUSENBERG_CLIP_02', type: WeaponComponentType.Clip },
+        ],
+    },
+    [WeaponName.COMBATMG_MK2]: {
+        recoil: 0.4,
+        ammo: 'ammo_10',
+        drawPositionInfo: { model: 'w_mg_combatmgmk2', type: 'LMG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_COMBATMG_MK2_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Grip', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Petit', component: 'COMPONENT_AT_SCOPE_SMALL_MK2', type: WeaponComponentType.Scope },
+            { label: 'Moyen', component: 'COMPONENT_AT_SCOPE_MEDIUM_MK2', type: WeaponComponentType.Scope },
+        ],
+    },
+
+    // Heavy Weapons
+    [WeaponName.RPG]: {
+        recoil: 0.4,
+        ammo: 'ammo_11',
+        drawPositionInfo: { model: 'w_lr_rpg', type: 'RPG' },
+        attachments: [],
+    },
+    [WeaponName.GRENADELAUNCHER]: {
+        recoil: 0.4,
+        ammo: 'ammo_12',
+        drawPositionInfo: { model: 'w_lr_grenadelauncher', type: 'RPG' },
+        attachments: [
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_SMALL', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.GRENADELAUNCHER_SMOKE]: {
+        recoil: 0.4,
+        ammo: 'ammo_12',
+        drawPositionInfo: { model: 'w_lr_grenadelauncher', type: 'RPG' },
+    },
+    [WeaponName.MINIGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_10',
+        drawPositionInfo: { model: 'w_mg_minigun', type: 'RPG' },
+    },
+    [WeaponName.FIREWORK]: {
+        recoil: 0.4,
+        ammo: 'ammo_13',
+        drawPositionInfo: { model: 'w_lr_firework', type: 'RPG' },
+    },
+    [WeaponName.RAILGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_14',
+        drawPositionInfo: { model: 'w_ar_railgun', type: 'RPG' },
+    },
+    [WeaponName.HOMINGLAUNCHER]: {
+        recoil: 0.4,
+        ammo: 'ammo_15',
+        drawPositionInfo: { model: 'w_lr_homing', type: 'RPG' },
+    },
+    [WeaponName.COMPACTLAUNCHER]: {
+        recoil: 0.4,
+        ammo: 'ammo_12',
+    },
+    [WeaponName.RAYMINIGUN]: {
+        recoil: 0.4,
+        ammo: 'ammo_14',
+        drawPositionInfo: { model: 'w_mg_sminigun', type: 'RPG' },
+    },
+    [WeaponName.EMPLAUNCHER]: {
+        recoil: 0.4,
+        ammo: 'ammo_18',
+    },
+    [WeaponName.RAILGUNXM3]: {
+        recoil: 0.4,
+        ammo: 'ammo_14',
+    },
+
+    // Sniper
+    [WeaponName.SNIPERRIFLE]: {
+        recoil: 0.4,
+        ammo: 'ammo_16',
+        drawPositionInfo: { model: 'w_sr_sniperrifle', type: 'RPG' },
+        attachments: [
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP_02', type: WeaponComponentType.Suppressor },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_LARGE', type: WeaponComponentType.Scope },
+            { label: 'Viseur avancé', component: 'COMPONENT_AT_SCOPE_MAX', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.HEAVYSNIPER]: {
+        recoil: 0.4,
+        ammo: 'ammo_16',
+        drawPositionInfo: { model: 'w_sr_heavysniper', type: 'RPG' },
+        attachments: [
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_LARGE', type: WeaponComponentType.Scope },
+            { label: 'Adv Scope', component: 'COMPONENT_AT_SCOPE_MAX', type: WeaponComponentType.Scope },
+        ],
+    },
+    [WeaponName.HEAVYSNIPER_MK2]: {
+        recoil: 0.4,
+        ammo: 'ammo_16',
+        drawPositionInfo: { model: 'w_sr_heavysnipermk2', type: 'RPG' },
+        extaDraw: [
+            {
+                bone: 'WAPBarrel',
+                model: 'w_at_sr_barrel_1',
+            },
+        ],
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_HEAVYSNIPER_MK2_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_LARGE_MK2', type: WeaponComponentType.Scope },
+            { label: 'Viseur Avancé', component: 'COMPONENT_AT_SCOPE_MAX', type: WeaponComponentType.Scope },
+            { label: 'Viseur nocturne', component: 'COMPONENT_AT_SCOPE_NV', type: WeaponComponentType.Scope },
+            { label: 'Viseur thermique', component: 'COMPONENT_AT_SCOPE_THERMAL', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_SR_SUPP_03', type: WeaponComponentType.Suppressor },
+        ],
+    },
+    [WeaponName.MARKSMANRIFLE]: {
+        recoil: 0.4,
+        ammo: 'ammo_07',
+        drawPositionInfo: { model: 'w_sr_marksmanrifle', type: 'RPG' },
+        attachments: [
+            { label: 'Grand chargeur', component: 'COMPONENT_MARKSMANRIFLE_CLIP_02', type: WeaponComponentType.Clip },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Viseur', component: 'COMPONENT_AT_SCOPE_LARGE_FIXED_ZOOM', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.MARKSMANRIFLE_MK2]: {
+        recoil: 0.4,
+        ammo: 'ammo_07',
+        drawPositionInfo: { model: 'w_sr_marksmanriflemk2', type: 'RPG' },
+        attachments: [
+            {
+                label: 'Grand chargeur',
+                component: 'COMPONENT_MARKSMANRIFLE_MK2_CLIP_02',
+                type: WeaponComponentType.Clip,
+            },
+            { label: 'Lampe torche', component: 'COMPONENT_AT_AR_FLSH', type: WeaponComponentType.Flashlight },
+            { label: 'Holo', component: 'COMPONENT_AT_SIGHTS', type: WeaponComponentType.Scope },
+            { label: 'Moyen', component: 'COMPONENT_AT_SCOPE_MEDIUM_MK2', type: WeaponComponentType.Scope },
+            { label: 'Zoom', component: 'COMPONENT_AT_SCOPE_LARGE_FIXED_ZOOM_MK2', type: WeaponComponentType.Scope },
+            { label: 'Silencieux', component: 'COMPONENT_AT_AR_SUPP', type: WeaponComponentType.Suppressor },
+            { label: 'Poignée', component: 'COMPONENT_AT_AR_AFGRIP_02', type: WeaponComponentType.Grip },
+        ],
+    },
+    [WeaponName.PRECISIONRIFLE]: {
+        recoil: 0.4,
+        ammo: 'ammo_16',
+        drawPositionInfo: { model: 'w_sr_precisionrifle_reh', type: 'RPG' },
+    },
+
+    // Launcher
+    [WeaponName.GRENADE]: { attachments: [] },
+    [WeaponName.BZGAS]: { attachments: [] },
+    [WeaponName.MOLOTOV]: { attachments: [] },
+    [WeaponName.STICKYBOMB]: { attachments: [] },
+    [WeaponName.PROXMINE]: { attachments: [] },
+    [WeaponName.SNOWLAUNCHER]: {
+        ammo: 'ammo_19',
+    },
+    [WeaponName.SNOWBALL]: { attachments: [] },
+    [WeaponName.PIPEBOMB]: { attachments: [] },
+    [WeaponName.BALL]: { attachments: [] },
+    [WeaponName.SMOKEGRENADE]: { attachments: [] },
+    [WeaponName.FLARE]: { attachments: [] },
+    [WeaponName.ACIDPACKAGE]: { attachments: [] },
+    [WeaponName.FLASHBANG]: { attachments: [] },
+
+    // Other
+    [WeaponName.PETROLCAN]: { attachments: [] },
+    [WeaponName.FIREEXTINGUISHER]: { attachments: [] },
+    [WeaponName.HAZARDCAN]: { attachments: [] },
+    [POLICE_SHIELD_OBJECT.toUpperCase()]: {
+        drawPositionInfo: { model: POLICE_SHIELD_MODEL, type: 'SHIELD' },
+        attachments: [],
+    },
+};
+
+export const GunShotMessage = [
+    "Un coup de feu vient d'être entendu proche de ${0}.",
+    'COUP DE FEU À ${0} !!!',
+    'Des coups de feu ont retenti dans la zone de ${0} !',
+    "AU SECOURS C'EST LA GUERRE, IL Y A DES COUPS DE FEU PROCHE DE ${0}.",
+    "Des bruits d'armes à feu à ${0} !",
+];
+
+export const ExplosionMessage = [
+    "Une explosion vient d'être entendue proche de ${0} !",
+    'Oskuuuur ! Gros boum à ${0} !!!',
+    "Heu, c'est normal les explosions à ${0} ?",
+    'Bordel ça explose de partout proche de ${0} !!',
+    "Une forte déflagration vient d'être ressentie à ${0}.",
+];
+
+export enum ExplosionType {
+    STICKYBOMB = 2,
+    PETROL_PUMP = 9,
+    DIR_WATER_HYDRANT = 13,
+    SMOKEGRENADELAUNCHER = 19,
+    SMOKEGRENADE = 20,
+    FLARE = 22,
+    FIREWORK = 38,
+    EXP_TAG_SNOWBALL = 39,
+    EXP_TAG_RAYGUN = 70,
+    EMPLAUNCHER_EMP = 83,
+    BZGAS = 21,
+    FLASHGRENADE = 78,
+}
+
+export const excludeExplosionAlert = [
+    ExplosionType.DIR_WATER_HYDRANT,
+    ExplosionType.EXP_TAG_RAYGUN,
+    ExplosionType.SMOKEGRENADELAUNCHER,
+    ExplosionType.SMOKEGRENADE,
+    ExplosionType.FLARE,
+    ExplosionType.EXP_TAG_SNOWBALL,
+    ExplosionType.EMPLAUNCHER_EMP,
+    ExplosionType.FIREWORK,
+    ExplosionType.FLASHGRENADE,
+];
+
+export const WeaponAmmo: Partial<Record<WeaponName, string>> = {
+    [WeaponName.PISTOL]: '9x19 AP',
+    [WeaponName.PISTOL_MK2]: '9x19 AP',
+    [WeaponName.REVOLVER_MK2]: '.357 Magnum',
+    [WeaponName.COMBATPISTOL]: '9x19 AP',
+    [WeaponName.APPISTOL]: '9x19 AP',
+    [WeaponName.PISTOL50]: '.357 Magnum',
+    [WeaponName.SNSPISTOL]: '9x19 AP',
+    [WeaponName.HEAVYPISTOL]: '9x19 AP',
+    [WeaponName.VINTAGEPISTOL]: '9x19 AP',
+    [WeaponName.FLAREGUN]: 'Flair',
+    [WeaponName.MARKSMANPISTOL]: '9x19 AP',
+    [WeaponName.REVOLVER]: '.357 Magnum',
+    [WeaponName.DOUBLEACTION]: '.357 Magnum',
+    [WeaponName.SNSPISTOL_MK2]: '9x19 AP',
+    [WeaponName.CERAMICPISTOL]: '9x19 AP',
+    [WeaponName.NAVYREVOLVER]: '.357 Magnum',
+    [WeaponName.GADGETPISTOL]: '9x19 AP',
+    [WeaponName.PISTOLXM3]: '9x19 AP',
+    [WeaponName.MICROSMG]: '9x19 AP',
+    [WeaponName.SMG]: '9x19 AP',
+    [WeaponName.ASSAULTSMG]: '5.7x28 SB193',
+    [WeaponName.COMBATPDW]: '9x19 AP',
+    [WeaponName.SMG_MK2]: '5.7x28 SB193',
+    [WeaponName.MACHINEPISTOL]: '9x19 AP',
+    [WeaponName.MINISMG]: '9x19 AP',
+    [WeaponName.RAYCARBINE]: 'Munition Alien',
+    [WeaponName.TECPISTOL]: '9x19 AP',
+    [WeaponName.ASSAULTRIFLE]: '7.62x39 BP',
+    [WeaponName.ASSAULTRIFLE_MK2]: '7.62x39 BP',
+    [WeaponName.CARBINERIFLE]: '5.56x45 M995',
+    [WeaponName.CARBINERIFLE_MK2]: '5.56x45 M995',
+    [WeaponName.ADVANCEDRIFLE]: '7.62x51 M62',
+    [WeaponName.SPECIALCARBINE]: '5.56x45 M995',
+    [WeaponName.BULLPUPRIFLE]: '5.56x45 M995',
+    [WeaponName.COMPACTRIFLE]: '5.56x45 M995',
+    [WeaponName.SPECIALCARBINE_MK2]: '5.56x45 M995',
+    [WeaponName.BULLPUPRIFLE_MK2]: '7.62x39 BP',
+    [WeaponName.MILITARYRIFLE]: '7.62x51 M62',
+    [WeaponName.HEAVYRIFLE]: '7.62x51 M62',
+    [WeaponName.TACTICALRIFLE]: '5.56x45 M995',
+    [WeaponName.BATTLERIFLE]: '7.62x51 M62',
+    [WeaponName.PUMPSHOTGUN]: 'Billes caoutchouc',
+    [WeaponName.SAWNOFFSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.ASSAULTSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.BULLPUPSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.MUSKET]: 'Lead Bullet',
+    [WeaponName.HEAVYSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.DBSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.AUTOSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.PUMPSHOTGUN_MK2]: '12/70 Buckshot',
+    [WeaponName.COMBATSHOTGUN]: '12/70 Buckshot',
+    [WeaponName.MG]: '12,7x108 BZT-44M',
+    [WeaponName.COMBATMG]: '12,7x108 BZT-44M',
+    [WeaponName.GUSENBERG]: '12,7x108 BZT-44M',
+    [WeaponName.COMBATMG_MK2]: '12,7x108 BZT-44M',
+    [WeaponName.RPG]: '85mm PG-7',
+    [WeaponName.GRENADELAUNCHER]: '40x46mm M381',
+    [WeaponName.GRENADELAUNCHER_SMOKE]: '40x46mm M381',
+    [WeaponName.MINIGUN]: '12,7x108 BZT-44M',
+    [WeaponName.FIREWORK]: '85mn Artifice',
+    [WeaponName.RAILGUN]: 'Munition Alien',
+    [WeaponName.HOMINGLAUNCHER]: 'AIM-9X',
+    [WeaponName.COMPACTLAUNCHER]: '40x46mm M381',
+    [WeaponName.RAYMINIGUN]: 'Munition Alien',
+    [WeaponName.EMPLAUNCHER]: 'Munition Alien',
+    [WeaponName.RAILGUNXM3]: 'Munition Alien',
+    [WeaponName.SNIPERRIFLE]: '.50 BMG',
+    [WeaponName.HEAVYSNIPER]: '.50 BMG',
+    [WeaponName.HEAVYSNIPER_MK2]: '.50 BMG',
+    [WeaponName.MARKSMANRIFLE]: '7.62x51 M62',
+    [WeaponName.MARKSMANRIFLE_MK2]: '7.62x51 M62',
+    [WeaponName.PRECISIONRIFLE]: '.50 BMG',
+    [WeaponName.SNOWLAUNCHER]: 'Munition de neige',
+};
+
+export interface NuiFlashMap {
+    setFlash: Vector3;
+}

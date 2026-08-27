@@ -1,0 +1,194 @@
+import { TaxType } from '@public/shared/tax';
+import cn from 'classnames';
+import { FunctionComponent } from 'react';
+
+import { DealershipType } from '../../../config/dealership';
+import { NuiEvent } from '../../../shared/event';
+import { Item } from '../../../shared/item';
+import { MenuType } from '../../../shared/nui/menu';
+import {
+    isVehicleModelElectric,
+    Vehicle,
+    VehicleCategory,
+    VehicleDealershipMenuData,
+} from '../../../shared/vehicle/vehicle';
+import { fetchNui } from '../../fetch';
+import { useGetPrice } from '../../hook/price';
+import { ItemIcon } from '../Craft/ItemIcon';
+import {
+    MainMenu,
+    Menu,
+    MenuContent,
+    MenuItemButton,
+    MenuItemSubMenuLink,
+    MenuTitle,
+    SubMenu,
+} from '../Styleguide/Menu';
+
+type MenuVehicleDealershipProps = {
+    data?: VehicleDealershipMenuData;
+};
+
+export const MenuVehicleDealership: FunctionComponent<MenuVehicleDealershipProps> = ({ data }) => {
+    if (!data) {
+        return null;
+    }
+
+    const onChange = (vehicle: Vehicle) => {
+        if (!data.dealership) {
+            return;
+        }
+
+        fetchNui(NuiEvent.VehicleDealershipShowVehicle, {
+            vehicle,
+            dealership: data.dealership,
+        });
+    };
+    const onConfirm = (vehicle: Vehicle) => {
+        fetchNui(NuiEvent.VehicleDealershipBuyVehicle, {
+            vehicle,
+            dealershipId: data.dealershipId,
+        });
+    };
+
+    const categories: Record<
+        string,
+        {
+            name: string;
+            vehicles: Vehicle[];
+        }
+    > = {};
+
+    for (const vehicle of data.vehicles) {
+        if (!categories[vehicle.category]) {
+            categories[vehicle.category] = {
+                name: VehicleCategory[vehicle.category],
+                vehicles: [],
+            };
+        }
+
+        categories[vehicle.category].vehicles.push(vehicle);
+    }
+
+    const sortedCategories = Object.values(categories).sort((a, b) => a.name.localeCompare(b.name));
+
+    return (
+        <Menu type={MenuType.VehicleDealership}>
+            <MainMenu>
+                <MenuTitle title="Véhicule" />
+                <MenuContent subtitle="Concessionaire">
+                    {sortedCategories.length > 1 &&
+                        sortedCategories.map((category, index) => {
+                            return (
+                                <MenuItemSubMenuLink id={`category_${index}`} key={index}>
+                                    {category.name}
+                                </MenuItemSubMenuLink>
+                            );
+                        })}
+                    {sortedCategories.length === 1 && (
+                        <MenuVehicleList
+                            dealershipId={data.dealershipId}
+                            vehicles={data.vehicles}
+                            onChange={onChange}
+                            onConfirm={onConfirm}
+                        />
+                    )}
+                </MenuContent>
+            </MainMenu>
+            {sortedCategories.length > 1 &&
+                sortedCategories.map((category, index) => {
+                    return (
+                        <SubMenu id={`category_${index}`} key={index}>
+                            <MenuTitle title="Véhicule" />
+                            <MenuContent subtitle={category.name}>
+                                <MenuVehicleList
+                                    dealershipId={data.dealershipId}
+                                    vehicles={category.vehicles}
+                                    onChange={onChange}
+                                    onConfirm={onConfirm}
+                                />
+                            </MenuContent>
+                        </SubMenu>
+                    );
+                })}
+        </Menu>
+    );
+};
+
+type MenuVehicleListProps = {
+    dealershipId: DealershipType;
+    vehicles: Vehicle[];
+    onChange: (vehicle: Vehicle) => void;
+    onConfirm: (vehicle: Vehicle) => void;
+};
+
+const MenuVehicleList: FunctionComponent<MenuVehicleListProps> = ({ dealershipId, vehicles, onConfirm, onChange }) => {
+    const getPrice = useGetPrice();
+
+    vehicles.sort((a, b) => {
+        if (a.price < b.price) {
+            return -1;
+        }
+
+        if (a.price > b.price) {
+            return 1;
+        }
+
+        return 0;
+    });
+
+    return (
+        <>
+            {vehicles.map((vehicle, index) => {
+                const classNameText = cn({
+                    'text-orange-400': vehicle.stock < vehicle.maxStock / 4 && vehicle.stock > 1,
+                    'text-yellow-400':
+                        vehicle.stock >= vehicle.maxStock / 4 &&
+                        vehicle.stock < vehicle.maxStock / 2 &&
+                        vehicle.stock > 1,
+                    'text-red-400': vehicle.stock === 1,
+                });
+
+                let description = `Acheter ${vehicle.name}`;
+
+                if (vehicle.stock <= 0) {
+                    description = `❌ HORS STOCK de ${vehicle.name}`;
+                } else if (vehicle.stock < vehicle.maxStock / 2) {
+                    description = `⚠ Stock limité de ${vehicle.name}`;
+                }
+
+                return (
+                    <MenuItemButton
+                        key={index}
+                        onSelected={() => onChange(vehicle)}
+                        onConfirm={() => onConfirm(vehicle)}
+                        disabled={vehicle.stock <= 0}
+                        selectable={true}
+                        description={description}
+                    >
+                        <div className="pr-2 flex items-center justify-between">
+                            <span className={classNameText}>{vehicle.name} </span>
+                            {dealershipId === DealershipType.WhatIf ? (
+                                <span className="flex items-center gap-2">
+                                    {vehicle.price}
+                                    <ItemIcon
+                                        item={{ name: 'whatif_parts' } as Item}
+                                        className="h-6 object-contain"
+                                    />{' '}
+                                </span>
+                            ) : (
+                                <span>
+                                    💸 $
+                                    {getPrice(
+                                        vehicle.price,
+                                        isVehicleModelElectric(vehicle.hash) ? TaxType.GREEN : TaxType.VEHICLE
+                                    )}
+                                </span>
+                            )}
+                        </div>
+                    </MenuItemButton>
+                );
+            })}
+        </>
+    );
+};

@@ -1,0 +1,239 @@
+import { Once } from '@core/decorators/event';
+import { Inject } from '@core/decorators/injectable';
+import { Provider } from '@core/decorators/provider';
+import { BlipFactory } from '@public/client/blip';
+import { InventoryManager } from '@public/client/inventory/inventory.manager';
+import { Monitor } from '@public/client/monitor/monitor';
+import { PlayerService } from '@public/client/player/player.service';
+import { ProgressService } from '@public/client/progress.service';
+import { TargetFactory } from '@public/client/target/target.factory';
+import { emitRpc } from '@public/core/rpc';
+import { Organ } from '@public/shared/disease';
+import { ServerEvent } from '@public/shared/event';
+import { JobType } from '@public/shared/job';
+import { BoxZone } from '@public/shared/polyzone/box.zone';
+import { MultiZone } from '@public/shared/polyzone/multi.zone';
+import { Vector3 } from '@public/shared/polyzone/vector';
+import { RpcServerEvent } from '@public/shared/rpc';
+
+import { LSMCDeathProvider } from './lsmc.death.provider';
+
+const surgery = new MultiZone([
+    new BoxZone([329.04, -1437.38, 32.51], 19.6, 32.0, {
+        heading: 319.73,
+        minZ: 31.51,
+        maxZ: 33.51,
+    }),
+    new BoxZone([1822.36, 3682.07, 34.28], 13.0, 7.8, {
+        heading: 119.52,
+        minZ: 33.28,
+        maxZ: 35.28,
+    }),
+    new BoxZone([313.42, -1406.46, 32.51], 20.0, 27.0, {
+        heading: 51.14,
+        minZ: 31.51,
+        maxZ: 33.51,
+    }),
+]);
+
+@Provider()
+export class LSMCSurgeryProvider {
+    @Inject(TargetFactory)
+    private targetFactory: TargetFactory;
+
+    @Inject(PlayerService)
+    public playerService: PlayerService;
+
+    @Inject(ProgressService)
+    public progressService: ProgressService;
+
+    @Inject(LSMCDeathProvider)
+    public LSMCDeathProvider: LSMCDeathProvider;
+
+    @Inject(InventoryManager)
+    public inventoryManager: InventoryManager;
+
+    @Inject(BlipFactory)
+    private blipFactory: BlipFactory;
+
+    @Inject(Monitor)
+    public monitor: Monitor;
+
+    @Once()
+    public onStart() {
+        let organ: Organ = null;
+        this.targetFactory.createForAllPlayer([
+            {
+                label: 'Enlever un Poumon',
+                icon: 'ems/remove_poumon',
+                job: JobType.LSMC,
+                blackoutGlobal: true,
+                blackoutJob: JobType.LSMC,
+                category: 'society',
+                canInteract: async entity => {
+                    if (!IsEntityPlayingAnim(entity, 'anim@gangops@morgue@table@', 'body_search', 3)) {
+                        return false;
+                    }
+
+                    if (!surgery.isPointInside(GetEntityCoords(entity) as Vector3)) {
+                        return false;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    organ = await emitRpc<Organ>(RpcServerEvent.LSMC_GET_CURRENT_ORGAN, id);
+
+                    return !organ;
+                },
+                action: async entity => {
+                    const { completed } = await this.progressService.progress(
+                        'Soigner',
+                        'Enlever un Poumon..',
+                        10000,
+                        {
+                            dictionary: 'mini@repair',
+                            name: 'fixing_a_ped',
+                        },
+                        {
+                            disableMovement: true,
+                            disableCarMovement: true,
+                        }
+                    );
+
+                    if (!completed) {
+                        return;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    TriggerServerEvent(ServerEvent.LSMC_SET_CURRENT_ORGAN, 'poumon', id);
+                },
+            },
+            {
+                label: 'Enlever un Rein',
+                icon: 'ems/remove_rein',
+                job: JobType.LSMC,
+                blackoutGlobal: true,
+                blackoutJob: JobType.LSMC,
+                category: 'society',
+                canInteract: async entity => {
+                    if (!IsEntityPlayingAnim(entity, 'anim@gangops@morgue@table@', 'body_search', 3)) {
+                        return false;
+                    }
+
+                    if (!surgery.isPointInside(GetEntityCoords(entity) as Vector3)) {
+                        return false;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    organ = await emitRpc<Organ>(RpcServerEvent.LSMC_GET_CURRENT_ORGAN, id);
+
+                    return !organ;
+                },
+                action: async entity => {
+                    const { completed } = await this.progressService.progress(
+                        'Soigner',
+                        'Enlever un Rein..',
+                        10000,
+                        {
+                            dictionary: 'mini@repair',
+                            name: 'fixing_a_ped',
+                        },
+                        {
+                            disableMovement: true,
+                            disableCarMovement: true,
+                        }
+                    );
+
+                    if (!completed) {
+                        return;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    TriggerServerEvent(ServerEvent.LSMC_SET_CURRENT_ORGAN, 'rein', id);
+                },
+            },
+            {
+                label: 'Enlever le Foie',
+                icon: 'ems/remove_foie',
+                job: JobType.LSMC,
+                blackoutGlobal: true,
+                blackoutJob: JobType.LSMC,
+                category: 'society',
+                canInteract: async entity => {
+                    if (!IsEntityPlayingAnim(entity, 'anim@gangops@morgue@table@', 'body_search', 3)) {
+                        return false;
+                    }
+
+                    if (!surgery.isPointInside(GetEntityCoords(entity) as Vector3)) {
+                        return false;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    organ = await emitRpc<Organ>(RpcServerEvent.LSMC_GET_CURRENT_ORGAN, id);
+
+                    return !organ;
+                },
+                action: async entity => {
+                    const { completed } = await this.progressService.progress(
+                        'Soigner',
+                        'Enlever le Foie..',
+                        10000,
+                        {
+                            dictionary: 'mini@repair',
+                            name: 'fixing_a_ped',
+                        },
+                        {
+                            disableMovement: true,
+                            disableCarMovement: true,
+                        }
+                    );
+
+                    if (!completed) {
+                        return;
+                    }
+
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    TriggerServerEvent(ServerEvent.LSMC_SET_CURRENT_ORGAN, 'foie', id);
+                },
+            },
+            {
+                label: 'greffer',
+                icon: 'ems/greffer',
+                job: JobType.LSMC,
+                blackoutGlobal: true,
+                blackoutJob: JobType.LSMC,
+                category: 'society',
+                canInteract: entity => {
+                    return (
+                        IsEntityPlayingAnim(entity, 'anim@gangops@morgue@table@', 'body_search', 3) &&
+                        surgery.isPointInside(GetEntityCoords(entity) as Vector3) &&
+                        !!organ &&
+                        this.inventoryManager.hasEnoughItem(organ, 1, true)
+                    );
+                },
+                action: async entity => {
+                    const id = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
+                    const organ = await emitRpc<Organ>(RpcServerEvent.LSMC_GET_CURRENT_ORGAN, id);
+                    const { completed } = await this.progressService.progress(
+                        'Soigner',
+                        'Greffer un ' + organ,
+                        10000,
+                        {
+                            dictionary: 'mini@repair',
+                            name: 'fixing_a_ped',
+                        },
+                        {
+                            disableMovement: true,
+                            disableCarMovement: true,
+                        }
+                    );
+
+                    if (!completed) {
+                        return;
+                    }
+
+                    TriggerServerEvent(ServerEvent.LSMC_SET_CURRENT_ORGAN, false, id);
+                },
+            },
+        ]);
+    }
+}

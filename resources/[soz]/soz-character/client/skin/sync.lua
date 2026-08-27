@@ -1,0 +1,88 @@
+PlayerData = QBCore.Functions.GetPlayerData()
+
+RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
+    PlayerData = QBCore.Functions.GetPlayerData()
+end)
+
+RegisterNetEvent("QBCore:Player:SetPlayerData", function(data)
+    PlayerData = data
+end)
+
+-- Mettre un ensemble de vetement temporaire pour le joueur (donnes non persisté, pour tester avant sauvegarde)
+-- Cette ensemble est mergé avec la configuration persisté
+RegisterNetEvent("soz-character:Client:ApplyTemporaryClothSet", function(clothSet)
+    local tempClothConfig = Clone(PlayerData.cloth_config)
+    tempClothConfig.TemporaryClothSet = clothSet
+
+    for componentId, component in pairs(clothSet.Components or {}) do
+        if MappingCompomentKeyToReset[tostring(componentId)] then
+            tempClothConfig.Config[MappingCompomentKeyToReset[tostring(componentId)]] = false
+        end
+    end
+    for propId, prop in pairs(clothSet.Props or {}) do
+        if MappingPropKeyToReset[tostring(propId)] then
+            tempClothConfig.Config[MappingPropKeyToReset[tostring(propId)]] = false
+        end
+        if tostring(propId) == "Helmet" then
+            tempClothConfig.Config["ShowHelmet"] = true
+        end
+    end
+    if clothSet.GlovesID ~= nil then
+        tempClothConfig.Config.HideGloves = false
+    end
+
+    ApplyPlayerClothConfig(PlayerId(), tempClothConfig)
+end)
+
+-- Mettre un skin temporaire pour le joueur (donnes non persisté, pour tester avant sauvegarde
+RegisterNetEvent("soz-character:Client:ApplyTemporarySkin", function(skin)
+    ApplyPlayerBodySkin(PlayerId(), skin)
+end)
+
+-- Apply la configuration de vetements du joueur (données persisté)
+RegisterNetEvent("soz-character:Client:ApplyCurrentClothConfig", function()
+    ApplyPlayerClothConfig(PlayerId(), PlayerData.cloth_config)
+
+    local playerState = exports["soz-core"]:GetPlayerState()
+    if playerState.isWearingPatientOutfit then
+        exports["soz-core"]:SetPlayerState({isWearingPatientOutfit = false})
+    end
+end)
+
+-- Apply le skin du joueur (données persisté)
+RegisterNetEvent("soz-character:Client:ApplyCurrentSkin", function()
+    ApplyPlayerBodySkin(PlayerId(), PlayerData.skin)
+end)
+
+-- Apply état du joueur (données persisté)
+RegisterNetEvent("soz-character:Client:ApplyCurrent", function()
+    ApplyPlayerBodySkin(PlayerId(), PlayerData.skin)
+    ApplyPlayerClothConfig(PlayerId(), PlayerData.cloth_config)
+
+    local playerState = exports["soz-core"]:GetPlayerState()
+    if playerState.isWearingPatientOutfit then
+        exports["soz-core"]:SetPlayerState({isWearingPatientOutfit = false})
+    end
+end)
+
+-- Mettre nue un personnage sans que ce soit persisté en bdd (pour les tatooes par exemple)
+RegisterNetEvent("soz-character:Client:SetTemporaryNaked", function()
+    local tempClothConfig = Clone(PlayerData.cloth_config)
+    tempClothConfig.Config.Naked = true
+
+    ApplyPlayerClothConfig(PlayerId(), tempClothConfig)
+end)
+
+exports("ReApplyHeadConfig", function()
+    local ped = PlayerPedId()
+    local clothSet = ClothConfigComputeToClothSet(ped, PlayerData.cloth_config)
+
+    local prop = clothSet.Props[tostring(PropType.Head)] or clothSet.Components[PropType.Head]
+    if prop == nil or prop.Clear == true then
+        ClearPedProp(ped, PropType.Head)
+    elseif prop.Collection then
+        SetPedCollectionPropIndex(ped, PropType.Head, prop.Collection, prop.Drawable, prop.Texture or 0, true)
+    else
+        SetPedPropIndex(ped, PropType.Head, prop.Drawable, prop.Texture or 0, true)
+    end
+end)

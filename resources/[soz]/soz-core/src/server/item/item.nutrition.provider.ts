@@ -1,0 +1,251 @@
+import { Once } from '@core/decorators/event';
+import { Inject } from '@core/decorators/injectable';
+import { Provider } from '@core/decorators/provider';
+import { ClientEvent } from '@public/shared/event';
+
+import { Feature } from '../../shared/features';
+import { InventoryItem, isInventoryItemExpired } from '../../shared/inventory';
+import { CocktailItem, DrinkItem, FoodItem, Item, LiquorItem } from '../../shared/item';
+import { PlayerMetadata } from '../../shared/player';
+import { FeatureProvider } from '../feature/feature.provider';
+import { Inventory } from '../inventory/inventory';
+import { Notifier } from '../notifier';
+import { PlayerService } from '../player/player.service';
+import { ProgressService } from '../player/progress.service';
+import { ItemService } from './item.service';
+
+const INTOXICATED_MALUS = -5;
+const DYSPEPSIA_NUTRITION_MALUS = -2;
+
+@Provider()
+export class ItemNutritionProvider {
+    @Inject(ItemService)
+    private item: ItemService;
+
+    @Inject(ProgressService)
+    private progressService: ProgressService;
+
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(FeatureProvider)
+    private featureProvider: FeatureProvider;
+
+    private lastItemEatByPlayer: Record<string, string> = {};
+
+    private async useFoodOrDrink(
+        source: number,
+        item: FoodItem | DrinkItem | CocktailItem | LiquorItem,
+        inventoryItem: InventoryItem,
+        inventory: Inventory
+    ): Promise<void> {
+        if (!inventory.removeAtSlot(inventoryItem.slot, 1)) {
+            return;
+        }
+
+        const name = item.type === 'food' ? 'eat_something' : 'drink_something';
+        const prop =
+            item.prop ||
+            (item.type === 'food'
+                ? ['zevent2022_popcorn', 'zevent2024_popcorn'].includes(item.name)
+                    ? {
+                          model: 'xs_prop_trinket_cup_01a',
+                          bone: 60309,
+                          coords: { x: 0.14, y: 0.01, z: -0.01 },
+                          rotation: { x: 0.01, y: -90.01, z: 0.01 },
+                      }
+                    : {
+                          model: 'prop_cs_burger_01',
+                          bone: 60309,
+                          coords: { x: 0.01, y: -0.01, z: -0.06 },
+                      }
+                : {
+                      model: 'ba_prop_club_water_bottle',
+                      bone: 28422,
+                      coords: { x: 0.01, y: -0.01, z: -0.06 },
+                  });
+        const animation =
+            item.animation ||
+            (item.type === 'food'
+                ? {
+                      dictionary: 'mp_player_inteat@burger',
+                      name: 'mp_player_int_eat_burger',
+                      flags: 49,
+                  }
+                : {
+                      dictionary: 'amb@world_human_drinking@coffee@male@idle_a',
+                      name: 'idle_c',
+                      flags: 49,
+                  });
+
+        const { completed, progress } = await this.progressService.progress(source, name, '', 5000, animation, {
+            firstProp: prop,
+            allowExistingAnimation: true,
+        });
+
+        if (!completed && progress === 0) {
+            return;
+        }
+
+        if (completed) {
+            TriggerClientEvent(ClientEvent.ITEM_USE, source, item.name, item);
+        }
+
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
+            return;
+        }
+
+        let dyspepsiaLuck = 0.5;
+
+        if (this.featureProvider.isFeatureEnabled(Feature.MyBodySummer)) {
+            if (this.lastItemEatByPlayer[player.citizenid] === item.name && item.type === 'food') {
+                dyspepsiaLuck = 25.0;
+            }
+
+            const diffPercent = player.metadata.hunger + item.nutrition.hunger - 100;
+
+            if (diffPercent > 0) {
+                dyspepsiaLuck += Math.floor(diffPercent / 4) / 2;
+            }
+        }
+
+        let intoxicated = isInventoryItemExpired(inventoryItem) && Math.random() * 100 <= 75;
+        const dyspepsia = item.type === 'food' && Math.random() * 100 <= dyspepsiaLuck;
+
+        if (intoxicated) {
+            intoxicated = this.playerService.setPlayerDisease(source, 'intoxication') === 'intoxication';
+        }
+
+        const hunger = intoxicated ? INTOXICATED_MALUS : item.nutrition.hunger * progress;
+        const thirst = intoxicated ? INTOXICATED_MALUS : item.nutrition.thirst * progress;
+        let alcohol = intoxicated ? item.nutrition.alcohol * 1.2 : item.nutrition.alcohol * progress;
+
+        // Reduce alcohol if drinking a non-alcoholic drink
+        if (!intoxicated && alcohol < 0.1 && thirst > 0.1) {
+            alcohol = 0 - item.nutrition.thirst * progress * 0.2;
+        }
+
+        const datas: Partial<PlayerMetadata> = {};
+        datas.hunger = this.playerService.getIncrementedMetadata(player, 'hunger', hunger, 0, 100);
+        datas.thirst = this.playerService.getIncrementedMetadata(player, 'thirst', thirst, 0, 100);
+        datas.alcohol = this.playerService.getIncrementedMetadata(player, 'alcohol', alcohol, 0, 100);
+        if (item.nutrition.drug) {
+            datas.drug = this.playerService.getIncrementedMetadata(player, 'drug', item.nutrition.drug, 0, 110);
+        }
+
+        if (this.featureProvider.isFeatureEnabled(Feature.MyBodySummer)) {
+            const fiber = dyspepsia || intoxicated ? DYSPEPSIA_NUTRITION_MALUS : item.nutrition.fiber * progress;
+            const sugar = dyspepsia || intoxicated ? DYSPEPSIA_NUTRITION_MALUS : item.nutrition.sugar * progress;
+            const protein = dyspepsia || intoxicated ? DYSPEPSIA_NUTRITION_MALUS : item.nutrition.protein * progress;
+            const lipid = dyspepsia || intoxicated ? DYSPEPSIA_NUTRITION_MALUS : item.nutrition.lipid * progress;
+
+            datas.fiber = this.playerService.getIncrementedMetadata(player, 'fiber', fiber, 0, 25);
+            datas.sugar = this.playerService.getIncrementedMetadata(player, 'sugar', sugar, 0, 25);
+            datas.protein = this.playerService.getIncrementedMetadata(player, 'protein', protein, 0, 25);
+            datas.lipid = this.playerService.getIncrementedMetadata(player, 'lipid', lipid, 0, 25);
+            datas.health_level = this.playerService.getIncrementedMetadata(
+                player,
+                'health_level',
+                fiber + sugar + protein + lipid,
+                0,
+                100
+            );
+
+            if (datas.health_level !== null) {
+                let maxHealth = 200;
+
+                if (datas.health_level < 20) {
+                    maxHealth = 160;
+                } else if (datas.health_level < 40) {
+                    maxHealth = 180;
+                }
+
+                datas.max_health = maxHealth;
+            }
+        }
+
+        this.playerService.setPlayerMetaDatas(source, datas);
+
+        if (intoxicated) {
+            this.playerService.setPlayerDisease(source, 'intoxication');
+        } else if (dyspepsia) {
+            this.playerService.setPlayerDisease(source, 'dyspepsie');
+        }
+
+        this.lastItemEatByPlayer[player.citizenid] = item.name;
+    }
+
+    private async useLunchbox(source: number, item: Item, itemInv: InventoryItem, inventory: Inventory) {
+        const canSwap = inventory.canSwapItems(
+            [
+                {
+                    name: item.name,
+                    amount: 1,
+                    metadata: itemInv.metadata,
+                },
+            ],
+            itemInv.metadata.crateElements.map(meal => ({
+                name: meal.name,
+                amount: meal.amount,
+                metadata: meal.metadata,
+            }))
+        );
+
+        if (!canSwap) {
+            this.notifier.error(source, "L'inventaire n'a plus de place !");
+            return;
+        }
+
+        if (!inventory.removeAtSlot(itemInv.slot, 1)) {
+            return;
+        }
+
+        itemInv.metadata.crateElements.forEach(meal => {
+            inventory.add(meal.name, meal.amount, { ...meal.metadata });
+        });
+
+        let notificationLunchboxLabel = item.label;
+
+        if (itemInv.metadata.label) {
+            notificationLunchboxLabel = item.label + ' "' + itemInv.metadata.label + '"';
+        }
+
+        this.notifier.notify(source, 'Vous avez ouvert votre ~g~' + notificationLunchboxLabel + '~s~ !', 'success');
+    }
+
+    @Once()
+    public onStart() {
+        const foods = this.item.getItems<FoodItem>('food');
+
+        for (const foodId of Object.keys(foods)) {
+            this.item.setItemUseCallback<FoodItem>(foodId, this.useFoodOrDrink.bind(this));
+        }
+
+        const drinks = this.item.getItems<DrinkItem>('drink');
+
+        for (const drinkId of Object.keys(drinks)) {
+            this.item.setItemUseCallback<FoodItem>(drinkId, this.useFoodOrDrink.bind(this));
+        }
+
+        const cocktails = this.item.getItems<CocktailItem>('cocktail');
+
+        for (const cocktailId of Object.keys(cocktails)) {
+            this.item.setItemUseCallback<CocktailItem>(cocktailId, this.useFoodOrDrink.bind(this));
+        }
+
+        const liquors = this.item.getItems<CocktailItem>('liquor');
+
+        for (const liquorId of Object.keys(liquors)) {
+            this.item.setItemUseCallback<LiquorItem>(liquorId, this.useFoodOrDrink.bind(this));
+        }
+
+        this.item.setItemUseCallback<Item>('mushroom', this.useFoodOrDrink.bind(this));
+
+        this.item.setItemUseCallback('lunchbox', this.useLunchbox.bind(this));
+    }
+}

@@ -1,0 +1,250 @@
+import { GamesProvider } from '@public/client/games/games.provider';
+import { Feature } from '@public/shared/features';
+import { UpwPollution } from '@public/shared/job/upw';
+
+import { Once, OnceStep, OnEvent } from '../../core/decorators/event';
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Tick, TickInterval } from '../../core/decorators/tick';
+import { wait } from '../../core/utils';
+import { Disease } from '../../shared/disease';
+import { ClientEvent, ServerEvent } from '../../shared/event';
+import { PlayerData } from '../../shared/player';
+import { AnimationService } from '../animation/animation.service';
+import { FeatureProvider } from '../feature/feature.provider';
+import { UpwPollutionProvider } from '../job/upw/upw.pollution.provider';
+import { Notifier } from '../notifier';
+import { BlurService } from '../utils/blur.service';
+import { PlayerService } from './player.service';
+
+const DISEASE_RANGE: Record<UpwPollution, number> = {
+    [UpwPollution.Low]: 2000,
+    [UpwPollution.Neutral]: 1000,
+    [UpwPollution.High]: 500,
+};
+
+@Provider()
+export class PlayerDiseaseProvider {
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(AnimationService)
+    private animationService: AnimationService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(UpwPollutionProvider)
+    private upwPollutionProvider: UpwPollutionProvider;
+
+    @Inject(BlurService)
+    private blurService: BlurService;
+
+    @Inject(GamesProvider)
+    private readonly gamesProvider: GamesProvider;
+
+    @Inject(FeatureProvider)
+    private featureProvider: FeatureProvider;
+
+    private currentDisease: Disease = false;
+
+    private currentDiseaseLoop: Promise<void> | null = null;
+
+    private async fluLoop(): Promise<void> {
+        while (this.currentDisease === 'grippe') {
+            if (this.gamesProvider.areAnyGameRunning()) {
+                return;
+            }
+
+            const [playerPed, distance] = this.playerService.getClosestPlayer();
+            const playerServerId = GetPlayerServerId(playerPed);
+            const propagation = Math.random() < 0.33333;
+
+            if (playerServerId != -1 && distance < 4.5 && propagation) {
+                TriggerServerEvent(ServerEvent.PLAYER_SET_CURRENT_DISEASE, 'grippe', playerServerId);
+            }
+
+            await wait(1000 * 10);
+        }
+    }
+
+    private async commonColdLoop(): Promise<void> {
+        while (this.currentDisease === 'rhume') {
+            if (this.gamesProvider.areAnyGameRunning()) {
+                return;
+            }
+
+            this.blurService.add('rhume', 100);
+
+            await this.animationService.playAnimation(
+                {
+                    base: {
+                        dictionary: 'amb@code_human_wander_idles_fat@female@idle_a',
+                        name: 'idle_b_sneeze',
+                        duration: 1800,
+                        options: {
+                            enablePlayerControl: true,
+                            onlyUpperBody: true,
+                        },
+                    },
+                },
+                {
+                    cancellable: false,
+                }
+            );
+
+            this.blurService.remove('rhume', 100);
+
+            await wait(1000 * 10);
+        }
+    }
+
+    private async backPainLoop(): Promise<void> {
+        while (this.currentDisease === 'backpain') {
+            if (this.gamesProvider.areAnyGameRunning()) {
+                return;
+            }
+
+            DisableControlAction(0, 21, true);
+            DisableControlAction(0, 22, true);
+
+            await wait(0);
+        }
+    }
+
+    private async intoxicationLoop(): Promise<void> {
+        while (this.currentDisease === 'intoxication') {
+            if (this.gamesProvider.areAnyGameRunning()) {
+                return;
+            }
+
+            await this.animationService.playAnimation(
+                {
+                    base: {
+                        dictionary: 'random@drunk_driver_1',
+                        name: 'vomit_outside',
+                        options: {
+                            onlyUpperBody: true,
+                        },
+                        duration: 1500,
+                    },
+                },
+                {
+                    cancellable: false,
+                }
+            );
+
+            await wait(45 * 1000);
+        }
+    }
+
+    private async dyspepsiaLoop(): Promise<void> {
+        while (this.currentDisease === 'dyspepsie') {
+            if (this.gamesProvider.areAnyGameRunning()) {
+                return;
+            }
+
+            await this.animationService.playAnimation(
+                {
+                    base: {
+                        dictionary: 'random@drunk_driver_1',
+                        name: 'drunk_fall_over',
+                        options: {
+                            onlyUpperBody: true,
+                        },
+                        duration: 1500,
+                    },
+                },
+                {
+                    cancellable: false,
+                }
+            );
+
+            await wait(45 * 1000);
+        }
+    }
+
+    @OnEvent(ClientEvent.LSMC_DISEASE_APPLY_CURRENT_EFFECT)
+    public applyCurrentDiseaseEffect(disease: Disease) {
+        if (!disease) {
+            this.blurService.remove('grippe', 120);
+            this.blurService.remove('rhume', 120);
+            ClearPedTasks(PlayerPedId());
+
+            this.currentDisease = false;
+            this.currentDiseaseLoop = null;
+
+            return;
+        }
+
+        if (this.currentDisease) {
+            return;
+        }
+
+        this.currentDisease = disease;
+
+        if (disease === 'rhume') {
+            this.notifier.notify('Vous avez un petit rhume.');
+            this.currentDiseaseLoop = this.commonColdLoop();
+        }
+
+        if (disease === 'grippe') {
+            this.blurService.add('grippe', 100);
+
+            this.notifier.notify('Vous avez la grippe.');
+            this.currentDiseaseLoop = this.fluLoop();
+        }
+
+        if (disease === 'backpain') {
+            this.notifier.notify('Vous avez mal au dos.');
+            this.currentDiseaseLoop = this.backPainLoop();
+        }
+
+        if (disease === 'intoxication') {
+            this.notifier.notify('Vous avez mangé un truc pas frais...');
+            this.currentDiseaseLoop = this.intoxicationLoop();
+        }
+
+        if (disease === 'dyspepsie') {
+            this.notifier.notify(
+                "Tu as l'impression de mal digérer ! Consulte un médecin au plus vite ou prend une gélule d'antiacide."
+            );
+            this.currentDiseaseLoop = this.dyspepsiaLoop();
+        }
+    }
+
+    @Tick(TickInterval.EVERY_15_MINUTE)
+    public async diseaseLoop(): Promise<void> {
+        const player = this.playerService.getPlayer();
+
+        if (this.gamesProvider.areAnyGameRunning()) {
+            return;
+        }
+
+        if (this.featureProvider.isFeatureEnabled(Feature.WhatIfSecondEpisode)) {
+            return;
+        }
+
+        if (player === null || player.metadata.godmode || player.metadata.isdead) {
+            return;
+        }
+
+        const range = Math.max(DISEASE_RANGE[this.upwPollutionProvider.getPollutionLevel()], 10);
+        const diseaseApply = Math.round(Math.random() * range);
+
+        if (diseaseApply == 1) {
+            TriggerServerEvent(ServerEvent.PLAYER_SET_CURRENT_DISEASE, 'rhume');
+        }
+
+        if (diseaseApply == 10) {
+            TriggerServerEvent(ServerEvent.PLAYER_SET_CURRENT_DISEASE, 'grippe');
+        }
+    }
+
+    @Once(OnceStep.PlayerLoaded, true)
+    async setupPlayerDisease(player: PlayerData): Promise<void> {
+        if (player.metadata.disease) {
+            this.applyCurrentDiseaseEffect(player.metadata.disease);
+        }
+    }
+}

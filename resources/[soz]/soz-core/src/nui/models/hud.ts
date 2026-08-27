@@ -1,0 +1,66 @@
+import { createModel } from '@rematch/core';
+
+import { HudSettings, HudState, HudTheme } from '../../shared/hud';
+import type { RootModel } from './';
+
+export const hud = createModel<RootModel>()({
+    state: {
+        hasWatch: false,
+        armorPlates: 0,
+        settings: {
+            theme: HudTheme.Auto,
+            availableTheme: [HudTheme.Auto],
+            zoom: 1,
+            inventorySize: 1,
+            showDateTime: false,
+            showWeather: false,
+            showStreetName: false,
+            showCompass: false,
+            showAnimalStats: false,
+            showStress: false,
+            showStamina: false,
+            switchPlayerStatsPosition: false,
+        },
+        voiceMode: 0,
+        streetName: [],
+        compass: {
+            degree: 0,
+            cardinal: 'N',
+        },
+        ammo: {
+            hasWeapon: false,
+            ammo: 0,
+            maxAmmo: 0,
+        },
+        dateTime: {
+            dayOfWeek: 0,
+            hour: 0,
+            minute: 0,
+            isNight: false,
+        },
+        minimap: {
+            isHidden: true,
+            X: 0.08091666683321,
+            Y: 0.88549252311906,
+            bottom: 0.97361377796573,
+            height: 0.17624250969333,
+            left: 0.01560416735708,
+            right: 0.15122916630934,
+            top: 0.79737126827239,
+            width: 0.14062499895226,
+        },
+        halloween: {
+            moon: false,
+        },
+        useGlassmorphism: true,
+    } as HudState,
+    reducers: {
+        update(state, hud: Partial<HudState>) {
+            return { ...state, ...hud };
+        },
+        updateSettings(state, hud: Partial<HudSettings>) {
+            return { ...state, settings: { ...state.settings, ...hud } };
+        },
+    },
+    effects: () => ({}),
+});

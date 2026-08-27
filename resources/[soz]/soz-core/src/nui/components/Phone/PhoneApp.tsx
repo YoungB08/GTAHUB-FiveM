@@ -1,0 +1,134 @@
+import './system/locale/i18n';
+
+import { FunctionComponent } from 'react';
+import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom';
+
+import { Control } from '../../../shared/input';
+import { useNuiFocus } from '../../hook/nui';
+import { useAppBankStateHandlers } from './apps/bank/bank.atom';
+import {
+    useAppDarkWebDebugHandlers,
+    useAppDarkWebPreloader,
+    useAppDarkWebStateHandlers,
+} from './apps/darkweb/darkweb.atom';
+import { CallModalApp } from './apps/dialer/CallModalApp';
+import { HomeApp } from './apps/home/HomeApp';
+import { useAppNewsStateHandlers } from './apps/news/news.atom';
+import { useAppNotesStateHandlers } from './apps/notes/notes.atom';
+import { useAppPhotosStateHandlers } from './apps/photos/photos.atom';
+import { useSocietyMessagesStateHandlers } from './apps/society-messages/messages.atom';
+import { useAppWeatherStateHandlers } from './apps/weather/weather.atom';
+import { useKeyboard } from './hooks/useKeyboard';
+import { ActionSheet } from './system/action-sheet/components/ActionSheet';
+import { Alerts } from './system/alerts/components/Alerts';
+import { useApps } from './system/apps/hooks/useApps';
+import { CallDynamicIsland } from './system/dynamic-island/components/CallDynamicIsland';
+import { FlashLightDynamicIsland } from './system/dynamic-island/components/FlashLightDynamicIsland';
+import { NotificationDynamicIsland } from './system/dynamic-island/components/NotificationDynamicIsland';
+import { useEmergency, useEmergencyStateHandlers } from './system/emergency/emergency.atom';
+import { EmergencyApp } from './system/emergency/EmergencyApp';
+import { usePhoneFocus, usePhoneInsideInput, usePhoneStateHandlers } from './system/phone.atom';
+import { PhoneWrapper } from './system/PhoneWrapper';
+import { useSimCardStateHandlers } from './system/sim-card/sim.card.atom';
+import { SoundProvider } from './system/sound/providers/SoundProvider';
+
+export const PhoneApp: FunctionComponent = () => {
+    const apps = useApps();
+    const focus = usePhoneFocus();
+    const insideInput = usePhoneInsideInput();
+
+    const emergency = useEmergency();
+
+    useNuiFocus(
+        focus,
+        focus,
+        insideInput ? false : focus,
+        focus
+            ? [
+                  Control.NextCamera,
+                  Control.VehicleNextRadio,
+                  Control.Attack,
+                  Control.Attack2,
+                  Control.Aim,
+                  Control.Sprint,
+                  Control.VehicleAim,
+                  Control.VehiclePassengerAim,
+                  Control.VehiclePassengerAttack,
+                  Control.Reload,
+                  Control.MeleeAttack1,
+                  Control.MeleeAttack2,
+                  Control.MeleeAttackLight,
+                  Control.MeleeAttackHeavy,
+                  Control.MpTextChatAll,
+                  Control.FrontendPause,
+                  Control.FrontendPauseAlternate,
+              ]
+            : null
+    );
+
+    return (
+        <div className="absolute h-full w-full pointer-events-none">
+            <SoundProvider>
+                <MemoryRouter>
+                    <PhoneAppHooks />
+
+                    <PhoneWrapper>
+                        <PhoneAppPreloader />
+
+                        <Alerts />
+                        <ActionSheet />
+
+                        <CallDynamicIsland />
+                        <NotificationDynamicIsland />
+                        <FlashLightDynamicIsland />
+
+                        {emergency ? (
+                            <EmergencyApp />
+                        ) : (
+                            <Routes>
+                                <Route index element={<HomeApp />} />
+                                <Route path="/call" element={<CallModalApp />} />
+
+                                {apps.map(app => (
+                                    <Route key={app.id} path={app.path + '/*'} element={app.component} />
+                                ))}
+
+                                <Route path="*" element={<Navigate to="/" />} />
+                            </Routes>
+                        )}
+                    </PhoneWrapper>
+                </MemoryRouter>
+            </SoundProvider>
+        </div>
+    );
+};
+
+const PhoneAppHooks: FunctionComponent = () => {
+    useKeyboard();
+
+    usePhoneStateHandlers();
+    useSimCardStateHandlers();
+
+    // System Apps
+    useEmergencyStateHandlers();
+    useAppPhotosStateHandlers();
+
+    // Apps
+    useAppBankStateHandlers();
+    useAppDarkWebStateHandlers();
+    useAppNewsStateHandlers();
+    useAppNotesStateHandlers();
+    useAppWeatherStateHandlers();
+    useSocietyMessagesStateHandlers();
+
+    return null;
+};
+
+const PhoneAppPreloader: FunctionComponent = () => {
+    useAppDarkWebPreloader();
+
+    // Debug
+    useAppDarkWebDebugHandlers();
+
+    return null;
+};

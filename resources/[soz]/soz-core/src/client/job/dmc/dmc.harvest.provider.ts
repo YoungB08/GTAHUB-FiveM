@@ -1,0 +1,70 @@
+import { PlayerService } from '@public/client/player/player.service';
+import { TargetFactory } from '@public/client/target/target.factory';
+import { WeaponService } from '@public/client/weapon/weapon.service';
+import { Once, OnceStep } from '@public/core/decorators/event';
+import { Inject } from '@public/core/decorators/injectable';
+import { Provider } from '@public/core/decorators/provider';
+import { ServerEvent } from '@public/shared/event';
+import { Feature } from '@public/shared/features';
+import { JobType } from '@public/shared/job';
+import { DMC_FIELDS_ZONES, DMC_HALLOWEEN_FIELDS_ZONES } from '@public/shared/job/dmc';
+
+import { FeatureProvider } from '../../feature/feature.provider';
+
+@Provider()
+export class DmcHarvestProvider {
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(TargetFactory)
+    private targetFactory: TargetFactory;
+
+    @Inject(WeaponService)
+    private weaponService: WeaponService;
+
+    @Inject(FeatureProvider)
+    private featureProvider: FeatureProvider;
+
+    @Once(OnceStep.PlayerLoaded)
+    public setupDMCFields() {
+        let fields = DMC_FIELDS_ZONES;
+        if (this.featureProvider.isFeatureEnabled(Feature.Halloween)) {
+            fields = { ...DMC_FIELDS_ZONES, ...DMC_HALLOWEEN_FIELDS_ZONES };
+        }
+
+        for (const id of Object.keys(fields)) {
+            const zones = fields[id];
+            for (let i = 0; i < zones.length; i++) {
+                const zone = zones[i];
+                this.targetFactory.createForBoxZone(
+                    `dmc:harvest_${id}_${i}`,
+                    {
+                        center: zone.center,
+                        width: zone.width,
+                        length: zone.length,
+                        heading: zone.heading,
+                        minZ: zone.minZ,
+                        maxZ: zone.maxZ,
+                    },
+                    [
+                        {
+                            label: 'Miner',
+                            icon: 'dmc/pickaxe',
+                            job: JobType.DMC,
+                            category: 'society',
+                            canInteract: () => {
+                                return (
+                                    this.weaponService.getCurrentWeapon() &&
+                                    this.weaponService.getCurrentWeapon().name === 'weapon_pickaxe'
+                                );
+                            },
+                            action: () => {
+                                TriggerServerEvent(ServerEvent.DMC_HARVEST, id);
+                            },
+                        },
+                    ]
+                );
+            }
+        }
+    }
+}

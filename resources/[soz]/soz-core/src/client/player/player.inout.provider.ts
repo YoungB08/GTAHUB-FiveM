@@ -1,0 +1,27 @@
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Tick } from '../../core/decorators/tick';
+import { Vector3 } from '../../shared/polyzone/vector';
+import { PlayerInOutService } from './player.inout.service';
+
+@Provider()
+export class PlayerInOutProvider {
+    @Inject(PlayerInOutService)
+    private playerInOutService: PlayerInOutService;
+
+    @Tick(500)
+    public run(): void {
+        const pedCoords = GetEntityCoords(PlayerPedId()) as Vector3;
+        const list = this.playerInOutService.get();
+        for (const id in list) {
+            const elem = list[id];
+            const isInside = elem.zone.isPointInside(pedCoords);
+
+            if (!elem.init || isInside !== elem.isLastInside) {
+                elem.init = true;
+                elem.isLastInside = isInside;
+                elem.cb(isInside);
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+import './migration.player_position';
+import './migration.trace_event';
+import './migration.log';
+import './migration.create_casino_trace';
+import './migration.update_drug_maturation';
+import './migration.create_fourniture_trace';
+import './migration.update_gang';
+import './migration.update_heist';
+import './migration.create_vampire_game_trace';
+import './migration.add_item_slot';
+import './migration.license';

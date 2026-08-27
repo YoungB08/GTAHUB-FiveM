@@ -1,0 +1,955 @@
+import {
+    SmugglingBusinessExportContainerConfig,
+    SmugglingBusinessImportContainerConfig,
+} from '@private/shared/business.smuggling';
+import { VehicleBusinessExportContainerProp, VehicleBusinessExportCoveredProp } from '@private/shared/business.vehicle';
+import { RepositoryDelete, RepositoryUpdate } from '@public/core/decorators/repository';
+import { RepositoryType } from '@public/shared/repository';
+
+import { Command } from '../../core/decorators/command';
+import { OnNuiEvent } from '../../core/decorators/event';
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Tick } from '../../core/decorators/tick';
+import { SozRole } from '../../core/permissions';
+import { emitRpc } from '../../core/rpc';
+import { wait } from '../../core/utils';
+import { RGBAColor } from '../../shared/color';
+import { NuiEvent, ServerEvent } from '../../shared/event';
+import { Property } from '../../shared/housing/housing';
+import { Font } from '../../shared/hud';
+import { JobType } from '../../shared/job';
+import { NotEmptyStringValidator, PositiveNumberValidator } from '../../shared/nui/input';
+import { MenuType } from '../../shared/nui/menu';
+import { BoxZone, Zone, ZoneType, ZoneTypeBlipColor, ZoneTyped, ZoneTypeLabel } from '../../shared/polyzone/box.zone';
+import { applyOffset, quaternionToEuler, Vector3, Vector4 } from '../../shared/polyzone/vector';
+import { RpcServerEvent } from '../../shared/rpc';
+import { BlipFactory } from '../blip';
+import { DrawService } from '../draw.service';
+import { Notifier } from '../notifier';
+import { InputService } from '../nui/input.service';
+import { NuiMenu } from '../nui/nui.menu';
+import { NuiZoneProvider } from '../nui/nui.zone.provider';
+import { ObjectEditorProvider } from '../object/object.editor.provider';
+import { HousingRepository } from '../repository/housing.repository';
+import { SenateRepository } from '../repository/senate.repository';
+import { ZoneRepository } from '../repository/zone.repository';
+import { AdminZoneProvider } from './admin.zone.provider';
+
+const COLOR_BY_TYPE: Record<string, RGBAColor> = {
+    entry: [0, 255, 0, 100],
+    garage: [255, 0, 0, 100],
+    exit: [0, 0, 255, 100],
+    fridge: [255, 255, 0, 100],
+    stash: [0, 255, 255, 100],
+    closet: [255, 0, 255, 100],
+    money: [255, 0, 255, 100],
+};
+
+const ZoneProps: Partial<Record<ZoneType, number>> = {
+    [ZoneType.VehBizSpawn]: VehicleBusinessExportCoveredProp,
+    [ZoneType.VehBizDelivery]: VehicleBusinessExportContainerProp,
+    [ZoneType.SmugglingBizContainer]: SmugglingBusinessImportContainerConfig.props.container,
+    [ZoneType.SmugglingBizExport]: SmugglingBusinessExportContainerConfig.prop,
+};
+
+@Provider()
+export class AdminMenuMapperProvider {
+    @Inject(NuiMenu)
+    private nuiMenu: NuiMenu;
+
+    @Inject(InputService)
+    private inputService: InputService;
+
+    @Inject(HousingRepository)
+    private housingRepository: HousingRepository;
+
+    @Inject(ZoneRepository)
+    private zoneRepository: ZoneRepository;
+
+    @Inject(NuiZoneProvider)
+    private nuiZoneProvider: NuiZoneProvider;
+
+    @Inject(ObjectEditorProvider)
+    private readonly objectEditorProvider: ObjectEditorProvider;
+
+    @Inject(DrawService)
+    private drawService: DrawService;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(SenateRepository)
+    private senateRepository: SenateRepository;
+
+    @Inject(AdminZoneProvider)
+    private adminZoneProvider: AdminZoneProvider;
+
+    @Inject(BlipFactory)
+    private blipFactory: BlipFactory;
+
+    private showInteriorData = false;
+    private showPortalData = false;
+
+    @Tick()
+    public async showMenuMapperZones(): Promise<void> {
+        if (this.showInteriorData) {
+            const ped = PlayerPedId();
+            const interiorId = GetInteriorFromEntity(ped);
+
+            if (interiorId !== 0) {
+                const roomHash = GetRoomKeyFromEntity(ped);
+                const roomId = GetInteriorRoomIndexByHash(interiorId, roomHash);
+                const roomTimecycle = GetInteriorRoomTimecycle(interiorId, roomId);
+                const portalCount = GetInteriorPortalCount(interiorId);
+                const roomCount = GetInteriorRoomCount(interiorId);
+                const roomName = GetInteriorRoomName(interiorId, roomId);
+                const roomFlag = GetInteriorRoomFlag(interiorId, roomId);
+                const quaternion = GetInteriorRotation(interiorId);
+                const rotation = quaternionToEuler(quaternion);
+                const style = {
+                    color: [66, 182, 245, 255] as RGBAColor,
+                    size: 0.4,
+                    font: Font.ChaletComprimeCologne,
+                };
+
+                this.drawService.drawText('~b~InteriorID: ~w~' + interiorId, [0.25, 0.01], style);
+                this.drawService.drawText('~b~RoomID: ~w~' + roomId, [0.25, 0.03], style);
+                this.drawService.drawText('~b~RoomCount: ~w~' + roomCount, [0.25, 0.05], style);
+                this.drawService.drawText('~b~RoomTimecycle: ~w~' + roomTimecycle, [0.25, 0.07], style);
+                this.drawService.drawText('~b~PortalCount: ~w~' + portalCount, [0.25, 0.09], style);
+                this.drawService.drawText('~b~RoomFlag: ~w~' + roomFlag, [0.25, 0.11], style);
+                this.drawService.drawText('~b~RoomName: ~w~' + roomName, [0.25, 0.13], style);
+
+                if (this.showPortalData) {
+                    const pos = GetInteriorPosition(interiorId) as Vector3;
+                    const fullPos = [pos[0], pos[1], pos[2], rotation[2]] as Vector4;
+                    for (let portalId = 0; portalId < portalCount; portalId++) {
+                        const entitycount = GetInteriorPortalEntityCount(interiorId, portalId);
+
+                        const roomTo = GetInteriorPortalRoomTo(interiorId, portalId);
+                        const roomFrom = GetInteriorPortalRoomFrom(interiorId, portalId);
+                        const flag = GetInteriorPortalFlag(interiorId, portalId);
+
+                        for (let j = 0; j < entitycount; j++) {
+                            const archetype = GetInteriorPortalEntityArchetype(interiorId, portalId, j);
+                            const entityflag = GetInteriorPortalEntityFlag(interiorId, portalId, j);
+                            const position = GetInteriorPortalEntityPosition(interiorId, portalId, j) as Vector3;
+                            const entityRotation = GetInteriorPortalEntityRotation(interiorId, portalId, j);
+                            this.drawService.drawText3d(
+                                applyOffset(fullPos, position) as unknown as Vector3,
+                                'Portal entity:' +
+                                    j +
+                                    ', ach: ' +
+                                    archetype +
+                                    ', entityflag: ' +
+                                    entityflag +
+                                    ', rot: ' +
+                                    entityRotation.map(elem => elem.toFixed(2))
+                            );
+                        }
+
+                        const corner1 = applyOffset(fullPos, GetInteriorPortalCornerPosition(interiorId, portalId, 0));
+                        const corner2 = applyOffset(fullPos, GetInteriorPortalCornerPosition(interiorId, portalId, 1));
+                        const corner3 = applyOffset(fullPos, GetInteriorPortalCornerPosition(interiorId, portalId, 2));
+                        const corner4 = applyOffset(fullPos, GetInteriorPortalCornerPosition(interiorId, portalId, 3));
+
+                        this.drawService.drawText3d(
+                            [
+                                (corner1[0] + corner2[0] + corner3[0] + corner4[0]) / 4,
+                                (corner1[1] + corner2[1] + corner3[1] + corner4[1]) / 4,
+                                (corner1[2] + corner2[2] + corner3[2] + corner4[2]) / 4 - 0.2,
+                            ],
+                            'Portal:' + portalId + ', flag: ' + flag + ', roomFrom: ' + roomFrom + ', roomTo: ' + roomTo
+                        );
+
+                        DrawPoly(
+                            corner1[0],
+                            corner1[1],
+                            corner1[2],
+                            corner2[0],
+                            corner2[1],
+                            corner2[2],
+                            corner3[0],
+                            corner3[1],
+                            corner3[2],
+                            255,
+                            0,
+                            0,
+                            150
+                        );
+                        DrawPoly(
+                            corner2[0],
+                            corner2[1],
+                            corner2[2],
+                            corner1[0],
+                            corner1[1],
+                            corner1[2],
+                            corner3[0],
+                            corner3[1],
+                            corner3[2],
+                            255,
+                            0,
+                            0,
+                            150
+                        );
+                        DrawPoly(
+                            corner4[0],
+                            corner4[1],
+                            corner4[2],
+                            corner1[0],
+                            corner1[1],
+                            corner1[2],
+                            corner3[0],
+                            corner3[1],
+                            corner3[2],
+                            255,
+                            0,
+                            0,
+                            150
+                        );
+                        DrawPoly(
+                            corner1[0],
+                            corner1[1],
+                            corner1[2],
+                            corner4[0],
+                            corner4[1],
+                            corner4[2],
+                            corner3[0],
+                            corner3[1],
+                            corner3[2],
+                            255,
+                            0,
+                            0,
+                            150
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    @Command('admin_mapper_menu', {
+        role: ['admin', 'staff', 'gamemaster', 'helper'] as SozRole[],
+        keys: [
+            {
+                mapper: 'keyboard',
+                key: 'F11',
+            },
+        ],
+    })
+    public async toggleMapperMenu(): Promise<void> {
+        const [isAllowed, permission] = await emitRpc<[boolean, string]>(RpcServerEvent.ADMIN_IS_ALLOWED);
+        if (!isAllowed) {
+            return;
+        }
+
+        if (this.nuiMenu.getOpened() === MenuType.AdminMapperMenu) {
+            this.nuiMenu.closeMenu();
+
+            return;
+        }
+
+        this.nuiMenu.openMenu(MenuType.AdminMapperMenu, {
+            permission: permission as SozRole,
+            properties: this.housingRepository.get(),
+            showInterior: this.showInteriorData,
+            showPortal: this.showPortalData,
+            parties: this.senateRepository.get(),
+        });
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperShowPropertyZone)
+    public async showPropertyZone({
+        propertyId,
+        type,
+        show,
+    }: {
+        propertyId: number;
+        type: 'entry' | 'garage';
+        show: boolean;
+    }): Promise<void> {
+        const zoneField = `${type}Zone`;
+        const id = `apartment-${propertyId}-${type}`;
+
+        // Remove existing zone if any
+        this.adminZoneProvider.removeZoneToDraw(id);
+
+        if (show) {
+            const property = this.housingRepository.findProperty(propertyId);
+
+            if (!property) {
+                return;
+            }
+
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone(property[zoneField]),
+                id,
+                color: COLOR_BY_TYPE[type],
+                type,
+                name: `${type} - ${property.identifier}`,
+            });
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperShowApartmentZone)
+    public async showApartmentZone({
+        propertyId,
+        apartmentId,
+        type,
+        show,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+        type: 'exit' | 'fridge' | 'stash' | 'closet' | 'money';
+        show: boolean;
+    }): Promise<void> {
+        const zoneField = `${type}Zone`;
+        const id = `apartment-${propertyId}-${apartmentId}-${type}`;
+
+        // Remove existing zone if any
+        this.adminZoneProvider.removeZoneToDraw(id);
+
+        if (show) {
+            const apartment = this.housingRepository.findApartment(propertyId, apartmentId);
+
+            if (!apartment) {
+                return;
+            }
+
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone(apartment[zoneField]),
+                id,
+                color: COLOR_BY_TYPE[type],
+                type,
+                name: `${type} - ${apartment.identifier}`,
+            });
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperTeleportToZone)
+    public async teleport({ zone }: { zone: Zone }): Promise<void> {
+        if (!zone) {
+            this.notifier.error("La zone n'existe pas.");
+
+            return;
+        }
+
+        SetPedCoordsKeepVehicle(PlayerPedId(), zone.center[0], zone.center[1], zone.center[2]);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperUpdatePropertyZone)
+    public async updatePropertyZone({
+        propertyId,
+        type,
+    }: {
+        propertyId: number;
+        type: 'entry' | 'garage';
+        zone: Zone;
+    }): Promise<Property[]> {
+        const property = this.housingRepository.findProperty(propertyId);
+        const zoneField = `${type}Zone`;
+
+        if (!property) {
+            return;
+        }
+
+        const existingZone = property[zoneField] || null;
+        const newZone = await this.nuiZoneProvider.askZone(existingZone);
+        const id = `apartment-${propertyId}-${type}`;
+
+        if (this.adminZoneProvider.isZoneDrawn(id)) {
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone(newZone),
+                id,
+                color: COLOR_BY_TYPE[type],
+                type,
+                name: property.identifier,
+            });
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_UPDATE_PROPERTY_ZONE, propertyId, newZone, type);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperUpdateApartmentZone)
+    public async updateApartmentZone({
+        propertyId,
+        apartmentId,
+        type,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+        type: 'entry' | 'exit' | 'fridge' | 'stash' | 'closet' | 'money';
+    }): Promise<Property[]> {
+        const apartment = this.housingRepository.findApartment(propertyId, apartmentId);
+        const zoneField = `${type}Zone`;
+
+        if (!apartment) {
+            return this.housingRepository.get();
+        }
+
+        const existingZone = apartment[zoneField] || null;
+        const newZone = await this.nuiZoneProvider.askZone(existingZone);
+        const id = `apartment-${propertyId}-${apartmentId}-${type}`;
+
+        if (this.adminZoneProvider.isZoneDrawn(id)) {
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone(newZone),
+                id,
+                color: COLOR_BY_TYPE[type],
+                type,
+            });
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_UPDATE_APARTMENT_ZONE, apartmentId, newZone, type);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperAddApartment)
+    public async addApartment({ propertyId }: { propertyId: number }): Promise<Property[]> {
+        const apartmentIdentifier = await this.inputService.askInput(
+            {
+                title: "Identifiant de l'interieur",
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!apartmentIdentifier) {
+            return this.housingRepository.get();
+        }
+
+        await wait(50);
+
+        const apartmentName = await this.inputService.askInput(
+            {
+                title: "Nom de l'intérieur",
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!apartmentName) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(
+            RpcServerEvent.ADMIN_MAPPER_ADD_APARTMENT,
+            propertyId,
+            apartmentIdentifier,
+            apartmentName
+        );
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperAddProperty)
+    public async addProperty(): Promise<Property[]> {
+        const propertyName = await this.inputService.askInput(
+            {
+                title: 'Identifiant de la propriété',
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!propertyName) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_ADD_PROPERTY, propertyName);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetApartmentName)
+    public async setApartmentName({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
+        const apartmentName = await this.inputService.askInput(
+            {
+                title: "Nom de l'interieur",
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!apartmentName) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_SET_APARTMENT_NAME, apartmentId, apartmentName);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetApartmentPrice)
+    public async setApartmentPrice({
+        apartmentId,
+        price,
+    }: {
+        apartmentId: number;
+        price: number | null;
+    }): Promise<Property[]> {
+        if (price === null) {
+            const apartmentPrice = await this.inputService.askInput(
+                {
+                    title: "Prix de l'intérieur",
+                    defaultValue: '',
+                },
+                PositiveNumberValidator
+            );
+
+            if (!apartmentPrice) {
+                return this.housingRepository.get();
+            }
+
+            price = Number(apartmentPrice);
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_SET_APARTMENT_PRICE, apartmentId, price);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetApartmentIdentifier)
+    public async setApartmentIdentifier({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
+        const apartmentIdentifier = await this.inputService.askInput(
+            {
+                title: "Identifiant de l'interieur",
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!apartmentIdentifier) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(
+            RpcServerEvent.ADMIN_MAPPER_SET_APARTMENT_IDENTIFIER,
+            apartmentId,
+            apartmentIdentifier
+        );
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperDeleteApartment)
+    public async deleteApartment({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
+        const confirmed = await this.inputService.askConfirm('Êtes-vous sûr de vouloir supprimer cet appartement ?');
+
+        if (!confirmed) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_REMOVE_APARTMENT, apartmentId);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperDeleteProperty)
+    public async deleteProperty({ propertyId }: { propertyId: number }): Promise<Property[]> {
+        const confirmed = await this.inputService.askConfirm('Êtes-vous sûr de vouloir supprimer ce batiment ?');
+
+        if (!confirmed) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_REMOVE_PROPERTY, propertyId);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperShowAllProperty)
+    public async showAllProperty({ show }: { show: boolean }): Promise<void> {
+        this.adminZoneProvider.removeTypeZoneToDraw('entry');
+
+        if (!show) {
+            return;
+        }
+
+        const properties = this.housingRepository.get();
+
+        for (const property of properties) {
+            const zoneField = `entryZone`;
+            const id = `apartment-${property.id}-entry`;
+
+            if (!property[zoneField]) {
+                console.warn(`La propriété ${property.identifier} (${property.id}) n'a pas de zone d'entrée définie.`);
+                continue;
+            }
+
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone(property[zoneField]),
+                id,
+                color: COLOR_BY_TYPE.entry,
+                type: 'entry',
+                name: property.identifier,
+            });
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperTeleportToInsideCoords)
+    public async teleportToInsideCoords({
+        apartmentId,
+        propertyId,
+    }: {
+        apartmentId: number;
+        propertyId: number;
+    }): Promise<void> {
+        TriggerServerEvent(ServerEvent.HOUSING_ENTER_APARTMENT, propertyId, apartmentId);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetInsideCoords)
+    public async setInsideCoords({ apartmentId }: { apartmentId: number }): Promise<void> {
+        const coords = GetEntityCoords(PlayerPedId(), false) as Vector3;
+        const heading = GetEntityHeading(PlayerPedId());
+        const zone = new BoxZone([...coords, heading], 1, 1).toZone();
+
+        return await emitRpc(RpcServerEvent.ADMIN_MAPPER_UPDATE_APARTMENT_ZONE, apartmentId, zone, 'inside');
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetShowInterior)
+    public async setShowInterior({ value }: { value: boolean }): Promise<void> {
+        this.showInteriorData = value;
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetShowPortal)
+    public async setShowPortal({ value }: { value: boolean }): Promise<void> {
+        this.showPortalData = value;
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperAddObject)
+    public async addObject({
+        object,
+        job,
+        event,
+    }: {
+        object: string;
+        job: JobType;
+        event: string | null;
+    }): Promise<void> {
+        const model = GetHashKey(object);
+        const createdObject = await this.objectEditorProvider.createOrUpdateObject(model, {
+            context: 'admin',
+        });
+
+        if (null === createdObject) {
+            return;
+        }
+
+        if (['soz_prop_elec01', 'soz_prop_elec02', 'upwpile'].includes(object)) {
+            TriggerServerEvent(ServerEvent.UPW_ADD_FACILITY, object, createdObject.position, job);
+        } else {
+            TriggerServerEvent(
+                ServerEvent.ADMIN_ADD_PERSISTENT_PROP,
+                createdObject.model,
+                event,
+                createdObject.position
+            );
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperAddZone)
+    public async addZone({ type }: { type: ZoneType }) {
+        const name = await this.inputService.askInput({
+            title: 'Nom de la zone',
+            defaultValue: '',
+        });
+
+        if (!name) {
+            return;
+        }
+
+        let newZone: Zone = null;
+        if (ZoneProps[type]) {
+            const object = await this.objectEditorProvider.createOrUpdateObject(ZoneProps[type], {
+                allowToggleSnap: true,
+                allowScale: false,
+                context: 'admin',
+            });
+            if (!object) {
+                return;
+            }
+            newZone = {
+                center: object.position,
+                heading: object.position[3],
+            };
+        } else {
+            newZone = await this.nuiZoneProvider.askZone(null);
+        }
+
+        if (!newZone) {
+            return;
+        }
+
+        TriggerServerEvent(ServerEvent.ADMIN_MAPPER_ADD_ZONE, {
+            ...newZone,
+            data: {
+                type,
+                name,
+                id: null,
+            },
+        });
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperDeleteZone)
+    public async deleteZone({ id }: { id: number }) {
+        TriggerServerEvent(ServerEvent.ADMIN_MAPPER_REMOVE_ZONE, id);
+        const zone = this.zoneRepository.find(id);
+
+        if (!zone) {
+            return;
+        }
+
+        const showId = `zone-${id}`;
+        // Remove existing zone if any
+        if (ZoneProps[zone.data.type]) {
+            this.adminZoneProvider.removeEntityToDraw(showId);
+        } else {
+            this.adminZoneProvider.removeZoneToDraw(showId);
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperBlipZone)
+    public async blipZone({ type, value }: { type: ZoneType; value: boolean }) {
+        const zones = this.zoneRepository.get(elem => elem.data.type === type);
+
+        for (const zone of zones) {
+            const blipId = 'admin_zone' + zone.data.id.toString();
+            if (this.blipFactory.exist(blipId) === value) {
+                continue;
+            }
+
+            if (value) {
+                this.blipFactory.create(blipId, {
+                    name: ZoneTypeLabel[zone.data.type],
+                    position: zone.center,
+                    color: ZoneTypeBlipColor[zone.data.type],
+                });
+            } else {
+                this.blipFactory.remove(blipId);
+            }
+        }
+
+        if (value) {
+            this.notifier.notify('Blips affichés');
+        } else {
+            this.notifier.notify('Blips cachés');
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperRenameZone)
+    public async renameZone({ id }: { id: number }) {
+        const existing = this.zoneRepository.find(id);
+        const name = await this.inputService.askInput({
+            title: 'Nom de la zone',
+            defaultValue: existing.data.name,
+        });
+
+        if (!name) {
+            return;
+        }
+
+        TriggerServerEvent(ServerEvent.ADMIN_MAPPER_RENAME_ZONE, id, name);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperUpdateZone)
+    public async updateZone({ id }: { id: number }) {
+        const zone = this.zoneRepository.find(id);
+
+        let newZone: Zone = null;
+        if (ZoneProps[zone.data.type]) {
+            const object = await this.objectEditorProvider.createOrUpdateObject(
+                ZoneProps[zone.data.type],
+                {
+                    allowToggleSnap: true,
+                    allowScale: false,
+                    context: 'admin',
+                },
+                {
+                    model: ZoneProps[zone.data.type],
+                    position: [zone.center[0], zone.center[1], zone.center[2], zone.heading],
+                    id: id.toString(),
+                }
+            );
+            if (!object) {
+                return;
+            }
+            newZone = {
+                center: object.position,
+                heading: object.position[3],
+            };
+        } else {
+            newZone = await this.nuiZoneProvider.askZone(zone as Zone);
+        }
+
+        if (!newZone) {
+            return;
+        }
+
+        TriggerServerEvent(ServerEvent.ADMIN_MAPPER_UPDATE_ZONE, id, newZone);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperShowZone)
+    public async showZone({ id, show }: { id: number; show: boolean }): Promise<void> {
+        const showId = `zone-${id}`;
+        const zone = this.zoneRepository.find(id);
+
+        if (!zone) {
+            return;
+        }
+
+        // Remove existing zone if any
+        if (ZoneProps[zone.data.type]) {
+            this.adminZoneProvider.removeEntityToDraw(showId);
+        } else {
+            this.adminZoneProvider.removeZoneToDraw(showId);
+        }
+
+        if (!show) {
+            return;
+        }
+
+        if (ZoneProps[zone.data.type]) {
+            this.adminZoneProvider.addEntityToDraw(showId, ZoneProps[zone.data.type], [
+                zone.center[0],
+                zone.center[1],
+                zone.center[2],
+                zone.center[3] || zone.heading,
+            ]);
+        } else {
+            this.adminZoneProvider.addZoneToDraw({
+                zone: BoxZone.fromZone({
+                    ...zone,
+                    data: zone.data.name,
+                }),
+                id: showId,
+                color: COLOR_BY_TYPE.entry,
+                type: 'zone',
+                name: zone.data.name,
+            });
+        }
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperAddPropertyCulling)
+    public async addPropertyCulling({ propertyId }: { propertyId: number }): Promise<Property[]> {
+        const cullingString = await this.inputService.askInput(
+            {
+                title: 'Hash du batiment',
+                defaultValue: '',
+            },
+            NotEmptyStringValidator
+        );
+
+        const culling = Number(cullingString);
+
+        if (isNaN(culling) || culling === 0) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_ADD_PROPERTY_CULLING, propertyId, culling);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperRemovePropertyCulling)
+    public async removePropertyCulling({
+        propertyId,
+        culling,
+    }: {
+        propertyId: number;
+        culling: number;
+    }): Promise<Property[]> {
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_REMOVE_PROPERTY_CULLING, propertyId, culling);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetSenateParty)
+    public async setSenateParty({
+        propertyId,
+        apartmentId,
+        senatePartyId,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+        senatePartyId: string;
+    }): Promise<Property[]> {
+        return await emitRpc<Property[]>(
+            RpcServerEvent.ADMIN_MAPPER_SET_SENATE_PARTY,
+            propertyId,
+            apartmentId,
+            senatePartyId
+        );
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetOwner)
+    public async setOwner({
+        propertyId,
+        apartmentId,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+    }): Promise<Property[]> {
+        const citizenId = await this.inputService.askInput(
+            {
+                title: 'Citizen ID',
+            },
+            NotEmptyStringValidator
+        );
+
+        if (!citizenId) {
+            return this.housingRepository.get();
+        }
+
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_SET_OWNER, propertyId, apartmentId, citizenId);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperClearOwner)
+    public async clearOwner({
+        propertyId,
+        apartmentId,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+    }): Promise<Property[]> {
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_CLEAR_OWNER, propertyId, apartmentId);
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperSetApartmentTier)
+    public async setTier({
+        propertyId,
+        apartmentId,
+        type,
+        tier,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+        type: string;
+        tier: number;
+    }): Promise<Property[]> {
+        return await emitRpc<Property[]>(RpcServerEvent.ADMIN_MAPPER_SET_APARTMENT_TIER, propertyId, apartmentId, {
+            [type]: tier,
+        });
+    }
+
+    @OnNuiEvent(NuiEvent.AdminMenuMapperHousingTaxe)
+    public async shouldTaxeApartment({
+        propertyId,
+        apartmentId,
+        shouldTaxe,
+    }: {
+        propertyId: number;
+        apartmentId: number;
+        shouldTaxe: boolean;
+    }): Promise<Property[]> {
+        return await emitRpc<Property[]>(
+            RpcServerEvent.ADMIN_MAPPER_SET_APARTMENT_TAXE,
+            propertyId,
+            apartmentId,
+            shouldTaxe
+        );
+    }
+
+    @RepositoryUpdate(RepositoryType.Zone)
+    public async gangRepoUpdate(zone: ZoneTyped) {
+        const blipId = 'admin_zone' + zone.data.id.toString();
+        if (!this.blipFactory.exist(blipId)) {
+            return;
+        }
+
+        this.blipFactory.remove(blipId);
+        this.blipFactory.create(blipId, {
+            name: ZoneTypeLabel[zone.data.type],
+            position: zone.center,
+            color: ZoneTypeBlipColor[zone.data.type],
+        });
+    }
+
+    @RepositoryDelete(RepositoryType.Zone)
+    public async gangRepoDel(zone: ZoneTyped) {
+        const blipId = 'admin_zone' + zone.data.id.toString();
+        this.blipFactory.remove(blipId);
+    }
+}

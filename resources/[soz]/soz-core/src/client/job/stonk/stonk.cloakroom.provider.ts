@@ -1,0 +1,59 @@
+import { PlayerWardrobe } from '@public/client/player/player.wardrobe';
+import { OnEvent } from '@public/core/decorators/event';
+import { Inject } from '@public/core/decorators/injectable';
+import { Provider } from '@public/core/decorators/provider';
+import { Component } from '@public/shared/cloth';
+import { ClientEvent, ServerEvent } from '@public/shared/event';
+import { DUTY_OUTFIT_NAME, StonkCloakroom } from '@public/shared/job/stonk';
+
+@Provider()
+export class StonkCloakRoomProvider {
+    @Inject(PlayerWardrobe)
+    private playerWardrobe: PlayerWardrobe;
+
+    @OnEvent(ClientEvent.STONK_APPLY_OUTFIT)
+    public async applyDutyClothing() {
+        const model = GetEntityModel(PlayerPedId());
+
+        const outfit = StonkCloakroom[model][DUTY_OUTFIT_NAME];
+        const { completed } = await this.playerWardrobe.waitProgress(false);
+        if (completed) {
+            TriggerServerEvent(ServerEvent.CHARACTER_SET_JOB_CLOTHES, outfit);
+        }
+    }
+
+    public wearVIPClothes() {
+        const ped = PlayerPedId();
+
+        for (const vip of ['Tenue VIP', "Tenue VIP d'été", DUTY_OUTFIT_NAME, 'Tenue Hiver']) {
+            let match = true;
+            for (const [id, component] of Object.entries(StonkCloakroom[GetEntityModel(ped)][vip].Components)) {
+                const numberId = Number(id);
+
+                // We skip the Torso because it's modified when user wear his own gloves and make this function return false
+                // even if he wear the VIP clothes
+                if (numberId == Component.Torso) {
+                    continue;
+                }
+
+                const drawable = component.Collection
+                    ? GetPedDrawableVariationCollectionLocalIndex(ped, numberId)
+                    : GetPedDrawableVariation(ped, numberId);
+                const collection = component.Collection
+                    ? GetPedDrawableVariationCollectionName(ped, numberId)
+                    : undefined;
+
+                if (drawable != component.Drawable || collection != component.Collection) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

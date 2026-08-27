@@ -1,0 +1,62 @@
+import { DefaultFeatureConfig, FeaturesConfig } from '@public/shared/features';
+import { BLACK_SCREEN_URL, GlobalState } from '@public/shared/global';
+import { JobType } from '@public/shared/job';
+import { createModel } from '@rematch/core';
+
+import type { RootModel } from './';
+
+export const global = createModel<RootModel>()({
+    state: {
+        disableAFK: false,
+        blackout: false,
+        blackoutLevel: 0,
+        blackoutOverride: false,
+        jobEnergy: {
+            [JobType.Adsl]: 100,
+            [JobType.Baun]: 100,
+            [JobType.BCSO]: 100,
+            [JobType.Bennys]: 100,
+            [JobType.CashTransfer]: 100,
+            [JobType.Delivery]: 100,
+            [JobType.FBI]: 100,
+            [JobType.Ffs]: 100,
+            [JobType.Food]: 100,
+            [JobType.Garbage]: 100,
+            [JobType.LSMC]: 100,
+            [JobType.LSPD]: 100,
+            [JobType.MDR]: 100,
+            [JobType.News]: 100,
+            [JobType.YouNews]: 100,
+            [JobType.Oil]: 100,
+            [JobType.Pawl]: 100,
+            [JobType.Religious]: 100,
+            [JobType.Scrapper]: 100,
+            [JobType.Taxi]: 100,
+            [JobType.Unemployed]: 100,
+            [JobType.Upw]: 100,
+            [JobType.FDF]: 100,
+            [JobType.Gouv]: 100,
+            [JobType.SASP]: 100,
+            [JobType.DMC]: 100,
+        } as Record<JobType, number>,
+        weather: 'CLEAR',
+        snow: false,
+        streamUrls: {},
+        features: DefaultFeatureConfig,
+    } as GlobalState,
+    reducers: {
+        update(state, hud: Partial<GlobalState>) {
+            return { ...state, ...hud };
+        },
+        setStreamUrl(state, { stream, url }: { stream: keyof GlobalState['streamUrls']; url: string }) {
+            return { ...state, streamUrls: { ...state.streamUrls, [stream]: url } };
+        },
+        setJobEnergies(state, energies: Partial<Record<JobType, number>>) {
+            return { ...state, jobEnergy: { ...state.jobEnergy, ...energies } };
+        },
+        setFeature(state, feature: Partial<FeaturesConfig>) {
+            return { ...state, features: { ...state.features, ...feature } };
+        },
+    },
+    effects: () => ({}),
+});

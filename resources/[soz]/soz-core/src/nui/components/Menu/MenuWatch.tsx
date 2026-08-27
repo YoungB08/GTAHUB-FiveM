@@ -1,0 +1,179 @@
+import { FunctionComponent } from 'react';
+
+import { NuiEvent } from '../../../shared/event';
+import { AllThemesConfig, HudSettings } from '../../../shared/hud';
+import { MenuType } from '../../../shared/nui/menu';
+import { fetchNui } from '../../fetch';
+import { usePlayer } from '../../hook/data';
+import {
+    MainMenu,
+    Menu,
+    MenuContent,
+    MenuItemCheckbox,
+    MenuItemSelect,
+    MenuItemSelectOption,
+    MenuSubTitle,
+    MenuTitle,
+} from '../Styleguide/Menu';
+
+type MenuWatchProps = {
+    data: HudSettings;
+};
+
+export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
+    const player = usePlayer();
+
+    if (!player) {
+        return null;
+    }
+
+    return (
+        <Menu type={MenuType.WatchMenu}>
+            <MainMenu>
+                <MenuTitle title="Montre connectée" />
+                <MenuContent>
+                    <MenuItemSelect
+                        title="Thème"
+                        value={data.theme}
+                        description={`Thème de la montre connectée`}
+                        onConfirm={async (_, value) => {
+                            await fetchNui(NuiEvent.WatchMenuSetTheme, value);
+                        }}
+                    >
+                        {data.availableTheme.map(id => (
+                            <MenuItemSelectOption key={id} value={id}>
+                                {AllThemesConfig[id]?.label ?? id}
+                            </MenuItemSelectOption>
+                        ))}
+                    </MenuItemSelect>
+
+                    <MenuItemSelect
+                        title="Taille UWUI"
+                        value={data.zoom}
+                        description={`Zoom de la montre connectée`}
+                        onConfirm={async (_, value) => {
+                            await fetchNui(NuiEvent.WatchMenuSetZoom, value);
+                        }}
+                    >
+                        <MenuItemSelectOption value={0.5}>50%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={0.75}>75%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1}>100%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.25}>125%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.5}>150%</MenuItemSelectOption>
+                    </MenuItemSelect>
+
+                    <MenuItemSelect
+                        title="Taille Inventaire"
+                        value={data.inventorySize}
+                        description={`Taille de l'inventaire`}
+                        onConfirm={async (_, value) => {
+                            await fetchNui(NuiEvent.WatchMenuSetInventorySize, value);
+                        }}
+                    >
+                        <MenuItemSelectOption value={0.5}>50%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={0.75}>75%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1}>100%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.25}>125%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.5}>150%</MenuItemSelectOption>
+                    </MenuItemSelect>
+
+                    <MenuItemCheckbox
+                        checked={data.showDateTime}
+                        description="Active/Désactive l'affichage de la date et de l'heure"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowDateTime, value)}
+                    >
+                        Date et heure
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showWeather}
+                        description="Active/Désactive l'affichage de la météo"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowWeather, value)}
+                    >
+                        Météo
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showStreetName}
+                        description="Active/Désactive l'affichage des noms de rue"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStreetName, value)}
+                    >
+                        Noms de rue
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showCompass}
+                        description="Active/Désactive l'affichage de la boussole"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowCompass, value)}
+                    >
+                        Boussole
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showStress}
+                        description="Active/Désactive l'affichage du stress"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStress, value)}
+                    >
+                        Stress
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showStamina}
+                        description="Active/Désactive l'affichage de la stamina"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStamina, value)}
+                    >
+                        Stamina
+                    </MenuItemCheckbox>
+                    <MenuItemCheckbox
+                        checked={data.showAnimalStats}
+                        description="Active/Désactive l'affichage de l'état de l'animal"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowAnimalStats, value)}
+                    >
+                        État de l'animal
+                    </MenuItemCheckbox>
+                    <MenuSubTitle>État corporel</MenuSubTitle>
+                    <MenuItemCheckbox
+                        checked={data.showInjuryTracker}
+                        description="Active/Désactive l'affichage d l'état corporel"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowInjuryTracker, value)}
+                    >
+                        État corporel
+                    </MenuItemCheckbox>
+                    <MenuItemSelect
+                        title="Taille de l'affichage"
+                        value={data.zoomInjuryTracker}
+                        onConfirm={async (_, value) => {
+                            await fetchNui(NuiEvent.WatchMenuSetZoomInjuryTracker, value);
+                        }}
+                    >
+                        <MenuItemSelectOption value={0.5}>50%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={0.75}>75%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1}>100%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.25}>125%</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1.5}>150%</MenuItemSelectOption>
+                    </MenuItemSelect>
+                    <MenuItemCheckbox
+                        checked={data.switchInjuryTrackerPosition}
+                        description="Change la position de l'état corporel"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetSwitchInjuryTrackerPosition, value)}
+                    >
+                        Afficher l'état corporel à gauche
+                    </MenuItemCheckbox>
+
+                    <MenuSubTitle>Accessibilité</MenuSubTitle>
+                    <MenuItemCheckbox
+                        checked={data.switchPlayerStatsPosition}
+                        description="Change la position des stats du joueur"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetSwitchPlayerStatsPosition, value)}
+                    >
+                        Afficher les stats du joueur à droite
+                    </MenuItemCheckbox>
+
+                    <MenuSubTitle>Intéraction</MenuSubTitle>
+                    <MenuItemCheckbox
+                        checked={data.showInstructionalOverlay}
+                        description="Active/Désactive l'affichage des instructions d'intéraction"
+                        onChange={value => fetchNui(NuiEvent.WatchMenuSetShowInstructionalOverlay, value)}
+                    >
+                        Instructions d'intéraction
+                    </MenuItemCheckbox>
+                </MenuContent>
+            </MainMenu>
+        </Menu>
+    );
+};

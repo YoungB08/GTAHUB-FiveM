@@ -1,0 +1,345 @@
+import { GangProvider } from '@private/server/gang/gang.provider';
+import { PlayerData, PlayerMetadata } from '@public/shared/player';
+import { fromVector4Object } from '@public/shared/polyzone/vector';
+
+import { Get, Post } from '../../core/decorators/http';
+import { Inject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { Request } from '../../core/http/request';
+import { Response } from '../../core/http/response';
+import { BankProvider } from '../bank/bank.provider';
+import { BankService } from '../bank/bank.service';
+import { BillboardProvider } from '../billboard/billboard.provider';
+import { BillboardService } from '../billboard/billboard.service';
+import { ItemService } from '../item/item.service';
+import { FDFFieldProvider } from '../job/fdf/fdf.field.provider';
+import { Notifier } from '../notifier';
+import { PlayerPositionProvider } from '../player/player.position.provider';
+import { PlayerService } from '../player/player.service';
+import { PlayerStateService } from '../player/player.state.service';
+import { VehicleStateService } from '../vehicle/vehicle.state.service';
+
+@Provider()
+export class ApiProvider {
+    @Inject(ItemService)
+    private itemService: ItemService;
+
+    @Inject(PlayerStateService)
+    private playerStateService: PlayerStateService;
+
+    @Inject(PlayerService)
+    private playerService: PlayerService;
+
+    @Inject(BillboardService)
+    private billboardService: BillboardService;
+
+    @Inject(BillboardProvider)
+    private billboardProvider: BillboardProvider;
+
+    @Inject(FDFFieldProvider)
+    private FDFFieldProvider: FDFFieldProvider;
+
+    @Inject(PlayerPositionProvider)
+    private playerPositionProvider: PlayerPositionProvider;
+
+    @Inject(GangProvider)
+    private gangProvider: GangProvider;
+
+    @Inject(Notifier)
+    private notifier: Notifier;
+
+    @Inject(BankProvider)
+    private bankProvider: BankProvider;
+
+    @Inject(BankService)
+    private bankService: BankService;
+
+    @Inject(VehicleStateService)
+    private vehicleStateService: VehicleStateService;
+
+    @Get('/active-players')
+    public async getActivePlayers(): Promise<Response> {
+        const playerCount = GetNumPlayerIndices();
+        const players: Record<string, string> = {};
+
+        for (let i = 0; i < playerCount; i++) {
+            const source = GetPlayerFromIndex(i);
+            const identifier = this.playerStateService.getIdentifier(source);
+
+            players[identifier] = source;
+        }
+
+        return Response.json(players);
+    }
+
+    @Get('/items')
+    public async getItems(): Promise<Response> {
+        const items = this.itemService.getItems();
+
+        return Response.json(items);
+    }
+
+    @Post('/kick-player')
+    public async kickPlayer(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        DropPlayer(data.player, data.reason);
+
+        return Response.ok('Player kicked');
+    }
+
+    @Post('/set-rpDeath')
+    public async rpDeath(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const player = this.playerService.getPlayerByCitizenId(data.player);
+        if (player && player.source) {
+            this.playerService.setPlayerMetadata(player.source, 'rp_death', data.value);
+        }
+        return Response.ok();
+    }
+
+    @Post('/set-senator')
+    public async setSenator(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const player = this.playerService.getPlayerByCitizenId(data.player);
+        if (player && player.source) {
+            this.playerService.setPlayerMetadata(player.source, 'is_senator', data.value);
+        }
+        return Response.ok();
+    }
+
+    @Post('/twitch-news/update-billboard')
+    public async updateBillboard(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const billboardId = data.billboardId;
+
+        try {
+            this.billboardService.updateBillboard(source, billboardId);
+        } catch (error) {
+            return Response.internalServerError("La mise à jour du panneau d'affichage à échouée");
+        }
+        return Response.ok();
+    }
+
+    @Post('/twitch-news/delete-billboard')
+    public async deleteBillboard(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const billboardId = data.billboardId;
+        try {
+            this.billboardService.deleteBillboard(source, billboardId);
+        } catch (error) {
+            return Response.internalServerError("La supression du panneau d'affichage à échouée");
+        }
+        return Response.ok();
+    }
+
+    @Post('/dynamic-billboard/update-billboard')
+    public async updateDynamicBillboard(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const billboardId = data.billboardId;
+        const url = data.url;
+
+        try {
+            await this.billboardProvider.updateBillboardProp(-1, billboardId, url);
+        } catch (error) {
+            return Response.internalServerError("La mise à jour du panneau d'affichage à échouée");
+        }
+        return Response.ok();
+    }
+
+    private removeInside(player: PlayerData) {
+        const datas = {} as Partial<PlayerMetadata>;
+        datas.inside = player.metadata.inside;
+        datas.inside.apartment = false;
+        datas.inside.property = null;
+        this.playerService.setPlayerMetaDatas(player.source, datas);
+    }
+
+    @Post('/set-outside')
+    public async setOutside(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const player = this.playerService.getPlayerByCitizenId(data.player);
+        if (player && player.source) {
+            this.removeInside(player);
+
+            this.notifier.notify(player.source, "Status ~g~'à l'intérieur'~s~ reset.");
+
+            return Response.ok();
+        } else {
+            return Response.internalServerError('Joueur non trouvé ou non connecté');
+        }
+    }
+
+    @Post('/tp-entrer')
+    public async tpEnter(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const player = this.playerService.getPlayerByCitizenId(data.player);
+        if (player && player.source) {
+            if (!player.metadata.inside.exitCoord || !player.metadata.inside.exitCoord.x) {
+                return Response.internalServerError("Pas de position d'entrée connue");
+            }
+
+            this.removeInside(player);
+
+            const targetCoords = fromVector4Object(player.metadata.inside.exitCoord);
+            this.playerPositionProvider.teleportToCoords(player.source, targetCoords);
+
+            return Response.ok();
+        } else {
+            return Response.internalServerError('Joueur non trouvé ou non connecté');
+        }
+    }
+
+    @Post('/tp-aiport')
+    public async tpAirport(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        const player = this.playerService.getPlayerByCitizenId(data.player);
+        if (player && player.source) {
+            this.removeInside(player);
+
+            this.playerPositionProvider.teleportToZone(player.source, this.playerPositionProvider.AIRPORT);
+
+            return Response.ok();
+        } else {
+            return Response.internalServerError('Joueur non trouvé ou non connecté');
+        }
+    }
+
+    @Get('/fdf-data')
+    public async fdfData(): Promise<Response> {
+        return Response.json(this.FDFFieldProvider.exportData());
+    }
+
+    @Post('/set-player-gang')
+    public async gangPlayer(request: Request): Promise<Response> {
+        const data = JSON.parse(await request.body);
+        this.gangProvider.gangApiPlayer(data.citizenId, data.gangId, data.isBoss);
+
+        return Response.ok();
+    }
+
+    @Post('/create-gang')
+    public async createGang(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const [gangId, msg] = await this.gangProvider.createAPIGang(
+                data.name,
+                data.type,
+                data.business1,
+                data.business2,
+                data.universalBusiness
+            );
+
+            return Response.ok(
+                JSON.stringify({
+                    gangId: gangId,
+                    msg,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+
+    @Post('/update-gang')
+    public async update(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const [success, msg] = await this.gangProvider.updateAPIGang(
+                data.id,
+                data.name,
+                data.type,
+                data.business1,
+                data.business2,
+                data.universalBusiness
+            );
+
+            return Response.ok(
+                JSON.stringify({
+                    success,
+                    msg,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+
+    @Post('/pay-taxe')
+    public async payTaxe(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const [success, msg] = await this.bankProvider.payTaxe(data.citizenId, data.money, data.reason);
+
+            return Response.ok(
+                JSON.stringify({
+                    success,
+                    msg,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+
+    @Post('/transfert-money')
+    public async transfertMoney(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const [success, msg] = await this.bankProvider.transfertBetweenPlayers(
+                data.sourceCitizenId,
+                data.destCitizenId,
+                data.money,
+                data.reason
+            );
+
+            return Response.ok(
+                JSON.stringify({
+                    success,
+                    msg,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+
+    @Post('/remove-money')
+    public async removeMoney(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const success = await this.bankService.removeAccountMoney(data.accountId, data.amount);
+
+            return Response.ok(
+                JSON.stringify({
+                    success,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+
+    @Post('/veh-position')
+    public async vehPosition(request: Request): Promise<Response> {
+        try {
+            const data = JSON.parse(await request.body);
+            const states = this.vehicleStateService.getStates();
+            let msg = '';
+            for (const veh of states.values()) {
+                if (veh.volatile.plate === data.plate) {
+                    msg += `[${veh.position[0]} ${veh.position[1]} ${veh.position[2]}]`;
+                }
+            }
+            if (msg.length == 0) {
+                msg = 'Pas de véhicule trouvé avec la plaque ' + data.plate;
+            }
+            return Response.ok(
+                JSON.stringify({
+                    msg,
+                })
+            );
+        } catch (error) {
+            return Response.internalServerError(error);
+        }
+    }
+}

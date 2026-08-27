@@ -1,0 +1,145 @@
+import './fine.repository'; // Required to load the fine repository
+import './field.repository'; // Required to load the field repository
+
+import { DrugSeedlingRepository } from '@private/client/repository/drug.seedling.repository';
+import { DrugSellLocationRepository } from '@private/client/repository/drug.sell.location.repository';
+import { Command } from '@public/core/decorators/command';
+import { Operation } from 'fast-json-patch';
+
+import { Once, OnceStep, OnEvent } from '../../core/decorators/event';
+import { Inject, MultiInject } from '../../core/decorators/injectable';
+import { Provider } from '../../core/decorators/provider';
+import { OnceLoader } from '../../core/loader/once.loader';
+import { Logger } from '../../core/logger';
+import { ClientEvent } from '../../shared/event';
+import { NuiDispatch } from '../nui/nui.dispatch';
+import { BillboardRepository } from './billboard.repository';
+import { ElevatorRepository } from './elevator.repository';
+import { FuelStationRepository } from './fuel.station.repository';
+import { GarageRepository } from './garage.repository';
+import { RaceRepository } from './race.repository';
+import { Repository } from './repository';
+import { UnderTypesShopRepository } from './under_types.shop.repository';
+import { UpwChargerRepository } from './upw.station.repository';
+
+@Provider()
+export class RepositoryProvider {
+    @Inject(GarageRepository)
+    private garageRepository: GarageRepository;
+
+    @Inject(FuelStationRepository)
+    private fuelStationRepository: FuelStationRepository;
+
+    @Inject(UpwChargerRepository)
+    private upwChargerRepository: UpwChargerRepository;
+
+    @Inject(UnderTypesShopRepository)
+    private underTypesShopRepository: UnderTypesShopRepository;
+
+    @Inject(DrugSeedlingRepository)
+    private drugSeedlingRepository: DrugSeedlingRepository;
+
+    @Inject(DrugSellLocationRepository)
+    private drugSellLocationRepository: DrugSellLocationRepository;
+
+    @Inject(RaceRepository)
+    private raceRepository: RaceRepository;
+
+    @Inject(ElevatorRepository)
+    private elevatorRepository: ElevatorRepository;
+
+    @Inject(BillboardRepository)
+    private billboardRepository: BillboardRepository;
+
+    @Inject(OnceLoader)
+    private onceLoader: OnceLoader;
+
+    @MultiInject(Repository)
+    private repositories: Repository<any>[];
+
+    @Inject(NuiDispatch)
+    private nuiDispatch: NuiDispatch;
+
+    @Inject(Logger)
+    private logger: Logger;
+
+    @Once(OnceStep.PlayerLoaded)
+    public async onRepositoryStart() {
+        await this.garageRepository.load();
+        await this.fuelStationRepository.load();
+        await this.upwChargerRepository.load();
+        await this.underTypesShopRepository.load();
+        await this.drugSeedlingRepository.load();
+        await this.drugSellLocationRepository.load();
+        await this.billboardRepository.load();
+
+        for (const repository of this.repositories) {
+            const type = repository.type;
+            const data = await repository.init();
+
+            this.nuiDispatch.dispatch('repository', 'Set', { type, data });
+        }
+
+        this.onceLoader.trigger(OnceStep.RepositoriesLoaded);
+    }
+
+    @Command('reloadnuirepo')
+    @Once(OnceStep.NuiLoaded)
+    public async onNuiLoaded() {
+        for (const repository of this.repositories) {
+            const type = repository.type;
+            const data = repository.raw();
+
+            this.nuiDispatch.dispatch('repository', 'Set', { type, data });
+        }
+    }
+
+    @OnEvent(ClientEvent.REPOSITORY_PATCH_DATA)
+    onPatchData(type: string, patch: Operation[]) {
+        const repository = this.repositories.find(repository => repository.type === type);
+
+        if (!repository) {
+            return;
+        }
+
+        if (!repository.isInitialized) {
+            return;
+        }
+
+        try {
+            const type = repository.type;
+            repository.patch(patch);
+
+            this.nuiDispatch.dispatch('repository', 'Patch', { type, patch });
+        } catch (e) {
+            this.logger.error(`Error while patching repository ${type} ${e} ${JSON.stringify(patch)}`);
+        }
+    }
+
+    @OnEvent(ClientEvent.REPOSITORY_SYNC_DATA)
+    onSyncData(repositoryName: string, data: any) {
+        switch (repositoryName) {
+            case 'garage':
+                this.garageRepository.update(data);
+                break;
+            case 'fuelStation':
+                this.fuelStationRepository.update(data);
+                break;
+            case 'upwCharger':
+                this.upwChargerRepository.update(data);
+                break;
+            case 'underTypesShop':
+                this.underTypesShopRepository.update(data);
+                break;
+            case 'drugSeedling':
+                this.drugSeedlingRepository.update(data);
+                break;
+            case 'drugSellLocation':
+                this.drugSellLocationRepository.update(data);
+                break;
+            case 'billboard':
+                this.billboardRepository.update(data);
+                break;
+        }
+    }
+}

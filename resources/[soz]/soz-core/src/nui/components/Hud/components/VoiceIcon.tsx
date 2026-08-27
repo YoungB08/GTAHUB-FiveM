@@ -1,0 +1,48 @@
+import { animated, useSpring } from '@react-spring/web';
+import { FunctionComponent, useEffect, useState } from 'react';
+
+import { useAssetPath } from '../../../hook/assets';
+import { useZoom } from '../hooks/useZoom';
+
+export const VoiceIcon: FunctionComponent<{ icon: string; disableAutoHide?: boolean }> = ({
+    icon,
+    disableAutoHide,
+}) => {
+    const [show, setShow] = useState(true);
+    const [timeout, initTimeout] = useState<NodeJS.Timeout>(null);
+
+    const { getPath } = useAssetPath();
+    const { width, height } = useZoom();
+
+    useEffect(() => {
+        clearTimeout(timeout);
+        setShow(true);
+
+        initTimeout(
+            setTimeout(() => {
+                setShow(disableAutoHide);
+            }, 3000)
+        );
+    }, [icon, disableAutoHide]);
+
+    const styles = useSpring({
+        from: {
+            opacity: 0,
+        },
+        to: {
+            opacity: show ? 1 : 0,
+        },
+    });
+
+    return (
+        <animated.div
+            className="bg-cover bg-center"
+            style={{
+                ...styles,
+                width,
+                height,
+                backgroundImage: `url(${getPath(`images/hud/voice/${icon}.webp`)})`,
+            }}
+        />
+    );
+};
