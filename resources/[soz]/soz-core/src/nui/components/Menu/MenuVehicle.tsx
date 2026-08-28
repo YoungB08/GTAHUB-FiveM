@@ -24,12 +24,12 @@ type MenuVehicleProps = {
 };
 
 const DoorLabel: Record<number, string> = {
-    0: 'Conducteur avant',
-    1: 'Passager avant',
-    2: 'Conducteur arrière',
-    3: 'Passager arrière',
-    4: 'Capot',
-    5: 'Coffre',
+    0: 'Cửa trước bên lái',
+    1: 'Cửa trước bên phụ',
+    2: 'Cửa sau bên lái',
+    3: 'Cửa sau bên phụ',
+    4: 'Nắp ca-pô',
+    5: 'Cốp sau',
 };
 
 export const MenuVehicle: FunctionComponent<MenuVehicleProps> = ({ data }) => {
@@ -88,20 +88,20 @@ export const MenuVehicle: FunctionComponent<MenuVehicleProps> = ({ data }) => {
     return (
         <Menu type={MenuType.Vehicle}>
             <MainMenu>
-                <MenuTitle title="Véhicule" />
+                <MenuTitle title="Phương tiện" />
                 <MenuContent>
                     {data.isDriver && (
                         <MenuItemCheckbox onChange={onVehicleEngineChange} checked={data.engineOn}>
-                            Moteur allumé
+                            Nổ máy xe
                         </MenuItemCheckbox>
                     )}
                     {data.isDriver && data.hasNeon && (
                         <MenuItemCheckbox onChange={onNeonLightStatusChange} checked={data.neonLightsStatus}>
-                            Néons allumés
+                            Đèn Neon gầm xe
                         </MenuItemCheckbox>
                     )}
                     {data.hasRadio && (
-                        <MenuItemButton onConfirm={() => onRadioLongRange()}>Radio longue portée</MenuItemButton>
+                        <MenuItemButton onConfirm={() => onRadioLongRange()}>Bộ đàm tầm xa</MenuItemButton>
                     )}
                     {data.isDriver && (
                         <>
@@ -110,63 +110,63 @@ export const MenuVehicle: FunctionComponent<MenuVehicleProps> = ({ data }) => {
                                     onSpeedLimit(value);
                                 }}
                                 value={data.speedLimit}
-                                title="Limiteur de vitesse"
+                                title="Giới hạn tốc độ"
                                 titleWidth={50}
                             >
-                                <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
-                                <MenuItemSelectOption value={50}>50km/h</MenuItemSelectOption>
-                                <MenuItemSelectOption value={90}>90km/h</MenuItemSelectOption>
-                                <MenuItemSelectOption value={110}>110km/h</MenuItemSelectOption>
-                                <MenuItemSelectOption value={130}>130km/h</MenuItemSelectOption>
-                                <MenuItemSelectOption value={-1}>Vitesse actuelle</MenuItemSelectOption>
-                                <MenuItemSelectOption value={-2}>Personnalisé</MenuItemSelectOption>
+                                <MenuItemSelectOption value={null}>Không giới hạn</MenuItemSelectOption>
+                                <MenuItemSelectOption value={50}>50 km/h</MenuItemSelectOption>
+                                <MenuItemSelectOption value={90}>90 km/h</MenuItemSelectOption>
+                                <MenuItemSelectOption value={110}>110 km/h</MenuItemSelectOption>
+                                <MenuItemSelectOption value={130}>130 km/h</MenuItemSelectOption>
+                                <MenuItemSelectOption value={-1}>Tốc độ hiện tại</MenuItemSelectOption>
+                                <MenuItemSelectOption value={-2}>Tùy chỉnh</MenuItemSelectOption>
                             </MenuItemSelect>
-                            <MenuItemSubMenuLink id="door">Gestion des portes</MenuItemSubMenuLink>
+                            <MenuItemSubMenuLink id="door">Điều khiển cửa xe</MenuItemSubMenuLink>
                             {data.insideLSCustom && (
                                 <MenuItemButton onConfirm={() => onOpenLSCustom(LSCustomMode.LsCustom)}>
-                                    LS Custom
+                                    Xưởng độ xe (LS Custom)
                                 </MenuItemButton>
                             )}
                             {data.insideLSCustom && !data.onDutyNg && (
                                 <MenuItemButton
                                     onConfirm={() => onPitStop(data.pitstopPrice)}
-                                    description={`Prix: ${getPrice(data.pitstopPrice, TaxType.SERVICE)} $`}
+                                    description={`Chi phí: ${getPrice(data.pitstopPrice, TaxType.SERVICE)} $`}
                                 >
-                                    Pit Stop
+                                    Sửa chữa nhanh (Pit Stop)
                                 </MenuItemButton>
                             )}
                             {data.crimiCustom && (
                                 <MenuItemButton onConfirm={() => onOpenBennysUpgrade(LSCustomMode.CrimiCusto)}>
-                                    Modifier l'apparence
+                                    Độ ngoại thất xe
                                 </MenuItemButton>
                             )}
                             {data.crimiPerformance && (
                                 <MenuItemButton onConfirm={() => onOpenLSCustom(LSCustomMode.CrimiPerfo)}>
-                                    Modifier les performances
+                                    Nâng cấp hiệu suất động cơ
                                 </MenuItemButton>
                             )}
                         </>
                     )}
                     {data.isDriver && data.isBoat && (
                         <MenuItemCheckbox onChange={onAnchorChange} checked={data.isAnchor}>
-                            Ancre baissée
+                            Thả neo thuyền
                         </MenuItemCheckbox>
                     )}
                     {data.police && (
                         <MenuItemCheckbox onChange={onPoliceDisplay} checked={data.policeLocator}>
-                            Affichage des patrouilles
+                            Định vị tuần tra
                         </MenuItemCheckbox>
                     )}
                     {data.canGyro && (
                         <MenuItemCheckbox onChange={onGyro} checked={data.hasGyro}>
-                            Gyrophare
+                            Còi & Đèn ưu tiên (Gyrophare)
                         </MenuItemCheckbox>
                     )}
                 </MenuContent>
             </MainMenu>
             <SubMenu id="door">
-                <MenuTitle title="Véhicule" />
-                <MenuContent subtitle="Gestion des portes">
+                <MenuTitle title="Phương tiện" />
+                <MenuContent subtitle="Điều khiển cửa xe">
                     {Object.entries(data.doorStatus).map(([door, status]) => {
                         return (
                             <MenuItemCheckbox

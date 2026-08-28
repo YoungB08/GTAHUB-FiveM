@@ -29,22 +29,22 @@ type GouvJobMenuProps = {
 };
 
 export const TAX_DESCRIPTION_ITEMS: Record<TaxType, string[]> = {
-    [TaxType.HOUSING]: ["Achat d'une habitation.", "Amélioration d'une habitation.", 'Achat de meubles.'],
+    [TaxType.HOUSING]: ['Mua bất động sản / nhà ở.', 'Nâng cấp và cải tạo nhà ở.', 'Mua sắm nội thất gia đình.'],
     [TaxType.VEHICLE]: [
-        'Achat de véhicule aux concessionnaires classique, luxe, bateau, hélicoptère, moto et entreprise.',
-        'Amélioration des véhicules au LS Custom.',
-        'Utilisation du lavomatique.',
-        'Passage des permis de conduire.',
+        'Mua phương tiện tại đại lý thông thường, xe sang, du thuyền, trực thăng, mô tô và xe công vụ.',
+        'Độ và nâng cấp xe tại LS Customs.',
+        'Sử dụng dịch vụ rửa xe tự động.',
+        'Thi và cấp các loại bằng lái xe.',
     ],
-    [TaxType.GREEN]: ['Achat de véhicule au concessionnaire électrique.'],
-    [TaxType.FOOD]: ['Achat dans les superettes.'],
-    [TaxType.WEAPON]: ["Achat à l'armurerie.", "Modification d'arme à l'armurerie."],
-    [TaxType.SUPPLY]: ['Achat de vêtements.', 'Achat chez le tatoueur.', 'Achat chez le coiffeur.'],
-    [TaxType.TRAVEL]: ["Achat d'un déplacement de véhicule entre Cayo Perico et San Andreas."],
+    [TaxType.GREEN]: ['Mua phương tiện giao thông thuần điện (bảo vệ môi trường).'],
+    [TaxType.FOOD]: ['Mua sắm tại các siêu thị, cửa hàng tiện lợi 24/7.'],
+    [TaxType.WEAPON]: ['Mua sắm tại cửa hàng vũ khí Ammu-Nation.', 'Nâng cấp và tinh chỉnh phụ kiện súng.'],
+    [TaxType.SUPPLY]: ['Mua sắm quần áo và trang phục.', 'Xăm hình nghệ thuật.', 'Cắt tóc và tạo mẫu tại Salon.'],
+    [TaxType.TRAVEL]: ['Phí vận chuyển phương tiện giữa đảo Cayo Perico và San Andreas.'],
     [TaxType.SERVICE]: [
-        "Achat auprès du médecin d'urgence.",
-        "Achat auprès du réparateur d'urgence.",
-        "Achat d'un abonnement sportif à Muscle Peach.",
+        'Dịch vụ khám chữa bệnh và cấp cứu y tế khẩn cấp.',
+        'Dịch vụ cứu hộ giao thông và sửa chữa khẩn cấp.',
+        'Thẻ thành viên tập gym thể hình Muscle Peach.',
     ],
 };
 
@@ -62,7 +62,7 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.gouv} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực chính quyền.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -79,18 +79,18 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                             await fetchNui(NuiEvent.GouvAnnoncement);
                         }}
                     >
-                        Faire une communication
+                        Phát thông cáo chính phủ
                     </MenuItemButton>
-                    {taxAllowed && <MenuItemSubMenuLink id="tax">Taxes</MenuItemSubMenuLink>}
-                    {taxAllowed && <MenuItemSubMenuLink id="tier">Seuils d'impôts</MenuItemSubMenuLink>}
-                    {fineAllowed && <MenuItemSubMenuLink id="fine">Amendes</MenuItemSubMenuLink>}
+                    {taxAllowed && <MenuItemSubMenuLink id="tax">Thuế suất</MenuItemSubMenuLink>}
+                    {taxAllowed && <MenuItemSubMenuLink id="tier">Hạn mức thuế thu nhập</MenuItemSubMenuLink>}
+                    {fineAllowed && <MenuItemSubMenuLink id="fine">Mức phạt hành chính</MenuItemSubMenuLink>}
                     <MenuItemCheckbox
                         checked={data.displayRadar}
                         onChange={async value => {
                             await fetchNui(NuiEvent.ToggleRadar, value);
                         }}
                     >
-                        Afficher les radars sur le GPS
+                        Hiển thị radar đo tốc độ trên GPS
                     </MenuItemCheckbox>
                     {data.updateSenatSalary && (
                         <MenuItemButton
@@ -99,7 +99,7 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                             }}
                         >
                             <div className="pr-2 flex items-center justify-between">
-                                <span>Salaire de Sénateurs</span>
+                                <span>Lương Nghị sĩ / Quan chức</span>
                                 <span>{gouv.SenatSalary}$</span>
                             </div>
                         </MenuItemButton>
@@ -108,7 +108,7 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
             </MainMenu>
             <SubMenu id="tax">
                 <MenuTitle title={JobLabel.gouv} />
-                <MenuContent subtitle="Les taxes">
+                <MenuContent subtitle="Thuế suất hiện hành">
                     {Object.values(TaxType).map(taxType => {
                         const tax = taxData[taxType] ?? { id: taxType, value: 11 };
 
@@ -122,8 +122,8 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 }}
                                 description={
                                     <div className="text-sm">
-                                        <h5 className="underline  decoration-solid">
-                                            Cette taxe regroupe les services suivant :{' '}
+                                        <h5 className="underline decoration-solid">
+                                            Thuế này áp dụng cho các hoạt động:
                                         </h5>
                                         <ul className="pl-7 list-disc">
                                             {TAX_DESCRIPTION_ITEMS[tax.id].map((description, index) => (
@@ -141,7 +141,7 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
             </SubMenu>
             <SubMenu id="tier">
                 <MenuTitle title={JobLabel.gouv} />
-                <MenuContent subtitle="Seuil des Impôts">
+                <MenuContent subtitle="Bậc thuế thu nhập">
                     <MenuItemSelect
                         onConfirm={(_, value) => {
                             if (value === 'amount') {
@@ -156,13 +156,13 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 });
                             }
                         }}
-                        description={`En dessous de ${Intl.NumberFormat('fr-FR').format(tier.Tier1)}$, ${
+                        description={`Dưới ${Intl.NumberFormat('vi-VN').format(tier.Tier1)}$, mức thuế: ${
                             tier.Tier1Percentage
                         }%`}
-                        title="Tier 1"
+                        title="Bậc 1"
                     >
-                        <MenuItemSelectOption value="amount">Modifier montant</MenuItemSelectOption>
-                        <MenuItemSelectOption value="percentage">Modifier pourcentage</MenuItemSelectOption>
+                        <MenuItemSelectOption value="amount">Sửa mức tiền</MenuItemSelectOption>
+                        <MenuItemSelectOption value="percentage">Sửa phần trăm thuế</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
                         onConfirm={(_, value) => {
@@ -178,13 +178,13 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 });
                             }
                         }}
-                        description={`Entre ${Intl.NumberFormat('fr-FR').format(
+                        description={`Từ ${Intl.NumberFormat('vi-VN').format(
                             tier.Tier1 + 1
-                        )}$ et ${Intl.NumberFormat('fr-FR').format(tier.Tier2)}$, ${tier.Tier2Percentage}%`}
-                        title="Tier 2"
+                        )}$ đến ${Intl.NumberFormat('vi-VN').format(tier.Tier2)}$, mức thuế: ${tier.Tier2Percentage}%`}
+                        title="Bậc 2"
                     >
-                        <MenuItemSelectOption value="amount">Modifier montant</MenuItemSelectOption>
-                        <MenuItemSelectOption value="percentage">Modifier pourcentage</MenuItemSelectOption>
+                        <MenuItemSelectOption value="amount">Sửa mức tiền</MenuItemSelectOption>
+                        <MenuItemSelectOption value="percentage">Sửa phần trăm thuế</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
                         onConfirm={(_, value) => {
@@ -200,13 +200,13 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 });
                             }
                         }}
-                        description={`Entre ${Intl.NumberFormat('fr-FR').format(
+                        description={`Từ ${Intl.NumberFormat('vi-VN').format(
                             tier.Tier2 + 1
-                        )}$ et ${Intl.NumberFormat('fr-FR').format(tier.Tier3)}$, ${tier.Tier3Percentage}%`}
-                        title="Tier 3"
+                        )}$ đến ${Intl.NumberFormat('vi-VN').format(tier.Tier3)}$, mức thuế: ${tier.Tier3Percentage}%`}
+                        title="Bậc 3"
                     >
-                        <MenuItemSelectOption value="amount">Modifier montant</MenuItemSelectOption>
-                        <MenuItemSelectOption value="percentage">Modifier pourcentage</MenuItemSelectOption>
+                        <MenuItemSelectOption value="amount">Sửa mức tiền</MenuItemSelectOption>
+                        <MenuItemSelectOption value="percentage">Sửa phần trăm thuế</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
                         onConfirm={(_, value) => {
@@ -222,13 +222,13 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 });
                             }
                         }}
-                        description={`Entre ${Intl.NumberFormat('fr-FR').format(
+                        description={`Từ ${Intl.NumberFormat('vi-VN').format(
                             tier.Tier3 + 1
-                        )}$ et ${Intl.NumberFormat('fr-FR').format(tier.Tier4)}$, ${tier.Tier4Percentage}%`}
-                        title="Tier 4"
+                        )}$ đến ${Intl.NumberFormat('vi-VN').format(tier.Tier4)}$, mức thuế: ${tier.Tier4Percentage}%`}
+                        title="Bậc 4"
                     >
-                        <MenuItemSelectOption value="amount">Modifier montant</MenuItemSelectOption>
-                        <MenuItemSelectOption value="percentage">Modifier pourcentage</MenuItemSelectOption>
+                        <MenuItemSelectOption value="amount">Sửa mức tiền</MenuItemSelectOption>
+                        <MenuItemSelectOption value="percentage">Sửa phần trăm thuế</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
                         onConfirm={(_, value) => {
@@ -238,22 +238,22 @@ export const GouvJobMenu: FunctionComponent<GouvJobMenuProps> = ({ data }) => {
                                 });
                             }
                         }}
-                        description={`Au dessus de ${Intl.NumberFormat('fr-FR').format(tier.Tier4)}$, ${
+                        description={`Trên ${Intl.NumberFormat('vi-VN').format(tier.Tier4)}$, mức thuế: ${
                             tier.Tier5Percentage
                         }%`}
-                        title="Tier 5"
+                        title="Bậc 5"
                     >
-                        <MenuItemSelectOption value="percentage">Modifier pourcentage</MenuItemSelectOption>
+                        <MenuItemSelectOption value="percentage">Sửa phần trăm thuế</MenuItemSelectOption>
                     </MenuItemSelect>
                 </MenuContent>
             </SubMenu>
             <SubMenu id="fine">
                 <MenuTitle title={JobLabel.gouv} />
-                <MenuContent subtitle="Amendes">
-                    <MenuItemSubMenuLink id="fine_1">🟢 Catégorie 1</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_2">🟡 Catégorie 2</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_3">🟠 Catégorie 3</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_4">🔴 Catégorie 4</MenuItemSubMenuLink>
+                <MenuContent subtitle="Mức phạt hành chính">
+                    <MenuItemSubMenuLink id="fine_1">🟢 Danh mục 1 (Vi phạm nhẹ)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_2">🟡 Danh mục 2 (Vi phạm trung bình)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_3">🟠 Danh mục 3 (Vi phạm nghiêm trọng)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_4">🔴 Danh mục 4 (Trọng tội)</MenuItemSubMenuLink>
                 </MenuContent>
             </SubMenu>
             <FineSubMenu category={1} />
@@ -275,7 +275,7 @@ const FineSubMenu: FunctionComponent<FineSubMenuProps> = ({ category }) => {
     return (
         <SubMenu id={`fine_${category}`}>
             <MenuTitle title={JobLabel.gouv} />
-            <MenuContent subtitle={`Amendes categorie ${category}`}>
+            <MenuContent subtitle={`Mức phạt Danh mục ${category}`}>
                 <MenuItemButton
                     onConfirm={() => {
                         fetchNui(NuiEvent.GouvFineAdd, {
@@ -283,7 +283,7 @@ const FineSubMenu: FunctionComponent<FineSubMenuProps> = ({ category }) => {
                         });
                     }}
                 >
-                    Ajouter une amende
+                    Thêm hành vi vi phạm mới
                 </MenuItemButton>
                 {finesForCategory.map(fine => (
                     <MenuItemSelect
@@ -316,10 +316,10 @@ const FineSubMenu: FunctionComponent<FineSubMenuProps> = ({ category }) => {
                             }
                         }}
                     >
-                        <MenuItemSelectOption value="label">Changer le label</MenuItemSelectOption>
-                        <MenuItemSelectOption value="min">Prix min: ${fine.price.min}</MenuItemSelectOption>
-                        <MenuItemSelectOption value="max">Prix max: ${fine.price.max}</MenuItemSelectOption>
-                        <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                        <MenuItemSelectOption value="label">Đổi tên vi phạm</MenuItemSelectOption>
+                        <MenuItemSelectOption value="min">Mức tối thiểu: ${fine.price.min}</MenuItemSelectOption>
+                        <MenuItemSelectOption value="max">Mức tối đa: ${fine.price.max}</MenuItemSelectOption>
+                        <MenuItemSelectOption value="delete">Xóa bỏ</MenuItemSelectOption>
                     </MenuItemSelect>
                 ))}
             </MenuContent>

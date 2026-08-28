@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTAHUB - Bách Khoa Toàn Thư & Hướng Dẫn Sử Dụng Tất Cả Hệ Thống (Client & Dev)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0d0205;
+            --bg-card: rgba(26, 4, 12, 0.82);
+            --bg-card-hover: rgba(42, 6, 20, 0.92);
+            --candy-red: #FF1E56;
+            --candy-glow: #FF4D79;
+            --candy-deep: #800020;
+            --candy-dark: #3a000e;
+            --text-main: #fdf2f4;
+            --text-muted: #d4a5b2;
+            --text-dim: #9e6f7c;
+            --border-glass: rgba(255, 30, 86, 0.28);
+            --border-glass-hover: rgba(255, 77, 121, 0.65);
+            --code-bg: rgba(16, 2, 7, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--candy-red) rgba(20, 3, 9, 0.6);
+        }
+
+        *::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        *::-webkit-scrollbar-track {
+            background: rgba(20, 3, 9, 0.6);
+            border-radius: 10px;
+        }
+        *::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--candy-red), var(--candy-deep));
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 30, 86, 0.5);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #22020b 0%, #0d0205 60%, #050002 100%);
+            color: var(--text-main);
+            line-height: 1.65;
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 30, 86, 0.14) 0%, rgba(255, 30, 86, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(70px);
+        }
+        .glow-1 { top: -140px; left: -140px; }
+        .glow-2 { bottom: -140px; right: -140px; }
+
+        /* Sidebar */
+        #sidebar {
+            width: 340px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: rgba(16, 2, 7, 0.94);
+            backdrop-filter: blur(24px);
+            border-right: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            padding: 22px 16px;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 30, 86, 0.2);
+            margin-bottom: 16px;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--candy-red), var(--candy-deep));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 30, 86, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #fff, var(--candy-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            background: rgba(30, 4, 14, 0.85);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--candy-glow);
+            box-shadow: 0 0 12px rgba(255, 30, 86, 0.45);
+            background: rgba(45, 6, 21, 0.95);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .role-tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(10, 1, 4, 0.7);
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 30, 86, 0.15);
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .role-btn.active {
+            background: linear-gradient(135deg, var(--candy-red), var(--candy-deep));
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(255, 30, 86, 0.4);
+        }
+
+        .nav-menu {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 4px;
+        }
+
+        .nav-category {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--candy-glow);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 16px 0 6px 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7.5px 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 30, 86, 0.12);
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 30, 86, 0.22);
+            color: #fff;
+            border-left: 3px solid var(--candy-red);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        #content {
+            flex-grow: 1;
+            padding: 36px 48px;
+            max-width: 1400px;
+            z-index: 1;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(45, 4, 20, 0.85), rgba(18, 2, 8, 0.9));
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 34px;
+            margin-bottom: 34px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(255, 30, 86, 0.12);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            border-radius: 30px;
+            background: rgba(255, 30, 86, 0.18);
+            border: 1px solid var(--border-glass-hover);
+            color: var(--candy-glow);
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .hero h2 {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #ffffff 30%, var(--candy-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            max-width: 900px;
+            line-height: 1.7;
+        }
+
+        .doc-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s ease;
+        }
+
+        .doc-section:hover {
+            border-color: var(--border-glass-hover);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 30, 86, 0.2);
+        }
+
+        .section-icon {
+            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 30, 86, 0.15);
+            border: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--candy-glow);
+        }
+
+        .section-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Step Card for HDSD */
+        .step-box {
+            background: rgba(30, 4, 14, 0.65);
+            border: 1px solid rgba(255, 30, 86, 0.2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            transition: all 0.25s ease;
+        }
+
+        .step-box:hover {
+            border-color: var(--candy-glow);
+            background: rgba(40, 6, 18, 0.85);
+            transform: translateX(4px);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--candy-red);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .step-box p, .step-box ul {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            padding-left: 34px;
+        }
+
+        .step-box ul li {
+            margin-bottom: 4px;
+        }
+
+        /* Content Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .feature-card {
+            background: rgba(35, 5, 16, 0.65);
+            border: 1px solid rgba(255, 30, 86, 0.18);
+            border-radius: 14px;
+            padding: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(48, 7, 22, 0.85);
+            border-color: var(--candy-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(255, 30, 86, 0.2);
+        }
+
+        .feature-card h4 {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        .custom-table th {
+            background: rgba(40, 5, 18, 0.85);
+            color: var(--candy-glow);
+            text-align: left;
+            padding: 11px 14px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--candy-red);
+            text-transform: uppercase;
+            font-size: 11.5px;
+            letter-spacing: 0.8px;
+        }
+
+        .custom-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid rgba(255, 30, 86, 0.12);
+            color: var(--text-main);
+        }
+
+        .custom-table tr:hover td {
+            background: rgba(255, 30, 86, 0.08);
+        }
+
+        .kbd {
+            background: rgba(255, 30, 86, 0.25);
+            border: 1px solid var(--border-glass-hover);
+            border-radius: 6px;
+            padding: 2px 7px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #fff;
+            font-size: 11.5px;
+            display: inline-block;
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid rgba(255, 30, 86, 0.25);
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            color: #ffb8c9;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 30, 86, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffa3b9;
+            font-size: 12px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 30, 86, 0.3);
+            border: 1px solid var(--border-glass);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--candy-red);
+            box-shadow: 0 0 10px rgba(255, 30, 86, 0.6);
+        }
+
+        .alert {
+            display: flex;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 14px 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .alert-candy {
+            background: rgba(255, 30, 86, 0.15);
+            border: 1px solid var(--border-glass-hover);
+            color: #ffd1dc;
+        }
+
+        .badge-status {
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 10.5px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge-active { background: rgba(16, 185, 129, 0.25); color: #34d399; border: 1px solid #10b981; }
+        .badge-hidden { background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid #f59e0b; }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            #sidebar { width: 100%; height: auto; position: relative; }
+            #content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+        <div class="brand-header" style="justify-content: center; padding: 12px 10px;">
+            <img src="logo2.png" alt="GTAHUB" style="max-height: 46px; max-width: 100%; filter: drop-shadow(0 0 14px rgba(255, 30, 86, 0.7)); object-fit: contain;">
+        </div>
+
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="docSearch" placeholder="Tìm kiếm hệ thống, HDSD..." onkeyup="filterContent()">
+        </div>
+
+        <div class="role-tabs">
+            <button class="role-btn active" onclick="switchTab('player')">🎮 HDSD Tất Cả Hệ Thống</button>
+            <button class="role-btn" onclick="switchTab('dev')">🛠️ Kỹ Thuật Dev/Admin</button>
+        </div>
+
+        <nav class="nav-menu" id="navMenu">
+            <div class="client-links">
+                <div class="nav-category">1. Cốt Lõi & Sinh Tồn</div>
+                <a href="#sys-quickstart" class="nav-link">🚀 1. Phím Tắt & Tương Tác Eye</a>
+                <a href="#sys-character" class="nav-link">👤 2. Nhân Vật, Tiệm Tóc & Xăm</a>
+                <a href="#sys-survival" class="nav-link">❤️ 3. Sinh Tồn, Thể Lực & Stress</a>
+                <a href="#sys-inventory" class="nav-link">🎒 4. Túi Đồ & Giám Định Pháp Y</a>
+                <a href="#sys-zphone" class="nav-link">📱 5. Điện Thoại ZPhone Toàn Diện</a>
+                <a href="#sys-watch" class="nav-link">⌚ 6. Đồng Hồ & HUD Candy Red</a>
+
+                <div class="nav-category">2. Tài Sản & Đời Sống</div>
+                <a href="#sys-vehicles" class="nav-link">🚗 7. Xe Cộ, Gara & Độ Xe Benny's</a>
+                <a href="#sys-housing" class="nav-link">🏡 8. Bất Động Sản & Xếp Đồ 3D</a>
+                <a href="#sys-pets" class="nav-link">🐕 9. Thú Cưng & Chó K9</a>
+                <a href="#sys-bank" class="nav-link">💳 10. Ngân Hàng Fleeca & ATM</a>
+                <a href="#sys-voip" class="nav-link">📻 11. Bộ Đàm Radio & Voice 3D</a>
+
+                <div class="nav-category">3. Thế Giới Ngầm & Giải Trí</div>
+                <a href="#sys-drugs" class="nav-link">🌿 12. Vườn Ươm & Bào Chế Ma Túy</a>
+                <a href="#sys-games" class="nav-link">🔫 13. Laser Tag, Đua Xe & Câu Cá</a>
+                <a href="#sys-disasters" class="nav-link">🌪️ 14. Thảm Họa Tự Nhiên & Event</a>
+                <a href="#sys-alljobs" class="nav-link">💼 15. Cẩm Nang 16+ Nghề Nghiệp</a>
+            </div>
+
+            <div class="dev-links" style="display: none;">
+                <div class="nav-category">1. Kỹ Thuật & Cấu Trúc</div>
+                <a href="#dev-arch" class="nav-link">🏛️ Kiến Trúc Hệ Thống</a>
+                <a href="#dev-db" class="nav-link">🗄️ Database & Prisma ORM</a>
+                <a href="#dev-build" class="nav-link">⚙️ Quy Trình Biên Dịch Build</a>
+
+                <div class="nav-category">2. Quản Trị & Event Ẩn</div>
+                <a href="#dev-flags" class="nav-link">🚩 Bật / Tắt Feature Flags</a>
+                <a href="#dev-mappings" class="nav-link">🗺️ Kích Hoạt Mapping Ẩn</a>
+                <a href="#dev-admin" class="nav-link">👑 Lệnh & Menu Admin</a>
+                <a href="#dev-troubleshoot" class="nav-link">🔧 Xử Lý Sự Cố (Fix Bug)</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main id="content">
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-badge">✨ GTAHUB VIỆT NAM • CANDY RED EDITION</div>
+            <h2>Sổ Tay Hướng Dẫn Sử Dụng Toàn Bộ Hệ Thống (All Systems Manual)</h2>
+            <p>Tài liệu bách khoa toàn thư giải thích cặn kẽ từng cơ chế, hướng dẫn từng bước (Step-by-step) cách sử dụng <b>100% tất cả hệ thống</b> có trong Server GTAHUB.</p>
+        </div>
+
+        <!-- ==================== HDSD TOÀN BỘ HỆ THỐNG ==================== -->
+        <div id="playerSection">
+
+            <!-- 1. PHÍM TẮT & EYE TARGET -->
+            <section id="sys-quickstart" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🚀</div>
+                    <div class="section-title">1. Hệ Thống Phím Tắt & Tương Tác Eye Target</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Cơ Chế Eye Target (Tâm Mắt Tương Tác)</div>
+                    <p>Giữ phím <span class="kbd">ALT</span> bên trái, một vòng tròn đỏ Candy sẽ xuất hiện giữa màn hình. Rê tâm mắt vào bất kỳ đối tượng nào (NPC, xe cộ, cây xăng, cửa hàng, người chơi khác, đồ đạc) để hiện các nút lựa chọn tương tác bằng chuột.</p>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Phím Tắt</th>
+                            <th>Hệ Thống Mở</th>
+                            <th>Mục Đích Sử Dụng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="kbd">F1</span></td><td>Điện Thoại ZPhone</td><td>Gọi điện, nhắn tin, chuyển tiền, chợ trời, chụp ảnh, darkweb.</td></tr>
+                        <tr><td><span class="kbd">F2</span></td><td>Menu Cá Nhân</td><td>Cài đặt dáng đi, emote hành động, tâm trạng, âm lượng voice, HUD.</td></tr>
+                        <tr><td><span class="kbd">F3</span> / <span class="kbd">TAB</span></td><td>Túi Đồ (Inventory)</td><td>Kéo thả đồ đạc, gán phím tắt nhanh 1-5, kiểm tra trọng lượng.</td></tr>
+                        <tr><td><span class="kbd">F5</span></td><td>Đồng Hồ Thông Minh</td><td>Kiểm tra sơ đồ vết thương, nhịp tim, mức độ stress, thể lực.</td></tr>
+                        <tr><td><span class="kbd">M</span></td><td>Điều Khiển Phương Tiện</td><td>Nổ máy, bật đèn Neon, mở cốp xe, giới hạn tốc độ, hạ kính.</td></tr>
+                        <tr><td><span class="kbd">K</span></td><td>Khóa Cửa Xe Từ Xa</td><td>Đóng / Mở khóa xe cá nhân từ xa không cần lại gần.</td></tr>
+                        <tr><td><span class="kbd">N</span></td><td>Nói Chuyện Voice</td><td>Voice 3D cự ly gần / bình thường / hét to.</td></tr>
+                        <tr><td><span class="kbd">SHIFT</span> + <span class="kbd">H</span></td><td>Đổi Cự Ly Nói</td><td>Chuyển đổi bán kính nói: 1.5m (Thì thầm) - 5m (Bình thường) - 15m (Hét to).</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 2. NHÂN VẬT & LÀM ĐẸP -->
+            <section id="sys-character" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <div class="section-title">2. Hệ Thống Nhân Vật, Tiệm Tóc, Quần Áo & Xăm Hình</div>
+                </div>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4>✂️ Tiệm Cắt Tóc & Spa</h4>
+                        <p>Tùy chỉnh kiểu tóc 3D, nhuộm màu chính và màu highlight, cạo họa tiết chân tóc (Scalp), tỉa râu, trang điểm son môi, phấn má và màu tròng mắt.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👗 Tiệm Quần Áo & Tủ Đồ</h4>
+                        <p>Hàng ngàn mẫu trang phục nhập khẩu độc quyền. Bạn có thể lưu các bộ trang phục vào Tủ Đồ Cá Nhân (Wardrobe) để thay nhanh bất cứ lúc nào.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💉 Tiệm Xăm Nghệ Thuật</h4>
+                        <p>Xăm hình nghệ thuật lên từng vùng cơ thể (Tay trái, tay phải, ngực, lưng, chân, cổ, mặt) với độ sắc nét cao.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. SINH TỒN & SỨC KHỎE -->
+            <section id="sys-survival" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">❤️</div>
+                    <div class="section-title">3. Hệ Thống Sinh Tồn, Thể Lực, Mức Stress & Sơ Đồ Vết Thương</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">!</span> Cơ Chế Sinh Tồn Thực Tế</div>
+                    <ul>
+                        <li><b>Đói & Khát:</b> Khi thanh Đói/Khát giảm xuống dưới 10%, màn hình sẽ mờ dần và nhân vật mất máu. Cần mua thức ăn/nước uống tại Siêu thị 24/7 hoặc Nhà hàng Château Marius.</li>
+                        <li><b>Căng Thẳng (Stress):</b> Lái xe tốc độ cao, bắn súng hoặc bị thương sẽ làm tăng Stress (màn hình rung lắc, tim đập nhanh). Để giảm Stress: Ăn đồ ăn ngon, tập gym, nhảy múa hoặc nghỉ ngơi.</li>
+                        <li><b>Thể Lực (Stamina):</b> Chạy bộ, bơi lội tiêu hao Stamina. Tập luyện thể hình tại phòng gym Muscle Peach giúp tăng thanh thể lực tối đa.</li>
+                        <li><b>Sơ Đồ Thương Tật 3D (Injury Tracker):</b> Bị bắn vào tay sẽ run tay không nhắm chuẩn; bị gãy chân sẽ đi tập tễnh không thể chạy; trúng đạn vào đầu cần Bác sĩ phẫu thuật ngay lập tức.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 4. TÚI ĐỒ & GIÁM ĐỊNH PHÁP Y -->
+            <section id="sys-inventory" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🎒</div>
+                    <div class="section-title">4. Hệ Thống Túi Đồ & Giám Định Pháp Y (Inventory)</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Cách Sử Dụng Túi Đồ</div>
+                    <ul>
+                        <li>Nhấn <span class="kbd">F3</span> hoặc <span class="kbd">TAB</span> để mở Túi Đồ cá nhân.</li>
+                        <li><b>Kéo Thả Vào Phím Tắt:</b> Kéo súng, băng gạc, đồ ăn vào các ô số <b>1, 2, 3, 4, 5</b> để bấm phím số dùng nhanh.</li>
+                        <li><b>Chuột Phải Vào Vật Phẩm:</b> Mở menu hành động gồm: <i>Sử dụng, Cho xem, Vứt bỏ, Chia nhỏ số lượng, Chuyển tiền mặt, Khám nghiệm pháp y</i>.</li>
+                        <li><b>Hạn Sử Dụng:</b> Mỗi món đồ ăn, dược phẩm đều có ngày hết hạn in trên nhãn chi tiết định dạng <code>vi-VN</code>.</li>
+                    </ul>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">2</span> Hồ Sơ Pháp Y (Forensics)</div>
+                    <p>Khi Cảnh sát dùng bộ dụng cụ khám nghiệm lên vũ khí hoặc vết máu tại hiện trường, hệ thống sẽ trích xuất: <b>Mã vân tay nghi phạm</b>, <b>Cỡ đạn đã bắn</b>, <b>Số series súng</b> và <b>Thời điểm nổ súng</b>.</p>
+                </div>
+            </section>
+
+            <!-- 5. ĐIỆN THOẠI ZPHONE -->
+            <section id="sys-zphone" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">📱</div>
+                    <div class="section-title">5. Điện Thoại Thông Minh ZPhone (HDSD Chi Tiết)</div>
+                </div>
+                <p>Nhấn <span class="kbd">F1</span> để mở điện thoại. Dưới đây là hướng dẫn sử dụng từng ứng dụng:</p>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4>📞 Cuộc Gọi & Danh Bạ</h4>
+                        <p>Nhập số điện thoại để gọi trực tiếp, bật loa ngoài, gửi vị trí GPS hiện tại cho người đang đàm thoại.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💬 Tin Nhắn SMS</h4>
+                        <p>Nhắn tin theo thời gian thực, đính kèm hình ảnh chụp từ máy ảnh điện thoại và gửi định vị GPS 1 chạm.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💳 Ngân Hàng Fleeca</h4>
+                        <p>Nhập số tài khoản người nhận để chuyển khoản tức thì, kiểm tra lịch sử biến động số dư và thanh toán hóa đơn.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🛒 Chợ Rao Vặt</h4>
+                        <p>Đăng tin bán xe cộ, nhà cửa, súng ống kèm ảnh thực tế. Người mua có thể nhấn gọi hoặc nhắn tin trực tiếp cho người bán.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📸 Máy Ảnh & Camera</h4>
+                        <p>Chụp ảnh toàn cảnh góc nhìn thứ nhất, chế độ Selfie và lưu vào album ảnh kỷ niệm của nhân vật.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🕶️ DarkWeb</h4>
+                        <p>Diễn đàn chợ đen ẩn danh dành cho giới tội phạm trao đổi thông tin mật, giao dịch hàng cấm và công thức chế tạo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. ĐỒNG HỒ & HUD -->
+            <section id="sys-watch" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">⌚</div>
+                    <div class="section-title">6. Đồng Hồ Thông Minh (Watch) & HUD Candy Red</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Cách Tùy Chỉnh Giao Diện HUD</div>
+                    <ul>
+                        <li>Nhấn <span class="kbd">F5</span> để mở Menu Đồng Hồ Thông Minh.</li>
+                        <li><b>Chọn Chủ Đề Màu:</b> Chọn giao diện <i>Glassmorphism Candy Red</i> phong cách Neon sang trọng.</li>
+                        <li><b>Thu Phóng Giao Diện:</b> Chỉnh kích thước HUD đồng hồ và túi đồ (50%, 75%, 100%, 125%, 150%).</li>
+                        <li><b>Bật / Tắt Các Tiện Ích:</b> Tùy ý bật tắt <i>La bàn, Mức độ Stress, Thanh Stamina, Sơ đồ thương tật cơ thể, Tên đường & Vị trí</i>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. XE CỘ & GARA -->
+            <section id="sys-vehicles" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🚗</div>
+                    <div class="section-title">7. Hệ Thống Phương Tiện, Gara & Độ Xe Benny's</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Mua Xe & Gara Cất Giữ</div>
+                    <ul>
+                        <li>Đến Showroom Concessionaire để xem xe, lái thử và thanh toán mua xe vào tài khoản cá nhân.</li>
+                        <li>Cất và lấy xe tại các <b>Gara Công Cộng</b> (được bảo dưỡng miễn phí) hoặc Gara riêng tại nhà.</li>
+                        <li>Nếu xe bị Cảnh sát tạm giữ hoặc bị kéo đi, hãy đến <b>Bãi Tạm Giữ / Chuộc Xe (Pound)</b> để nộp phạt chuộc xe.</li>
+                    </ul>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">2</span> Độ Xe & Nâng Cấp Hiệu Năng</div>
+                    <ul>
+                        <li>Đưa xe vào xưởng độ <b>Benny's / LS Customs</b> để nâng cấp: <i>Động cơ cấp 1-4, Phanh gốm, Giảm xóc hạ gầm, Giáp bọc xe, Tăng áp Turbo</i>.</li>
+                        <li>Chuyển đổi sang <b>Hộp số sàn (Manual Gearbox)</b> để drift mượt mà và kiểm soát vòng tua máy tối ưu.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 8. BẤT ĐỘNG SẢN & XẾP ĐỒ 3D -->
+            <section id="sys-housing" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🏡</div>
+                    <div class="section-title">8. Bất Động Sản & Tự Do Xếp Đồ 3D (ZKEA)</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Mua Nhà & Chia Phòng</div>
+                    <p>Đến các biểu tượng ngôi nhà trên bản đồ để xem chi tiết căn hộ, giá mua, giá thuê và số lượng slot gara xe đính kèm. Bạn có thể thêm Bạn Cùng Phòng (Roommate) để cùng sinh sống.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">2</span> Mua Đồ ZKEA & Kê Đặt 3D</div>
+                    <p>Đến siêu thị Nội thất ZKEA mua sắm đồ đạc. Khi ở trong nhà, mở menu trang trí nội thất để dùng trục điều khiển 3D Gizmo xoay, di chuyển và đặt nội thất vào vị trí mong muốn.</p>
+                </div>
+            </section>
+
+            <!-- 9. THÚ CƯNG & CHÓ K9 -->
+            <section id="sys-pets" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🐕</div>
+                    <div class="section-title">9. Hệ Thống Thú Cưng & Chó Nghiệp Vụ K9</div>
+                </div>
+                <div class="grid-2">
+                    <div class="feature-card">
+                        <h4>🐩 Thú Cưng Cá Nhân</h4>
+                        <p>Mua thú cưng tại Pet Shop, đặt tên và chăm sóc 5 chỉ số: <b>Đói, Khát, Thể lực, Tình cảm, Huấn luyện</b>. Thú cưng sẽ đi theo bạn và làm các trò xiếc đáng yêu.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🐕‍🦺 Chó Nghiệp Vụ K9 Cảnh Sát</h4>
+                        <p>Dành riêng cho lực lượng cảnh sát: Ra lệnh K9 đánh hơi phát hiện ma túy trên người đối tượng, tìm chất cấm giấu trong xe và truy đuổi khống chế tội phạm.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. NGÂN HÀNG & ATM -->
+            <section id="sys-bank" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">💳</div>
+                    <div class="section-title">10. Hệ Thống Ngân Hàng Fleeca & Cây Rút Tiền ATM</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Sử Dụng Cây ATM & Ngân Hàng</div>
+                    <ul>
+                        <li><b>Rút Tiền ATM:</b> Đến bất kỳ cây ATM nào trên đường phố để rút tiền mặt mang theo người. Mỗi cây ATM có hạn mức tiền mặt tối đa riêng.</li>
+                        <li><b>Chuyển Khoản Trụ Sở:</b> Đến quầy giao dịch Ngân Hàng Fleeca để chuyển các khoản tiền lớn, quản lý tài khoản doanh nghiệp hoặc tài khoản Hải ngoại (Offshore).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 11. BỘ ĐÀM & VOICE -->
+            <section id="sys-voip" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">📻</div>
+                    <div class="section-title">11. Hệ Thống Bộ Đàm Radio & Voice 3D Mumble</div>
+                </div>
+                <p>Trang bị Radio trong túi đồ, nhấn chuột phải để mở giao diện Bộ đàm: Nhập tần số liên lạc (ví dụ: <code>101.5</code>) để nói chuyện với đồng đội trong cùng kênh.</p>
+            </section>
+
+            <!-- 12. MA TÚY & THẾ GIỚI NGẦM -->
+            <section id="sys-drugs" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🌿</div>
+                    <div class="section-title">12. Hệ Thống Vườn Ươm, Bào Chế Ma Túy & Thế Giới Ngầm</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-header"><span class="step-number">1</span> Quy Trình Trồng Trọt & Bào Chế Hàng Cấm</div>
+                    <ul>
+                        <li><b>Vườn Ươm (Drug Garden):</b> Thuê hoặc tìm các khu vườn ngầm bí mật, gieo hạt giống, kiểm soát nhiệt độ, độ ẩm và bón phân để đạt độ chín 100%.</li>
+                        <li><b>Bào Chế (Drug Recipes):</b> Đưa nguyên liệu vào bàn thí nghiệm để tinh chế thành các loại ma túy tinh chất.</li>
+                        <li><b>Hợp Đồng Vận Chuyển (Heavy Contracts):</b> Nhận nhiệm vụ giao hàng đen đến các địa điểm bí mật để nhận tiền bẩn (Marked Money).</li>
+                        <li><b>Rửa Tiền:</b> Chuyển tiền bẩn về các điểm rửa tiền hoặc tài khoản Offshore để hợp pháp hóa thành tiền sạch.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 13. MINI-GAMES & GIẢI TRÍ -->
+            <section id="sys-games" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🔫</div>
+                    <div class="section-title">13. Đấu Trường Laser Tag, Đua Xe & Giải Trí</div>
+                </div>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4>🎯 Đấu Trường Laser Tag</h4>
+                        <p>Sân đấu súng laser chia 2 phe (Đỏ vs Xanh), trang bị súng laser và áo giáp cảm ứng đếm điểm thi đấu.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏁 Đua Xe Đường Phố</h4>
+                        <p>Tạo các chặng đua checkpoint quanh thành phố, đọ thời gian bấm giờ và ghi danh vào Bảng xếp hạng kỷ lục.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⛵ Thuê Thuyền Buồm</h4>
+                        <p>Đến bến cảng thuê thuyền buồm Marquis để câu cá giải trí và du ngoạn ngắm hoàng hôn trên biển.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. THẢM HỌA THIÊN NHIÊN -->
+            <section id="sys-disasters" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🌪️</div>
+                    <div class="section-title">14. Thảm Họa Thiên Nhiên & Sự Kiện Môi Trường</div>
+                </div>
+                <p>Hệ thống tự động kích hoạt hoặc do Admin điều hành các hiện tượng thời tiết cực đoan:</p>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4>🌋 Động Đất & Bão Lửa</h4>
+                        <p>Mặt đất rung chuyển dữ dội, các đám cháy rừng bùng phát yêu cầu lực lượng Cứu hỏa lái xe đến dập lửa.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>☄️ Mưa Thiên Thạch & Sóng Thần</h4>
+                        <p>Mưa đá thiên thạch rơi ngẫu nhiên phá hủy phương tiện, thủy triều dâng cao ngập lụt các tuyến đường ven biển.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌪️ Lốc Xoáy (Tornado)</h4>
+                        <p>Vòi rồng khổng lồ quét qua sa mạc cuốn bay các chướng ngại vật trên đường đi.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. CẨM NANG NGHỀ -->
+            <section id="sys-alljobs" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">💼</div>
+                    <div class="section-title">15. Cẩm Nang Chi Tiết 16+ Ngành Nghề</div>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Tên Nghề</th>
+                            <th>Đơn Vị</th>
+                            <th>Quy Trình & Nhiệm Vụ Cốt Lõi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><b>Cảnh Sát</b></td><td>LSPD / BCSO / SASP</td><td>Tuần tra, đo nồng độ cồn, test ma túy, radar tốc độ, dắt chó K9, truy nã, bắt giữ.</td></tr>
+                        <tr><td><b>Bác Sĩ</b></td><td>LSMC</td><td>Cấp cứu bằng Tablet y tế, sốc tim hồi sinh, phẫu thuật bàn mổ, bó bột xương gãy.</td></tr>
+                        <tr><td><b>Chính Phủ</b></td><td>Gouvernement</td><td>Điều chỉnh thuế suất 8 ngành, biểu phí phạt, hạn mức thuế thu nhập, trả lương quan chức.</td></tr>
+                        <tr><td><b>Điện Lực</b></td><td>UPW</td><td>Bảo trì biến tần Inverter, nạp trạm sạc xe điện dân dụng/công ty, bán điện dư thừa.</td></tr>
+                        <tr><td><b>Dầu Khí</b></td><td>Petrol Transport</td><td>Hút dầu thô sa mạc -> Lọc hóa dầu tại Refinery -> Cung ứng xăng cho từng cây xăng.</td></tr>
+                        <tr><td><b>Lâm Nghiệp</b></td><td>PAWL</td><td>Cưa cây lấy gỗ tròn -> Xẻ thành phôi gỗ -> Xuất khẩu tại Cảng & làm đồ nội thất ZKEA.</td></tr>
+                        <tr><td><b>Sửa Xe</b></td><td>Benny's / New Gahray</td><td>Nâng cấp máy, phanh, turbo, hộp số sàn, lập trạm Pit Stop sửa siêu tốc, cứu hộ xe.</td></tr>
+                        <tr><td><b>Nhà Hàng</b></td><td>Château Marius</td><td>Thu hoạch nho đồi -> Lên men rượu thùng gỗ sồi -> Nấu món ăn giảm Stress.</td></tr>
+                        <tr><td><b>Trang Trại</b></td><td>Ferme de Fou</td><td>Trồng lúa mì, rau củ, ngô, nuôi bò lấy sữa tươi cung ứng siêu thị thực phẩm sạch.</td></tr>
+                        <tr><td><b>Truyền Hình</b></td><td>Twitch News</td><td>Phát sóng Breaking News toàn server, bản tin Info Trafic, nhận treo biển Billboard.</td></tr>
+                        <tr><td><b>Áp Tải Tiền</b></td><td>STONK Security</td><td>Lái xe bọc thép vũ trang tiếp tế tiền mặt cho cây ATM và gom túi tiền siêu thị.</td></tr>
+                        <tr><td><b>Khai Khoáng</b></td><td>DeMetal Company</td><td>Đào quặng sắt, đồng, vàng -> Nung đúc kim loại cung cấp xưởng độ xe và ZKEA.</td></tr>
+                        <tr><td><b>Thời Trang</b></td><td>Fight For Style</td><td>May đo trang phục độc quyền, thiết kế bộ sưu tập và tổ chức Catwalk Fashion Show.</td></tr>
+                        <tr><td><b>NightClub</b></td><td>Bahama Unicorn</td><td>Pha chế cocktail, điều khiển dàn nhạc DJ sàn nhảy và phục vụ tiệc đêm sôi động.</td></tr>
+                        <tr><td><b>Taxi</b></td><td>Carl Jr Services</td><td>Bật đồng hồ tính tiền Taximeter, đưa đón cư dân và khách VIP bằng xe Limousine.</td></tr>
+                        <tr><td><b>Môi Trường</b></td><td>BlueBird</td><td>Lái xe ép rác thùng lớn thu gom rác trên phố, tái chế rác thành hạt nhựa & phế liệu.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- ==================== DEVELOPER & ADMIN SECTION ==================== -->
+        <div id="devSection" style="display: none;">
+            <section id="dev-arch" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🏛️</div>
+                    <div class="section-title">Kiến Trúc Kỹ Thuật & Cấu Trúc Mã Nguồn</div>
+                </div>
+                <p>GTAHUB được xây dựng trên nền tảng TypeScript nguyên bản với kiến trúc 3 tầng hiện đại:</p>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4>💻 Client Runtime</h4>
+                        <p>Quản lý các Provider, xử lý Native GTA V, đồng bộ hóa Sync state với Server qua RPC & NUI Callbacks.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🖥️ Server Runtime</h4>
+                        <p>Chạy Node.js engine, kết nối Prisma ORM, quản lý quyền hạn ACE, xử lý StateBag và ClickHouse logs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎨 NUI React 18</h4>
+                        <p>Giao diện Single Page Application (SPA) viết bằng React 18 + Tailwind CSS + SCSS và hiệu ứng Glassmorphism.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="dev-db" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🗄️</div>
+                    <div class="section-title">Database MySQL & Prisma ORM</div>
+                </div>
+                <pre><code>DATABASE_URL="mysql://root@localhost:3306/gtahub?charset=utf8mb4"</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+                <pre><code># Chạy Migration để đồng bộ cấu trúc bảng
+cmd /c "cd /d D:\FiveM\SOZ-FiveM-Server\resources\[soz]\soz-core && yarn run prisma migrate deploy"
+
+# Nạp dữ liệu mặc định (Quần áo, Đồ nghề, Xe cộ, Bảng giá)
+cmd /c "cd /d D:\FiveM\SOZ-FiveM-Server\resources\[soz]\soz-core && yarn run prisma db seed"</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+            </section>
+
+            <section id="dev-build" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">⚙️</div>
+                    <div class="section-title">Quy Trình Biên Dịch (Build Workflow)</div>
+                </div>
+                <pre><code># Build toàn bộ Client, Server và NUI
+cmd /c "cd /d D:\FiveM\SOZ-FiveM-Server\resources\[soz]\soz-core && yarn run build"</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+            </section>
+
+            <section id="dev-flags" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">🚩</div>
+                    <div class="section-title">Hệ Thống Feature Flags (Bật / Tắt Event)</div>
+                </div>
+                <p>File cấu hình: <code>resources/[soz]/soz-core/src/shared/features.ts</code></p>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Tên Feature Flag</th>
+                            <th>Mục Đích</th>
+                            <th>Cách Mở</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>WhatIfFirstEpisode</code></td><td>Chế độ Tận thế Mad Max, xe vũ trang, búa đập phế liệu.</td><td>Đổi sang <code>production: true</code></td></tr>
+                        <tr><td><code>Vampire</code></td><td>Mini-game Ma Cà Rồng săn mồi ban đêm, cơ chế hút máu.</td><td>Đổi sang <code>production: true</code></td></tr>
+                        <tr><td><code>Halloween</code></td><td>Sự kiện Halloween, quỷ dị, thu hoạch bí ngô kinh dị.</td><td>Đổi sang <code>production: true</code></td></tr>
+                        <tr><td><code>Christmas</code> / <code>Winter</code></td><td>Sự kiện Giáng sinh: Tuyết rơi trắng bản đồ, quà Noel.</td><td>Đổi sang <code>production: true</code></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="dev-admin" class="doc-section">
+                <div class="section-header">
+                    <div class="section-icon">👑</div>
+                    <div class="section-title">Lệnh & Menu Admin</div>
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Lệnh</th>
+                            <th>Chức Năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>/admin</code></td><td>Mở Menu Admin tương tác đầy đủ (Hồi máu, Noclip, Ban/Kick, Spawn xe, Set Job).</td></tr>
+                        <tr><td><code>/staff</code></td><td>Bật chế độ trực ban Staff (Hiện tag Admin trên đầu).</td></tr>
+                        <tr><td><code>/setjob [id] [job] [grade]</code></td><td>Cấp phát nghề nghiệp và chức vụ cho người chơi ngay lập tức.</td></tr>
+                        <tr><td><code>/giveitem [id] [item] [count]</code></td><td>Chuyển trực tiếp vật phẩm vào túi đồ của người chơi.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tab) {
+            const playerSection = document.getElementById('playerSection');
+            const devSection = document.getElementById('devSection');
+            const clientLinks = document.querySelector('.client-links');
+            const devLinks = document.querySelector('.dev-links');
+            const buttons = document.querySelectorAll('.role-btn');
+
+            if (tab === 'player') {
+                playerSection.style.display = 'block';
+                devSection.style.display = 'none';
+                clientLinks.style.display = 'block';
+                devLinks.style.display = 'none';
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                playerSection.style.display = 'none';
+                devSection.style.display = 'block';
+                clientLinks.style.display = 'none';
+                devLinks.style.display = 'block';
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        function copyCode(btn) {
+            const pre = btn.parentElement;
+            const code = pre.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const oldText = btn.innerText;
+                btn.innerText = 'Đã chép!';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.innerText = oldText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        function filterContent() {
+            const input = document.getElementById('docSearch').value.toLowerCase();
+            const sections = document.querySelectorAll('.doc-section, .step-box, .feature-card');
+
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

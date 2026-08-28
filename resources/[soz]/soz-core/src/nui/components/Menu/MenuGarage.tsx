@@ -26,14 +26,14 @@ type MenuGarageProps = {
 };
 
 const MenutitleMap: Record<GarageType, string> = {
-    [GarageType.Public]: 'Garage Public',
-    [GarageType.Private]: 'Garage Privé',
-    [GarageType.Job]: 'Garage Entreprise',
-    [GarageType.JobLuxury]: 'Garage Entreprise',
-    [GarageType.Depot]: 'Fourrière',
-    [GarageType.House]: 'Garage Personnel',
-    [GarageType.Gang]: 'Garage',
-    [GarageType.CasinoVip]: 'Garage',
+    [GarageType.Public]: 'Gara Công cộng',
+    [GarageType.Private]: 'Gara Tư nhân',
+    [GarageType.Job]: 'Gara Cơ quan / Công ty',
+    [GarageType.JobLuxury]: 'Gara Doanh nghiệp Cao cấp',
+    [GarageType.Depot]: 'Bãi tạm giữ / Chuộc xe',
+    [GarageType.House]: 'Gara Nhà riêng',
+    [GarageType.Gang]: 'Gara Băng đảng',
+    [GarageType.CasinoVip]: 'Gara Casino VIP',
 };
 
 export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
@@ -76,10 +76,10 @@ export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
                 <MenuContent subtitle={data?.garage.name}>
                     {showFreePlaces && (
                         <MenuSubTitle>
-                            Places libres : {data?.free_places} / {data?.max_places}
+                            Chỗ trống: {data?.free_places} / {data?.max_places}
                         </MenuSubTitle>
                     )}
-                    <MenuItemSubMenuLink id="vehicles">Les véhicules</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="vehicles">Danh sách xe</MenuItemSubMenuLink>
                     {data.garage.type === GarageType.House && data.apartments.length > 0 && (
                         <MenuItemSelect
                             onConfirm={(index, apartment) => {
@@ -88,7 +88,7 @@ export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
                                     garage: data.garage,
                                 });
                             }}
-                            title="Ranger mon véhicule"
+                            title="Cất phương tiện vào gara"
                         >
                             {data.apartments.map(apartment => {
                                 const id = `apartment_${apartment.identifier}`;
@@ -101,7 +101,7 @@ export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
                                     <MenuItemSelectOption
                                         key={apartment.id}
                                         value={apartment}
-                                        description={`${free} places disponibles sur ${max} `}
+                                        description={`Còn trống ${free} / ${max} chỗ`}
                                     >
                                         {apartment.label}
                                     </MenuItemSelectOption>
@@ -110,13 +110,13 @@ export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
                         </MenuItemSelect>
                     )}
                     {data.garage.type !== GarageType.House && (
-                        <MenuItemButton onConfirm={vehicleStore}>Ranger mon véhicule</MenuItemButton>
+                        <MenuItemButton onConfirm={vehicleStore}>Cất xe vào gara</MenuItemButton>
                     )}
                     {data.garage.allowTrailers && (
-                        <MenuItemButton onConfirm={vehicleStoreTrailer}>Ranger ma remorque</MenuItemButton>
+                        <MenuItemButton onConfirm={vehicleStoreTrailer}>Cất rơ-moóc vào gara</MenuItemButton>
                     )}
                     {data.garage.type === GarageType.House && data.apartments.length > 0 && (
-                        <MenuItemButton onConfirm={vehicleShowPlaces}>Voir ma place de parking</MenuItemButton>
+                        <MenuItemButton onConfirm={vehicleShowPlaces}>Xem vị trí đỗ xe của tôi</MenuItemButton>
                     )}
                 </MenuContent>
             </MainMenu>
@@ -128,7 +128,7 @@ export const MenuGarage: FunctionComponent<MenuGarageProps> = ({ data }) => {
                 <MenuTitle title={MenutitleMap[data?.garage.type]} />
                 <MenuContent>
                     <MenuSubTitle>
-                        Transférer {currentVehicle?.name} - {currentVehicle?.vehicle.plate}
+                        Chuyển xe {currentVehicle?.name} - {currentVehicle?.vehicle.plate}
                     </MenuSubTitle>
                     {data.transferGarageList.map((garage, key) => {
                         const transferPrice = getTransferPrice(currentVehicle?.weight || 0);
@@ -199,10 +199,10 @@ export const VehicleList: FunctionComponent<VehicleListProps> = ({ data, setCurr
         <MenuContent subtitle={data?.garage.name}>
             {showFreePlaces && (
                 <MenuSubTitle>
-                    Places libres : {data?.free_places} / {data?.max_places}
+                    Chỗ trống: {data?.free_places} / {data?.max_places}
                 </MenuSubTitle>
             )}
-            {data.vehicles.length === 0 && <MenuItemButton disabled>Aucun véhicule</MenuItemButton>}
+            {data.vehicles.length === 0 && <MenuItemButton disabled>Không có phương tiện nào trong gara</MenuItemButton>}
             {(data.garage.type === GarageType.Job || data.garage.type === GarageType.House) && (
                 <>
                     {vehicleList.map(garageVehicle => {
@@ -220,12 +220,12 @@ export const VehicleList: FunctionComponent<VehicleListProps> = ({ data, setCurr
                                 key={garageVehicle.vehicle.id}
                                 title={garageVehicle.vehicle_name}
                                 titleWidth={60}
-                                description={`Kilométrage: ${(
+                                description={`Đã đi: ${(
                                     (garageVehicle.vehicle.condition.mileage || 0) / 1000
-                                ).toFixed(2)}km`}
+                                ).toFixed(2)} km`}
                             >
-                                <MenuItemSelectOption value="take_out">Sortir</MenuItemSelectOption>
-                                <MenuItemSelectOption value="set_name">Renommer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="take_out">Lấy xe ra</MenuItemSelectOption>
+                                <MenuItemSelectOption value="set_name">Đổi tên xe</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}
@@ -256,14 +256,14 @@ export const VehicleList: FunctionComponent<VehicleListProps> = ({ data, setCurr
                                 description={
                                     <div>
                                         <div className="pr-2 flex items-center justify-between">
-                                            <span>Kilométrage</span>
+                                            <span>Quãng đường</span>
                                             <span>
                                                 {((garageVehicle.vehicle.condition.mileage || 0) / 1000).toFixed(2)} km
                                             </span>
                                         </div>
                                         {garageVehicle.price > 0 && (
-                                            <div className="pr-2 flex items-center justify-between">
-                                                <span>Prix de sortie</span>
+                                             <div className="pr-2 flex items-center justify-between">
+                                                <span>Phí lấy xe</span>
                                                 <span>
                                                     $
                                                     {garageVehicle.vehicle.state === PlayerVehicleState.InFedPound
@@ -276,16 +276,16 @@ export const VehicleList: FunctionComponent<VehicleListProps> = ({ data, setCurr
                                     </div>
                                 }
                             >
-                                <MenuItemSelectOption value="take_out">Sortir</MenuItemSelectOption>
+                                <MenuItemSelectOption value="take_out">Lấy xe ra</MenuItemSelectOption>
                                 {garageVehicle.price > 0 &&
                                     data.has_fake_ticket &&
                                     data.garage.type === GarageType.Private && (
                                         <MenuItemSelectOption value="take_out_ticket">
-                                            Utiliser un ticket
+                                            Dùng vé miễn phí
                                         </MenuItemSelectOption>
                                     )}
                                 {data.garage.type === GarageType.Public && (
-                                    <MenuItemSelectOption value="transfer">Transférer</MenuItemSelectOption>
+                                    <MenuItemSelectOption value="transfer">Chuyển sang gara khác</MenuItemSelectOption>
                                 )}
                             </MenuItemSelect>
                         );

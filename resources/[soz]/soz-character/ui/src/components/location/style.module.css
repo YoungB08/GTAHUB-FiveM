@@ -1,22 +1,65 @@
 .container {
     margin-top: 5vh;
-    width: 22vw;
+    width: 24vw;
+    background: rgba(22, 4, 10, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 30, 86, 0.4);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 30, 86, 0.25);
 }
 
 .preview {
-    outline: 1px solid #46EA18;
+    outline: 1px solid #FF1E56;
     outline-offset: -1px;
     width: 100%;
     aspect-ratio: 16/9;
     background-size: cover;
+    background-position: center;
 }
 
 .title {
     margin: 0;
-    padding: .5rem;
-    font-size: 1.5rem;
+    padding: .7rem;
+    font-size: 1.3rem;
+    font-weight: 800;
     text-align: center;
-    background: #fff;
+    color: #ffffff;
+    background: linear-gradient(90deg, #800020, #FF1E56);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.quick_tabs {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px 0 12px;
+}
+
+.tab_btn {
+    flex: 1;
+    padding: 8px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 30, 86, 0.3);
+    background: rgba(40, 5, 18, 0.8);
+    color: #fce7ec;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.tab_btn:hover {
+    border-color: #FF4D79;
+    background: rgba(255, 30, 86, 0.25);
+    color: #ffffff;
+}
+
+.tab_btn_active {
+    background: linear-gradient(135deg, #FF1E56, #800020);
+    border-color: #FF4D79;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(255, 30, 86, 0.5);
 }
 
 .description {
@@ -24,22 +67,49 @@
     margin: 0;
     padding: 1rem;
     min-height: 5vh;
-    color: #fff;
-    background: rgba(0,0,0,.5);
+    color: #fbd3dc;
+    font-size: 13px;
+    line-height: 1.5;
+    background: rgba(15, 2, 7, 0.7);
     z-index: 1;
 }
 
 .icon {
     position: absolute;
     cursor: pointer;
-    color: #46EA18;
+    color: #FF1E56;
+    filter: drop-shadow(0 0 12px rgba(255, 30, 86, 0.8));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.25s ease;
+    z-index: 10;
+}
+
+.icon:hover, .icon_active {
+    transform: scale(1.25);
+    color: #FF4D79;
+    filter: drop-shadow(0 0 20px rgba(255, 77, 121, 1));
+}
+
+.icon_label {
+    background: rgba(18, 2, 8, 0.9);
+    border: 1px solid #FF1E56;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 4px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .button {
     position: relative;
     padding: .3rem;
-    margin: 1vh .4rem;
-    height: 3rem;
+    margin: 0.8rem .8rem 1rem .8rem;
+    height: 3.2rem;
 }
 
 .button div {
@@ -47,37 +117,27 @@
     display: flex;
     width: 100%;
     height: 100%;
-    color: #fff;
-    background: #46EA18;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #FF1E56, #800020);
+    border-radius: 8px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     z-index: 2;
+    box-shadow: 0 4px 16px rgba(255, 30, 86, 0.5);
+    transition: all 0.25s ease;
 }
 
 .button div:hover {
-    background: #3FD215;
+    background: linear-gradient(135deg, #FF4D79, #990026);
+    box-shadow: 0 6px 22px rgba(255, 30, 86, 0.75);
+    transform: translateY(-2px);
 }
 
-.button::before {
-    content: "";
-    display: block;
-    position: absolute;
-    height: calc(50% - .4rem);
-    width: 100%;
-    top: 0;
-    left: 0;
-    border: 1px solid rgba(236,232,225,.5);
-    border-bottom: 0;
-}
-.button::after {
-    content: "";
-    display: block;
-    position: absolute;
-    height: calc(50% - .4rem);
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    border: 1px solid rgba(236,232,225,.5);
-    border-top: 0;
+.button::before, .button::after {
+    display: none;
 }

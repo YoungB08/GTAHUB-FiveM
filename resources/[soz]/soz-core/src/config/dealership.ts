@@ -65,7 +65,7 @@ export const DealershipJob = {
         }),
     ],
     blip: {
-        name: 'Concessionnaire Entreprise',
+        name: 'Đại lý Xe Doanh nghiệp',
         sprite: 821,
     },
     ped: 's_f_m_shop_high',
@@ -75,7 +75,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Pdm]: {
         position: [-56.61, -1096.58, 25.42, 30.0],
         blip: {
-            name: 'Concessionnaire Auto',
+            name: 'Đại lý Ô tô (PDM)',
             sprite: 225,
             color: 46,
         },
@@ -90,7 +90,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Cartel]: {
         position: null,
         blip: {
-            name: 'Concessionnaire Avion',
+            name: 'Đại lý Máy bay',
             sprite: null,
             color: null,
         },
@@ -108,7 +108,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Cycle]: {
         position: [-1222.26, -1494.83, 3.34, 120.0],
         blip: {
-            name: 'Concessionnaire Vélo',
+            name: 'Đại lý Xe đạp',
             sprite: 559,
             color: 46,
         },
@@ -122,7 +122,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Moto]: {
         position: [1224.79, 2727.25, 37.0, 180.0],
         blip: {
-            name: 'Concessionnaire Moto',
+            name: 'Đại lý Xe máy',
             sprite: 522,
             color: 46,
         },
@@ -137,7 +137,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Air]: {
         position: [1743.13, 3307.23, 40.22, 148.91],
         blip: {
-            name: 'Concessionnaire Hélicoptère',
+            name: 'Đại lý Trực thăng & Máy bay',
             sprite: 64,
             color: 46,
         },
@@ -152,7 +152,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Boat]: {
         position: [-140.49, -2718.59, 5.07, 1.43],
         blip: {
-            name: 'Concessionnaire Maritime',
+            name: 'Đại lý Tàu thuyền',
             sprite: 780,
             color: 46,
         },
@@ -168,7 +168,7 @@ export const DealershipConfig: Partial<Record<DealershipType, DealershipConfigIt
     [DealershipType.Electric]: {
         position: [-63.2, 71.92, 71.0, 147.57],
         blip: {
-            name: 'Concessionnaire Electrique',
+            name: 'Đại lý Xe Điện',
             sprite: 596,
             color: 46,
         },

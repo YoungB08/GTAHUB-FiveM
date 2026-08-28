@@ -25,7 +25,7 @@ export const MenuPawl: FunctionComponent<MenuPawlProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.pawl} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực lâm nghiệp.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -43,7 +43,7 @@ export const MenuPawl: FunctionComponent<MenuPawlProps> = ({ data }) => {
                             fetchNui(NuiEvent.PawlShowFields, { value });
                         }}
                     >
-                        Afficher la zone de récolte sur le GPS
+                        Hiển thị khu vực khai thác gỗ trên GPS
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showResell}
@@ -51,7 +51,7 @@ export const MenuPawl: FunctionComponent<MenuPawlProps> = ({ data }) => {
                             fetchNui(NuiEvent.PawlShowResell, { value });
                         }}
                     >
-                        Afficher la zone de revente sur le GPS
+                        Hiển thị điểm thu mua gỗ trên GPS
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

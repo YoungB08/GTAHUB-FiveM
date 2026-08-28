@@ -800,7 +800,7 @@ export const MenuItemGoBack: FunctionComponent = () => {
 
     return (
         <MenuItemContainer className="border-t-2 mt-2 border-white/50" onConfirm={() => navigate(-1)}>
-            🔙 Revenir au menu précédent
+            🔙 Quay lại menu trước
         </MenuItemContainer>
     );
 };

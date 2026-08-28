@@ -63,9 +63,9 @@ export const BreathAnalyzerApp: FunctionComponent = () => {
                         }}
                         className="text-green-500 text-center"
                     >
-                        <div>ANALYSE</div>
-                        <div>EN</div>
-                        <div>COURS</div>
+                        <div>ĐANG</div>
+                        <div>PHÂN</div>
+                        <div>TÍCH</div>
                     </div>
                 )}
             </div>

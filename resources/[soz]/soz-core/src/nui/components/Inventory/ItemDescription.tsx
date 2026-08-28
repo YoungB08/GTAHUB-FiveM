@@ -42,33 +42,33 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
         if (!inventoryItem?.metadata?.evidenceInfos?.isAnalyzed) {
             if (inventoryItem?.metadata?.evidenceInfos?.type === 'evidence_fingerprint') {
                 if (currentTime > expiration) {
-                    itemLabel = `Empreinte périmée`;
+                    itemLabel = `Dấu vân tay đã hết hạn`;
                 } else {
-                    itemLabel = `Empreinte non analysée`;
-                    itemDescription += `Cette empreinte a été récupérée par la police scientifique, elle se doit être analysée afin d'y découvrir ses caractéristiques.`;
+                    itemLabel = `Dấu vân tay chưa giám định`;
+                    itemDescription += `Mẫu vân tay này được đội khám nghiệm hiện trường thu thập, cần đưa đến phòng giám định để phân tích danh tính.`;
                 }
             } else {
                 if (currentTime > expiration) {
-                    itemLabel = `Échantillon de ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} périmé`;
+                    itemLabel = `Mẫu ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} đã hết hạn`;
                 } else {
-                    itemLabel = `Échantillon de ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} non-analysé`;
-                    itemDescription += `Cet échantillon a été récupéré par la police scientifique, il se doit être analysé afin d'y découvrir ses caractéristiques.`;
+                    itemLabel = `Mẫu ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} chưa giám định`;
+                    itemDescription += `Mẫu vật chứng này được cảnh sát thu thập từ hiện trường, cần đưa vào phân tích để tìm manh mối.`;
                 }
             }
         } else {
             if (inventoryItem?.metadata?.evidenceInfos?.type === 'evidence_fingerprint') {
                 if (currentTime > expiration) {
-                    itemLabel = `Empreinte périmée`;
+                    itemLabel = `Dấu vân tay đã hết hạn`;
                 } else {
-                    itemLabel = `Empreinte analysée`;
-                    itemDescription += `Cette empreinte a été récupérée par la police scientifique et analysée.`;
+                    itemLabel = `Dấu vân tay đã giám định`;
+                    itemDescription += `Dấu vân tay đã được phòng pháp y cảnh sát phân tích và lưu hồ sơ.`;
                 }
             } else {
                 if (currentTime > expiration) {
-                    itemLabel = `Échantillon de ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} périmé`;
+                    itemLabel = `Mẫu ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} đã hết hạn`;
                 } else {
-                    itemLabel = `Échantillon de ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} analysé`;
-                    itemDescription += `Cet échantillon a été récupéré par la police scientifique et analysé.`;
+                    itemLabel = `Mẫu ${getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type).toLowerCase()} đã giám định`;
+                    itemDescription += `Mẫu vật chứng đã được phòng pháp y cảnh sát giám định thành công.`;
                 }
             }
         }
@@ -83,26 +83,26 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
         >
             <GlassMorphismContainer duration="duration-0" borderClassName="rounded-xl">
                 <div
-                    className="p-2 text-lsm font-prompt text-gray-100"
+                    className="p-3 text-lsm font-prompt text-gray-100"
                     style={{
                         width: `${inventorySize.width}px`,
                     }}
                 >
                     <div className="flex justify-between align-items-center w-full">
                         {!item.canEngrave && inventoryItem.metadata?.label && (
-                            <h2 className="font-bold uppercase truncate flex-1 text-sm">
-                                {inventoryItem.metadata?.label} <span className="text-2xs">{itemLabel}</span>
+                            <h2 className="font-bold uppercase truncate flex-1 text-sm text-candy-400">
+                                {inventoryItem.metadata?.label} <span className="text-2xs text-gray-300">({itemLabel})</span>
                             </h2>
                         )}
                         {(item.canEngrave || !inventoryItem.metadata?.label) && (
-                            <h2 className="font-bold uppercase truncate flex-1 text-sm">{itemLabel}</h2>
+                            <h2 className="font-bold uppercase truncate flex-1 text-sm text-candy-400">{itemLabel}</h2>
                         )}
-                        <div className="flex-0">
+                        <div className="flex-0 text-xs text-candy-300">
                             {inventoryItem.type === 'weapon' && inventoryItem.metadata?.ammo && (
-                                <span>[{inventoryItem.metadata?.ammo} munitions]</span>
+                                <span>[{inventoryItem.metadata?.ammo} viên]</span>
                             )}
                             {inventoryItem.metadata?.plates && inventoryItem.metadata?.plates > 0 && (
-                                <span>Plaques : {inventoryItem.metadata?.plates}</span>
+                                <span>Giáp tấm: {inventoryItem.metadata?.plates}</span>
                             )}
                             {inventoryItem.type === 'fishing_rod' && inventoryItem.metadata?.bait && (
                                 <span>[{resolver(inventoryItem.metadata?.bait?.name)?.label}]</span>
@@ -136,50 +136,50 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                             )}
                             {expiration && (
                                 <>
-                                    {isInventoryItemExpired(inventoryItem) && <span>[Périmé]</span>}
+                                    {isInventoryItemExpired(inventoryItem) && <span className="text-red-400">[Hết hạn]</span>}
                                     {!isInventoryItemExpired(inventoryItem) && (
                                         <span>
-                                            [Expire le {expiration.toLocaleDateString('fr-FR', FORMAT_LOCALIZED)}]
+                                            [HSD: {expiration.toLocaleDateString('vi-VN', FORMAT_LOCALIZED)}]
                                         </span>
                                     )}
                                 </>
                             )}
                             {inventoryItem.metadata?.type && <span>[{inventoryItem.metadata?.type}]</span>}
                             {inventoryItem.metadata?.url && <span>[{inventoryItem.metadata?.url}]</span>}
-                            {inventoryItem.metadata?.notSearchable && <span>[Caché]</span>}
-                            {inventoryItem.metadata?.crafted && <span>[Illégal]</span>}
-                            {inventoryItem.metadata?.printed && <span>[Réplique]</span>}
+                            {inventoryItem.metadata?.notSearchable && <span className="text-yellow-300">[Đã giấu]</span>}
+                            {inventoryItem.metadata?.crafted && <span className="text-red-400">[Bất hợp pháp]</span>}
+                            {inventoryItem.metadata?.printed && <span>[Sao chép]</span>}
                         </div>
                     </div>
-                    <div className="flex mt-1 justify-between align-items-center w-full">
+                    <div className="flex mt-1 justify-between align-items-center w-full text-xs text-gray-200">
                         {inventoryItem.metadata?.description ?? itemDescription}
                     </div>
                     {item.canEngrave && (
                         <div className="flex mt-1 justify-between align-items-center w-full">
                             <span></span>
-                            <span>{inventoryItem.metadata?.label || ''} ★</span>
+                            <span className="text-candy-400">{inventoryItem.metadata?.label || ''} ★</span>
                         </div>
                     )}
                     {item.type === 'fish' && (inventoryItem.metadata?.weight || inventoryItem.metadata?.length) && (
-                        <div className="mt-1">
+                        <div className="mt-1 text-xs">
                             <div>
-                                <strong>Poids : </strong>
-                                {inventoryItem.metadata?.weight} grammes
+                                <strong>Trọng lượng: </strong>
+                                {inventoryItem.metadata?.weight} gram
                             </div>
                             <div>
-                                <strong>Taille : </strong>
-                                {inventoryItem.metadata?.length} centimètres
+                                <strong>Kích thước: </strong>
+                                {inventoryItem.metadata?.length} cm
                             </div>
                         </div>
                     )}
                     {item.type === 'crate' && (
                         <>
                             {(inventoryItem.metadata?.crateElements || []).map((element, index) => (
-                                <div key={index}>
-                                    - {element.amount} {resolver(element.name)?.label} [DLC:{' '}
+                                <div key={index} className="text-xs">
+                                    - {element.amount} {resolver(element.name)?.label} [HSD:{' '}
                                     {element.metadata?.expiration
                                         ? new Date(element.metadata?.expiration).toLocaleDateString(
-                                              'fr-FR',
+                                              'vi-VN',
                                               FORMAT_LOCALIZED
                                           )
                                         : ''}
@@ -191,7 +191,7 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                     {inventoryItem.type === 'zkea_crate' && (
                         <>
                             {(inventoryItem.metadata?.zkeaCrateElements || []).map((element, index) => (
-                                <div key={index}>- {element.name}</div>
+                                <div key={index} className="text-xs">- {element.name}</div>
                             ))}
                         </>
                     )}
@@ -199,50 +199,50 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                         inventoryItem.name !== 'scientist_photo' &&
                         expiration &&
                         currentTime <= expiration && (
-                            <div>
+                            <div className="text-xs">
                                 {!inventoryItem?.metadata?.evidenceInfos?.isAnalyzed && (
                                     <>
                                         <div>
-                                            <strong>Type : </strong>{' '}
+                                            <strong>Phân loại: </strong>{' '}
                                             {getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type)}
                                         </div>
                                         <div>
-                                            <strong>Récupéré dans la zone de : </strong>Inconnu
+                                            <strong>Khu vực thu thập: </strong>Chưa rõ
                                         </div>
                                         <div>
-                                            <strong>Sur : </strong> Inconnu
+                                            <strong>Vật mang: </strong> Chưa rõ
                                         </div>
                                     </>
                                 )}
                                 {inventoryItem?.metadata?.evidenceInfos?.isAnalyzed && (
                                     <>
                                         <div>
-                                            <strong>Type : </strong>{' '}
+                                            <strong>Phân loại: </strong>{' '}
                                             {getTypeLabel(inventoryItem.metadata?.evidenceInfos?.type)}
                                         </div>
                                         <div>
-                                            <strong>Récupéré dans la zone de : </strong>
+                                            <strong>Khu vực thu thập: </strong>
                                             {inventoryItem.metadata?.evidenceInfos?.zone}
                                         </div>
                                         <div>
-                                            <strong>Sur : </strong> {inventoryItem.metadata?.evidenceInfos?.support}
+                                            <strong>Vật mang: </strong> {inventoryItem.metadata?.evidenceInfos?.support}
                                         </div>
                                         <div>
-                                            <strong>Informations : </strong>{' '}
+                                            <strong>Thông tin: </strong>{' '}
                                             {inventoryItem.metadata?.evidenceInfos?.generalInfo}
                                         </div>
                                     </>
                                 )}
                                 {inventoryItem.metadata.evidenceInfos?.quantity && (
                                     <div>
-                                        <strong>Quantité : </strong> {inventoryItem.metadata.evidenceInfos.quantity}
+                                        <strong>Số lượng: </strong> {inventoryItem.metadata.evidenceInfos.quantity}
                                     </div>
                                 )}
                                 {inventoryItem.metadata?.creation && (
                                     <div>
-                                        <strong>Récupéré le : </strong>{' '}
+                                        <strong>Thu thập lúc: </strong>{' '}
                                         {new Date(inventoryItem.metadata.creation).toLocaleDateString(
-                                            'fr-FR',
+                                            'vi-VN',
                                             FORMAT_LOCALIZED
                                         )}
                                     </div>
@@ -250,18 +250,18 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                             </div>
                         )}
                     {inventoryItem.name !== 'cyber_crypto_wallet' && inventoryItem.metadata?.value && (
-                        <div className="mt-1">
+                        <div className="mt-1 text-xs">
                             <div>
-                                <strong>Valeur estimée : </strong>
-                                {inventoryItem.metadata?.value * inventoryItem.amount} $
+                                <strong>Giá trị ước tính: </strong>
+                                {(inventoryItem.metadata?.value * inventoryItem.amount).toLocaleString('vi-VN')} $
                             </div>
                         </div>
                     )}
                     {inventoryItem.metadata?.creation && inventoryItem.name.startsWith('champagne_') && (
-                        <div className="mt-1">
+                        <div className="mt-1 text-xs">
                             <div>
-                                <strong>Millésime : </strong>{' '}
-                                {new Date(inventoryItem.metadata.creation).toLocaleDateString('fr-FR', {
+                                <strong>Năm sản xuất: </strong>{' '}
+                                {new Date(inventoryItem.metadata.creation).toLocaleDateString('vi-VN', {
                                     year: 'numeric',
                                 })}
                             </div>
@@ -269,9 +269,9 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                     )}
                     {(item?.storageItemType === 'smuggling_ore' || item?.storageItemType === 'smuggling_electronic') &&
                         inventoryItem?.metadata?.storageElements && (
-                            <div className="mt-1">
+                            <div className="mt-1 text-xs">
                                 <div>
-                                    <strong>Valeur estimée : </strong>
+                                    <strong>Giá trị ước tính: </strong>
                                     {Object.values(inventoryItem.metadata.storageElements).reduce((prev, item) => {
                                         if (!item) {
                                             return prev;
@@ -286,23 +286,23 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                                         }
 
                                         return prev + item.metadata.value * item.amount;
-                                    }, 0)}{' '}
+                                    }, 0).toLocaleString('vi-VN')}{' '}
                                     $
                                 </div>
                             </div>
                         )}
                     {inventoryItem.name === 'cyber_crypto_wallet' && inventoryItem.metadata?.value !== undefined && (
-                        <div className="mt-1">
+                        <div className="mt-1 text-xs">
                             <div>
-                                <strong>Crypto-Monnaie : </strong>
+                                <strong>Tiền điện tử Crypto: </strong>
                                 {inventoryItem.metadata?.value}
                             </div>
                         </div>
                     )}
-                    <div className="flex mt-1 justify-between align-items-center w-full">
+                    <div className="flex mt-1 justify-between align-items-center w-full text-xs">
                         <div>
                             {inventoryItem.type === 'weapon' && WeaponAmmo[inventoryItem.name.toUpperCase()] && (
-                                <span>Munition : {WeaponAmmo[inventoryItem.name.toUpperCase()]}</span>
+                                <span className="text-candy-300">Cỡ đạn: {WeaponAmmo[inventoryItem.name.toUpperCase()]}</span>
                             )}
                         </div>
                         {item.illustrator && typeof item.illustrator === 'string' && <span>{item.illustrator}</span>}
@@ -311,7 +311,7 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
                         )}
                     </div>
                     {inventoryItem.metadata?.extraLabel && (
-                        <div className="mt-1">{inventoryItem.metadata.extraLabel}</div>
+                        <div className="mt-1 text-xs text-candy-200">{inventoryItem.metadata.extraLabel}</div>
                     )}
                 </div>
             </GlassMorphismContainer>
@@ -321,17 +321,17 @@ export const ItemDescription: FunctionComponent<ItemDescriptionProps> = ({
 
 const getTypeLabel = (type: string | undefined): string => {
     if (type == 'evidence_glass') {
-        return 'Verre';
+        return 'Mảnh thủy tinh';
     } else if (type == 'evidence_blood') {
-        return 'Sang';
+        return 'Vết máu';
     } else if (type == 'evidence_bullet') {
-        return 'Balle';
+        return 'Vỏ đạn';
     } else if (type == 'evidence_drug') {
-        return 'Trace de drogue';
+        return 'Vết ma túy';
     } else if (type == 'evidence_fingerprint') {
-        return 'Empreinte';
+        return 'Dấu vân tay';
     } else if (type == 'evidence_powder') {
-        return 'Poudre';
+        return 'Muội thuốc súng';
     }
-    return 'inconnu';
+    return 'Không xác định';
 };

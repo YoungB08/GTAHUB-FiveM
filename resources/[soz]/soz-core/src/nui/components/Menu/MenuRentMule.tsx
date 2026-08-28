@@ -13,14 +13,14 @@ export const MenuRentMule: FunctionComponent = () => {
     return (
         <Menu type={MenuType.RentMule}>
             <MainMenu>
-                <MenuTitle title="ZKEA Fourniture" />
-                <MenuContent subtitle="Location de camion de déménagement">
+                <MenuTitle title="Nội thất ZKEA" />
+                <MenuContent subtitle="Thuê xe tải vận chuyển nội thất">
                     <MenuItemButton onConfirm={async () => await fetchNui(NuiEvent.MuleReturn)}>
-                        Rendre le camion
+                        Trả lại xe tải
                     </MenuItemButton>
                     <MenuItemButton onConfirm={async () => await fetchNui(NuiEvent.MuleRent)}>
                         <div className="flex justify-between items-center">
-                            <span>Louer un camion (Caution : ${MuleRentDeposite})</span>
+                            <span>Thuê xe tải (Cọc: ${MuleRentDeposite})</span>
                             <span className="mr-1">${getPrice(MuleRentPrice + MuleRentDeposite, TaxType.SERVICE)}</span>
                         </div>
                     </MenuItemButton>

@@ -478,7 +478,14 @@ function QBCore.Player.CreatePlayer(PlayerData)
             end
         end
 
-        if exports["soz-core"]:HasTemporaryCrimiWeight(self.PlayerData.source) then
+        local hasTempWeight = false
+        pcall(function()
+            if exports["soz-core"] and exports["soz-core"].HasTemporaryCrimiWeight then
+                hasTempWeight = exports["soz-core"]:HasTemporaryCrimiWeight(self.PlayerData.source)
+            end
+        end)
+
+        if hasTempWeight then
             baseWeight = baseWeight + 40000
         end
 
@@ -486,7 +493,11 @@ function QBCore.Player.CreatePlayer(PlayerData)
             baseWeight = baseWeight + 40000
         end
 
-        exports["soz-core"]:SetPlayerInventoryMaxWeight(self.PlayerData.source, math.floor(baseWeight))
+        pcall(function()
+            if exports["soz-core"] and exports["soz-core"].SetPlayerInventoryMaxWeight then
+                exports["soz-core"]:SetPlayerInventoryMaxWeight(self.PlayerData.source, math.floor(baseWeight))
+            end
+        end)
     end
 
     self.Functions.UpdateArmour = function()

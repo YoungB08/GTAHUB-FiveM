@@ -3,67 +3,67 @@ QBShared                            = QBShared or {}
 QBShared.ForceJobDefaultDutyAtLogin = true -- true: Force duty state to jobdefaultDuty | false: set duty state from database last saved
 QBShared.Jobs                       = {
     ['unemployed'] = {
-        label       = 'Chomeur',
+        label       = 'Thất nghiệp',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Freelancer',
+                name    = 'Tự do',
                 payment = 10
             },
         },
     },
     ['ambulance']  = {
-        label       = 'EMS',
+        label       = 'Cứu thương (EMS)',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Recruit',
+                name    = 'Thực tập sinh',
                 payment = 50
             },
             ['1'] = {
-                name    = 'Paramedic',
+                name    = 'Y tá',
                 payment = 75
             },
             ['2'] = {
-                name    = 'Doctor',
+                name    = 'Bác sĩ',
                 payment = 100
             },
             ['3'] = {
-                name    = 'Surgeon',
+                name    = 'Bác sĩ phẫu thuật',
                 payment = 125
             },
             ['4'] = {
-                name    = 'Chief',
+                name    = 'Trưởng viện',
                 isboss  = true,
                 payment = 150
             },
         },
     },
     ['realestate'] = {
-        label       = 'Real Estate',
+        label       = 'Bất động sản',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Recruit',
+                name    = 'Thực tập sinh',
                 payment = 50
             },
             ['1'] = {
-                name    = 'House Sales',
+                name    = 'Môi giới nhà',
                 payment = 75
             },
             ['2'] = {
-                name    = 'Business Sales',
+                name    = 'Môi giới doanh nghiệp',
                 payment = 100
             },
             ['3'] = {
-                name    = 'Broker',
+                name    = 'Chuyên viên cao cấp',
                 payment = 125
             },
             ['4'] = {
-                name    = 'Manager',
+                name    = 'Giám đốc',
                 isboss  = true,
                 payment = 150
             },
@@ -75,223 +75,223 @@ QBShared.Jobs                       = {
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Recruit',
+                name    = 'Tài xế tập sự',
                 payment = 50
             },
             ['1'] = {
-                name    = 'Driver',
+                name    = 'Tài xế chính thức',
                 payment = 75
             },
             ['2'] = {
-                name    = 'Event Driver',
+                name    = 'Tài xế cao cấp',
                 payment = 100
             },
             ['3'] = {
-                name    = 'Sales',
+                name    = 'Quản lý điều phối',
                 payment = 125
             },
             ['4'] = {
-                name    = 'Manager',
+                name    = 'Giám đốc',
                 isboss  = true,
                 payment = 150
             },
         },
     },
     ['bus']        = {
-        label       = 'Bus',
+        label       = 'Xe buýt',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Driver',
+                name    = 'Tài xế',
                 payment = 50
             },
         },
     },
     ['cardealer']  = {
-        label       = 'Vehicle Dealer',
+        label       = 'Đại lý xe',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Recruit',
+                name    = 'Thực tập sinh',
                 payment = 50
             },
             ['1'] = {
-                name    = 'Showroom Sales',
+                name    = 'Nhân viên bán hàng',
                 payment = 75
             },
             ['2'] = {
-                name    = 'Business Sales',
+                name    = 'Chuyên viên tư vấn',
                 payment = 100
             },
             ['3'] = {
-                name    = 'Finance',
+                name    = 'Quản lý tài chính',
                 payment = 125
             },
             ['4'] = {
-                name    = 'Manager',
+                name    = 'Giám đốc showroom',
                 isboss  = true,
                 payment = 150
             },
         },
     },
     ['mechanic']   = {
-        label       = 'Mechanic',
+        label       = 'Thợ sửa xe',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Recruit',
+                name    = 'Học việc',
                 payment = 50
             },
             ['1'] = {
-                name    = 'Novice',
+                name    = 'Thợ phụ',
                 payment = 75
             },
             ['2'] = {
-                name    = 'Experienced',
+                name    = 'Thợ chính',
                 payment = 100
             },
             ['3'] = {
-                name    = 'Advanced',
+                name    = 'Chuyên viên kỹ thuật',
                 payment = 125
             },
             ['4'] = {
-                name    = 'Manager',
+                name    = 'Chủ garage',
                 isboss  = true,
                 payment = 150
             },
         },
     },
     ['judge']      = {
-        label       = 'Honorary',
+        label       = 'Tòa án',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Judge',
+                name    = 'Thẩm phán',
                 payment = 100
             },
         },
     },
     ['lawyer']     = {
-        label       = 'Law Firm',
+        label       = 'Văn phòng Luật',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Associate',
+                name    = 'Luật sư cộng tác',
                 payment = 50
             },
         },
     },
     ['reporter']   = {
-        label       = 'Reporter',
+        label       = 'Truyền thông Báo chí',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Journalist',
+                name    = 'Phóng viên',
                 payment = 50
             },
         },
     },
     ['trucker']    = {
-        label       = 'Trucker',
+        label       = 'Tài xế xe tải',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Driver',
+                name    = 'Tài xế giao hàng',
                 payment = 50
             },
         },
     },
     ['tow']        = {
-        label       = 'Towing',
+        label       = 'Cứu hộ kéo xe',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Driver',
+                name    = 'Tài xế cứu hộ',
                 payment = 50
             },
         },
     },
     ['garbage']    = {
-        label       = 'Garbage',
+        label       = 'Thu gom rác',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Collector',
+                name    = 'Công nhân dọn rác',
                 payment = 50
             },
         },
     },
     ['vineyard']   = {
-        label       = 'Vineyard',
+        label       = 'Vườn nho',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Picker',
+                name    = 'Nông dân hái nho',
                 payment = 50
             },
         },
     },
     ['hotdog']     = {
-        label       = 'Hotdog',
+        label       = 'Bán Hotdog',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Sales',
+                name    = 'Nhân viên bán xe',
                 payment = 50
             },
         },
     },
     ['adsl']   = {
-        label       = 'adsl',
+        label       = 'ADSL Viễn thông',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Intérimaire',
+                name    = 'Nhân viên thời vụ',
                 payment = 0
             },
         },
     },
     ['livraison']   = {
-        label       = 'livraison',
+        label       = 'Giao hàng',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Intérimaire',
+                name    = 'Nhân viên thời vụ',
                 payment = 0
             },
         },
     },
     ['religion']   = {
-        label       = 'religion',
+        label       = 'Tôn giáo',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Intérimaire',
+                name    = 'Thành viên thời vụ',
                 payment = 0
             },
         },
     },
     ['metal']   = {
-        label       = 'metal',
+        label       = 'Khai khoáng Kim loại',
         defaultDuty = true,
         offDutyPay  = false,
         grades      = {
             ['0'] = {
-                name    = 'Intérimaire',
+                name    = 'Nhân viên thời vụ',
                 payment = 0
             },
         },

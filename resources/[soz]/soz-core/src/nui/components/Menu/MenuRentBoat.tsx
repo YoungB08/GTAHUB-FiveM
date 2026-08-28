@@ -15,14 +15,14 @@ import {
 } from '../Styleguide/Menu';
 
 const Colors = {
-    ['Vert']: VehicleColor.MetallicGreen,
-    ['Rouge']: VehicleColor.MetallicRed,
-    ['Orange']: VehicleColor.MetallicOrange,
-    ['Jaune']: VehicleColor.MetallicRaceYellow,
-    ['Bleu']: VehicleColor.MetallicBlue,
-    ['Violet']: VehicleColor.MetallicPurple,
-    ['Blanc']: VehicleColor.MetallicWhite,
-    ['Rose']: VehicleColor.HotPink,
+    ['Xanh lá']: VehicleColor.MetallicGreen,
+    ['Đỏ']: VehicleColor.MetallicRed,
+    ['Cam']: VehicleColor.MetallicOrange,
+    ['Vàng']: VehicleColor.MetallicRaceYellow,
+    ['Xanh dương']: VehicleColor.MetallicBlue,
+    ['Tím']: VehicleColor.MetallicPurple,
+    ['Trắng']: VehicleColor.MetallicWhite,
+    ['Hồng']: VehicleColor.HotPink,
 };
 
 export const MenuRentBoat: FunctionComponent = () => {
@@ -33,16 +33,16 @@ export const MenuRentBoat: FunctionComponent = () => {
     return (
         <Menu type={MenuType.RentBoat}>
             <MainMenu>
-                <MenuTitle title="Location de bateaux" />
+                <MenuTitle title="Thuê thuyền buồm & Ca-nô" />
                 <MenuContent>
-                    <MenuItemButton onConfirm={() => returnBoat()}>Rendre le bateau</MenuItemButton>
+                    <MenuItemButton onConfirm={() => returnBoat()}>Trả lại thuyền</MenuItemButton>
                     <MenuItemSelect
-                        title={`Louer un Marquis`}
+                        title={`Thuê Marquis`}
                         value={VehicleColor.MetallicGreen}
                         onConfirm={async (index, color) => {
                             await fetchNui(NuiEvent.BoatRent, color);
                         }}
-                        description={`Location : $1450 (Caution : $1000)`}
+                        description={`Giá thuê : $1450 (Tiền đặt cọc : $1000)`}
                     >
                         {Object.entries(Colors).map(([colorName, colorId]) => (
                             <MenuItemSelectOption value={colorId} key={`color_${colorId}`}>

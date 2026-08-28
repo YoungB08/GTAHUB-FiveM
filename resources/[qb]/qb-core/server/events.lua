@@ -4,7 +4,11 @@ AddEventHandler('playerDropped', function(reason)
     local src = source
     if QBCore.Players[src] then
         local Player = QBCore.Players[src]
-        exports['soz-core']:TraceEvent('player_disconnect', { player_source = src, reason = reason })
+        pcall(function()
+            if exports['soz-core'] and exports['soz-core'].TraceEvent then
+                exports['soz-core']:TraceEvent('player_disconnect', { player_source = src, reason = reason })
+            end
+        end)
         Player.Functions.Save()
         _G.Player_Buckets[Player.PlayerData.license] = nil
         TriggerEvent('QBCore:Server:PlayerUnload', src)
@@ -54,7 +58,7 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
             event = "playerConnecting"
         })
 
-        deferrals.done('Impossible de recupérer votre identifiant steam, verifier que le client est bien lancé.')
+        deferrals.done('Không thể lấy thông tin Steam ID của bạn. Vui lòng đảm bảo ứng dụng Steam đang mở trên máy tính.')
 
         if not allowAnonymous then
             return
@@ -65,12 +69,6 @@ local function OnPlayerConnecting(name, setKickReason, deferrals)
     local account = QBCore.Functions.GetUserAccount(src, useTestMode)
 
     if not account then
-        if not allowAnonymous then
-            deferrals.done('Impossible de recupérer un compte soz valide, veuillez vous rapprocher auprès d\'un administrateur, identifiant steam : ' .. tostring(steam))
-
-            return
-        end
-
         QBCore.Functions.SetPermission(steam, defaultAnonymousRole)
     elseif useTestMode then
         QBCore.Functions.SetPermission(steam, 'admin')

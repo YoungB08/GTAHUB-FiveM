@@ -1,7 +1,7 @@
 local function CreateGenderSlider(menu, playerId, skin, clothConfig)
     local genderOptions = {
-        {label = "Homme", value = GetHashKey("mp_m_freemode_01")},
-        {label = "Femme", value = GetHashKey("mp_f_freemode_01")},
+        {label = "Nam", value = GetHashKey("mp_m_freemode_01")},
+        {label = "Nữ", value = GetHashKey("mp_f_freemode_01")},
     }
     local genderValue = 1;
 
@@ -9,7 +9,7 @@ local function CreateGenderSlider(menu, playerId, skin, clothConfig)
         genderValue = 2
     end
 
-    local genderSlider = menu:AddSlider({label = "Genre", value = genderValue, values = genderOptions})
+    local genderSlider = menu:AddSlider({label = "Giới Tính", value = genderValue, values = genderOptions})
 
     genderSlider:On("change", function(_, valueIndex)
         local option = genderOptions[valueIndex]
@@ -69,7 +69,7 @@ local function CreateFatherSlider(menu, heritage, playerId, skin)
         end
     end
 
-    local fatherSlider = menu:AddSlider({label = "Père", value = fatherValue, values = fatherOptions})
+    local fatherSlider = menu:AddSlider({label = "Khuôn Mặt Cha", value = fatherValue, values = fatherOptions})
 
     fatherSlider:On("change", function(_, value)
         local option = fatherOptions[value]
@@ -118,7 +118,7 @@ local function CreateMotherSlider(menu, heritage, playerId, skin)
         end
     end
 
-    local fatherSlider = menu:AddSlider({label = "Mère", value = motherValue, values = motherOptions})
+    local fatherSlider = menu:AddSlider({label = "Khuôn Mặt Mẹ", value = motherValue, values = motherOptions})
 
     fatherSlider:On("change", function(_, value)
         local option = motherOptions[value]
@@ -138,10 +138,10 @@ local function CreateModelMenuItems(modelMenu, playerId, skin, clothConfig)
     CreateMotherSlider(modelMenu, heritage, playerId, skin)
 
     modelMenu:AddRange({
-        label = "Ressemblance",
+        label = "Tỉ Lệ Giống Cha/Mẹ",
         value = skin.Model.ShapeMix * 100,
-        minLabel = "Père",
-        maxLabel = "Mère",
+        minLabel = "Cha",
+        maxLabel = "Mẹ",
         min = 0,
         max = 100,
         interval = 5,
@@ -151,10 +151,10 @@ local function CreateModelMenuItems(modelMenu, playerId, skin, clothConfig)
     end)
 
     modelMenu:AddRange({
-        label = "Couleur de peau",
+        label = "Màu Da Theo Cha/Mẹ",
         value = skin.Model.SkinMix * 100,
-        minLabel = "Père",
-        maxLabel = "Mère",
+        minLabel = "Cha",
+        maxLabel = "Mẹ",
         min = 0,
         max = 100,
         interval = 5,
@@ -167,7 +167,7 @@ local function CreateModelMenuItems(modelMenu, playerId, skin, clothConfig)
 end
 
 function CreateModelMenu(createCharacterMenu, playerId, skin, clothConfig)
-    local modelMenu = MenuV:InheritMenu(createCharacterMenu, {subtitle = "Identité"})
+    local modelMenu = MenuV:InheritMenu(createCharacterMenu, {subtitle = "Danh Tính"})
 
     -- Add heritage before open, to preload textures
     modelMenu:AddHeritage({portraitMale = "male_0", portraitFemale = "female_0"})

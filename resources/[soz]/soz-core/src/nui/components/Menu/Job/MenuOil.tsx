@@ -25,7 +25,7 @@ export const MenuOil: FunctionComponent<MenuOilProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.oil} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực ngành dầu khí.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -43,7 +43,7 @@ export const MenuOil: FunctionComponent<MenuOilProps> = ({ data }) => {
                             fetchNui(NuiEvent.OilShowOilFields, { value });
                         }}
                     >
-                        Afficher la zone de récolte sur le GPS
+                        Hiển thị mỏ khai thác dầu thô trên GPS
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showRefinery}
@@ -51,7 +51,7 @@ export const MenuOil: FunctionComponent<MenuOilProps> = ({ data }) => {
                             fetchNui(NuiEvent.OilShowRefinery, { value });
                         }}
                     >
-                        Afficher la zone de raffinage sur le GPS
+                        Hiển thị nhà máy lọc dầu trên GPS
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showReseller}
@@ -59,7 +59,7 @@ export const MenuOil: FunctionComponent<MenuOilProps> = ({ data }) => {
                             fetchNui(NuiEvent.OilShowReseller, { value });
                         }}
                     >
-                        Afficher la zone de revente sur le GPS
+                        Hiển thị điểm phân phối xăng dầu trên GPS
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

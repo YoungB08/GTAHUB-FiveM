@@ -28,8 +28,8 @@ local function CreateCategoryMultipleCollectionItems(clothMenu, playerId, collec
         }
     end
 
-    local sliderCollection = clothMenu:AddSlider({label = "Collection", value = 1, values = collectionOptions})
-    local sliderItems = clothMenu:AddSlider({label = "Elements", value = 0, values = {}})
+    local sliderCollection = clothMenu:AddSlider({label = "Bộ Sưu Tập", value = 1, values = collectionOptions})
+    local sliderItems = clothMenu:AddSlider({label = "Mẫu Trang Phục", value = 0, values = {}})
 
     local UpdateItems = function(collectionIndex)
         itemOptions = {}
@@ -104,7 +104,7 @@ local function CreateClothMenuItems(clothMenu, playerId, shopConfig, clothConfig
 end
 
 function CreateClothMenu(createCharacterMenu, playerId, clothShopConfig, clothConfig, clothSetKey)
-    local clothMenu = MenuV:InheritMenu(createCharacterMenu, {subtitle = "Vêtements"})
+    local clothMenu = MenuV:InheritMenu(createCharacterMenu, {subtitle = "Trang Phục Khởi Đầu"})
 
     -- Only display cloth set, override cloth config, so we can choose base clothing even if naked or wearing job cloth
     local clothSet = clothConfig[clothSetKey]

@@ -34,7 +34,7 @@ export const MenuNews: FunctionComponent<MenuNewsProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel[data.job]} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực tin tức.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -47,19 +47,19 @@ export const MenuNews: FunctionComponent<MenuNewsProps> = ({ data }) => {
                 <MenuTitle title={JobLabel[data.job]} />
                 <MenuContent>
                     <MenuItemSelect
-                        title="Faire une communication"
+                        title="Phát sóng bản tin"
                         onConfirm={(i, value) => {
                             fetchNui(NuiEvent.NewsCreateAnnounce, {
                                 type: value,
-                                title: 'Message de la communication',
+                                title: 'Nội dung bản tin phát sóng',
                             });
                         }}
                     >
-                        <MenuItemSelectOption value="annonce">Annonce</MenuItemSelectOption>
-                        <MenuItemSelectOption value="breaking-news">Breaking News</MenuItemSelectOption>
-                        <MenuItemSelectOption value="publicité">Publicité</MenuItemSelectOption>
-                        <MenuItemSelectOption value="fait-divers">Fait Divers</MenuItemSelectOption>
-                        <MenuItemSelectOption value="info-trafic">Info Trafic</MenuItemSelectOption>
+                        <MenuItemSelectOption value="annonce">Thông báo chung</MenuItemSelectOption>
+                        <MenuItemSelectOption value="breaking-news">Tin nóng khẩn cấp (Breaking News)</MenuItemSelectOption>
+                        <MenuItemSelectOption value="publicité">Quảng cáo dịch vụ</MenuItemSelectOption>
+                        <MenuItemSelectOption value="fait-divers">Tin đời sống & Sự kiện</MenuItemSelectOption>
+                        <MenuItemSelectOption value="info-trafic">Tình hình giao thông</MenuItemSelectOption>
                     </MenuItemSelect>
                 </MenuContent>
             </MainMenu>

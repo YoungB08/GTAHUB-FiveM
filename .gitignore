@@ -9,3 +9,9 @@ imgui.ini
 polyzone_created_zones.txt*
 node_modules
 .replxx_history
+
+cache/
+*.sql
+*.log
+*.zip
+*.7z

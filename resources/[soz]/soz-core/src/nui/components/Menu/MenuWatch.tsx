@@ -30,12 +30,12 @@ export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
     return (
         <Menu type={MenuType.WatchMenu}>
             <MainMenu>
-                <MenuTitle title="Montre connectée" />
+                <MenuTitle title="Đồng hồ Thông minh" />
                 <MenuContent>
                     <MenuItemSelect
-                        title="Thème"
+                        title="Chủ đề màu"
                         value={data.theme}
-                        description={`Thème de la montre connectée`}
+                        description={`Giao diện màu sắc của đồng hồ và HUD`}
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.WatchMenuSetTheme, value);
                         }}
@@ -48,9 +48,9 @@ export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
                     </MenuItemSelect>
 
                     <MenuItemSelect
-                        title="Taille UWUI"
+                        title="Kích thước Đồng hồ"
                         value={data.zoom}
-                        description={`Zoom de la montre connectée`}
+                        description={`Tỉ lệ thu phóng của đồng hồ HUD`}
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.WatchMenuSetZoom, value);
                         }}
@@ -63,9 +63,9 @@ export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
                     </MenuItemSelect>
 
                     <MenuItemSelect
-                        title="Taille Inventaire"
+                        title="Kích thước Túi đồ"
                         value={data.inventorySize}
-                        description={`Taille de l'inventaire`}
+                        description={`Tỉ lệ thu phóng giao diện túi đồ`}
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.WatchMenuSetInventorySize, value);
                         }}
@@ -79,63 +79,63 @@ export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
 
                     <MenuItemCheckbox
                         checked={data.showDateTime}
-                        description="Active/Désactive l'affichage de la date et de l'heure"
+                        description="Bật / Tắt hiển thị ngày và giờ thực tế"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowDateTime, value)}
                     >
-                        Date et heure
+                        Ngày và Giờ
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showWeather}
-                        description="Active/Désactive l'affichage de la météo"
+                        description="Bật / Tắt hiển thị thời tiết hiện tại"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowWeather, value)}
                     >
-                        Météo
+                        Thời tiết
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showStreetName}
-                        description="Active/Désactive l'affichage des noms de rue"
+                        description="Bật / Tắt hiển thị tên đường và vị trí"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStreetName, value)}
                     >
-                        Noms de rue
+                        Tên đường & Vị trí
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showCompass}
-                        description="Active/Désactive l'affichage de la boussole"
+                        description="Bật / Tắt hiển thị la bàn định hướng"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowCompass, value)}
                     >
-                        Boussole
+                        La bàn định hướng
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showStress}
-                        description="Active/Désactive l'affichage du stress"
+                        description="Bật / Tắt hiển thị mức độ căng thẳng"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStress, value)}
                     >
-                        Stress
+                        Mức độ căng thẳng (Stress)
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showStamina}
-                        description="Active/Désactive l'affichage de la stamina"
+                        description="Bật / Tắt hiển thị thanh thể lực"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowStamina, value)}
                     >
-                        Stamina
+                        Thể lực (Stamina)
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.showAnimalStats}
-                        description="Active/Désactive l'affichage de l'état de l'animal"
+                        description="Bật / Tắt hiển thị chỉ số sức khỏe thú cưng"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowAnimalStats, value)}
                     >
-                        État de l'animal
+                        Trạng thái thú cưng
                     </MenuItemCheckbox>
-                    <MenuSubTitle>État corporel</MenuSubTitle>
+                    <MenuSubTitle>Trạng thái thương tật</MenuSubTitle>
                     <MenuItemCheckbox
                         checked={data.showInjuryTracker}
-                        description="Active/Désactive l'affichage d l'état corporel"
+                        description="Bật / Tắt hiển thị sơ đồ thương tật cơ thể"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowInjuryTracker, value)}
                     >
-                        État corporel
+                        Sơ đồ thương tật cơ thể
                     </MenuItemCheckbox>
                     <MenuItemSelect
-                        title="Taille de l'affichage"
+                        title="Kích cỡ sơ đồ"
                         value={data.zoomInjuryTracker}
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.WatchMenuSetZoomInjuryTracker, value);
@@ -149,28 +149,28 @@ export const MenuWatch: FunctionComponent<MenuWatchProps> = ({ data }) => {
                     </MenuItemSelect>
                     <MenuItemCheckbox
                         checked={data.switchInjuryTrackerPosition}
-                        description="Change la position de l'état corporel"
+                        description="Đổi vị trí hiển thị sơ đồ thương tật"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetSwitchInjuryTrackerPosition, value)}
                     >
-                        Afficher l'état corporel à gauche
+                        Hiển thị thương tật bên trái màn hình
                     </MenuItemCheckbox>
 
-                    <MenuSubTitle>Accessibilité</MenuSubTitle>
+                    <MenuSubTitle>Bố cục & Vị trí</MenuSubTitle>
                     <MenuItemCheckbox
                         checked={data.switchPlayerStatsPosition}
-                        description="Change la position des stats du joueur"
+                        description="Đổi vị trí thanh máu, giáp, ăn uống của nhân vật"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetSwitchPlayerStatsPosition, value)}
                     >
-                        Afficher les stats du joueur à droite
+                        Hiển thị chỉ số nhân vật bên phải
                     </MenuItemCheckbox>
 
-                    <MenuSubTitle>Intéraction</MenuSubTitle>
+                    <MenuSubTitle>Hướng dẫn phím tắt</MenuSubTitle>
                     <MenuItemCheckbox
                         checked={data.showInstructionalOverlay}
-                        description="Active/Désactive l'affichage des instructions d'intéraction"
+                        description="Bật / Tắt hiển thị hướng dẫn các phím bấm tương tác"
                         onChange={value => fetchNui(NuiEvent.WatchMenuSetShowInstructionalOverlay, value)}
                     >
-                        Instructions d'intéraction
+                        Gợi ý phím bấm tương tác
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

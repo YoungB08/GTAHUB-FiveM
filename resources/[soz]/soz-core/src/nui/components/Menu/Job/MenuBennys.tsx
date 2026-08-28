@@ -27,7 +27,7 @@ export const MenuBennys: FunctionComponent<MenuBennysProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.bennys} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực sửa xe.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -43,7 +43,7 @@ export const MenuBennys: FunctionComponent<MenuBennysProps> = ({ data }) => {
                         <MenuItemButton
                             onConfirm={() => fetchNui(NuiEvent.BennysUpgradeVehicle, LSCustomMode.NewGahray)}
                         >
-                            🔧 Améliorer le véhicule
+                            🔧 Nâng cấp & Độ xe
                         </MenuItemButton>
                     )}
                 </MenuContent>

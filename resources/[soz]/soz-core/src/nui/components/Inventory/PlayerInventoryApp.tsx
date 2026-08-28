@@ -137,7 +137,7 @@ export const PlayerInventoryApp: FunctionComponent = () => {
                     }}
                 >
                     <Inventory
-                        title="Inventaire"
+                        title="Túi đồ cá nhân"
                         configuration={configuration}
                         inventoryItems={inventoryItems}
                         inventoryId={`player_${player?.citizenid}`}
@@ -146,7 +146,7 @@ export const PlayerInventoryApp: FunctionComponent = () => {
                         itemDescriptionPosition="right"
                         headerRightTitle={
                             <div className="flex items-center">
-                                <span>Vêtements</span>
+                                <span>Trang phục</span>
                                 <img className="h-5 pl-2" src={getPath('images/inventory/icon/cloth.webp')} />
                             </div>
                         }
@@ -155,7 +155,7 @@ export const PlayerInventoryApp: FunctionComponent = () => {
                     <div className="relative w-full mt-4">
                         <header className="w-full">
                             <div className="drop-shadow-bg h-[40px] flex w-full justify-between items-center">
-                                <h1 className="font-semibold uppercase text-white text-2xl">Raccourcis</h1>
+                                <h1 className="font-semibold uppercase text-white text-2xl">Phím tắt nhanh</h1>
                             </div>
                         </header>
                         <GameCanvasBox blur={false} cantBeHidden>
@@ -201,7 +201,7 @@ export const PlayerInventoryApp: FunctionComponent = () => {
                             }}
                         >
                             <PlayerClothingPanel
-                                title="Vêtements"
+                                title="Tủ đồ trang phục"
                                 configuration={configuration}
                                 inventoryItems={clothingItems}
                                 inventoryId={`player_clothing_${player?.citizenid}`}

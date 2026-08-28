@@ -36,7 +36,7 @@ export const MenuUpw: FunctionComponent<MenuUpwProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.upw} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực điện lực.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -52,37 +52,37 @@ export const MenuUpw: FunctionComponent<MenuUpwProps> = ({ data }) => {
                         checked={blips[UpwFacilityType.inverter]}
                         onChange={value => displayBlip(UpwFacilityType.inverter, value)}
                     >
-                        Afficher les Onduleurs
+                        Hiển thị Bộ biến tần (Inverter)
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips[UpwFacilityType.jobTerminal]}
                         onChange={value => displayBlip(UpwFacilityType.jobTerminal, value)}
                     >
-                        Afficher les Bornes entreprises
+                        Hiển thị Trạm sạc doanh nghiệp
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips[UpwFacilityType.terminal]}
                         onChange={value => displayBlip(UpwFacilityType.terminal, value)}
                     >
-                        Afficher les Bornes civiles
+                        Hiển thị Trạm sạc dân dụng
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips[UpwFacilityType.plant]}
                         onChange={value => displayBlip(UpwFacilityType.plant, value)}
                     >
-                        Afficher les Installations électriques
+                        Hiển thị Cơ sở phát điện
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips[UpwFacilityType.resell]}
                         onChange={value => displayBlip(UpwFacilityType.resell, value)}
                     >
-                        Afficher le Stockage de revente
+                        Hiển thị Điểm thu mua năng lượng
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips[UpwFacilityType.charger]}
                         onChange={value => displayBlip(UpwFacilityType.charger, value)}
                     >
-                        Afficher les Emplacements de chargeurs
+                        Hiển thị Vị trí các bộ sạc pin
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

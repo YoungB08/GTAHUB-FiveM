@@ -7,10 +7,57 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
+}
+
+// Glassmorphism Candy Red Utilities
+.glass-candy {
+    background: rgba(22, 4, 10, 0.78) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 77, 121, 0.35) !important;
+    box-shadow: 0 8px 32px 0 rgba(225, 29, 72, 0.22) !important;
+}
+
+.glass-candy-card {
+    background: linear-gradient(135deg, rgba(255, 30, 86, 0.18) 0%, rgba(35, 6, 15, 0.82) 100%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 77, 121, 0.4) !important;
+    box-shadow: 0 4px 20px 0 rgba(255, 30, 86, 0.18) !important;
+}
+
+.glass-candy-glow {
+    box-shadow: 0 0 20px rgba(255, 30, 86, 0.55), inset 0 0 10px rgba(255, 77, 121, 0.25) !important;
+}
+
+.candy-gradient-text {
+    background: linear-gradient(135deg, #FF6B8B 0%, #FF1E56 50%, #FF8FA3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Custom Candy Red Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(20, 3, 8, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #FF1E56 0%, #990024 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(255, 30, 86, 0.6);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FF4D79;
 }

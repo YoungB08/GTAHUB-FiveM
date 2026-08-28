@@ -67,11 +67,11 @@ export const DrivingSchoolMenu: FunctionComponent<DrivingSchoolMenuProps> = ({ d
     return (
         <Menu type={MenuType.DrivingSchool}>
             <MainMenu>
-                <MenuTitle title="Carte Grise" />
-                <MenuContent subtitle={`Places restantes : ${data.remainingSlots}`}>
+                <MenuTitle title="Đăng ký Sở hữu Xe" />
+                <MenuContent subtitle={`Số slot xe còn trống: ${data.remainingSlots}`}>
                     <MenuItemSelect
                         value={initialLimit}
-                        title="Niveau"
+                        title="Hạn mức"
                         showAllOptions
                         useGrid
                         onChange={(_, value) => onChange(value)}
@@ -89,8 +89,8 @@ export const DrivingSchoolMenu: FunctionComponent<DrivingSchoolMenuProps> = ({ d
                     </MenuItemSelect>
                     <MenuItemButton className="border-t border-white/50" onConfirm={() => onConfirm()}>
                         <div className="flex w-full justify-between items-center">
-                            <span>Confirmer</span>
-                            <span>${getPrice(price, TaxType.VEHICLE).toLocaleString('fr-FR')}</span>
+                            <span>Xác nhận</span>
+                            <span>${getPrice(price, TaxType.VEHICLE).toLocaleString('vi-VN')}</span>
                         </div>
                     </MenuItemButton>
                 </MenuContent>

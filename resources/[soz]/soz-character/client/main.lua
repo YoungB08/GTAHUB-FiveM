@@ -754,7 +754,7 @@ CreateClothShopConfigSouth = {
         {
             Collections = {
                 {
-                    Name = "Pantalon",
+                    Name = "Quần",
                     Items = CreateItemsWithTextures(ComponentType.Pants, 103, {
                         {Name = GetLabelText("CLO_AWM_L_1_0"), Id = 0},
                         {Name = GetLabelText("CLO_AWM_L_1_1"), Id = 1},
@@ -777,7 +777,7 @@ CreateClothShopConfigSouth = {
         {
             Collections = {
                 {
-                    Name = "Chaussure",
+                    Name = "Giày",
                     Items = CreateItemsWithTextures(ComponentType.Shoes, 1, {
                         {Name = GetLabelText("F_FMM_1_0"), Id = 0},
                         {Name = GetLabelText("F_FMM_1_1"), Id = 1},
@@ -804,7 +804,7 @@ CreateClothShopConfigSouth = {
         {
             Collections = {
                 {
-                    Name = "Haut",
+                    Name = "Áo",
                     Items = {
                         {
                             Name = GetLabelText("CLO_H4F_U_2_0"),
@@ -995,7 +995,7 @@ CreateClothShopConfigSouth = {
         {
             Collections = {
                 {
-                    Name = "Pantalon",
+                    Name = "Quần",
                     Items = CreateItemsWithTextures(ComponentType.Pants, 4, {
                         {Name = GetLabelText("L_FMF_4_0"), Id = 0},
                         {Name = GetLabelText("L_FMF_4_1"), Id = 1},
@@ -1020,7 +1020,7 @@ CreateClothShopConfigSouth = {
         {
             Collections = {
                 {
-                    Name = "Chaussure",
+                    Name = "Giày",
                     Items = CreateItemsWithTextures(ComponentType.Shoes, 1, {
                         {Name = GetLabelText("F_FMF_1_0"), Id = 0},
                         {Name = GetLabelText("F_FMF_1_1"), Id = 1},
@@ -1050,7 +1050,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Haut",
+                    Name = "Áo",
                     Items = {
                         {
                             Name = GetLabelText("U_FMM_5_0"),
@@ -1171,7 +1171,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Pantalon",
+                    Name = "Quần",
                     Items = CreateItemsWithTextures(ComponentType.Pants, 103, {
                         {Name = GetLabelText("CLO_AWM_L_1_0"), Id = 0},
                         {Name = GetLabelText("CLO_AWM_L_1_1"), Id = 1},
@@ -1194,7 +1194,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Chaussure",
+                    Name = "Giày",
                     Items = CreateItemsWithTextures(ComponentType.Shoes, 16, {
                         {Name = GetLabelText("CLO_BBM_F_0_0"), Id = 0},
                         {Name = GetLabelText("CLO_BBM_F_0_1"), Id = 1},
@@ -1217,7 +1217,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Haut",
+                    Name = "Áo",
                     Items = {
                         {
                             Name = GetLabelText("CLO_BIF_U_15_0"),
@@ -1268,7 +1268,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Pantalon",
+                    Name = "Quần",
                     Items = CreateItemsWithTextures(ComponentType.Pants, 137, {
                         {Name = GetLabelText("CLO_SUF_L_5_0"), Id = 0},
                         {Name = GetLabelText("CLO_SUF_L_5_1"), Id = 1},
@@ -1293,7 +1293,7 @@ CreateClothShopConfigNorth = {
         {
             Collections = {
                 {
-                    Name = "Chaussure",
+                    Name = "Giày",
                     Items = CreateItemsWithTextures(ComponentType.Shoes, 5, {
                         {Name = GetLabelText("F_FMF_5_0"), Id = 0},
                         {Name = GetLabelText("F_FMF_5_1"), Id = 1},

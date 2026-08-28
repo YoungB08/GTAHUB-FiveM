@@ -6,7 +6,7 @@ version '1.0.0'
 
 shared_scripts {
     'shared/locale.lua',
-	'locale/fr.lua',
+	'locale/vi.lua',
     'config.lua',
     'shared/main.lua',
     'shared/items.lua',

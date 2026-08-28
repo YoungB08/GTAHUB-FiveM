@@ -47,20 +47,20 @@ export const useHudColor = (): GlassmorphismColors => {
 
         return {
             [HudTheme.Light]: {
-                background: '#F3FBFA4D',
-                border: '#FFFFFF',
+                background: '#FFE8ED66',
+                border: '#FF1E56',
             },
             [HudTheme.Dark]: {
-                background: '#22232A73',
-                border: '#FFFFFF',
+                background: '#1A040A8A',
+                border: '#FF1E56',
             },
             [HudTheme.Green]: {
                 background: '#3F7B344D',
                 border: '#00E949',
             },
             [HudTheme.Uwu]: {
-                background: '#E3A7EC4D',
-                border: '#E3A7EC',
+                background: '#4A08198A',
+                border: '#FF4D79',
             },
             [HudTheme.Deuteranopie]: {
                 background: '#00000073',
@@ -71,8 +71,8 @@ export const useHudColor = (): GlassmorphismColors => {
                 border: '#FFFFFF',
             },
             [HudTheme.HalloweenVein]: {
-                background: '#00000073',
-                border: '#F02B2B',
+                background: '#1A000099',
+                border: '#FF1E56',
             },
             [HudTheme.Gold]: {
                 background: '#ECDCA74C',
@@ -114,12 +114,12 @@ export const useHudColor = (): GlassmorphismColors => {
             },
             [HudTheme.Dark]: {
                 primary: {
-                    background: '#F3FBFA',
-                    color: '#22232A',
+                    background: '#FF1E56',
+                    color: '#FFFFFF',
                 },
                 secondary: {
-                    background: '#454754',
-                    color: '#F3FBFA',
+                    background: '#380915',
+                    color: '#FFA3B8',
                 },
             },
             [HudTheme.Green]: {
@@ -198,10 +198,10 @@ export const useHudColor = (): GlassmorphismColors => {
 
     const _cards = useMemo(
         () => ({
-            [HudTheme.Light]: '#F3FBFA4D',
-            [HudTheme.Dark]: '#3D405C4D',
+            [HudTheme.Light]: '#FFE8ED80',
+            [HudTheme.Dark]: '#2B071299',
             [HudTheme.Green]: '#3F7B344D',
-            [HudTheme.Uwu]: '#E3A7EC4D',
+            [HudTheme.Uwu]: '#4A08198A',
             [HudTheme.Deuteranopie]: '#4547544D',
             [HudTheme.Trichromatisme]: '#4547544D',
             [HudTheme.HalloweenVein]: '#4547544D',

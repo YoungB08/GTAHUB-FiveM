@@ -5,7 +5,7 @@ QBShared.Items = {
     -- Melee
     ["weapon_unarmed"] = {
         ["name"] = "weapon_unarmed",
-        ["label"] = "Poings.",
+        ["label"] = "Tay không",
         ["weight"] = 0,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -15,7 +15,7 @@ QBShared.Items = {
     },
     ["weapon_dagger"] = {
         ["name"] = "weapon_dagger",
-        ["label"] = "Dague antique",
+        ["label"] = "Dao găm cổ",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -26,7 +26,7 @@ QBShared.Items = {
     },
     ["weapon_bat"] = {
         ["name"] = "weapon_bat",
-        ["label"] = "Batte de baseball",
+        ["label"] = "Gậy bóng chày",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -37,7 +37,7 @@ QBShared.Items = {
     },
     ["weapon_pickaxe"] = {
         ["name"] = "weapon_pickaxe",
-        ["label"] = "Pioche",
+        ["label"] = "Cuốc chim",
         ["weight"] = 1000,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -48,7 +48,7 @@ QBShared.Items = {
     },
     ["weapon_bottle"] = {
         ["name"] = "weapon_bottle",
-        ["label"] = "Bouteille brisée",
+        ["label"] = "Chai vỡ",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -59,7 +59,7 @@ QBShared.Items = {
     },
     ["weapon_crowbar"] = {
         ["name"] = "weapon_crowbar",
-        ["label"] = "Pied de biche",
+        ["label"] = "Xà bén",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -70,7 +70,7 @@ QBShared.Items = {
     },
     ["weapon_flashlight"] = {
         ["name"] = "weapon_flashlight",
-        ["label"] = "Lampe de poche",
+        ["label"] = "Đèn pin",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -81,7 +81,7 @@ QBShared.Items = {
     },
     ["weapon_uvflashlight"] = {
         ["name"] = "weapon_uvflashlight",
-        ["label"] = "Lampe UV Scientifique",
+        ["label"] = "Đèn UV Pháp y",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -92,7 +92,7 @@ QBShared.Items = {
     },
     ["weapon_golfclub"] = {
         ["name"] = "weapon_golfclub",
-        ["label"] = "Club de golf",
+        ["label"] = "Gậy đánh golf",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -103,7 +103,7 @@ QBShared.Items = {
     },
     ["weapon_hammer"] = {
         ["name"] = "weapon_hammer",
-        ["label"] = "Marteau",
+        ["label"] = "Cây búa",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -114,7 +114,7 @@ QBShared.Items = {
     },
     ["weapon_hatchet"] = {
         ["name"] = "weapon_hatchet",
-        ["label"] = "Hachette",
+        ["label"] = "Rìu nhỏ",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -136,7 +136,7 @@ QBShared.Items = {
     },
     ["weapon_knife"] = {
         ["name"] = "weapon_knife",
-        ["label"] = "Couteau",
+        ["label"] = "Dao găm",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -147,7 +147,7 @@ QBShared.Items = {
     },
     ["weapon_machete"] = {
         ["name"] = "weapon_machete",
-        ["label"] = "Machette",
+        ["label"] = "Dao rựa",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -158,7 +158,7 @@ QBShared.Items = {
     },
     ["weapon_switchblade"] = {
         ["name"] = "weapon_switchblade",
-        ["label"] = "Cran d'arrêt",
+        ["label"] = "Dao bấm",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -169,7 +169,7 @@ QBShared.Items = {
     },
     ["weapon_nightstick"] = {
         ["name"] = "weapon_nightstick",
-        ["label"] = "Matraque",
+        ["label"] = "Dùi cui cảnh sát",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -180,7 +180,7 @@ QBShared.Items = {
     },
     ["weapon_wrench"] = {
         ["name"] = "weapon_wrench",
-        ["label"] = "Clé anglaise",
+        ["label"] = "Mỏ lết",
         ["weight"] = 500,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -246,7 +246,7 @@ QBShared.Items = {
     },
     ["weapon_handcuffs"] = {
         ["name"] = "weapon_handcuffs",
-        ["label"] = "Menottes",
+        ["label"] = "Còng tay cảnh sát",
         ["weight"] = 100,
         ["type"] = "weapon",
         ["ammotype"] = nil,
@@ -302,7 +302,7 @@ QBShared.Items = {
     -- Handguns
     ["weapon_pistol"] = {
         ["name"] = "weapon_pistol",
-        ["label"] = "Pistolet",
+        ["label"] = "Súng lục 9mm",
         ["weight"] = 2000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -324,7 +324,7 @@ QBShared.Items = {
     },
     ["weapon_combatpistol"] = {
         ["name"] = "weapon_combatpistol",
-        ["label"] = "Pistolet de combat",
+        ["label"] = "Súng lục chiến thuật",
         ["weight"] = 1600,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -334,7 +334,7 @@ QBShared.Items = {
     },
     ["weapon_appistol"] = {
         ["name"] = "weapon_appistol",
-        ["label"] = "Pistolet perforant",
+        ["label"] = "Súng lục xuyên giáp",
         ["weight"] = 1800,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -375,7 +375,7 @@ QBShared.Items = {
     },
     ["weapon_heavypistol"] = {
         ["name"] = "weapon_heavypistol",
-        ["label"] = "Pistolet lourd",
+        ["label"] = "Súng lục hạng nặng",
         ["weight"] = 2000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -385,7 +385,7 @@ QBShared.Items = {
     },
     ["weapon_vintagepistol"] = {
         ["name"] = "weapon_vintagepistol",
-        ["label"] = "Pistolet vintage",
+        ["label"] = "Súng lục cổ điển",
         ["weight"] = 1400,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -415,7 +415,7 @@ QBShared.Items = {
     },
     ["weapon_revolver"] = {
         ["name"] = "weapon_revolver",
-        ["label"] = "Revolver",
+        ["label"] = "Súng lục ổ quay Revolver",
         ["weight"] = 2000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_PISTOL",
@@ -520,7 +520,7 @@ QBShared.Items = {
     -- Submachine Guns
     ["weapon_microsmg"] = {
         ["name"] = "weapon_microsmg",
-        ["label"] = "Pistolet mitrailleur",
+        ["label"] = "Súng tiểu liên MP5",
         ["weight"] = 1400,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SMG",
@@ -530,7 +530,7 @@ QBShared.Items = {
     },
     ["weapon_smg"] = {
         ["name"] = "weapon_smg",
-        ["label"] = "Mitraillette",
+        ["label"] = "Súng tiểu liên Micro SMG",
         ["weight"] = 1500,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SMG",
@@ -624,7 +624,7 @@ QBShared.Items = {
     },
     ["weapon_sawnoffshotgun"] = {
         ["name"] = "weapon_sawnoffshotgun",
-        ["label"] = "Fusil à canon scié",
+        ["label"] = "Súng ngắn hai nòng cưa",
         ["weight"] = 3000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SHOTGUN",
@@ -634,7 +634,7 @@ QBShared.Items = {
     },
     ["weapon_assaultshotgun"] = {
         ["name"] = "weapon_assaultshotgun",
-        ["label"] = "Fusil d'assaut",
+        ["label"] = "Súng trường tấn công AK-47",
         ["weight"] = 2500,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SHOTGUN",
@@ -717,7 +717,7 @@ QBShared.Items = {
     -- Assault Rifles
     ["weapon_assaultrifle"] = {
         ["name"] = "weapon_assaultrifle",
-        ["label"] = "Fusil d'assaut",
+        ["label"] = "Súng trường tấn công AK-47",
         ["weight"] = 3000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -737,7 +737,7 @@ QBShared.Items = {
     },
     ["weapon_carbinerifle"] = {
         ["name"] = "weapon_carbinerifle",
-        ["label"] = "Carabine",
+        ["label"] = "Súng trường Carabine M4A1",
         ["weight"] = 2000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -767,7 +767,7 @@ QBShared.Items = {
     },
     ["weapon_specialcarbine"] = {
         ["name"] = "weapon_specialcarbine",
-        ["label"] = "Carabine spéciale",
+        ["label"] = "Súng trường đặc biệt G36C",
         ["weight"] = 4000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -787,7 +787,7 @@ QBShared.Items = {
     },
     ["weapon_compactrifle"] = {
         ["name"] = "weapon_compactrifle",
-        ["label"] = "Fusil compact",
+        ["label"] = "Súng trường mini Compact",
         ["weight"] = 2800,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -817,7 +817,7 @@ QBShared.Items = {
     },
     ["weapon_militaryrifle"] = {
         ["name"] = "weapon_militaryrifle",
-        ["label"] = "Fusil militaire",
+        ["label"] = "Súng trường quân sự AUG",
         ["weight"] = 4000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -827,7 +827,7 @@ QBShared.Items = {
     },
     ["weapon_heavyrifle"] = {
         ["name"] = "weapon_heavyrifle",
-        ["label"] = "Fusil lourd",
+        ["label"] = "Súng trường hạng nặng",
         ["weight"] = 4000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_RIFLE",
@@ -943,7 +943,7 @@ QBShared.Items = {
     },
     ["weapon_heavysniper_mk2"] = {
         ["name"] = "weapon_heavysniper_mk2",
-        ["label"] = "Fusil de précision lourd",
+        ["label"] = "Súng bắn tỉa hạng nặng Heavy Sniper",
         ["weight"] = 8000,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SNIPER",
@@ -963,7 +963,7 @@ QBShared.Items = {
     },
     ["weapon_precisionrifle"] = {
         ["name"] = "weapon_precisionrifle",
-        ["label"] = "Fusil de précision",
+        ["label"] = "Súng bắn tỉa Sniper",
         ["weight"] = 4500,
         ["type"] = "weapon",
         ["ammotype"] = "AMMO_SNIPER",
@@ -1692,7 +1692,7 @@ QBShared.Items = {
     },
     ["sandwich"] = {
         ["name"] = "sandwich",
-        ["label"] = "Sandwich",
+        ["label"] = "Bánh mì kẹp Sandwich",
         ["weight"] = 300,
         ["type"] = "food",
         ["unique"] = false,
@@ -1873,7 +1873,7 @@ QBShared.Items = {
     -- Drink ITEMS
     ["water_bottle"] = {
         ["name"] = "water_bottle",
-        ["label"] = "Bouteille d'eau",
+        ["label"] = "Chai nước suối",
         ["weight"] = 300,
         ["type"] = "drink",
         ["unique"] = false,
@@ -1945,7 +1945,7 @@ QBShared.Items = {
     },
     ["coffee"] = {
         ["name"] = "coffee",
-        ["label"] = "Café",
+        ["label"] = "Cà phê",
         ["weight"] = 300,
         ["type"] = "drink",
         ["unique"] = false,
@@ -2042,7 +2042,7 @@ QBShared.Items = {
     -- Alcohol
     ["beer"] = {
         ["name"] = "beer",
-        ["label"] = "Bière",
+        ["label"] = "Bia",
         ["weight"] = 500,
         ["type"] = "drink",
         ["unique"] = false,
@@ -2490,7 +2490,7 @@ QBShared.Items = {
     },
     ["viande"] = {
         ["name"] = "viande",
-        ["label"] = "Viande",
+        ["label"] = "Miếng thịt tươi",
         ["weight"] = 300,
         ["type"] = "food",
         ["unique"] = false,
@@ -3553,7 +3553,7 @@ QBShared.Items = {
     -- Drugs
     ["joint"] = {
         ["name"] = "joint",
-        ["label"] = "Joint",
+        ["label"] = "Điếu cần sa",
         ["weight"] = 100,
         ["type"] = "drug",
         ["unique"] = false,
@@ -3890,7 +3890,7 @@ QBShared.Items = {
     },
     ["cleaningkit"] = {
         ["name"] = "cleaningkit",
-        ["label"] = "Kit de nettoyage",
+        ["label"] = "Bộ dụng cụ vệ sinh xe",
         ["weight"] = 5000,
         ["type"] = "item",
         ["unique"] = false,
@@ -4251,7 +4251,7 @@ QBShared.Items = {
     },
     ["radio"] = {
         ["name"] = "radio",
-        ["label"] = "Radio",
+        ["label"] = "Bộ đàm Radio",
         ["weight"] = 500,
         ["type"] = "item",
         ["unique"] = false,
@@ -4407,7 +4407,7 @@ QBShared.Items = {
     },
     ["goldbar"] = {
         ["name"] = "goldbar",
-        ["label"] = "Lingot d'or",
+        ["label"] = "Thỏi vàng nguyên chất",
         ["weight"] = 1000,
         ["type"] = "item_illegal",
         ["unique"] = false,
@@ -4421,7 +4421,7 @@ QBShared.Items = {
     -- Cops Tools
     ["armor"] = {
         ["name"] = "armor",
-        ["label"] = "Gilet pare-balles",
+        ["label"] = "Áo giáp chống đạn",
         ["weight"] = 5000,
         ["type"] = "item",
         ["unique"] = false,
@@ -4576,7 +4576,7 @@ QBShared.Items = {
     },
     ["handcuffs_key"] = {
         ["name"] = "handcuffs_key",
-        ["label"] = "Clé de menottes",
+        ["label"] = "Chìa khóa còng tay",
         ["weight"] = 100,
         ["type"] = "item",
         ["unique"] = false,
@@ -5299,7 +5299,7 @@ QBShared.Items = {
     },
     ["wood_plank"] = {
         ["name"] = "wood_plank",
-        ["label"] = "Planche de bois",
+        ["label"] = "Thanh ván gỗ",
         ["weight"] = 1000,
         ["type"] = "plank",
         ["unique"] = false,
@@ -7047,7 +7047,7 @@ QBShared.Items = {
     --- STONK
     ["moneybag"] = {
         ["name"] = "moneybag",
-        ["label"] = "Sac d'argent",
+        ["label"] = "Túi tiền mặt",
         ["weight"] = 2500,
         ["type"] = "item",
         ["image"] = "moneybag.png",
@@ -11249,7 +11249,7 @@ QBShared.Items = {
     },
     ["iron_ingot"] = {
         ["name"] = "iron_ingot",
-        ["label"] = "Lingot de fer",
+        ["label"] = "Thỏi sắt",
         ["weight"] = 2000,
         ["useable"] = false,
         ["type"] = "metal",

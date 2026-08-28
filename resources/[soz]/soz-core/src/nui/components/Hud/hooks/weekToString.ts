@@ -1,19 +1,19 @@
 export const weekToString = (dayOfWeek: number): string => {
     switch (dayOfWeek) {
         case 0:
-            return 'Dim';
+            return 'CN';
         case 1:
-            return 'Lun';
+            return 'T2';
         case 2:
-            return 'Mar';
+            return 'T3';
         case 3:
-            return 'Mer';
+            return 'T4';
         case 4:
-            return 'Jeu';
+            return 'T5';
         case 5:
-            return 'Ven';
+            return 'T6';
         case 6:
-            return 'Sam';
+            return 'T7';
         default:
             return '???';
     }

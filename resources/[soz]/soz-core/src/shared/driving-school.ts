@@ -88,15 +88,15 @@ const markers: Record<string, Marker> = {
 const finalCheckpoints: Record<string, Checkpoint> = {
     landVehicle: {
         coords: [-763.07, -1322.39, 3.42],
-        message: 'Tu es arrivé au bout. Bien joué !',
+        message: 'Bạn đã về đến đích. Làm tốt lắm!',
     },
     airVehicle: {
         coords: [-745.25, -1468.67, 4.0],
-        message: 'Très beau vol. Bien joué !',
+        message: 'Chuyến bay hoàn hảo. Làm tốt lắm!',
     },
     boatVehicle: {
         coords: [-765.47, -1366.62, 0.0],
-        message: 'Belle navigation. Bien joué !',
+        message: 'Lái tàu rất chuẩn. Làm tốt lắm!',
     },
 };
 
@@ -122,7 +122,7 @@ const licenses: Record<DrivingSchoolLicenseType, DrivingSchoolLicense> = {
         },
         price: 45,
         icon: 'driving-school/voiture',
-        label: 'Permis voiture',
+        label: 'Bằng lái Ô tô',
         points: 12,
         marker: markers.landVehicle,
         checkpointCount: 6,
@@ -149,7 +149,7 @@ const licenses: Record<DrivingSchoolLicenseType, DrivingSchoolLicense> = {
         },
         price: 45,
         icon: 'driving-school/camion',
-        label: 'Permis camion',
+        label: 'Bằng lái Xe tải',
         points: 12,
         marker: markers.landVehicle,
         checkpointCount: 6,
@@ -176,7 +176,7 @@ const licenses: Record<DrivingSchoolLicenseType, DrivingSchoolLicense> = {
         },
         price: 45,
         icon: 'driving-school/moto',
-        label: 'Permis moto',
+        label: 'Bằng lái Xe máy',
         points: 12,
         marker: markers.landVehicle,
         checkpointCount: 6,
@@ -197,7 +197,7 @@ const licenses: Record<DrivingSchoolLicenseType, DrivingSchoolLicense> = {
         },
         price: 540,
         icon: 'driving-school/heli',
-        label: 'Permis hélicoptère',
+        label: 'Bằng lái Trực thăng',
         points: 12,
         marker: markers.airVehicle,
         checkpointCount: 5,
@@ -218,7 +218,7 @@ const licenses: Record<DrivingSchoolLicenseType, DrivingSchoolLicense> = {
         },
         price: 270,
         icon: 'driving-school/boat',
-        label: 'Permis bateau',
+        label: 'Bằng lái Tàu thuyền',
         points: 12,
         marker: markers.landVehicle,
         checkpointCount: 5,
@@ -234,7 +234,7 @@ export const DrivingSchoolConfig = {
     maxGracePeriod: 4000, // in ms
     gracePeriodIncrement: 200, // in ms
     blip: {
-        name: 'Auto-école',
+        name: 'Trường dạy lái xe',
         sprite: 545,
         color: 25,
         scale: 0.8,
@@ -251,15 +251,15 @@ export const DrivingSchoolConfig = {
     },
     startSpeeches: [
         {
-            message: 'Ton examen va débuter. Boucle ta ceinture et nous pouvons partir.',
+            message: 'Bài thi của bạn bắt đầu. Hãy thắt dây an toàn và xuất phát.',
             exclude: [DrivingSchoolLicenseType.Moto, DrivingSchoolLicenseType.Boat],
         },
         {
-            message: 'Suis ton GPS à allure modérée, et respecte les autres usagers de la route.',
+            message: 'Hãy đi theo GPS với tốc độ vừa phải và chú ý người tham gia giao thông.',
             exclude: [DrivingSchoolLicenseType.Boat, DrivingSchoolLicenseType.Heli],
         },
         {
-            message: "Releve l'ancre, boucle ta ceinture, on est parti à une allure modérée",
+            message: 'Kéo neo lên, thắt dây an toàn và bắt đầu hành trình với tốc độ vừa phải.',
             include: [DrivingSchoolLicenseType.Boat],
         },
     ],
@@ -291,87 +291,87 @@ export const DrivingSchoolConfig = {
 export const Checkpoints: Checkpoint[] = [
     {
         coords: [-606.1, -957.79, 20.39],
-        message: 'Ici, ce sont les bureaux de ~p~Twitch News~s~. Ils ne racontent que des salades…',
+        message: 'Đây là trụ sở của ~p~Twitch News~s~.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [31.24, -767.01, 42.67],
-        message: 'Connaissez-vous Stonk Security ?',
+        message: 'Bạn có biết công ty an ninh Stonk Security không?',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [248.3, -369.19, 42.89],
-        message: "T'auras besoin de ton permis si tu veux un job du Pole emploi, alors concentre-toi !",
+        message: 'Bạn sẽ cần bằng lái nếu muốn xin việc tại Trung tâm việc làm, hãy tập trung!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [667.22, -27.01, 80.96],
-        message: 'LSPD Vinewood. Au premier excès de vitesse, tu finis ici !',
+        message: 'Đồn cảnh sát LSPD Vinewood. Chạy quá tốc độ là vào đây nhé!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [204.08, 195.72, 104.01],
-        message: "La Pacific Bank. Je crois que c'est ici qu'ils rendent l'argent.",
+        message: 'Ngân hàng Pacific Bank trung tâm thành phố.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [807.06, -1290.38, 24.72],
-        message: "LSPD, La Mesa. C'est cette patrouille autoroutière qui te coinceras si tu fais n'importe quoi…",
+        message: 'Đồn cảnh sát LSPD La Mesa. Đội tuần tra cao tốc luôn giám sát khu vực này.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [305.58, -1367.15, 30.44],
-        message: "Les mauvais conducteurs finissent souvent ici, à l'Hôpital !",
+        message: 'Lái xe ẩu là điểm đến cuối cùng sẽ là Bệnh viện đấy!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [432.83, -1634.1, 28.55],
-        message: 'Ta maman ne sera pas fière si tu dois venir chercher ta voiture à cette fourrière…',
+        message: 'Bãi tạm giữ xe thành phố. Đừng để xe bị kéo về đây nhé!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-222.02, -2053.33, 26.06],
-        message: 'L\'affiche dit : "ZLAN le 12, 13 et 14 Mai 2023."',
+        message: 'Khu vực trung tâm sự kiện thành phố.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-1028.3, -871.1, 5.83],
-        message: 'Los Santos Police Department ! De chouettes types !',
+        message: 'Trụ sở chính Cảnh sát Los Santos Police Department!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-696.01, 40.51, 41.56],
-        message: 'Kifflom !',
+        message: 'Khu vực Epsilon!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-1379.76, 55.13, 52.04],
-        message: "Tu essayes de m'acheter avec une partie de golf ?! Dommage je n'ai pas mes clubs…",
+        message: 'Sân Golf Los Santos.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [399.83, -981.8, 27.77],
-        message: 'Le LSPD surveille tous les conducteurs. Regarde la route !',
+        message: 'Cảnh sát luôn quan sát camera. Hãy chú ý nhìn đường!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-262.13, -1310.05, 29.65],
-        message: "New Gahray ! J'ai le sentiment que tu vas passer beaucoup de temps ici !",
+        message: 'Xưởng độ xe New Gahray! Nơi nâng cấp xế yêu của bạn!',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-1601.2, 156.95, 58.05],
-        message: 'Pfff! Regarde-moi tous ces étudiants qui passent leur vie sur les jeux-vidéos…',
+        message: 'Khu vực trường đại học ULSA.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-86.89, -1101.69, 24.46],
-        message: 'Termine cet examen avant de lorgner sur le concessionnaire. Chaque chose en son temps.',
+        message: 'Đại lý ô tô PDM. Hoàn thành bài thi rồi hãy ghé mua xe nhé.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     {
         coords: [-552.76, -151.6, 36.62],
-        message: "Il paraît que c'est dans ce commissariat qu'il y a les meilleurs donuts.",
+        message: 'Đồn cảnh sát Rockford Hills.',
         licenses: [DrivingSchoolLicenseType.Car, DrivingSchoolLicenseType.Truck, DrivingSchoolLicenseType.Moto],
     },
     { coords: [-340.44, -2357.59, 30.65], licenses: [DrivingSchoolLicenseType.Heli] },

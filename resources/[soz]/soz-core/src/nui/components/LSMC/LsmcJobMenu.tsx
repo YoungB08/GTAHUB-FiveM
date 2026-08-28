@@ -14,7 +14,7 @@ export const LsmcJobMenu: FunctionComponent = () => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.lsmc} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực y tế.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>

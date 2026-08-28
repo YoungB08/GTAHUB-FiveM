@@ -143,25 +143,25 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             case 'bcso':
             case 'sasp':
             case 'fbi':
-                return 'Avis de recherche';
+                return 'Lệnh truy nã khẩn cấp';
             case 'fbi_annoncement':
             case 'sasp_annoncement':
             case 'gouv':
             case 'presidence':
-                return 'Annonce';
+                return 'Thông báo chính quyền';
             case 'reboot_5':
             case 'reboot_15':
-                return 'Alerte ouragan';
+                return 'Cảnh báo bão lớn (Bảo trì)';
             case 'sandstorm':
-                return 'Alerte tempête';
+                return 'Cảnh báo bão cát';
             case 'earthquake':
-                return 'Alerte séisme';
+                return 'Cảnh báo động đất';
             case 'flood':
-                return 'Alerte inondation';
+                return 'Cảnh báo lũ lụt';
             case 'fire':
-                return 'Alerte incendie';
+                return 'Cảnh báo hỏa hoạn';
             case 'tornado':
-                return 'Alerte tornade';
+                return 'Cảnh báo lốc xoáy';
             default:
                 return news.type;
         }
@@ -172,19 +172,19 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             return (
                 <>
                     <p>
-                        Un ouragan arrive à toute allure ! Il devrait frapper le coeur de San Andreas d'ici{' '}
+                        Một cơn bão siêu cấp đang tiến vào trung tâm GTAHUB trong vòng{' '}
                         <strong
                             style={{
                                 color: borderColor,
                             }}
                         >
-                            {news.type.replace('reboot_', '')} Minutes
+                            {news.type.replace('reboot_', '')} Phút
                         </strong>
                         .
                     </p>
-                    <p>Veuillez ranger vos véhicules et vous abriter ! Votre sécurité est primordiale.</p>
+                    <p>Vui lòng cất phương tiện vào gara và tìm nơi trú ẩn an toàn!</p>
 
-                    <p className="self-end font-semibold">San Andreas Météo</p>
+                    <p className="self-end font-semibold">Trung tâm Khí tượng GTAHUB</p>
                 </>
             );
         }
@@ -193,17 +193,17 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             return (
                 <>
                     <p>
-                        Une épaisse tempête de sable va fouetter l'entièreté de l'île dans les prochaines minutes !{' '}
+                        Một đợt bão cát dày đặc đang đổ bộ vào thành phố trong vài phút tới!{' '}
                         <strong
                             className="font-bold"
                             style={{
                                 color: borderColor,
                             }}
                         >
-                            Nous vous invitons à protéger votre visage du sable.
+                            Vui lòng đeo kính bảo hộ và hạn chế ra đường.
                         </strong>
                     </p>
-                    <p>Faites attention sur la route, la visibilité s'en voit extrêmement réduite.</p>
+                    <p>Chú ý quan sát khi lái xe vì tầm nhìn giảm mạnh.</p>
                 </>
             );
         }
@@ -212,17 +212,17 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             return (
                 <>
                     <p>
-                        Un ou plusieurs tremblements de terre de magnitude élevée vont toucher l'île !{' '}
+                        Cảnh báo động đất cường độ lớn có nguy cơ rung chuyển thành phố!{' '}
                         <strong
                             className="font-bold"
                             style={{
                                 color: borderColor,
                             }}
                         >
-                            Nous vous invitons à vous mettre à l'abri, loin de tout objet explosif.
+                            Vui lòng di chuyển đến khu vực thoáng đãng, tránh xa các vật dễ cháy nổ.
                         </strong>
                     </p>
-                    <p>Veuillez garder votre calme durant toute la durée de la sirène, jusqu'à son arrêt complet.</p>
+                    <p>Giữ bình tĩnh trong suốt thời gian còi báo động vang lên.</p>
                 </>
             );
         }
@@ -231,17 +231,17 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             return (
                 <>
                     <p>
-                        Suite à de fortes pluies, une importante montée des eaux a été détectée !{' '}
+                        Mưa lớn kéo dài gây ngập úng nghiêm trọng trên diện rộng!{' '}
                         <strong
                             className="font-bold"
                             style={{
                                 color: borderColor,
                             }}
                         >
-                            Nous vous invitons à éviter les endroits à risques.
+                            Vui lòng tránh xa các khu vực ven sông suối và hầm chui.
                         </strong>
                     </p>
-                    <p>Veuillez éviter toutes les zones d'eaux de l'île, tout en y gardant un oeil attentif.</p>
+                    <p>Theo dõi sát thông tin cứu hộ từ lực lượng chức năng.</p>
                 </>
             );
         }
@@ -250,10 +250,10 @@ const Banner: FunctionComponent<BannerProps> = ({ news, onDelete }) => {
             return (
                 <>
                     <p>
-                        Les forces de l'ordre sont à la recherche de <strong>{news.message}</strong>.
+                        Lực lượng cảnh sát đang khẩn cấp truy tìm đối tượng: <strong>{news.message}</strong>.
                     </p>
                     <p>
-                        Si vous avez des informations sur cette personne, veuillez les communiquer au{' '}
+                        Nếu có bất kỳ thông tin nào về đối tượng, vui lòng báo ngay qua tổng đài{' '}
                         <strong className="font-bold uppercase">555-{news.type}</strong>.
                     </p>
                 </>

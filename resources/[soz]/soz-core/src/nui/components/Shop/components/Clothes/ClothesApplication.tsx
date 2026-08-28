@@ -81,7 +81,7 @@ export const ClothesApplication: FunctionComponent<ClothesApplicationProps> = ({
                                 </div>
                             </div>
 
-                            <h3 className="text-white">Libérer la caméra</h3>
+                            <h3 className="text-white">Tự do xoay góc nhìn camera</h3>
                         </div>
                     </footer>
                 </GlassMorphismContainer>

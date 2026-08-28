@@ -187,7 +187,7 @@ type ActionItemProps = {
 };
 
 export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, inventoryId, inventoryItem, item }) => {
-    const classNames = 'p-1 rounded hover:bg-white/15';
+    const classNames = 'p-1.5 px-2.5 rounded-md hover:bg-candy-500/25 hover:text-candy-300 transition-colors text-sm font-medium cursor-pointer select-none';
 
     if (action === ActionItemType.Use) {
         return (
@@ -201,7 +201,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Utiliser
+                Sử dụng
             </div>
         );
     }
@@ -218,7 +218,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Jeter
+                Vứt bỏ
             </div>
         );
     }
@@ -235,7 +235,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Montrer
+                Cho xem
             </div>
         );
     }
@@ -253,7 +253,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Donner
+                Đưa vật phẩm
             </div>
         );
     }
@@ -270,7 +270,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Équiper
+                Trang bị
             </div>
         );
     }
@@ -286,7 +286,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Définir comme arme principale
+                Đặt làm vũ khí chính
             </div>
         );
     }
@@ -302,7 +302,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Définir comme arme secondaire
+                Đặt làm vũ khí phụ
             </div>
         );
     }
@@ -319,7 +319,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Renommer
+                Đổi tên
             </div>
         );
     }
@@ -335,7 +335,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Donner en propre
+                Đưa tiền sạch
             </div>
         );
     }
@@ -351,7 +351,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Donner en sale
+                Đưa tiền bẩn
             </div>
         );
     }
@@ -368,7 +368,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Ouvrir le portefeuille
+                Mở ví tiền
             </div>
         );
     }
@@ -385,7 +385,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Ouvrir le trousseau
+                Mở chùm chìa khóa
             </div>
         );
     }
@@ -402,7 +402,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Montrer
+                Xuất trình thẻ
             </div>
         );
     }
@@ -419,7 +419,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Regarder
+                Xem thẻ
             </div>
         );
     }
@@ -435,7 +435,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                {item?.openStorageLabel || 'Ouvrir'}
+                {item?.openStorageLabel || 'Mở'}
             </div>
         );
     }
@@ -452,7 +452,7 @@ export const ActionItem: FunctionComponent<ActionItemProps> = ({ action, invento
                 }
                 className={classNames}
             >
-                Faire consommer
+                Bắt dùng
             </div>
         );
     }

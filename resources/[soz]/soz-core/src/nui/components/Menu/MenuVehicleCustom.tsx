@@ -66,7 +66,7 @@ export const MenuItemSelectVehicleCustomLevel: FunctionComponent<MenuItemSelectV
         >
             {option.choice.items.map((option, index) => (
                 <MenuItemSelectOptionBox key={index} value={option.value}>
-                    {index === 0 ? 'Origine' : index}
+                    {index === 0 ? 'Gốc' : `Cấp ${index}`}
                 </MenuItemSelectOptionBox>
             ))}
         </MenuItemSelect>
@@ -151,14 +151,14 @@ export const MenuVehicleCustom: FunctionComponent<MenuVehicleCustomProps> = ({ d
     return (
         <Menu type={MenuType.VehicleCustom}>
             <MainMenu>
-                <MenuTitle title={crimi ? 'Performance' : 'LS Customs'} />
+                <MenuTitle title={crimi ? 'Hiệu năng xe' : 'LS Customs'} />
                 <MenuContent
                     helpPanel={
                         data.mode == LSCustomMode.CrimiPerfo &&
                         crimiPrice().length > 0 && (
                             <>
                                 <MenuItemText>
-                                    <span className="underline">Coût totaux : </span>
+                                    <span className="underline">Tổng chi phí vật tư: </span>
                                 </MenuItemText>
                                 {crimiPrice().map(elem => (
                                     <MenuItemText key={'cost_' + elem}>• {elem}</MenuItemText>
@@ -171,35 +171,35 @@ export const MenuVehicleCustom: FunctionComponent<MenuVehicleCustomProps> = ({ d
                         value={configuration.modification.engine}
                         option={data.options.modification.engine}
                         image="engine"
-                        title="Moteur"
+                        title="Động cơ"
                         onChange={createOnChange('engine')}
                     />
                     <MenuItemSelectVehicleCustomLevel
                         value={configuration.modification.brakes}
                         option={data.options.modification.brakes}
                         image="frein"
-                        title="Freins"
+                        title="Hệ thống phanh"
                         onChange={createOnChange('brakes')}
                     />
                     <MenuItemSelectVehicleCustomLevel
                         value={configuration.modification.transmission}
                         option={data.options.modification.transmission}
                         image="transmission"
-                        title="Transmission"
+                        title="Hộp số"
                         onChange={createOnChange('transmission')}
                     />
                     <MenuItemSelectVehicleCustomLevel
                         value={configuration.modification.suspension}
                         option={data.options.modification.suspension}
                         image="suspenssion"
-                        title="Suspension"
+                        title="Giảm xóc"
                         onChange={createOnChange('suspension')}
                     />
                     <MenuItemSelectVehicleCustomLevel
                         value={configuration.modification.armor}
                         option={data.options.modification.armor}
                         image="blindage"
-                        title="Blindage"
+                        title="Giáp xe"
                         onChange={createOnChange('armor')}
                     />
                     {data.options.modification.turbo && (
@@ -218,8 +218,8 @@ export const MenuVehicleCustom: FunctionComponent<MenuVehicleCustomProps> = ({ d
                                 </div>
                             }
                         >
-                            <MenuItemSelectOptionBox value={false}>Désactivé</MenuItemSelectOptionBox>
-                            <MenuItemSelectOptionBox value={true}>Activé</MenuItemSelectOptionBox>
+                            <MenuItemSelectOptionBox value={false}>Tắt</MenuItemSelectOptionBox>
+                            <MenuItemSelectOptionBox value={true}>Bật</MenuItemSelectOptionBox>
                         </MenuItemSelect>
                     )}
                     {data.advenced && (
@@ -234,21 +234,21 @@ export const MenuVehicleCustom: FunctionComponent<MenuVehicleCustomProps> = ({ d
                                         className="ml-4 w-8 h-8"
                                         src={getPath('images/vehicle/transmission.webp')}
                                     />
-                                    <h3 className="ml-2 uppercase">Boite manuelle</h3>
+                                    <h3 className="ml-2 uppercase">Hộp số sàn</h3>
                                 </div>
                             }
                         >
-                            <MenuItemSelectOptionBox value={false}>Désactivé</MenuItemSelectOptionBox>
-                            <MenuItemSelectOptionBox value={true}>Activé</MenuItemSelectOptionBox>
+                            <MenuItemSelectOptionBox value={false}>Tắt</MenuItemSelectOptionBox>
+                            <MenuItemSelectOptionBox value={true}>Bật</MenuItemSelectOptionBox>
                         </MenuItemSelect>
                     )}
                     <MenuItemButton className="border-t border-white/50" onConfirm={() => onConfirm()}>
                         <div className="flex w-full justify-between items-center">
-                            <span>✅ Confirmer les changements</span>
+                            <span>✅ Xác nhận nâng cấp</span>
                             {data.mode == LSCustomMode.LsCustom && (
                                 <span>
                                     ${' '}
-                                    {Intl.NumberFormat('fr-FR').format(
+                                    {Intl.NumberFormat('vi-VN').format(
                                         getPrice(
                                             getVehicleCustomPrice(
                                                 data.vehiclePrice,

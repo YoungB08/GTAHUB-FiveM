@@ -85,48 +85,48 @@ export const BankApp: FunctionComponent = () => {
                         </div>
                         <Card className="flex flex-col grow justify-between">
                             <div className="flex flex-col gap-5">
-                                <MenuGroup title="Compte personnel">
+                                <MenuGroup title="Tài khoản cá nhân">
                                     <MenuLink
                                         to="/personal"
-                                        title="Tableau de bord"
+                                        title="Tổng quan tài khoản"
                                         icon={<HomeIcon className="size-5" />}
                                     />
                                     <MenuLink
                                         to="/personal/history"
-                                        title="Historique"
+                                        title="Lịch sử giao dịch"
                                         icon={<ArchiveIcon className="size-5" />}
                                     />
                                 </MenuGroup>
 
                                 {data?.accounts?.enterprise && (
-                                    <MenuGroup title="Compte société">
+                                    <MenuGroup title="Tài khoản doanh nghiệp">
                                         <MenuLink
                                             to="/enterprise"
-                                            title="Tableau de bord"
+                                            title="Tổng quan tài khoản"
                                             icon={<HomeIcon className="size-5" />}
                                         />
                                         <MenuLink
                                             to="/enterprise/history"
-                                            title="Historique"
+                                            title="Lịch sử giao dịch"
                                             icon={<ArchiveIcon className="size-5" />}
                                         />
                                     </MenuGroup>
                                 )}
 
                                 {data?.accounts?.offshore && (
-                                    <MenuGroup title="Compte des îles">
+                                    <MenuGroup title="Tài khoản hải ngoại">
                                         <MenuLink
                                             to="/offshore"
-                                            title="Compte OffShore"
+                                            title="Tài khoản Offshore"
                                             icon={<GiPalmTree className="h-4 w-4" />}
                                         />
                                     </MenuGroup>
                                 )}
 
-                                <MenuGroup title="Paramètres">
+                                <MenuGroup title="Cài đặt">
                                     <MenuLink
                                         to="/settings/contacts"
-                                        title="Mes bénéficiaires"
+                                        title="Danh bạ người nhận"
                                         icon={<UserAddIcon className="size-5" />}
                                     />
                                 </MenuGroup>
@@ -134,7 +134,7 @@ export const BankApp: FunctionComponent = () => {
 
                             <Button onClick={() => resetApp()}>
                                 <span className="flex gap-2.5 py-1.5 justify-center items-center">
-                                    <SignOutIcon className="size-6" /> Se déconnecter
+                                    <SignOutIcon className="size-6" /> Đăng xuất
                                 </span>
                             </Button>
                         </Card>

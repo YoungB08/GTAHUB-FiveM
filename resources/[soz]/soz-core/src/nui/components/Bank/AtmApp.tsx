@@ -101,7 +101,7 @@ export const AtmApp: FunctionComponent = () => {
 
                         <div className="flex gap-2.5">
                             <Card className="w-1/2">
-                                <Title size="xsmall">Solde bancaire</Title>
+                                <Title size="xsmall">Số dư tài khoản</Title>
 
                                 <div className="flex flex-col justify-center items-center">
                                     <Title size="medium">
@@ -111,7 +111,7 @@ export const AtmApp: FunctionComponent = () => {
                             </Card>
 
                             <Card className="w-1/2">
-                                <Title size="xsmall">Portefeuille</Title>
+                                <Title size="xsmall">Tiền mặt trong ví</Title>
 
                                 <div className="flex flex-col justify-center items-center">
                                     <Title size="medium">
@@ -123,7 +123,7 @@ export const AtmApp: FunctionComponent = () => {
 
                         <form onSubmit={handleSubmit(submitForm)} className="flex-grow">
                             <Card className="flex flex-col justify-between h-full gap-2.5">
-                                <Title size="xsmall">Retirer de l'argent</Title>
+                                <Title size="xsmall">Rút tiền mặt ATM</Title>
 
                                 <Input
                                     type="number"
@@ -132,7 +132,7 @@ export const AtmApp: FunctionComponent = () => {
                                         min: 1,
                                         max: {
                                             value: account?.atm?.config?.maxMoney,
-                                            message: `La capacité de cet ATM est de ${account?.atm?.config?.maxMoney?.toLocaleString('en-US', { ...FORMAT_CURRENCY, style: 'currency' })}`,
+                                            message: `Hạn mức rút tối đa của cây ATM này là ${account?.atm?.config?.maxMoney?.toLocaleString('vi-VN', { ...FORMAT_CURRENCY, style: 'currency' })}`,
                                         },
                                         required: true,
                                         onBlur: e => setValue('withdraw', parseInt(e.target.value) || undefined),
@@ -143,10 +143,10 @@ export const AtmApp: FunctionComponent = () => {
 
                                 <div className="flex gap-2.5">
                                     <Button type="reset" variant="secondary" onClick={() => resetApp()}>
-                                        Annuler
+                                        Hủy bỏ
                                     </Button>
                                     <Button type="submit" disabled={isSubmitting}>
-                                        Retirer
+                                        Rút tiền
                                     </Button>
                                 </div>
                             </Card>

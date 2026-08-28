@@ -44,94 +44,94 @@ export const MenuPlayerPersonal: FunctionComponent<MenuPlayerPersonalProps> = ({
     return (
         <Menu type={MenuType.PlayerPersonal}>
             <MainMenu>
-                <MenuTitle title="Personnel" />
+                <MenuTitle title="Cá nhân" />
                 <MenuContent subtitle={`${player.charinfo.firstname} ${player.charinfo.lastname}`}>
                     {data.deguisement && (
                         <MenuItemButton onConfirm={() => fetchNui(NuiEvent.PlayerMenuRemoveDeguisement)}>
-                            Enlever le déguisement
+                            Tháo đồ cải trang
                         </MenuItemButton>
                     )}
                     {data.naked && (
                         <MenuItemButton onConfirm={() => fetchNui(NuiEvent.PlayerMenuReDress)}>
-                            Se rhabiller
+                            Mặc lại quần áo
                         </MenuItemButton>
                     )}
 
-                    <MenuItemSubMenuLink id="animations">Animations</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="hud">HUD</MenuItemSubMenuLink>
-                    {data.job.enabled && <MenuItemSubMenuLink id="job">Gestion de votre métier</MenuItemSubMenuLink>}
-                    <MenuItemSubMenuLink id="voip">Voip & Vidéo</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="animations">Hành động & Cảm xúc</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="hud">Giao diện (HUD)</MenuItemSubMenuLink>
+                    {data.job.enabled && <MenuItemSubMenuLink id="job">Quản lý nghề nghiệp</MenuItemSubMenuLink>}
+                    <MenuItemSubMenuLink id="voip">Voice Chat & Màn hình</MenuItemSubMenuLink>
                     {isHalloween && (
                         <MenuItemCheckbox
                             checked={data.arachnophobe}
                             onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetArachnophobe, value)}
                         >
-                            Mode arachnophobe
+                            Chế độ chống sợ nhện
                         </MenuItemCheckbox>
                     )}
                     {isWhatIf2 && player.metadata.hazmat && (
                         <MenuItemButton
-                            description="⚠️ Enlève aussi les gilets par balles si équipé"
+                            description="⚠️ Thao tác này cũng sẽ tháo áo giáp chống đạn đang mặc"
                             onConfirm={() => fetchNui(NuiEvent.PlayerMenuWhatIfRemoveHazmat)}
                         >
-                            Retirer tenue Hazmat
+                            Cởi bộ đồ bảo hộ Hazmat
                         </MenuItemButton>
                     )}
                     {isWhatIf2 && (
                         <MenuItemButton
-                            description="⚠️Vous perdrez tout ce que vous avez pu récupérer excepter votre marteau"
+                            description="⚠️ Bạn sẽ mất tất cả vật phẩm nhặt được ngoại trừ búa"
                             onConfirm={() => fetchNui(NuiEvent.PlayerMenuWhatIf2Retrieval)}
                         >
-                            Demander un Rapatriement
+                            Yêu cầu dịch chuyển cứu hộ
                         </MenuItemButton>
                     )}
                 </MenuContent>
             </MainMenu>
             <MenuAnimation shortcuts={data.shortcuts} favorites={data.favorites} combatMode={data.combatMode} />
             <SubMenu id="hud">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Gestion du HUD">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Cài đặt giao diện HUD">
                     <MenuItemCheckbox
                         checked={data.isHudVisible}
-                        description="Active/Désactive le HUD"
+                        description="Bật / Tắt toàn bộ giao diện HUD"
                         onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetGlobal, { value })}
                     >
-                        HUD: Global
+                        HUD: Toàn bộ
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.isCinematicMode}
-                        description="Active/Désactive les barres noires"
+                        description="Bật / Tắt viền đen điện ảnh màn hình"
                         onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetCinematicMode, { value })}
                     >
-                        HUD: Cinématique
+                        HUD: Chế độ Điện ảnh
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.isCinematicCameraActive}
-                        description="Active/Désactive la caméra cinématique"
+                        description="Bật / Tắt góc quay camera điện ảnh"
                         onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetCinematicCameraActive, { value })}
                     >
-                        Caméra: Cinématique
+                        Camera: Chế độ Điện ảnh
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.scaledNui}
-                        description="Active/Désactive le scaling NUI"
+                        description="Tự động co giãn giao diện phù hợp màn hình"
                         onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetScaledNui, { value })}
                     >
-                        Scaling NUI
+                        Tự động co giãn (Scaling NUI)
                     </MenuItemCheckbox>
 
                     <MenuItemCheckbox
                         checked={data.isGlassmorphismActive}
-                        description="Active/Désactive le glassmorphisme du HUD (fond d'arrière-plan flou)"
+                        description="Bật hiệu ứng làm mờ kính Glassmorphism Candy Red"
                         onChange={value => fetchNui(NuiEvent.PlayerMenuHudSetGlassmorphism, { value })}
                     >
-                        Glassmorphisme
+                        Hiệu ứng kính mờ (Glassmorphism)
                     </MenuItemCheckbox>
 
                     <MenuItemSelect
-                        title="Glassmorphisme FPS Limit"
+                        title="Giới hạn FPS Glassmorphism"
                         value={data.glassmorphismFpsLimit}
-                        description="Limite de FPS pour le glassmorphisme du HUD"
+                        description="Giới hạn tốc độ khung hình cho hiệu ứng kính mờ"
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.PlayerMenuHudSetGlassmorphismFpsLimit, { value });
                         }}
@@ -146,32 +146,32 @@ export const MenuPlayerPersonal: FunctionComponent<MenuPlayerPersonalProps> = ({
             </SubMenu>
             <MenuJob data={data.job} />
             <SubMenu id="voip">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Gestion de la voip">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Cài đặt Voice Chat">
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.PlayerMenuVoipReset)}>
-                        Redémarrer la voip
+                        Khởi động lại Voice Chat
                     </MenuItemButton>
                     <MenuItemSelect
-                        title="Filtre voip"
-                        description="Permet de changer les filtre sur la voip"
+                        title="Bộ lọc âm thanh"
+                        description="Thay đổi bộ lọc khử tạp âm voice chat"
                         value={data.voipIntent}
                         onChange={async (_, value) => {
                             await fetchNui(NuiEvent.PlayerMenuVoipSetIntent, { value });
                         }}
                     >
-                        <MenuItemSelectOption value="speech">Voix</MenuItemSelectOption>
-                        <MenuItemSelectOption value="music">Musique</MenuItemSelectOption>
+                        <MenuItemSelectOption value="speech">Giọng nói</MenuItemSelectOption>
+                        <MenuItemSelectOption value="music">Âm nhạc</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title="Volume vidéo des écran"
+                        title="Âm lượng TV / Màn hình"
                         value={data.videoVolume}
-                        description="Permet de changer le volume des vidéos sur les écrans"
+                        description="Thay đổi âm lượng video phát trên màn hình ngoài phố"
                         onChange={async (_, value) => {
                             await fetchNui(NuiEvent.PlayerMenuSetVideoVolume, { value });
                         }}
                     >
                         {[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(volume => (
-                            <MenuItemSelectOption value={volume}>{volume}%</MenuItemSelectOption>
+                            <MenuItemSelectOption key={volume} value={volume}>{volume}%</MenuItemSelectOption>
                         ))}
                     </MenuItemSelect>
                 </MenuContent>
@@ -210,16 +210,16 @@ const MenuAnimation: FunctionComponent<MenuAnimationProps> = ({
     return (
         <>
             <SubMenu id="animations">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Gestion des animations">
-                    <MenuSubTitle>Animations</MenuSubTitle>
-                    <MenuItemSubMenuLink id="animation_list">Animations</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="shortcut_list">Mes raccourcis</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="favorite_list">Mes favoris</MenuItemSubMenuLink>
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Quản lý hành động">
+                    <MenuSubTitle>Hành động</MenuSubTitle>
+                    <MenuItemSubMenuLink id="animation_list">Danh sách hành động</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="shortcut_list">Phím tắt của tôi</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="favorite_list">Yêu thích của tôi</MenuItemSubMenuLink>
 
-                    <MenuSubTitle>Postures</MenuSubTitle>
-                    <MenuItemSubMenuLink id="walk_list">Démarches</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="mood_list">Humeurs</MenuItemSubMenuLink>
+                    <MenuSubTitle>Dáng đi & Cảm xúc</MenuSubTitle>
+                    <MenuItemSubMenuLink id="walk_list">Dáng đi</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="mood_list">Biểu cảm khuôn mặt</MenuItemSubMenuLink>
                     <MenuItemCheckbox
                         onChange={value => {
                             fetchNui(NuiEvent.PlayerAnimationUpdateCombatMode, value);
@@ -227,13 +227,13 @@ const MenuAnimation: FunctionComponent<MenuAnimationProps> = ({
                         }}
                         checked={removeCombatMode}
                     >
-                        Désactiver la posture de combat
+                        Tắt tư thế chiến đấu
                     </MenuItemCheckbox>
                 </MenuContent>
             </SubMenu>
             <SubMenu id="mood_list">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Gestion des humeurs">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Cảm xúc khuôn mặt">
                     {Moods.map((mood, i) => (
                         <MenuItemButton
                             onConfirm={() => {
@@ -247,8 +247,8 @@ const MenuAnimation: FunctionComponent<MenuAnimationProps> = ({
                 </MenuContent>
             </SubMenu>
             <SubMenu id="favorite_list">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Mes favoris">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Hành động yêu thích">
                     {Object.entries(favorites).map(([key, shortcut]) => {
                         if (!shortcut.animation) {
                             return <MenuItemButton key={key}>{shortcut.name}</MenuItemButton>;
@@ -274,17 +274,17 @@ const MenuAnimation: FunctionComponent<MenuAnimationProps> = ({
                                 }}
                                 key={key}
                             >
-                                <MenuItemSelectOption value="play">Jouer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="shortcut">Raccourci</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="play">Thực hiện</MenuItemSelectOption>
+                                <MenuItemSelectOption value="shortcut">Phím tắt</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">Xóa bỏ</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}
                 </MenuContent>
             </SubMenu>
             <SubMenu id="shortcut_list">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Mes raccourcis">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Phím tắt của tôi">
                     {Object.entries(shortcuts).map(([key, shortcut]) => {
                         if (!shortcut.animation) {
                             return <MenuItemButton key={key}>{shortcut.name}</MenuItemButton>;
@@ -305,8 +305,8 @@ const MenuAnimation: FunctionComponent<MenuAnimationProps> = ({
                                 }}
                                 key={key}
                             >
-                                <MenuItemSelectOption value="play">Jouer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="play">Thực hiện</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">Xóa bỏ</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}
@@ -396,17 +396,17 @@ const MenuAnimationList: FunctionComponent = () => {
     return (
         <>
             <SubMenu id="animation_list">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Liste des animations">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Danh sách hành động">
                     <MenuItemStringInput onChange={handleFilter} value={textFilter}>
-                        Filtre:
+                        Tìm kiếm:
                     </MenuItemStringInput>
                     <MenuItemButton
                         onConfirm={() => {
                             fetchNui(NuiEvent.PlayerMenuAnimationStop);
                         }}
                     >
-                        🛑 Stopper l'animation
+                        🛑 Dừng hành động
                     </MenuItemButton>
                     {menuConstructor.elements.map((element, index) => {
                         return <Fragment key={index}>{element}</Fragment>;
@@ -434,8 +434,8 @@ const MenuWalkList: FunctionComponent = () => {
     return (
         <>
             <SubMenu id="walk_list">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle="Liste des démarches">
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle="Danh sách dáng đi">
                     {elements.map((element, index) => {
                         return <Fragment key={index}>{element}</Fragment>;
                     })}
@@ -476,7 +476,7 @@ const createRecursiveSubMenu = <T extends ItemCategory<T>>(
 
         subMenus.push(
             <SubMenu id={`${prefix}${item.name}`}>
-                <MenuTitle title="Personnel" />
+                <MenuTitle title="Cá nhân" />
                 <MenuContent subtitle={item.name}>
                     {elements.map((element, index) => {
                         return <Fragment key={index}>{element}</Fragment>;
@@ -519,9 +519,9 @@ const createAnimationLeafItem = (item: AnimationConfigItem): ReactElement => {
             }
             titleWidth={60}
         >
-            <MenuItemSelectOption value="play">Jouer</MenuItemSelectOption>
-            <MenuItemSelectOption value="shortcut">Raccourci</MenuItemSelectOption>
-            <MenuItemSelectOption value="favorite">Favori</MenuItemSelectOption>
+            <MenuItemSelectOption value="play">Thực hiện</MenuItemSelectOption>
+            <MenuItemSelectOption value="shortcut">Phím tắt</MenuItemSelectOption>
+            <MenuItemSelectOption value="favorite">Yêu thích</MenuItemSelectOption>
         </MenuItemSelect>
     );
 };
@@ -558,9 +558,9 @@ const createWalkLeafItem = (item: WalkConfigItem): ReactElement => {
             }
             titleWidth={60}
         >
-            <MenuItemSelectOption value="play">Jouer</MenuItemSelectOption>
-            <MenuItemSelectOption value="shortcut">Raccourci</MenuItemSelectOption>
-            <MenuItemSelectOption value="favorite">Favori</MenuItemSelectOption>
+            <MenuItemSelectOption value="play">Thực hiện</MenuItemSelectOption>
+            <MenuItemSelectOption value="shortcut">Phím tắt</MenuItemSelectOption>
+            <MenuItemSelectOption value="favorite">Yêu thích</MenuItemSelectOption>
         </MenuItemSelect>
     );
 };
@@ -585,8 +585,8 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
     return (
         <>
             <SubMenu id="job">
-                <MenuTitle title="Personnel" />
-                <MenuContent subtitle={`Gestion du métier ${data.job.label}`}>
+                <MenuTitle title="Cá nhân" />
+                <MenuContent subtitle={`Quản lý nghề nghiệp ${data.job.label}`}>
                     <MenuItemButton
                         onConfirm={() => {
                             fetchNui(NuiEvent.PlayerMenuJobGradeCreate, {
@@ -594,13 +594,13 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                             });
                         }}
                     >
-                        Ajouter un grade
+                        Thêm chức vụ mới
                     </MenuItemButton>
 
                     {jobGrades.map((grade, i) => {
                         return (
                             <MenuItemSubMenuLink key={i} id={`job_grade_${grade.id}`}>
-                                {!!grade.owner && '⭐'} {grade.name} {!!grade.is_default && '(par défaut)'}
+                                {!!grade.owner && '⭐'} {grade.name} {!!grade.is_default && '(mặc định)'}
                             </MenuItemSubMenuLink>
                         );
                     })}
@@ -613,8 +613,8 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                 .map(grade => {
                     return (
                         <SubMenu id={`job_grade_${grade.id}`} key={`job_grade_${grade.id}`}>
-                            <MenuTitle title="Personnel" />
-                            <MenuContent subtitle={`Gestion du grade ${grade.name}`}>
+                            <MenuTitle title="Cá nhân" />
+                            <MenuContent subtitle={`Quản lý chức vụ ${grade.name}`}>
                                 <MenuItemButton
                                     onConfirm={() => {
                                         fetchNui(NuiEvent.PlayerMenuJobGradeUpdateWeight, {
@@ -622,7 +622,7 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                                         });
                                     }}
                                 >
-                                    Changer l'importance ({grade.weight})
+                                    Thay đổi cấp bậc ({grade.weight})
                                 </MenuItemButton>
                                 <MenuItemButton
                                     onConfirm={() => {
@@ -631,7 +631,7 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                                         });
                                     }}
                                 >
-                                    💵 Changer le salaire ({grade.salary}$)
+                                    💵 Thay đổi mức lương ({grade.salary}$)
                                 </MenuItemButton>
                                 {!grade.is_default && (
                                     <MenuItemButton
@@ -641,7 +641,7 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                                             });
                                         }}
                                     >
-                                        Définir comme grade par défaut
+                                        Đặt làm chức vụ mặc định
                                     </MenuItemButton>
                                 )}
                                 <MenuItemButton
@@ -651,7 +651,7 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                                         });
                                     }}
                                 >
-                                    ✎ Renommer le grade
+                                    ✎ Đổi tên chức vụ
                                 </MenuItemButton>
                                 <MenuItemButton
                                     onConfirm={() => {
@@ -660,7 +660,7 @@ const MenuJob: FunctionComponent<MenuJobProps> = ({ data }) => {
                                         });
                                     }}
                                 >
-                                    ❌ Supprimer le grade
+                                    ❌ Xóa chức vụ
                                 </MenuItemButton>
                                 {Object.keys(data.job.permissions).map(permission => {
                                     const permissionValue = data.job.permissions[permission];

@@ -61,7 +61,8 @@ export class RebootProvider {
         deferrals.defer();
 
         if (this.isClosed) {
-            deferrals.done('Le serveur est en cours de redémarrage, veuillez réessayer plus tard.');
+            deferrals.done('Máy chủ đang trong quá trình bảo trì/khởi động lại, vui lòng thử lại sau ít phút.');
+            return;
         }
 
         deferrals.done();

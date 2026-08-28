@@ -75,8 +75,8 @@ export const MenuVehicleDealership: FunctionComponent<MenuVehicleDealershipProps
     return (
         <Menu type={MenuType.VehicleDealership}>
             <MainMenu>
-                <MenuTitle title="Véhicule" />
-                <MenuContent subtitle="Concessionaire">
+                <MenuTitle title="Phương tiện" />
+                <MenuContent subtitle="Đại lý xe (Showroom)">
                     {sortedCategories.length > 1 &&
                         sortedCategories.map((category, index) => {
                             return (
@@ -99,7 +99,7 @@ export const MenuVehicleDealership: FunctionComponent<MenuVehicleDealershipProps
                 sortedCategories.map((category, index) => {
                     return (
                         <SubMenu id={`category_${index}`} key={index}>
-                            <MenuTitle title="Véhicule" />
+                            <MenuTitle title="Phương tiện" />
                             <MenuContent subtitle={category.name}>
                                 <MenuVehicleList
                                     dealershipId={data.dealershipId}
@@ -149,12 +149,12 @@ const MenuVehicleList: FunctionComponent<MenuVehicleListProps> = ({ dealershipId
                     'text-red-400': vehicle.stock === 1,
                 });
 
-                let description = `Acheter ${vehicle.name}`;
+                let description = `Mua xe ${vehicle.name}`;
 
                 if (vehicle.stock <= 0) {
-                    description = `❌ HORS STOCK de ${vehicle.name}`;
+                    description = `❌ HẾT HÀNG xe ${vehicle.name}`;
                 } else if (vehicle.stock < vehicle.maxStock / 2) {
-                    description = `⚠ Stock limité de ${vehicle.name}`;
+                    description = `⚠ Số lượng có hạn xe ${vehicle.name}`;
                 }
 
                 return (

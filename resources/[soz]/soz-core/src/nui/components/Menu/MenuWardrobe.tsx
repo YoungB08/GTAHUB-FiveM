@@ -50,14 +50,14 @@ export const MenuWardrobe: FunctionComponent<MenuWardrobeProps> = ({ wardrobe })
     return (
         <Menu type={MenuType.Wardrobe}>
             <MainMenu>
-                <MenuTitle title="Vestiaire" />
+                <MenuTitle title="Phòng thay đồ" />
                 <MenuContent>
                     {wardrobe.allowNullLabel && player.cloth_config.JobClothSet && (
                         <MenuItemButton onConfirm={() => onConfirm(null)}>{wardrobe.allowNullLabel}</MenuItemButton>
                     )}
                     {wardrobe.allowCustom && !player.cloth_config.JobClothSet && (
                         <MenuItemButton onConfirm={() => fetchNui(NuiEvent.PersonnalCloakroom)}>
-                            Tenues Personnelles
+                            Trang phục cá nhân
                         </MenuItemButton>
                     )}
 
@@ -81,13 +81,13 @@ export const MenuWardrobe: FunctionComponent<MenuWardrobeProps> = ({ wardrobe })
                     {wardrobe.allowCustom && (
                         <>
                             <MenuSubTitle>------------------------</MenuSubTitle>
-                            <MenuItemButton onConfirm={() => selectCustom()}>👮‍♀️ Tenue Personnalisée</MenuItemButton>
+                            <MenuItemButton onConfirm={() => selectCustom()}>👮‍♀️ Trang phục Tùy chỉnh</MenuItemButton>
                         </>
                     )}
                 </MenuContent>
             </MainMenu>
             <SubMenu id="custom" key="custom">
-                <MenuTitle title="Vestiaire" />
+                <MenuTitle title="Phòng thay đồ" />
                 <MenuContent>
                     {Object.values(WardRobeElements).map(wardRobeElementId => {
                         const elems =

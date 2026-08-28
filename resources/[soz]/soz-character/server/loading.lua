@@ -15,12 +15,16 @@ QBCore.Functions.CreateCallback("soz-character:server:LoginPlayer", function(sou
         local license = GetPlayerIdentifierByType(source, "license")
         local license2 = GetPlayerIdentifierByType(source, "license2")
 
-        exports["soz-core"]:TraceEvent("player_login", {
-            player_source = source,
-            id = source,
-            license = license,
-            license2 = license2,
-        })
+        pcall(function()
+            if exports["soz-core"] and exports["soz-core"].TraceEvent then
+                exports["soz-core"]:TraceEvent("player_login", {
+                    player_source = source,
+                    id = source,
+                    license = license,
+                    license2 = license2,
+                })
+            end
+        end)
 
         cb(QBCore.Functions.GetPlayer(source))
     else

@@ -184,7 +184,7 @@ CREATE TABLE `phone_calls` (
     `receiver` VARCHAR(8) NOT NULL,
     `is_accepted` TINYINT NULL DEFAULT 0,
     `start` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    `end` TIMESTAMP(0) NOT NULL DEFAULT ('0000-00-00 00:00:00'),
+    `end` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
     INDEX `identifier`(`identifier`),
     PRIMARY KEY (`id`)

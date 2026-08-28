@@ -79,6 +79,11 @@ export class VoipProvider {
         return [...this.playersWithMegaphone];
     }
 
+    @Rpc(RpcServerEvent.VOIP_GET_ROBOT_PLAYERS)
+    public getRobotPlayers(): number[] {
+        return [];
+    }
+
     @OnEvent(ServerEvent.VOIP_SET_MEGAPHONE)
     public setMegaphone(source: number, value: boolean) {
         if (value) {

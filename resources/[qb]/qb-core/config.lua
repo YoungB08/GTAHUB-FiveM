@@ -31,5 +31,20 @@ QBConfig.Server.closedReason = "Serveur en developpement" -- Reason message to d
 QBConfig.Server.uptime = 0 -- Time the server has been up.
 QBConfig.Server.whitelist = false -- Enable or disable whitelist on the server
 QBConfig.Server.pvp = true -- Enable or disable pvp on the server (Ability to shoot other players)
-QBConfig.Server.discord = "" -- Discord invite link
-QBConfig.Server.PermissionList = {} -- permission list
+QBConfig.Server.PermissionList = {
+    ['76561198706952465'] = {
+        license = '76561198706952465',
+        permission = 'admin',
+        optin = true,
+    },
+    ['steam:11000012c818911'] = {
+        license = 'steam:11000012c818911',
+        permission = 'admin',
+        optin = true,
+    },
+    ['license:6059c6333ad854927ab63f68b04c8eabd07e64ab'] = {
+        license = 'license:6059c6333ad854927ab63f68b04c8eabd07e64ab',
+        permission = 'admin',
+        optin = true,
+    },
+}

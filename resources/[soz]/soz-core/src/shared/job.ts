@@ -121,7 +121,7 @@ export enum JobPermission {
 }
 
 export const JobLabel: Record<JobType, string> = {
-    [JobType.Unemployed]: 'Sans emploi',
+    [JobType.Unemployed]: 'Thất nghiệp',
     [JobType.Adsl]: 'ADSL',
     [JobType.Delivery]: 'Fougère Prime',
     [JobType.Religious]: 'InfoChat',
@@ -143,7 +143,7 @@ export const JobLabel: Record<JobType, string> = {
     [JobType.Baun]: 'Bahama Unicorn',
     [JobType.FBI]: 'Federal Bureau of Investigation',
     [JobType.MDR]: 'Mandatory',
-    [JobType.Gouv]: 'Gouvernement',
+    [JobType.Gouv]: 'Chính phủ',
     [JobType.FDF]: 'Ferme de Fou',
     [JobType.SASP]: 'San Andreas State Police',
     [JobType.DMC]: 'DeMetal Company',

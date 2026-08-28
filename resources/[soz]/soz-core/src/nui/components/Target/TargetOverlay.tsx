@@ -124,7 +124,7 @@ export const TargetOverlay: FunctionComponent = () => {
                     <div className="absolute flex flex-col justify-center inset-y-[5vh] left-[53vw] min-w-[20rem] p-5">
                         {citizenActions.length > 0 && (
                             <TargetOptions
-                                title="Actions"
+                                title="Hành động"
                                 titleRef={targetCitizen}
                                 color={targetColors.citizen}
                                 targets={citizenActions}
@@ -135,7 +135,7 @@ export const TargetOverlay: FunctionComponent = () => {
 
                         {citizenActions.length === 0 && societyActions.length > 0 && (
                             <TargetOptions
-                                title="Entreprise"
+                                title="Doanh nghiệp"
                                 titleRef={targetSociety}
                                 color={targetColors.society}
                                 targets={societyActions}
@@ -146,7 +146,7 @@ export const TargetOverlay: FunctionComponent = () => {
 
                         {citizenActions.length === 0 && societyActions.length === 0 && criminalActions.length > 0 && (
                             <TargetOptions
-                                title="Criminelle"
+                                title="Thế giới ngầm"
                                 titleRef={targetCriminal}
                                 color={targetColors.criminal}
                                 targets={criminalActions}
@@ -159,7 +159,7 @@ export const TargetOverlay: FunctionComponent = () => {
                     <div className="absolute flex flex-col justify-center inset-y-[5vh] right-[55vw] min-w-[20rem] space-y-10 p-5">
                         {(citizenActions.length > 0 || societyActions.length > 0) && criminalActions.length > 0 && (
                             <TargetOptions
-                                title="Criminelle"
+                                title="Thế giới ngầm"
                                 titleRef={targetCriminal}
                                 color={targetColors.criminal}
                                 targets={criminalActions}
@@ -170,7 +170,7 @@ export const TargetOverlay: FunctionComponent = () => {
 
                         {citizenActions.length > 0 && societyActions.length > 0 && (
                             <TargetOptions
-                                title="Entreprise"
+                                title="Doanh nghiệp"
                                 titleRef={targetSociety}
                                 color={targetColors.society}
                                 targets={societyActions}

@@ -20,8 +20,9 @@
 
 .header h2 {
     font-size: 2rem;
-    line-height: 1rem;
-    color: #46EA18;
+    line-height: 1.4rem;
+    color: #FF1E56;
+    text-shadow: 0 0 15px rgba(255, 30, 86, 0.7);
 }
 
 .corner_top_right {
@@ -35,7 +36,7 @@
     border-top-style: solid;
     border-right-style: solid;
     border-width: .1rem;
-    border-image: linear-gradient(230deg, #46EA18 0%, transparent 80%) 5;
+    border-image: linear-gradient(230deg, #FF1E56 0%, transparent 80%) 5;
 }
 
 .corner_top_right svg {
@@ -54,7 +55,7 @@
     border-bottom-style: solid;
     border-left-style: solid;
     border-width: .1rem;
-    border-image: linear-gradient(15deg, #46EA18 0%, transparent 80%) 5;
+    border-image: linear-gradient(15deg, #FF1E56 0%, transparent 80%) 5;
 }
 
 .corner_bottom_left svg {

@@ -1290,12 +1290,12 @@ export enum InventorySort {
 }
 
 export const INVENTORY_SORT_LABELS: Record<InventorySort, string> = {
-    [InventorySort.AlphabeticalAsc]: 'Nom (A-Z)',
-    [InventorySort.AlphabeticalDesc]: 'Nom (Z-A)',
-    [InventorySort.WeightAsc]: 'Poids ↓',
-    [InventorySort.WeightDesc]: 'Poids ↑',
-    [InventorySort.TypeAsc]: 'Type (A-Z)',
-    [InventorySort.TypeDesc]: 'Type (Z-A)',
+    [InventorySort.AlphabeticalAsc]: 'Tên (A-Z)',
+    [InventorySort.AlphabeticalDesc]: 'Tên (Z-A)',
+    [InventorySort.WeightAsc]: 'Trọng lượng (Tăng dần)',
+    [InventorySort.WeightDesc]: 'Trọng lượng (Giảm dần)',
+    [InventorySort.TypeAsc]: 'Phân loại (A-Z)',
+    [InventorySort.TypeDesc]: 'Phân loại (Z-A)',
 };
 
 type InventoryItemCompareItem = {

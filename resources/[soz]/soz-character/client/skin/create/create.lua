@@ -17,11 +17,11 @@ local function OpenCreateCharacterMenu(skin, clothConfig, SpawnId)
     local makeupMenu = CreateMakeupMenu(createCharacterMenu, playerId, skin)
     local clothMenu = CreateClothMenu(createCharacterMenu, playerId, clothShopConfig, clothConfig, "BaseClothSet")
 
-    createCharacterMenu:AddButton({label = "Identité", value = modelMenu})
-    createCharacterMenu:AddButton({label = "Physique", value = bodyMenu})
-    createCharacterMenu:AddButton({label = "Coiffure", value = hairMenu})
-    createCharacterMenu:AddButton({label = "Maquillage", value = makeupMenu})
-    createCharacterMenu:AddButton({label = "Vêtements", value = clothMenu})
+    createCharacterMenu:AddButton({label = "Danh Tính (Nam / Nữ)", value = modelMenu})
+    createCharacterMenu:AddButton({label = "Khuôn Mặt & Thể Hình", value = bodyMenu})
+    createCharacterMenu:AddButton({label = "Kiểu Tóc & Râu", value = hairMenu})
+    createCharacterMenu:AddButton({label = "Trang Điểm & Đặc Điểm", value = makeupMenu})
+    createCharacterMenu:AddButton({label = "Trang Phục & Quần Áo", value = clothMenu})
 
     createCharacterMenu:Open()
     createCharacterMenu:On("close", function()
@@ -77,9 +77,9 @@ function CreateCharacterWizard(spawnId, character)
         character = OpenCreateCharacterMenu(character.Skin, character.ClothConfig, spawnId);
         Camera.Deactivate()
 
-        local confirmWord = exports["soz-core"]:Input("Entrer 'OUI' pour confirmer le skin de ce personnage", 32) or ""
+        local confirmWord = exports["soz-core"]:Input("Nhập 'CO' hoặc 'OK' để xác nhận tạo hình nhân vật", 32) or ""
 
-        if confirmWord:lower() == "oui" then
+        if confirmWord:lower() == "co" or confirmWord:lower() == "oui" or confirmWord:lower() == "yes" or confirmWord:lower() == "ok" then
             confirm = true
             TriggerServerEvent("soz-character:server:InCharacterMenu", false)
         end
@@ -103,13 +103,13 @@ RegisterNetEvent("soz-character:client:RequestCharacterWizard", function()
         character = OpenCreateCharacterMenu(character.Skin, character.ClothConfig, "spawn2");
         Camera.Deactivate()
 
-        local confirmWord = exports["soz-core"]:Input("Entrer 'OUI' pour confirmer le skin de ce personnage", 32) or ""
+        local confirmWord = exports["soz-core"]:Input("Nhập 'CO' hoặc 'OK' để xác nhận tạo hình nhân vật", 32) or ""
 
-        if confirmWord:lower() == "oui" then
+        if confirmWord:lower() == "co" or confirmWord:lower() == "oui" or confirmWord:lower() == "yes" or confirmWord:lower() == "ok" then
             confirm = true
         end
     end
 
     TriggerServerEvent("soz-character:server:set-skin", character.Skin, character.ClothConfig)
-    exports["soz-core"]:DrawNotification("Votre chirurgie s'est bien passée !")
+    exports["soz-core"]:DrawNotification("Phẫu thuật tạo hình nhân vật của bạn đã hoàn tất thành công!")
 end)

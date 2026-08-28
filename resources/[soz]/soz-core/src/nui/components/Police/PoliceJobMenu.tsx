@@ -43,7 +43,7 @@ export const PoliceJobMenu: FunctionComponent<PoliceJobStateProps> = ({ data }) 
                 <MainMenu>
                     <MenuTitle title={player.job.id} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn hiện chưa vào ca trực nghiệp vụ.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -54,17 +54,17 @@ export const PoliceJobMenu: FunctionComponent<PoliceJobStateProps> = ({ data }) 
         <Menu type={MenuType.PoliceJobMenu}>
             <MainMenu>
                 <MenuTitle title={player.job.id} />
-                <MenuContent subtitle="L'ordre et la justice !">
+                <MenuContent subtitle="Bảo vệ trật tự & Thực thi pháp luật!">
                     {player.job.id == JobType.SASP || player.job.id == JobType.FBI ? (
                         <MenuItemButton
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.NewsCreateAnnounce, {
                                     type: `${player.job.id}_annoncement`,
-                                    title: 'Message de la communication',
+                                    title: 'Nội dung thông cáo cảnh sát',
                                 });
                             }}
                         >
-                            Faire une communication
+                            Phát thông cáo nghiệp vụ
                         </MenuItemButton>
                     ) : (
                         <></>
@@ -74,11 +74,11 @@ export const PoliceJobMenu: FunctionComponent<PoliceJobStateProps> = ({ data }) 
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.NewsCreateAnnounce, {
                                     type: `presidence`,
-                                    title: 'Message de la communication présidentielle',
+                                    title: 'Nội dung thông cáo chính phủ',
                                 });
                             }}
                         >
-                            Faire une communication présidentielle
+                            Phát thông cáo chính quyền
                         </MenuItemButton>
                     ) : (
                         <></>
@@ -88,50 +88,50 @@ export const PoliceJobMenu: FunctionComponent<PoliceJobStateProps> = ({ data }) 
                             await fetchNui(NuiEvent.RedCall);
                         }}
                     >
-                        🚨 | Code rouge
+                        🚨 | Báo động Đỏ khẩn cấp
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.PoliceShowBadge);
                         }}
                     >
-                        Montrer son badge
+                        Xuất trình thẻ ngành / Huy hiệu
                     </MenuItemButton>
-                    <MenuItemSubMenuLink id="persons_searched">👮 | Personnes recherchées</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="persons_searched">👮 | Danh sách đối tượng truy nã</MenuItemSubMenuLink>
                     <MenuItemCheckbox
                         checked={data.displayRadar}
                         onChange={async value => {
                             await fetchNui(NuiEvent.ToggleRadar, value);
                         }}
                     >
-                        Afficher les radars sur le GPS
+                        Hiển thị radar đo tốc độ trên GPS
                     </MenuItemCheckbox>
                     {isStaffOrAdmin && (
                         <MenuItemSubMenuLink id={`pet-management-${player.job.id}`}>
-                            🐕 | Gérer les animaux
+                            🐕 | Quản lý chó nghiệp vụ K9
                         </MenuItemSubMenuLink>
                     )}
                 </MenuContent>
             </MainMenu>
             <SubMenu id="persons_searched">
                 <MenuTitle title={player.job.id} />
-                <MenuContent subtitle="Personnes recherchées">
+                <MenuContent subtitle="Danh sách đối tượng truy nã">
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.NewsCreateAnnounce, {
                                 type: player.job.id,
-                                title: 'Nom de la personne recherchée :',
+                                title: 'Họ tên đối tượng truy nã:',
                             });
                             setWantedPlayers(await fetchNui(NuiEvent.PoliceGetWantedPlayers));
                         }}
                     >
-                        Ajouter une personne à la liste
+                        Thêm đối tượng vào danh sách
                     </MenuItemButton>
                     {wantedPlayers &&
                         wantedPlayers.map((player: any) => (
                             <MenuItemButton
                                 key={player.id}
-                                description="Retirer la personne de la liste"
+                                description="Gỡ bỏ đối tượng khỏi danh sách truy nã"
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.PoliceDeleteWantedPlayer, {
                                         id: player.id,

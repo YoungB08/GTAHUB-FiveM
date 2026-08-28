@@ -307,7 +307,7 @@ export const InventoryDiv: FunctionComponent<PropsWithChildren<InventoryDivProps
             {isCart && (
                 <header className="relative w-full">
                     <div className="drop-shadow-bg h-[60px] flex w-full justify-between items-center">
-                        <h1 className="font-semibold uppercase text-white text-2xl">Panier</h1>
+                        <h1 className="font-semibold uppercase text-white text-2xl">Giỏ hàng</h1>
                         <h2 className="flex z-100 text-white bottom-0 right-0 py-1 px-2 items-center">
                             <span className="flex items-end">
                                 <span className="font-semibold text-xl">
@@ -392,7 +392,7 @@ export const InventoryDiv: FunctionComponent<PropsWithChildren<InventoryDivProps
                                             borderClassName="rounded"
                                             showBorderOnHover
                                         >
-                                            <div className="text-white px-2 py-1">Trier ↑↓</div>
+                                            <div className="text-white px-2 py-1">Sắp xếp ↑↓</div>
                                         </GlassMorphismContainer>
                                     </div>
                                     {showSort && (

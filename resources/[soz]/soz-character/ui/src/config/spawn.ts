@@ -7,14 +7,14 @@ import SpawnPaletoBay from "../assets/img/paletobay.png"
 const SpawnList: Spawn[] = [
     {
         identifier: 'default',
-        name: 'Bienvenue à San Andreas',
-        description: 'Choisis ton départ en cliquant sur l\'un des deux points !',
+        name: 'Chào Mừng Đến Với GTAHUB',
+        description: 'Vui lòng chọn 1 trong 2 điểm xuất phát bên dưới để bắt đầu hành trình của bạn!',
         image: SpawnDefault
     },
     {
         identifier: 'spawn1',
-        name: 'Los Santos',
-        description: 'La ville avec le plus gros réseau de livreurs Zuber de tout San Andreas !',
+        name: 'Thành Phố Los Santos',
+        description: 'Khu đô thị sầm uất, trung tâm kinh tế - thương mại và nhộn nhịp nhất San Andreas!',
         image: SpawnLosSantos,
         waypoint: {
             left: '85vw',
@@ -23,8 +23,8 @@ const SpawnList: Spawn[] = [
     },
     {
         identifier: 'spawn2',
-        name: 'Paleto Bay',
-        description: 'La ville où vous avez le plus de chance de vous faire dévorer par un animal sauvage de tout San Andreas !',
+        name: 'Thị Trấn Paleto Bay',
+        description: 'Thị trấn ven biển thanh bình phía Bắc, thích hợp nghỉ dưỡng và săn bắn dã ngoại!',
         image: SpawnPaletoBay,
         waypoint: {
             left: '14vw',

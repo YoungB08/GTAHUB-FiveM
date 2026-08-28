@@ -81,7 +81,7 @@ export const BarberShopMenu: FunctionComponent<MenuBarberShopStateProps> = ({ da
     return (
         <Menu type={MenuType.BarberShop}>
             <MainMenu>
-                <MenuTitle title="Coiffeur" />
+                <MenuTitle title="Tiệm Cắt tóc & Thẩm mỹ" />
                 <MenuContent>
                     <MenuBarberHairComponent
                         cat={content.find(cat => cat.category === 'Hair')}
@@ -209,7 +209,7 @@ const MenuBarberValidateButton: FunctionComponent<{
             }}
         >
             <div className="flex justify-between items-center">
-                <span>Valider les modifications</span>
+                <span>Xác nhận & Mua</span>
                 <span className="mr-1">${getPrice(cat.price, TaxType.SUPPLY)}</span>
             </div>
         </MenuItemButton>
@@ -241,7 +241,7 @@ const MenuBarberHairComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async index => {
                     const type = cat.items[index];
                     updateConfiguration(
@@ -265,7 +265,7 @@ const MenuBarberHairComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur"
+                title="Màu sắc"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'HairColor', color);
@@ -281,7 +281,7 @@ const MenuBarberHairComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur secondaire"
+                title="Màu Highlight"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'HairSecondaryColor', color);
@@ -297,7 +297,7 @@ const MenuBarberHairComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Cuir chevelu"
+                title="Chân tóc"
                 onChange={async (index, value: number) => {
                     const scalp = ShopScalp[player_data.skin.Model.Hash][value];
                     updateConfiguration(
@@ -319,7 +319,7 @@ const MenuBarberHairComponent: FunctionComponent<{
                 )}
             >
                 <MenuItemSelectOption key={'scalp'} value={null}>
-                    Aucun
+                    Không có
                 </MenuItemSelectOption>
                 {ShopScalp[player_data.skin.Model.Hash]
                     .map((elem, index) => ({ ...elem, index }))
@@ -348,7 +348,7 @@ const MenuBarberBeardComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'BeardType', type);
                 }}
@@ -364,7 +364,7 @@ const MenuBarberBeardComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ rậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'BeardOpacity', density / 100);
                 }}
@@ -379,7 +379,7 @@ const MenuBarberBeardComponent: FunctionComponent<{
                     ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur"
+                title="Màu sắc"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'BeardColor', color);
@@ -412,7 +412,7 @@ const MenuBarberChestHairComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'ChestHairType', type);
                 }}
@@ -428,7 +428,7 @@ const MenuBarberChestHairComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ rậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'ChestHairOpacity', density / 100);
                 }}
@@ -443,7 +443,7 @@ const MenuBarberChestHairComponent: FunctionComponent<{
                     ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur"
+                title="Màu sắc"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'ChestHairColor', color);
@@ -476,7 +476,7 @@ const MenuBarberMakeupComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'FullMakeupType', type);
                 }}
@@ -492,7 +492,7 @@ const MenuBarberMakeupComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ đậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'FullMakeupOpacity', density / 100);
                 }}
@@ -512,10 +512,10 @@ const MenuBarberMakeupComponent: FunctionComponent<{
                     updateConfiguration(cat.category, cat.overlay, 'FullMakeupDefaultColor', checked);
                 }}
             >
-                Utiliser la couleur par défaut
+                Sử dụng màu mặc định
             </MenuItemCheckbox>
             <MenuItemSelect
-                title="Couleur principale"
+                title="Màu chính"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'FullMakeupPrimaryColor', color);
@@ -531,7 +531,7 @@ const MenuBarberMakeupComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur secondaire"
+                title="Màu phụ"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'FullMakeupSecondaryColor', color);
@@ -564,7 +564,7 @@ const MenuBarberBlushComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'BlushType', type);
                 }}
@@ -580,7 +580,7 @@ const MenuBarberBlushComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ đậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'BlushOpacity', density / 100);
                 }}
@@ -595,7 +595,7 @@ const MenuBarberBlushComponent: FunctionComponent<{
                     ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur du blush"
+                title="Màu phấn má"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'BlushColor', color);
@@ -628,7 +628,7 @@ const MenuBarberLipstickComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'LipstickType', type);
                 }}
@@ -644,7 +644,7 @@ const MenuBarberLipstickComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ đậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'LipstickOpacity', density / 100);
                 }}
@@ -659,7 +659,7 @@ const MenuBarberLipstickComponent: FunctionComponent<{
                     ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur du rouge à lèvre"
+                title="Màu son môi"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'LipstickColor', color);
@@ -691,7 +691,7 @@ const MenuBarberEyeComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Couleur"
+                title="Màu mắt"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'EyeColor', type);
                 }}
@@ -724,7 +724,7 @@ const MenuBarberEyebrowComponent: FunctionComponent<{
         <>
             <MenuSubTitle>{cat.label}</MenuSubTitle>
             <MenuItemSelect
-                title="Type"
+                title="Kiểu dáng"
                 onChange={async (_, type) => {
                     updateConfiguration(cat.category, cat.overlay, 'EyebrowType', type);
                 }}
@@ -740,7 +740,7 @@ const MenuBarberEyebrowComponent: FunctionComponent<{
                 ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Densité"
+                title="Độ rậm"
                 onChange={async (_, density) => {
                     updateConfiguration(cat.category, cat.overlay, 'EyebrowOpacity', density / 100);
                 }}
@@ -755,7 +755,7 @@ const MenuBarberEyebrowComponent: FunctionComponent<{
                     ))}
             </MenuItemSelect>
             <MenuItemSelect
-                title="Couleur"
+                title="Màu sắc"
                 distance={3}
                 onChange={async (_, color) => {
                     updateConfiguration(cat.category, cat.overlay, 'EyebrowColor', color);
