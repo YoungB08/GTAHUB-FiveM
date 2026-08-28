@@ -11,12 +11,12 @@ export const inputErrorMessage = (type: string): string => {
         case 'required':
             return 'Le champ est requis';
         case 'min':
-            return 'Le montant doit être supérieur à 0';
+            return 'Số tiền phải lớn hơn 0';
         case 'max':
-            return "Vous n'avez pas autant d'argent";
+            return "Bạn không có nhiều tiền như vậy";
         case 'minLength':
-            return 'Le champ doit contenir plus de caractères';
+            return 'Trường phải chứa nhiều ký tự hơn';
         case 'maxLength':
-            return 'Le champ doit contenir moins de caractères';
+            return 'Trường phải chứa ít ký tự hơn';
     }
 };

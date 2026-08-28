@@ -160,7 +160,7 @@ export class PoliceVehicleProvider {
                     },
                 },
                 {
-                    label: 'Ouvrir',
+                    label: 'Mở',
                     icon: 'police/forcer',
                     job: ALL_FDO_JOB_TARGETS,
                     category: 'society',
@@ -173,7 +173,7 @@ export class PoliceVehicleProvider {
                     action: async entity => {
                         const { completed } = await this.progressService.progress(
                             'police:vehicle:lockpick',
-                            'Déverrouillage du véhicule en cours...',
+                            'Đang mở khóa xe...',
                             8000,
                             {
                                 task: 'WORLD_HUMAN_WELDING',
@@ -196,7 +196,7 @@ export class PoliceVehicleProvider {
                     },
                 },
                 {
-                    label: 'Rechercher des empreintes',
+                    label: 'Tìm kiếm bản in',
                     job: ALL_FDO_JOB_TARGETS,
                     item: 'fingerprint_collector',
                     icon: 'police/fouiller',
@@ -242,7 +242,7 @@ export class PoliceVehicleProvider {
                     },
                 },
                 {
-                    label: 'Rechercher des traces de drogue',
+                    label: 'Truy tìm dấu vết ma túy',
                     job: ALL_FDO_JOB_TARGETS,
                     icon: 'police/fouiller',
                     category: 'society',

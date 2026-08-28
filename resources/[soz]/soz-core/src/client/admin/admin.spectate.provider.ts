@@ -77,7 +77,7 @@ export class AdminSpectateProvider {
 
         this.nuiMenu.closeMenu();
         this.notifier.notify(
-            `Vous êtes maintenant en mode spectateur sur ~g~${player.rpFullName} (${player.name}).`,
+            `Bạn đang theo dõi ~g~${player.rpFullName} (${player.name}) ở chế độ khán giả.`,
             'info'
         );
         this.monitor.traceEvent('admin_spectate', {

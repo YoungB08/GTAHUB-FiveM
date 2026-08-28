@@ -18,7 +18,7 @@ export type Tax = {
 
 export const TaxLabel: Record<TaxType, string> = {
     [TaxType.HOUSING]: "🏠 Taxe d'habitation",
-    [TaxType.VEHICLE]: '🚙 Taxe véhicule',
+    [TaxType.VEHICLE]: '🚙 Thuế xe cộ',
     [TaxType.GREEN]: '🍃 Taxe verte',
     [TaxType.FOOD]: '🍔 Taxe alimentaire',
     [TaxType.WEAPON]: '🔫 Taxe armement',

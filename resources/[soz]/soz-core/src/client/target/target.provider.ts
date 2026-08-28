@@ -168,7 +168,7 @@ export class TargetProvider {
 
         const distance = getDistance(this.getPlayerCoords(), option.entityCoords);
         if (distance > option.distance) {
-            this.notifier.error('Vous êtes trop loin pour effectuer cette action');
+            this.notifier.error('Bạn ở quá xa để thực hiện hành động này');
             return;
         }
 

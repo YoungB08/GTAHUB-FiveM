@@ -54,7 +54,7 @@ export class FoodCraftProvider {
             }),
             [
                 {
-                    label: 'Récupérer des matières premières',
+                    label: 'Thu hồi nguyên liệu',
                     icon: 'shop/briefcase',
                     job: JobType.Food,
                     blackoutGlobal: true,

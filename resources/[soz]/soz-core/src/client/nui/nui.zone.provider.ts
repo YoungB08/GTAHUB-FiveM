@@ -205,7 +205,7 @@ export class NuiZoneProvider {
         return promise;
     }
     @Command('soz_admin_finish_create_zone', {
-        description: "Valider la création d'une zone",
+        description: "Xác thực việc tạo vùng",
         keys: [
             {
                 mapper: 'keyboard',

@@ -75,7 +75,7 @@ export const MenuPropPlacement: FunctionComponent<MenuPropPlacementProps> = memo
                             await fetchNui(NuiEvent.RequestCreatePropCollection);
                         }}
                     >
-                        ➕ Créer une Collection
+                        ➕ Tạo Bộ sưu tập
                     </MenuItemButton>
                     <MenuSubTitle>
                         {loadedEntities} entités / {loadedScenes} scènes chargées
@@ -88,7 +88,7 @@ export const MenuPropPlacement: FunctionComponent<MenuPropPlacementProps> = memo
                                     setShowAll(value);
                                 }}
                             >
-                                Voir toutes les collections
+                                Xem tất cả các bộ sưu tập
                             </MenuItemCheckbox>
                             <MenuItemStringInput onChange={setCollectionFilter} value={collectionFilter}>
                                 Filtre:

@@ -1908,7 +1908,7 @@ export class DevilBaitShopProvider {
                         },
                     },
                     {
-                        label: 'Vendre son âme',
+                        label: 'Bán linh hồn của bạn',
                         icon: 'stonk/vendre',
                         category: 'citizen',
                         canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario4', 4),

@@ -26,7 +26,7 @@ export class UpwChargerProvider {
         await wait(500);
         const { completed } = await this.progressService.progress(
             'create_charger',
-            'Installer une borne de recharge...',
+            'Lắp đặt trạm sạc...',
             60000,
             {
                 task: 'world_human_const_drill',

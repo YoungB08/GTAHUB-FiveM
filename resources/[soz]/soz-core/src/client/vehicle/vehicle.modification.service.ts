@@ -17,7 +17,7 @@ import { isVehicleModelElectric, VehicleClass } from '../../shared/vehicle/vehic
 
 const ModTypeLabels: Partial<Record<VehicleModType, string>> = {
     [VehicleModType.Spoiler]: 'Aileron',
-    [VehicleModType.BumperFront]: 'Pare-chocs avant',
+    [VehicleModType.BumperFront]: 'Cản trước',
     [VehicleModType.BumperRear]: 'Pare-chocs arrière',
     [VehicleModType.Exhaust]: "Pot d'échappement",
     [VehicleModType.SideSkirt]: 'Bas de caisse',
@@ -26,7 +26,7 @@ const ModTypeLabels: Partial<Record<VehicleModType, string>> = {
     [VehicleModType.TyreSmoke]: 'Fumée de pneu',
     [VehicleModType.XenonHeadlights]: 'Phares au xénon',
     [VehicleModType.AirFilter]: 'Filtre à air',
-    [VehicleModType.DoorSpeaker]: 'Enceintes de porte',
+    [VehicleModType.DoorSpeaker]: 'Loa cửa',
     [VehicleModType.TrimDesign]: 'Finition A',
     [VehicleModType.PlateHolder]: 'Contour de plaque',
     [VehicleModType.Fender]: 'Aile',

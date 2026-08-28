@@ -27,7 +27,7 @@ export const Alerts = () => {
                 <div className="flex border-t border-white border-opacity-80 divide-x divide-white divide-opacity-80">
                     {alert.onClose && (
                         <Button className="grow p-2 text-center text-red-500" onClick={alert.onClose}>
-                            Annuler
+                            Hủy bỏ
                         </Button>
                     )}
                     <Button className="grow p-2 text-center text-blue-500" onClick={alert.onSubmit}>

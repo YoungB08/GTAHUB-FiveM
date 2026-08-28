@@ -524,7 +524,7 @@ export class AdminMenuMapperProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuMapperDeleteApartment)
     public async deleteApartment({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
-        const confirmed = await this.inputService.askConfirm('Êtes-vous sûr de vouloir supprimer cet appartement ?');
+        const confirmed = await this.inputService.askConfirm('Bạn có chắc chắn muốn xóa căn hộ này không?');
 
         if (!confirmed) {
             return this.housingRepository.get();
@@ -535,7 +535,7 @@ export class AdminMenuMapperProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuMapperDeleteProperty)
     public async deleteProperty({ propertyId }: { propertyId: number }): Promise<Property[]> {
-        const confirmed = await this.inputService.askConfirm('Êtes-vous sûr de vouloir supprimer ce batiment ?');
+        const confirmed = await this.inputService.askConfirm('Bạn có chắc chắn muốn xóa tòa nhà này không?');
 
         if (!confirmed) {
             return this.housingRepository.get();

@@ -58,7 +58,7 @@ export class WhatIf1Provider {
 
         if (isNotSafe && !player?.metadata?.isdead) {
             this.notifier.notify(
-                '☠️ Cette zone est ~r~irradiée~s~, tu vas mourir définitivement si tu y restes. ~b~Éloigne-toi aussi vite que tu le peux !~s~',
+                '☠️ Khu vực này là ~r~irradiate~s~, bạn chắc chắn sẽ chết nếu ở lại đó. ~b~Tránh xa nhanh nhất có thể!~s~',
                 'warning'
             );
         }

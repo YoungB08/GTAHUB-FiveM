@@ -34,7 +34,7 @@ export class InventorySmugglingBoxProvider {
     public init() {
         this.targetFactory.createForModel(models, [
             {
-                label: 'Ouvrir',
+                label: 'Mở',
                 icon: 'inventory/ouvrir_le_stockage',
                 category: 'citizen',
                 event: 'all',

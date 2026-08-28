@@ -199,7 +199,7 @@ export class HousingApartmentZoneProvider {
         if (apartment.moneyZone) {
             this.targetFactory.createForBoxZone(`housing:apartment:${apartment.id}:money`, apartment.moneyZone, [
                 {
-                    label: "Coffre d'argent",
+                    label: "Rương tiền",
                     icon: 'bank/compte_safe',
                     category: 'citizen',
                     canInteract: () => {

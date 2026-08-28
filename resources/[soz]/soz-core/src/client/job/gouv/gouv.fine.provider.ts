@@ -26,7 +26,7 @@ export class GouvFineProvider {
 
         const minPrice = await this.inputService.askInput(
             {
-                title: 'Prix minimum',
+                title: 'Giá tối thiểu',
             },
             PositiveNumberValidator
         );
@@ -37,7 +37,7 @@ export class GouvFineProvider {
 
         const maxPrice = await this.inputService.askInput(
             {
-                title: 'Prix maximum',
+                title: 'Giá tối đa',
             },
             PositiveNumberValidator
         );
@@ -50,7 +50,7 @@ export class GouvFineProvider {
     }
     @OnNuiEvent(NuiEvent.GouvFineRemove)
     public async removeFine({ id }: { id: number }) {
-        const remove = await this.inputService.askConfirm('Êtes-vous sûr de vouloir supprimer cette amende ?');
+        const remove = await this.inputService.askConfirm('Bạn có chắc chắn muốn xóa khoản tiền phạt này không?');
 
         if (!remove) {
             return;
@@ -77,7 +77,7 @@ export class GouvFineProvider {
     public async setFineMinPrice({ id }: { id: number }) {
         const minPrice = await this.inputService.askInput(
             {
-                title: 'Prix minimum',
+                title: 'Giá tối thiểu',
             },
             PositiveNumberValidator
         );
@@ -92,7 +92,7 @@ export class GouvFineProvider {
     public async setFineMaxPrice({ id }: { id: number }) {
         const maxPrice = await this.inputService.askInput(
             {
-                title: 'Prix maximum',
+                title: 'Giá tối đa',
             },
             PositiveNumberValidator
         );

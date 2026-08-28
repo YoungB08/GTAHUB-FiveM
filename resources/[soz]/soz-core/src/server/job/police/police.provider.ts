@@ -258,7 +258,7 @@ export class PoliceProvider {
             TriggerClientEvent(
                 ClientEvent.NOTIFICATION_DRAW,
                 targetPlayer.source,
-                `Vous êtes en train d'être fouillé par le ${job}...`
+                `Bạn đang bị ${job} khám xét...`
             );
             return targetPlayer.money.marked_money;
         }

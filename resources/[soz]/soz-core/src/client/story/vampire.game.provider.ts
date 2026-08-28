@@ -213,7 +213,7 @@ export class VampireGameProvider {
         const model = GetEntityModel(vehicle);
 
         if (IsThisModelABoat(model) || IsThisModelAHeli(model) || IsThisModelAPlane(model)) {
-            this.drawService.drawText('Véhicule non autorisé ! Rangez-le immédiatement !', [0.315, 0.015], {
+            this.drawService.drawText('Xe trái phép! Bỏ nó đi ngay lập tức!', [0.315, 0.015], {
                 font: Font.ChaletComprimeCologne,
                 size: 1.0,
                 color: [244, 43, 29, 255],
@@ -766,12 +766,12 @@ export class VampireGameProvider {
             case VampireGameRole.Vampire:
                 this.instructionalService.display(
                     [
-                        "Dirige-toi en ville pour ~r~empêcher les survivants de rallumer l'électricité~s~ ! Tu peux ~r~contaminer les Mortels~s~ en les tuant, puis en les suçant.",
+                        "Tiến vào thị trấn để ~r~ ngăn chặn những người sống sót bật điện trở lại~s~! Bạn có thể ~r~ làm ô nhiễm Mortals~s~ bằng cách giết chúng, sau đó hút chúng.",
                     ],
                     true
                 );
                 this.notifier.notify(
-                    'En tant que Vampire tu peux te ~r~transformer~s~. Appuie sur ~r~H~s~ pour ouvrir le menu.',
+                    'Là một Ma cà rồng, bạn có thể biến đổi ~r~~s~. Nhấn ~r~H~s~ để mở menu.',
                     'info',
                     45_000
                 );
@@ -779,7 +779,7 @@ export class VampireGameProvider {
             case VampireGameRole.Ghoul:
                 this.instructionalService.display(
                     [
-                        "Dirige-toi en ville pour ~r~empêcher les survivants de rallumer l'électricité~s~ ! Tu peux ~r~contaminer les Mortels~s~ en les tuant, puis en les suçant.",
+                        "Tiến vào thị trấn để ~r~ ngăn chặn những người sống sót bật điện trở lại~s~! Bạn có thể ~r~ làm ô nhiễm Mortals~s~ bằng cách giết chúng, sau đó hút chúng.",
                     ],
                     true
                 );
@@ -787,7 +787,7 @@ export class VampireGameProvider {
             case VampireGameRole.Hunter:
                 this.instructionalService.display(
                     [
-                        'En tant que Chasseur, tu peux ~r~tuer les Vampires à l’aide de ton Mousquet~s~ et tes Balles en Argent.',
+                        'Với tư cách là Thợ săn, bạn có thể tiêu diệt Ma cà rồng ~r~ bằng cách sử dụng Súng hỏa mai ~s~ và Đạn Bạc của mình.',
                     ],
                     true
                 );
@@ -795,7 +795,7 @@ export class VampireGameProvider {
             case VampireGameRole.Mortal:
                 this.instructionalService.display(
                     [
-                        "Dirige-toi en ville pour réparer l'électricité en ~g~accomplissant divers objectifs~r~ ! Fais attention, des ~r~vampires peuvent venir te sucer ton sang et te transformer~s~ en goule.",
+                        "Tiến vào thị trấn để sửa chữa điện ở ~g~Hoàn thành nhiều mục tiêu khác nhau~r~! Hãy cẩn thận, ~r~ma cà rồng có thể đến hút máu bạn và biến bạn thành ma cà rồng.",
                     ],
                     true
                 );
@@ -803,7 +803,7 @@ export class VampireGameProvider {
             case VampireGameRole.Squire:
                 this.instructionalService.display(
                     [
-                        'En tant qu’Écuyère, tu as le ~r~pouvoir de sentir la présence des vampires sur ta carte~s~. Aide les Chasseurs à trouver les vampires et protège les Mortels.',
+                        'Với tư cách là Squire, bạn có ~r~sức mạnh để cảm nhận sự hiện diện của ma cà rồng trên thẻ~s~ của bạn. Giúp Thợ săn tìm ma cà rồng và bảo vệ Người phàm.',
                     ],
                     true
                 );
@@ -811,7 +811,7 @@ export class VampireGameProvider {
             case VampireGameRole.Alchemist:
                 this.instructionalService.display(
                     [
-                        "En tant qu’Alchimiste, tu as le ~r~pouvoir de guérir les Goules~s~ pour ~g~qu'elles redeviennent des Mortels~s~. Soigne les dès que tu le peux !",
+                        "Với tư cách là Nhà giả kim, bạn có ~r~sức mạnh để chữa lành cho Ghouls~s~ để ~g~ biến chúng trở lại thành Mortals~s~. Hãy chăm sóc chúng ngay khi bạn có thể!",
                     ],
                     true
                 );

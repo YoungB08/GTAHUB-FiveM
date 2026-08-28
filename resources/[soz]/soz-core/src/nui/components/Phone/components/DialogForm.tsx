@@ -29,7 +29,7 @@ export const DialogForm: FunctionComponent<DialogFormProps> = ({ children, handl
 
             <div className="border-t border-white border-opacity-30">
                 <Button className="w-2/4 p-2 text-center text-red-500" onClick={handleClose}>
-                    Annuler
+                    Hủy bỏ
                 </Button>
                 <Button
                     className="w-2/4 p-2 text-center text-blue-500 border-l border-white border-opacity-30"

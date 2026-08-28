@@ -69,7 +69,7 @@ export const CallModalApp = () => {
                         {/*/>*/}
                         {!targetContact && (
                             <CallButton
-                                label="Ajouter"
+                                label="Thêm vào"
                                 icon={BsPersonFillAdd}
                                 onClick={() => navigate(`/contacts/-1?addNumber=${targetNumber}`)}
                             />

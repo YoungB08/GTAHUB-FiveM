@@ -43,7 +43,7 @@ export const OffshorePage: FunctionComponent<OffshoreProps> = ({ bankType, accou
                             <Money amount={account.marked_money} />
                         </p>
                         <div className="text-sm">
-                            Propriétaire: <span className="font-semibold">{account?.label}</span>
+                            Người sở hữu: <span className="font-semibold">{account?.label}</span>
                         </div>
                     </Card>
 

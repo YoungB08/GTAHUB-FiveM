@@ -249,7 +249,7 @@ const getInventoryTitle = (type: InventoryType): string => {
             return 'Contrebande';
 
         case InventoryType.Trunk:
-            return 'Véhicule';
+            return 'Phương tiện giao thông';
 
         case InventoryType.HouseStash:
             return 'Réserve';

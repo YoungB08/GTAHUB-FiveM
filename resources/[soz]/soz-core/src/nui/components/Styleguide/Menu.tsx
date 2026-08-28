@@ -586,7 +586,7 @@ export const BaseItemInput: FunctionComponent<baseItemInputProps> = ({
             onConfirm={handleConfirm}
             onClick={onClick}
             onSelected={handleSelect}
-            description={'Appuyer sur Entrée pour modifier la valeur et pour confirmer.'}
+            description={'Nhấn Enter để thay đổi giá trị và xác nhận.'}
         >
             <div className="flex justify-between items-center">
                 <h3>{children}</h3>

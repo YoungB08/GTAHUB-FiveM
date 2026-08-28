@@ -430,7 +430,7 @@ export const DarkWebConversationSettingsModal = memo(
                                     className="border-[0.2vh] py-2 px-4 text-red-500 border-red-500 rounded-lg my-2 hover:bg-red-900 cursor-pointer uppercase"
                                     onClick={() => handleDelete()}
                                 >
-                                    SUPPRIMER
+                                    XÓA
                                 </button>
                             </div>
                         </div>

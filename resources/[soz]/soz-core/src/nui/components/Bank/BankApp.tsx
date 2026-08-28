@@ -232,7 +232,7 @@ const BankHeader: FunctionComponent = () => {
 
     const [category, title] = useMemo(() => {
         if (location.pathname.startsWith('/personal')) {
-            const category = 'Compte personnel';
+            const category = 'Tài khoản cá nhân';
 
             if (location.pathname.endsWith('/history')) {
                 return [category, 'Historique'];
@@ -240,7 +240,7 @@ const BankHeader: FunctionComponent = () => {
 
             return [category, 'Tableau de bord'];
         } else if (location.pathname.startsWith('/enterprise')) {
-            const category = 'Compte société';
+            const category = 'Tài khoản công ty';
 
             if (location.pathname.endsWith('/history')) {
                 return [category, 'Historique'];

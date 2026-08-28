@@ -32,7 +32,7 @@ export class BusMissionService {
         taxiMissionInProgress: false,
     };
 
-    private busGroupHash = AddRelationshipGroup('BUS');
+    private busGroupHash = AddRelationshipGroup('BUS')[0];
 
     private busStopNumber = 0;
     private busLineName = '';

@@ -13,7 +13,7 @@ export class AdminMenuMeteorProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuMeteorActivate)
     public async activateMeteor(): Promise<void> {
-        const confirm = await this.inputService.askConfirm(`Êtes-vous sûr lancer le météor ? (OUI)`);
+        const confirm = await this.inputService.askConfirm(`Bạn có chắc chắn sẽ phóng thiên thạch? (OUI)`);
 
         if (!confirm) {
             return;
@@ -29,7 +29,7 @@ export class AdminMenuMeteorProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuMeteorKickPlayers)
     public async kickPlayers(): Promise<void> {
-        const confirm = await this.inputService.askConfirm(`Êtes-vous sûr de kick les joueurs ? (OUI)`);
+        const confirm = await this.inputService.askConfirm(`Bạn có chắc chắn để đá các cầu thủ? (OUI)`);
 
         if (!confirm) {
             return;

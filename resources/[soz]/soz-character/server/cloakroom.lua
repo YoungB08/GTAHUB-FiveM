@@ -36,7 +36,7 @@ QBCore.Functions.CreateCallback("soz-character:server:SavePlayerClothe", functio
     local Player = QBCore.Functions.GetPlayer(source)
 
     if name == nil or name == "" then
-        cb("Veuillez entrer un nom pour votre tenue.")
+        cb("Vui lòng nhập tên cho trang phục.")
         return
     end
 
@@ -57,7 +57,7 @@ QBCore.Functions.CreateCallback("soz-character:server:SavePlayerClothe", functio
         end
         local max = Config.CloakroomUpgrades[playerApartmentTier]
         if clothSet >= max then
-            cb("Vous ne pouvez pas avoir plus de " .. max .. " tenues.")
+            cb("Bạn không thể có nhiều hơn " .. max .. " bộ trang phục.")
             return
         end
 
@@ -81,7 +81,7 @@ QBCore.Functions.CreateCallback("soz-character:server:DeletePlayerClothe", funct
     local Player = QBCore.Functions.GetPlayer(source)
 
     if id == nil then
-        TriggerClientEvent("soz-core:client:notification:draw", source, "Erreur d'identifiant", "error")
+        TriggerClientEvent("soz-core:client:notification:draw", source, "Lỗi định danh", "error")
         cb(false)
     end
 
@@ -127,7 +127,7 @@ QBCore.Functions.CreateCallback("soz-character:server:RenamePlayerClothe", funct
     local Player = QBCore.Functions.GetPlayer(source)
 
     if id == nil then
-        TriggerClientEvent("soz-core:client:notification:draw", source, "Erreur d'identifiant", "error")
+        TriggerClientEvent("soz-core:client:notification:draw", source, "Lỗi định danh", "error")
         cb(false)
     end
 

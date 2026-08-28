@@ -65,7 +65,7 @@ export class FoodProvider {
             this.state.easterEnabled = true;
 
             this.blipFactory.create('displayEasterEggBlip', {
-                name: 'Point de collecte des oeufs',
+                name: 'Điểm thu trứng',
                 coords: { x: 2253.42, y: 4835.86, z: 40.66 },
                 sprite: 809,
                 scale: 0.9,

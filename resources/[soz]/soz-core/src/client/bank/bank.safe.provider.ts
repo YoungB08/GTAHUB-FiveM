@@ -54,7 +54,7 @@ export class BankSafeProvider {
                 BoxZone.fromZone(zone),
                 [
                     {
-                        label: 'Ouvrir',
+                        label: 'Mở',
                         icon: 'bank/compte_safe',
                         category: 'citizen',
                         action: async entity => {

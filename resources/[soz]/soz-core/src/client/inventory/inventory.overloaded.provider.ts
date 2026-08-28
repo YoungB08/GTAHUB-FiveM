@@ -48,7 +48,7 @@ export class InventoryOverloadProvider {
             this.interval = setInterval(
                 () =>
                     this.notifier.notify(
-                        'Tu as mal au dos ! Ouille, ouille ouille ! Débarrasse toi des objets en trop.',
+                        'Đau lưng quá! Ối, ôi ôi! Loại bỏ những món đồ dư thừa.',
                         'warning'
                     ),
                 60000

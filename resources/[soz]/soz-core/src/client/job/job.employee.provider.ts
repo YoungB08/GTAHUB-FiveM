@@ -43,7 +43,7 @@ export class JobEmployeeProvider {
     public loadEmployeeProvider() {
         this.targetFactory.createForAllPlayer([
             {
-                label: "Recruter dans l'entreprise",
+                label: "Tuyển dụng vào công ty",
                 icon: 'jobs/enroll',
                 blackoutGlobal: true,
                 category: 'society',

@@ -17,8 +17,8 @@ export const Halloween2023Scenario4: Story = {
         part1: {
             audio: 'audio/halloween-2023/scenario4/part1.mp3',
             text: [
-                "Mes frères et soeurs, l'avènement de notre dieu est arrivé ! L'œil voit tout !",
-                'Offrez-vous au seigneur afin d’atteindre les enfers tant désirés !',
+                "Thưa các anh chị em, sự xuất hiện của vị thần của chúng ta đã đến! Mắt nhìn thấy mọi thứ!",
+                'Hãy dâng mình cho chúa để đạt được địa ngục mà nhiều người mong muốn!',
                 'Le corps d’un enfant du Diable nous a été volé et amené à la morgue, récupérez le !',
             ],
             timing: [8500, 5000, 8000],

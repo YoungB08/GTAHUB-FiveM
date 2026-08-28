@@ -1940,7 +1940,7 @@ export const GarageList: Record<string, Omit<Garage, 'id'>> = {
         ],
     },
     docks_boat: {
-        name: 'Port des docks',
+        name: 'Cảng bến tàu',
         type: GarageType.Public,
         category: GarageCategory.Sea,
         zone: new BoxZone([11.4, -2801.96, 1.53], 2.0, 2.0, {

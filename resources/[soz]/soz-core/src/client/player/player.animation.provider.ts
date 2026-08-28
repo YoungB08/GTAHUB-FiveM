@@ -258,14 +258,14 @@ export class PlayerAnimationProvider {
     public async shortcutAnimation({ animationItem }: { animationItem: AnimationConfigItem }) {
         const number = await this.inputService.askInput<number>(
             {
-                title: 'Entrer le numéro du raccourci voulu (entre 1 et 10), laissez vide pour annuler',
+                title: 'Nhập số phím tắt mong muốn (từ 1 đến 10), để trống để hủy',
                 maxCharacters: 2,
             },
             value => {
                 const number = parseInt(value, 10);
 
                 if (number < 1 || number > 10) {
-                    return Err('Le numéro doit être compris entre 1 et 10');
+                    return Err('Số phải nằm trong khoảng từ 1 đến 10');
                 }
 
                 return Ok(number);
@@ -341,7 +341,7 @@ export class PlayerAnimationProvider {
                 name: `${i.toLocaleString('en-US', {
                     minimumIntegerDigits: 2,
                     useGrouping: false,
-                })} - ${animation?.name || 'Aucune'}`,
+                })} - ${animation?.name || 'Không có'}`,
                 animation,
             };
         }
@@ -397,7 +397,7 @@ export class PlayerAnimationProvider {
         }
 
         if (this.progressService.isDoingAction()) {
-            this.notifier.notify('Une action est déjà en cours.', 'error');
+            this.notifier.notify('Một hành động đã được tiến hành.', 'error');
 
             return false;
         }

@@ -91,7 +91,7 @@ export const KeychainApp: FunctionComponent = () => {
                     }}
                 >
                     <InventoryDiv
-                        title="Porte-clés"
+                        title="Móc khóa"
                         description={
                             currentKey ? (
                                 <div
@@ -239,7 +239,7 @@ const KeychainItem: FunctionComponent<{
                             }
                             className="p-1 rounded hover:bg-white/15"
                         >
-                            Donner
+                            Đưa
                         </div>
                     </div>
                 </div>

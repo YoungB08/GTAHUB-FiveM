@@ -43,30 +43,30 @@ export const sozedexStatsZones = {
         },
         description: {
             classic:
-                "Le Sozédex décrit la faune et la flore maritime de San Andreas. Chaque découverte est écrite dans le livre afin d'établir une base de connaissance.",
+                "Sozédex mô tả hệ động vật và thực vật biển của San Andreas. Mỗi khám phá được viết trong cuốn sách nhằm thiết lập nền tảng kiến ​​thức.",
             halloween:
-                'Il est désormais temps de découvrir ces pages remplies de créatures monstrueuses et démoniaques que seul un appât du diable est en mesure de débusquer.',
+                'Bây giờ là lúc để khám phá những trang này chứa đầy những sinh vật quái dị và ma quỷ mà chỉ có mồi của quỷ dữ mới có thể tìm ra được.',
             vampire:
-                'Explorez ces pages sombres où se cachent des créatures mystérieuses, insaisissables, drapées de ténèbres et assoiffées de sang.',
-            summer: 'Découvrez les pages de ce périple rempli de créatures plus surprenantes les unes que les autres dans cet environnement hors du commun.',
-            winter: 'Découvrez les pages de ce périple rempli de créatures glacées, mystérieuses et fascinantes, dans cet environnement figé dans le froid.',
+                'Khám phá những trang tối tăm này, nơi những sinh vật bí ẩn, khó nắm bắt ẩn nấp, bị bao phủ trong bóng tối và khát máu.',
+            summer: 'Khám phá các trang của cuộc hành trình chứa đầy sinh vật này, mỗi trang đều đáng ngạc nhiên hơn trang trước, trong môi trường phi thường này.',
+            winter: 'Khám phá các trang của cuộc hành trình chứa đầy những sinh vật băng giá, bí ẩn và hấp dẫn này, trong môi trường đóng băng trong giá lạnh này.',
         },
         rewardTitle: {
-            classic: 'Vous avez réussi !',
-            halloween: 'Vous avez réussi !',
-            vampire: 'Vous êtes victorieux !',
-            summer: 'Vous avez réussi !',
-            winter: 'Vous avez réussi !',
+            classic: 'Bạn đã thành công!',
+            halloween: 'Bạn đã thành công!',
+            vampire: 'Bạn là người chiến thắng!',
+            summer: 'Bạn đã thành công!',
+            winter: 'Bạn đã thành công!',
         },
         rewardDescription: {
             classic:
-                "Vous venez de pêcher la totalité des poissons connus sur l'île jusqu'à ce jour. Voici votre récompense.",
+                "Bạn vừa câu được hết số cá được biết đến trên đảo tính đến thời điểm hiện tại. Đây là phần thưởng của bạn.",
             halloween:
-                "Vous avez réussi à découvrir la totalité des monstruosités présentes sur l'île.. Voici votre récompense.",
+                "Bạn đã thành công trong việc khám phá hết những điều quái dị hiện diện trên đảo. Đây là phần thưởng của bạn.",
             vampire:
-                "Vous avez bravé l'ombre et découvert tous les secrets cachés de San Andreas, triomphant des créatures les plus ténébreuses. Voici votre récompense.",
-            summer: 'Vous avez réussi à découvrir les totalité des espèces méconnues de cet environnement. Voici votre récompense.',
-            winter: 'Vous avez réussi à découvrir la totalité des espèces cachées dans ce paysage hivernal. Voici votre récompense',
+                "Bạn đã dũng cảm vượt qua bóng tối và khám phá tất cả những bí mật ẩn giấu của San Andreas, chiến thắng những sinh vật đen tối nhất. Đây là phần thưởng của bạn.",
+            summer: 'Bạn đã thành công trong việc khám phá tất cả các loài ít được biết đến của môi trường này. Đây là phần thưởng của bạn.',
+            winter: 'Bạn đã thành công trong việc khám phá tất cả các loài ẩn chứa trong khung cảnh mùa đông này. Đây là phần thưởng của bạn',
         },
     },
     zones: [
@@ -74,21 +74,21 @@ export const sozedexStatsZones = {
             side: 'left',
             label: {
                 classic: Localisation.littoral,
-                halloween: 'Côte des Ombres',
-                vampire: 'Côte des Mânes',
+                halloween: 'Bờ Biển Bóng Tối',
+                vampire: 'Bờ biển Manes',
                 summer: 'Côtes submergées',
                 winter: 'Côtes gelées',
             },
             name: 'littoral',
             descriptions: {
                 classic:
-                    "Entre terre et mer, le littoral de San Andreas regorge de coraux et d'animaux marins en tout genre.",
+                    "Giữa đất liền và biển, bờ biển San Andreas có rất nhiều san hô và động vật biển đủ loại.",
                 halloween:
-                    'Entre terre et mer, le littoral de San Andreas révèle des profondeurs cauchemardesques où des coraux déformés et des créatures marines mutées errent, affamées de chair humaine.',
+                    'Giữa đất liền và biển, bờ biển San Andreas bộc lộ độ sâu ác mộng, nơi san hô biến dạng và các sinh vật biển đột biến lang thang, thèm ăn thịt người.',
                 vampire:
-                    'Les côtes de San Andreas, plongées dans la pénombre, sont peuplées de créatures nocturnes, attirées par le parfum du sang et l’aura mystérieuse de la nuit.',
-                summer: 'Autrefois entre terre et mer, le littoral de San Andreas regorgeais de coraux et de créatures colorées. Et maintenant..?',
-                winter: 'Autrefois bordées de sable et de vagues, les côtes de San Andreas sont maintenant figées sous une épaisse couche de glace, où des formes de vie inattendues prospèrent',
+                    'Bờ biển San Andreas chìm trong bóng tối là nơi sinh sống của những sinh vật sống về đêm, bị thu hút bởi mùi máu và bầu không khí bí ẩn của màn đêm.',
+                summer: 'Từng nằm giữa đất liền và biển, bờ biển San Andreas tràn ngập san hô và những sinh vật đầy màu sắc. Và bây giờ..?',
+                winter: 'Từng được lót bằng cát và sóng, bờ biển San Andreas giờ đây bị đóng băng dưới một lớp băng dày, nơi những dạng sống bất ngờ phát triển mạnh',
             },
         },
         {
@@ -105,11 +105,11 @@ export const sozedexStatsZones = {
                 classic:
                     'De nombreuses rivières parcourent San Andreas, regorgeant de nombreuses et surprenantes créatures.',
                 halloween:
-                    'Les rivières sinueuses de San Andreas cachent des secrets terrifiants, abritant des créatures insaisissables qui surgissent des eaux sombres pour se repaître des âmes perdues.',
+                    'Những dòng sông quanh co ở San Andreas ẩn chứa những bí mật kinh hoàng, nơi sinh sống của những sinh vật khó nắm bắt trỗi dậy từ vùng nước tối tăm để ăn thịt những linh hồn lạc lối.',
                 vampire:
-                    'Les rivières pourpres de San Andreas cachent des secrets interdits, où des êtres éternels se désaltèrent dans le calme nocturne, surveillant leurs territoires anciens.',
-                summer: "Après une telle catastrophe, qu'est-il advenu des créatures fluviales ?",
-                winter: 'Après une telle catastrophe, les créatures fluviales se sont-elles adaptées ou se sont-elles perdues sous les eaux glacées ?',
+                    'Những dòng sông màu tím của San Andreas ẩn giấu những bí mật bị cấm, nơi những sinh vật vĩnh cửu giải khát trong sự tĩnh lặng của màn đêm, trông chừng lãnh thổ cổ xưa của họ.',
+                summer: "Sau thảm họa như vậy, điều gì đã xảy ra với các sinh vật sông?",
+                winter: 'Sau thảm họa như vậy, các sinh vật sông đã thích nghi hay bị lạc dưới làn nước băng giá?',
             },
         },
         {
@@ -117,7 +117,7 @@ export const sozedexStatsZones = {
             label: {
                 classic: Localisation.south_sea,
                 halloween: 'Mer de la Nuit',
-                vampire: 'Mer des Lamentations',
+                vampire: 'Biển Than Khóc',
                 summer: "Crique d'Émeraude",
                 winter: 'Crique de glace',
             },
@@ -125,11 +125,11 @@ export const sozedexStatsZones = {
             descriptions: {
                 classic: "La Mer du Sud qui borde l'île de Cayo Perico est chaude et peuplée de race exotiques.",
                 halloween:
-                    "La Mer du Sud qui ceinture l'île de Cayo Perico est un véritable enfer aquatique, où des êtres exotiques et maléfiques prospèrent dans les abysses, attendant patiemment que les voyageurs s'aventurent dans leurs profondeurs mortelles",
+                    "Biển Nam bao quanh đảo Cayo Perico thực sự là một địa ngục dưới nước, nơi những sinh vật kỳ lạ và tà ác phát triển trong vực thẳm, kiên nhẫn chờ đợi du khách dấn thân vào vực sâu chết chóc của chúng.",
                 vampire:
-                    'La Mer des Lamentations accueille des créatures en quête de sang, se mouvant silencieusement dans ses eaux sombres, attirant les âmes perdues vers leur fin.',
+                    'Biển Than Khóc là nơi sinh sống của những sinh vật khát máu, di chuyển lặng lẽ qua vùng nước tối tăm, dụ dỗ những linh hồn lạc lối đến cùng.',
                 summer: 'La Mer du Sud autrefois calme et paradisiaque est désormais remplie de dangers et de phénomènes de grande ampleur.',
-                winter: "La Mer du Sud, autrefois calme et paradisiaque, est désormais prisonnière d'une couche de glace éternelle, où le danger rôde à chaque pas.",
+                winter: "Biển Nam vốn êm đềm và tựa thiên đường giờ đây bị mắc kẹt trong một lớp băng vĩnh cửu, nơi nguy hiểm rình rập ở mỗi bước đi.",
             },
         },
         {
@@ -138,19 +138,19 @@ export const sozedexStatsZones = {
                 classic: Localisation.north_sea,
                 halloween: 'Abysses du Nord',
                 vampire: 'Abysses Obscurs',
-                summer: 'Baie des Brumes',
-                winter: 'Baie des Brumes Gelées',
+                summer: 'Vịnh sương mù',
+                winter: 'Vịnh sương mù đông lạnh',
             },
             name: 'north_sea',
             descriptions: {
                 classic:
                     'La Mer du Nord, bordant paleto et abrite de nombreuses petites îles habitée par les crustacés et les grands animaux marins.',
                 halloween:
-                    "La Mer du Nord, qui borde Paleto Bay, cache des îles maudites, des repaires de créatures marines difformes, où l'obscurité règne en maître et où les marins téméraires deviennent des proies pour les monstres qui rôdent.",
+                    "Biển Bắc, giáp với Vịnh Paleto, ẩn chứa những hòn đảo bị nguyền rủa, hang ổ của những sinh vật biển dị dạng, nơi bóng tối ngự trị và những thủy thủ liều lĩnh trở thành con mồi cho những con quái vật rình mò.",
                 vampire:
-                    'Les Abysses Obscurs sont le royaume des créatures maudites, qui veillent dans les ombres et nourrissent une soif insatiable pour quiconque oserait troubler leur sommeil.',
-                summer: 'La Mer du Nord qui bordait paleto est désormais sombre et mystérieuse, ne vous faites pas emporter ...',
-                winter: 'La Mer du Nord, bordant Paleto, est devenue sombre et froide, recouverte de brumes glaciales. Prenez garde à ne pas vous perdre...',
+                    'Vực thẳm bóng tối là vương quốc của những sinh vật bị nguyền rủa, chúng canh gác trong bóng tối và nuôi dưỡng cơn khát vô độ cho bất kỳ ai dám quấy rầy giấc ngủ của họ.',
+                summer: 'Biển Bắc giáp ranh với Paleto giờ đây tối tăm và bí ẩn, đừng để bị cuốn theo ...',
+                winter: 'Biển Bắc, giáp với Paleto, trở nên tối tăm và lạnh lẽo, bao phủ trong sương mù băng giá. Hãy cẩn thận kẻo bị lạc...',
             },
         },
         {
@@ -165,13 +165,13 @@ export const sozedexStatsZones = {
             name: 'big_lake',
             descriptions: {
                 classic:
-                    "Le grand lac de San Andreas, situé près de Sandy Shore et surnommé l'Alamo Sea se voit couvert d'une épaisse couche de glace l'hiver.",
+                    "Hồ San Andreas rộng lớn, nằm gần Sandy Shore và có biệt danh là Biển Alamo, được bao phủ bởi một lớp băng dày vào mùa đông.",
                 halloween:
-                    "Le grand lac de San Andreas, l'Alamo Sea, n'est pas seulement gelé en hiver, il est également le lieu de repos de forces démoniaques qui attendent sous la glace, prêtes à surgir pour punir les intrus audacieux.",
+                    "Hồ lớn của San Andreas, biển Alamo, không chỉ đóng băng vào mùa đông mà còn là nơi an nghỉ của các thế lực ma quỷ ẩn nấp dưới lớp băng, sẵn sàng nổi lên để trừng phạt những kẻ xâm nhập táo bạo.",
                 vampire:
-                    "Le Lac Sombre, teinté de rouge par les légendes de San Andreas, attire les créatures vampiriques, où nul ne s'aventure sans craindre pour son sang.",
-                summer: "Du sable, des rochers, c'est tout ce qu'il reste de la mer d'Alamo..",
-                winter: 'Du sable et des rochers ? Ce n’est plus qu’un souvenir. Désormais, la mer d’Alamo est un désert glacé, balayé par des vents mordants.',
+                    "Hồ Tối, nhuốm màu đỏ theo truyền thuyết của San Andreas, thu hút các sinh vật ma cà rồng, nơi không ai mạo hiểm mà không sợ máu của họ.",
+                summer: "Cát, đá, đó là tất cả những gì còn lại của Biển Alamo...",
+                winter: 'Cát và đá? Đó chỉ là ký ức thôi. Bây giờ biển Alamo là một vùng đất hoang băng giá, bị cuốn theo những cơn gió buốt giá.',
             },
         },
         {
@@ -186,13 +186,13 @@ export const sozedexStatsZones = {
             name: 'little_lake',
             descriptions: {
                 classic:
-                    "De nombreux petits lacs ornent les plaines et les vallées de l'île de San Andreas, méritant seront ceux qui les observeront tous. ",
+                    "Nhiều hồ nhỏ tô điểm cho vùng đồng bằng và thung lũng của đảo San Andreas, xứng đáng là những ai quan sát được tất cả.",
                 halloween:
-                    "Les petits lacs tranquilles qui parsèment les plaines et les vallées de l'île de San Andreas cachent des secrets maléfiques, et ceux qui osent les explorer risquent de libérer des horreurs indicibles.",
+                    "Những hồ nước nhỏ, yên tĩnh nằm rải rác trên vùng đồng bằng và thung lũng của đảo San Andreas ẩn chứa những bí mật tà ác và những ai dám khám phá chúng có nguy cơ gặp phải những nỗi kinh hoàng không thể tả xiết.",
                 vampire:
-                    'Les Étangs Morts dissimulent des présences éternelles, invisibles au regard humain, mais bien réelles pour ceux dotés de pouvoirs vampiriques.',
-                summer: "Il y'avait autrefois des petits lacs qui parsemaient les plaines et les vallées de San Andreas.. Il ne reste plus que du sable et des cailloux..",
-                winter: 'Autrefois parsemées de lacs scintillants, les plaines et vallées de San Andreas sont désormais recouvertes d’une épaisse croûte de glace et de neige.',
+                    'Ao Chết che giấu sự hiện diện vĩnh cửu, vô hình trước mắt con người, nhưng rất thực đối với những người có sức mạnh ma cà rồng.',
+                summer: "Đã từng có những hồ nhỏ nằm rải rác trên đồng bằng và thung lũng San Andreas. Tất cả còn lại chỉ là cát và sỏi.",
+                winter: 'Từng rải rác với những hồ nước lấp lánh, đồng bằng và thung lũng của San Andreas giờ đây được bao phủ bởi một lớp băng và tuyết dày.',
             },
         },
         {
@@ -207,13 +207,13 @@ export const sozedexStatsZones = {
             name: 'canals',
             descriptions: {
                 classic:
-                    "Les différentes villes de San Andreas abritent divers canaux d'irrigation et de plaisance, il pourra arriver d'y croiser des choses étranges..",
+                    "Các thị trấn khác nhau của San Andreas là nơi có nhiều kênh tưới tiêu và giải trí khác nhau; bạn có thể gặp những điều kỳ lạ ở đó.",
                 halloween:
-                    "Les canaux d'irrigation et de plaisance serpentant à travers les villes de San Andreas sont hantés par des présences sinistres, des ombres inquiétantes qui se meuvent dans l'eau noire, attendant de piéger quiconque ose s'aventurer trop loin dans leurs sombres passages.",
+                    "Các kênh tưới tiêu và giải trí uốn lượn qua các thị trấn San Andreas bị ám ảnh bởi những sự hiện diện nham hiểm, những bóng đen kỳ lạ di chuyển trong làn nước đen, chờ đợi để bẫy bất cứ ai dám đi quá xa vào những lối đi tối tăm của chúng.",
                 vampire:
-                    'Les Canaux de la Nuit sont des passages secrets utilisés par des créatures assoiffées de sang, invisibles aux yeux humains mais prêtes à se manifester au moindre murmure.',
+                    'Kênh Bóng Đêm là những lối đi bí mật được sử dụng bởi những sinh vật khát máu, vô hình trước mắt con người nhưng sẵn sàng lộ diện khi có tiếng thì thầm nhỏ nhất.',
                 summer: "La météorite a englouti les canaux et les quartiers irrigés, de nouvelles créatures s'y sont cachées..",
-                winter: 'La météorite a plongé les canaux et quartiers autrefois vivants sous la glace. De nouvelles créatures se sont adaptées à ce froid implacable, se cachant dans l’ombre des glaces.',
+                winter: 'Thiên thạch đã khiến các kênh đào và khu dân cư từng tồn tại dưới lớp băng. Những sinh vật mới đã thích nghi với cái lạnh không ngừng này, ẩn náu trong bóng tối của băng.',
             },
         },
     ],

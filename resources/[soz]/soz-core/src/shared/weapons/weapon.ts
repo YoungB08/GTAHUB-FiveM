@@ -1192,17 +1192,17 @@ export const Weapons: Record<WeaponsType, WeaponConfig> = {
 export const GunShotMessage = [
     "Un coup de feu vient d'être entendu proche de ${0}.",
     'COUP DE FEU À ${0} !!!',
-    'Des coups de feu ont retenti dans la zone de ${0} !',
-    "AU SECOURS C'EST LA GUERRE, IL Y A DES COUPS DE FEU PROCHE DE ${0}.",
-    "Des bruits d'armes à feu à ${0} !",
+    'Tiếng súng vang lên trong khu vực ${0}!',
+    "CỨU VỚI, Ở ĐÂY ĐANG CÓ GIAO TRANH, CÓ TIẾNG SÚNG GẦN ${0}.",
+    "Tiếng súng vang lên ở ${0}!",
 ];
 
 export const ExplosionMessage = [
-    "Une explosion vient d'être entendue proche de ${0} !",
+    "Một vụ nổ vừa được nghe thấy gần ${0}!",
     'Oskuuuur ! Gros boum à ${0} !!!',
     "Heu, c'est normal les explosions à ${0} ?",
     'Bordel ça explose de partout proche de ${0} !!',
-    "Une forte déflagration vient d'être ressentie à ${0}.",
+    "Một vụ nổ mạnh vừa được cảm nhận tại ${0}.",
 ];
 
 export enum ExplosionType {

@@ -232,7 +232,7 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
             <Menu type={MenuType.ObjectEditor}>
                 <MainMenu helpPanel={<HelpPanel options={data} collision={collision} />}>
                     <MenuTitle title={menuTitle} />
-                    <MenuContent subtitle="Edition d'objet">
+                    <MenuContent subtitle="Chỉnh sửa đối tượng">
                         {data.allowToggleCollision && (
                             <MenuItemCheckbox
                                 onChange={value => {
@@ -251,7 +251,7 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                                     }
                                 }}
                                 checked={collision}
-                                description="Active ou désactive la collision du prop. Si la collision est désactivée, le prop peut être agrandi, réduit, et tourné dans tous les sens."
+                                description="Cho phép hoặc vô hiệu hóa va chạm chống đỡ. Nếu va chạm bị vô hiệu hóa, giá đỡ có thể được phóng to, thu nhỏ và xoay theo bất kỳ hướng nào."
                             >
                                 Activer la collision
                             </MenuItemCheckbox>
@@ -262,9 +262,9 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                                     fetchNui(NuiEvent.ObjectEditorTogglePermanent, { permanent: value });
                                 }}
                                 checked={data.permanent}
-                                description="Active ou désactive la permanence d'un objet. Par défaut, les objets sont crées / supprimés en fonction de la distance du joueur. Si la permanence est activée, l'objet sera toujours présent dans le monde peu importe la distance avec le joueur."
+                                description="Cho phép hoặc vô hiệu hóa tính lâu dài của một đối tượng. Theo mặc định, các vật phẩm được tạo/xóa dựa trên khoảng cách với người chơi. Nếu tính vĩnh viễn được kích hoạt, vật thể sẽ luôn hiện diện trên thế giới bất kể khoảng cách từ người chơi."
                             >
-                                Objet permanent
+                                Vật thể cố định
                             </MenuItemCheckbox>
                         )}
                         {data.allowAddEffect && (
@@ -272,11 +272,11 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                                 onChange={(_, value) => {
                                     fetchNui(NuiEvent.ObjectEditorSetEffect, { effect: value });
                                 }}
-                                description="Permet de définir un effet sur l'objet."
+                                description="Cho phép bạn xác định hiệu ứng trên đối tượng."
                                 title="Définir un effet"
                                 value={data.effect}
                             >
-                                <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
+                                <MenuItemSelectOption value={null}>Không có</MenuItemSelectOption>
                                 {Object.keys(ObjectEffects).map(key => {
                                     return (
                                         <MenuItemSelectOption key={key} value={key}>
@@ -289,7 +289,7 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                         {data.allowSetName && (
                             <MenuItemButton
                                 onConfirm={handleSetName}
-                                description="Définit un identifiant pour l'objet. Il sera utilisé pour le retrouver dans le futur."
+                                description="Đặt mã định danh cho đối tượng. Nó sẽ được sử dụng để tìm thấy anh ta trong tương lai."
                             >
                                 🏷️ Définir un identifiant
                             </MenuItemButton>
@@ -352,7 +352,7 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                                 );
                                 handleObjectDataUpdate();
                             }}
-                            description="Réinitialise la position de l'objet à sa position d'origine."
+                            description="Đặt lại vị trí của đối tượng về vị trí ban đầu."
                         >
                             🔄 Réinitialiser la position
                         </MenuItemButton>
@@ -430,7 +430,7 @@ export const MenuEditorObject: FunctionComponent<MenuAlbumProps> = ({ data }) =>
                                     mesh.current.scale.set(1, 1, 1);
                                     handleObjectDataUpdate();
                                 }}
-                                description="Réinitialise l'échelle de l'objet à [1, 1, 1]."
+                                description="Đặt lại tỷ lệ đối tượng thành [1, 1, 1]."
                             >
                                 🔄 Réinitialiser l'échelle
                             </MenuItemButton>
@@ -526,14 +526,14 @@ const HelpPanel: FunctionComponent<HelpPanelProps> = ({ options, collision }) =>
             {options.allowRotation && <MenuItemText> R : Mode rotation</MenuItemText>}
             <MenuItemText> T : Mode translation</MenuItemText>
             {options.allowScale && <MenuItemText> Y : Mode scaling</MenuItemText>}
-            {options.allowToggleSnap && <MenuItemText> C : Aligner l'objet ⬇️</MenuItemText>}
-            {options.allowSetName && <MenuItemText> B : Définir un identifiant d'objet</MenuItemText>}
+            {options.allowToggleSnap && <MenuItemText> C: Căn chỉnh đối tượng ⬇️</MenuItemText>}
+            {options.allowSetName && <MenuItemText> B: Đặt định danh đối tượng</MenuItemText>}
             <MenuItemText> L : Basculer mode de reférence</MenuItemText>
-            <MenuItemText> Espace : Confirmer et placer l'objet ✔️</MenuItemText>
-            {options.allowDuplicate && <MenuItemText> N : Dupliquer l'objet sélectionner ✔️</MenuItemText>}
-            {options.allowDelete && <MenuItemText> Suppr : Effacer l'objet sélectionné ❌</MenuItemText>}
+            <MenuItemText> Space: Xác nhận và đặt đối tượng ✔️</MenuItemText>
+            {options.allowDuplicate && <MenuItemText> N: Nhân đôi đối tượng đã chọn ✔️</MenuItemText>}
+            {options.allowDelete && <MenuItemText> Xóa: Xóa đối tượng đã chọn ❌</MenuItemText>}
             {options.allowScale && collision && (
-                <MenuItemText>⚠️⚠️ Le scaling d'objet peut désactiver la collision même si activée.</MenuItemText>
+                <MenuItemText>⚠️⚠️ Chia tỷ lệ đối tượng có thể vô hiệu hóa xung đột ngay cả khi được bật.</MenuItemText>
             )}
         </>
     );

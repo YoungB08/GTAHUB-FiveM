@@ -1073,7 +1073,7 @@ export class SceneProvider {
 
         if (entity.inventoryId && !editing) {
             targets.push({
-                label: 'Ouvrir',
+                label: 'Mở',
                 icon: 'inventory/ouvrir_le_stockage',
                 category: 'criminal',
                 canInteract: () =>
@@ -1286,7 +1286,7 @@ export class SceneProvider {
 
         const phone = await this.inputService.askInput(
             {
-                title: 'Téléphone du joueur',
+                title: 'Điện thoại người chơi',
                 defaultValue: '555-',
                 maxCharacters: 50,
             },

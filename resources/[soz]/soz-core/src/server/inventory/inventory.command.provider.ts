@@ -33,7 +33,7 @@ export class InventoryCommandProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(target);
 
         if (!inventory) {
-            this.notifier.error(source, 'Joueur introuvable');
+            this.notifier.error(source, 'Không tìm thấy người chơi');
 
             return;
         }
@@ -57,7 +57,7 @@ export class InventoryCommandProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(target);
 
         if (!inventory || !player) {
-            this.notifier.error(source, 'Joueur introuvable');
+            this.notifier.error(source, 'Không tìm thấy người chơi');
 
             return;
         }
@@ -96,14 +96,14 @@ export class InventoryCommandProvider {
         const result = inventory.add(item, amount, metadata);
 
         if (isErr(result)) {
-            this.notifier.error(source, `Impossible de rajouter l'objet: ${result.err}`);
+            this.notifier.error(source, `Không thể thêm vật phẩm: ${result.err}`);
 
             return;
         }
 
         this.notifier.notify(
             source,
-            `Vous avez donné ~o~${amount} ~b~${itemObject.label} ~o~"${item}"~s~ à ~b~${player.charinfo.firstname} ${player.charinfo.lastname}`
+            `Bạn đã đưa ~o~${amount} ~b~${itemObject.label} ~o~"${item}"~s~ cho ~b~${player.charinfo.firstname} ${player.charinfo.lastname}`
         );
 
         await inventory.observe();
@@ -125,7 +125,7 @@ export class InventoryCommandProvider {
         }
 
         if (!inventory) {
-            this.notifier.error(source, 'Joueur introuvable ou inventaire inexistant');
+            this.notifier.error(source, 'Không tìm thấy người chơi hoặc kho không tồn tại');
 
             return;
         }

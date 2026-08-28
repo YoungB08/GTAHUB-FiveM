@@ -42,7 +42,7 @@ export class JobInvoiceProvider {
                     action: this.invoicePlayer.bind(this),
                 },
                 {
-                    label: 'Facture la société',
+                    label: 'Hóa đơn công ty',
                     icon: 'jobs/facture',
                     blackoutGlobal: true,
                     blackoutJob: job.id,
@@ -100,12 +100,12 @@ export class JobInvoiceProvider {
     public async getTitleAndAmount(): Promise<[string, number]> {
         const title = await this.inputService.askInput<string>(
             {
-                title: 'Titre de la facture',
+                title: 'Tiêu đề hóa đơn',
                 maxCharacters: 200,
             },
             input => {
                 if (input === null || input.length < 5) {
-                    return Err('Le titre doit faire au moins 5 caractères');
+                    return Err('Tiêu đề phải dài ít nhất 5 ký tự');
                 }
 
                 return Ok(input);
@@ -114,18 +114,18 @@ export class JobInvoiceProvider {
 
         const amount = await this.inputService.askInput<number>(
             {
-                title: 'Montant de la facture',
+                title: 'Số tiền hóa đơn',
                 maxCharacters: 10,
             },
             input => {
                 if (input === null || input.length < 1) {
-                    return Err('Le montant doit être renseigné');
+                    return Err('Số tiền phải được nhập');
                 }
 
                 const inputNumber = Number(input);
 
                 if (isNaN(inputNumber) || inputNumber < 0) {
-                    return Err('Veuillez entrer un nombre positif');
+                    return Err('Vui lòng nhập số dương');
                 }
 
                 return Ok(inputNumber);

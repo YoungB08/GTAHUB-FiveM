@@ -11,7 +11,7 @@ export class PoliceLicenceProvider {
 
     @OnNuiEvent(NuiEvent.PoliceAddLicence)
     public async addLicence({ playerServerId, licence }: { playerServerId: number; licence: string }) {
-        const completed = await this.playLicenceAnimation('Enregistrement du permis...');
+        const completed = await this.playLicenceAnimation('Đăng ký giấy phép...');
         if (!completed) {
             return;
         }
@@ -20,7 +20,7 @@ export class PoliceLicenceProvider {
 
     @OnNuiEvent(NuiEvent.PoliceRemoveLicence)
     public async removeLicence({ playerServerId, licence }: { playerServerId: number; licence: string }) {
-        const completed = await this.playLicenceAnimation('Retrait du permis...');
+        const completed = await this.playLicenceAnimation('Thu hồi giấy phép...');
         if (!completed) {
             return;
         }

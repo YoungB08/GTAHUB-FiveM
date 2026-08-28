@@ -31,7 +31,7 @@ export const DarkWebConversationPasswordModal = memo(
                 setPasswordInputValue('');
                 onClose();
             } else {
-                setPasswordErrorMessage('ERREUR : Mot de passe incorrect');
+                setPasswordErrorMessage('LỖI: Mật khẩu không đúng');
                 setPasswordInputValue('');
             }
         };

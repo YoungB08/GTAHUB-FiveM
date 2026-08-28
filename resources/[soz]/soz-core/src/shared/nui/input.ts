@@ -15,7 +15,7 @@ export type ValidateInput<T> = (input: string) => Result<T, string>;
 
 export const NotEmptyStringValidator: ValidateInput<string> = (input: string) => {
     if (input?.trim() === '') {
-        return Err('Veuillez entrer une valeur');
+        return Err('Vui lòng nhập một giá trị');
     }
 
     return Ok(input);
@@ -25,11 +25,11 @@ export const PositiveNumberValidator: ValidateInput<number> = (input: string) =>
     const inputNumber = Number(input);
 
     if (isNaN(inputNumber) || inputNumber < 0) {
-        return Err('Veuillez entrer un nombre positif');
+        return Err('Vui lòng nhập số dương');
     }
 
     if (inputNumber % 1 !== 0) {
-        return Err(`La valeur doit être un nombre entier.`);
+        return Err(`Giá trị phải là số nguyên.`);
     }
 
     return Ok(inputNumber);
@@ -39,7 +39,7 @@ export const NumberValidator: ValidateInput<number> = (input: string) => {
     const inputNumber = Number(input);
 
     if (isNaN(inputNumber)) {
-        return Err('Veuillez entrer un nombre');
+        return Err('Vui lòng nhập một số');
     }
 
     return Ok(inputNumber);
@@ -50,7 +50,7 @@ export const NumberValidatorFactory = (min?: number, max?: number): ValidateInpu
         const inputNumber = Number(input);
 
         if (isNaN(inputNumber)) {
-            return Err(`Veuillez entrer un nombre.`);
+            return Err(`Vui lòng nhập một số.`);
         }
 
         if (min && inputNumber < min) {
@@ -62,7 +62,7 @@ export const NumberValidatorFactory = (min?: number, max?: number): ValidateInpu
         }
 
         if (inputNumber % 1 !== 0) {
-            return Err(`La valeur doit être un nombre entier.`);
+            return Err(`Giá trị phải là số nguyên.`);
         }
 
         return Ok(inputNumber);
@@ -71,11 +71,11 @@ export const NumberValidatorFactory = (min?: number, max?: number): ValidateInpu
 
 export const HttpLinkValidator: ValidateInput<string> = (input: string) => {
     if (input?.trim() === '') {
-        return Err('Veuillez entrer une adresse URL');
+        return Err('Vui lòng nhập địa chỉ URL');
     }
     const trimmed = input?.trim() ?? '';
     if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
-        return Err('L’URL doit commencer par "http://" ou "https://"');
+        return Err('URL phải bắt đầu bằng "http://" hoặc"https://"');
     }
     return Ok(input);
 };

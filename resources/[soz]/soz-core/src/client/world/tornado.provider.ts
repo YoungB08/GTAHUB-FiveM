@@ -353,7 +353,7 @@ export class TornadoProvider {
         }
 
         const destination = GetEntityCoords(PlayerPedId()) as Vector3;
-        this.notifier.notify('La tornade se déplace', 'success');
+        this.notifier.notify('Cơn lốc xoáy đang di chuyển', 'success');
         this.movingNotifDist = destination;
 
         TriggerServerEvent(

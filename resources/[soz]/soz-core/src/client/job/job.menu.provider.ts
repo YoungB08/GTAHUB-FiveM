@@ -78,7 +78,7 @@ export class JobMenuProvider {
     public async onPlayerMenuJobGradeUpdateSalary({ gradeId }: { gradeId: number }) {
         const salary = await this.inputService.askInput(
             {
-                title: 'Nouveau salaire :',
+                title: 'Mức lương mới:',
                 maxCharacters: 32,
             },
             PositiveNumberValidator
@@ -92,7 +92,7 @@ export class JobMenuProvider {
     public async onPlayerMenuJobGradeUpdateWeight({ gradeId }: { gradeId: number }) {
         const weight = await this.inputService.askInput(
             {
-                title: 'Importance (le patron doit être le plus élevé) :',
+                title: 'Tầm quan trọng (sếp phải cao nhất):',
                 maxCharacters: 32,
             },
             PositiveNumberValidator
@@ -105,7 +105,7 @@ export class JobMenuProvider {
     @OnNuiEvent(NuiEvent.PlayerMenuJobGradeUpdateName)
     public async onPlayerMenuJobGradeUpdateName({ gradeId }: { gradeId: number }) {
         const newName = await this.inputService.askInput({
-            title: 'Nouveau nom :',
+            title: 'Tên mới:',
             maxCharacters: 32,
         });
 
@@ -131,7 +131,7 @@ export class JobMenuProvider {
     }
 
     @Command('society-menu', {
-        description: 'Ouvrir le menu entreprise',
+        description: 'Mở menu kinh doanh',
         keys: [{ mapper: 'keyboard', key: 'F3' }],
     })
     public openSocietyMenu() {

@@ -238,7 +238,7 @@ export class PoliceCameraProvider {
             return;
         }
 
-        this.notifier.notify('Cette caméra est temporairement désactivée.', 'warning');
+        this.notifier.notify('Máy ảnh này tạm thời bị vô hiệu hóa.', 'warning');
         this.deleteCamera();
     }
 

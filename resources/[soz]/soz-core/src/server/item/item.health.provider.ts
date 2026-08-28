@@ -4,7 +4,7 @@ import { Once, OnEvent } from '../../core/decorators/event';
 import { Inject } from '../../core/decorators/injectable';
 import { Provider } from '../../core/decorators/provider';
 import { ServerEvent } from '../../shared/event';
-import { InventoryItem } from '../../shared/inventory';
+import { ADD_ERROR_MESSAGE, InventoryItem } from '../../shared/inventory';
 import { CommonItem } from '../../shared/item';
 import { isErr } from '../../shared/result';
 import { Inventory } from '../inventory/inventory';

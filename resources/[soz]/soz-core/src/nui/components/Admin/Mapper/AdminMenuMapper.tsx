@@ -75,8 +75,8 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
             <MainMenu>
                 <MenuTitle title={data.permission} />
                 <MenuContent>
-                    <MenuItemSubMenuLink id="objects">🚏 Gestion des objets</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="properties">🏠 Gestion des propriétés</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="objects">🚏 Quản lý đối tượng</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="properties">🏠 Quản lý tài sản</MenuItemSubMenuLink>
                     <MenuItemCheckbox
                         checked={data.showInterior}
                         onChange={value => {
@@ -97,16 +97,16 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                     <MenuItemButton onConfirm={onDrugAdminMenuOpen}>💊 Drogue</MenuItemButton>
                     <MenuItemButton onConfirm={onRaceAdminMenuOpen}>🏎 Courses</MenuItemButton>
                     <MenuItemButton onConfirm={onLaserGameAdminMenuOpen}>🔫 Laser Game</MenuItemButton>
-                    <MenuItemSubMenuLink id="zones">🗺️ Gestion des zones</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="modelswap">🆛 Gestion des remplacements de modèle</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="zones">🗺️ Quản lý khu vực</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="modelswap">🆛 Quản lý việc thay thế mô hình</MenuItemSubMenuLink>
                     <MenuItemButton onConfirm={onHubEntryAdminMenuOpen}>[🕯] Lanterne</MenuItemButton>
                     <MenuItemButton onConfirm={onGangAdminMenuOpen}>💀 Groupe criminel</MenuItemButton>
                 </MenuContent>
             </MainMenu>
             <SubMenu id="objects">
                 <MenuTitle title={data.permission} />
-                <MenuContent subtitle="Un poteau, une borne, des poubelles !">
-                    <MenuItemSelect title={'🚏 Objet séléctionné'} onChange={(i, value) => setSelectedObject(value)}>
+                <MenuContent subtitle="Cột, cột, thùng rác!">
+                    <MenuItemSelect title={'🚏 Đối tượng được chọn'} onChange={(i, value) => setSelectedObject(value)}>
                         <MenuItemSelectOption value="soz_prop_bb_bin">Poubelle</MenuItemSelectOption>
                         <MenuItemSelectOption value="soz_prop_elec01">Borne civile</MenuItemSelectOption>
                         <MenuItemSelectOption value="soz_prop_elec02">Borne entreprise</MenuItemSelectOption>
@@ -115,13 +115,13 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                     </MenuItemSelect>
                     <MenuItemSelect
                         title="Metier lié"
-                        description="Lier la prop à une entreprise (uniquement borne entreprise)"
+                        description="Liên kết tài sản với một công ty (chỉ thiết bị đầu cuối của công ty)"
                         value={null}
                         onChange={(i, value) => {
                             setJob(value);
                         }}
                     >
-                        <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
+                        <MenuItemSelectOption value={null}>Không có</MenuItemSelectOption>
                         {jobIds.map(jobId => (
                             <MenuItemSelectOption value={jobId} key={'job_' + jobId}>
                                 {JobRegistry[jobId].label}
@@ -136,7 +136,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                             setEvent(value);
                         }}
                     >
-                        <MenuItemSelectOption value={null}>Tous le temps</MenuItemSelectOption>
+                        <MenuItemSelectOption value={null}>Mọi lúc</MenuItemSelectOption>
                         <MenuItemSelectOption value="xmas">Noel</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemButton
@@ -148,19 +148,19 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                             });
                         }}
                     >
-                        Ajouter l'objet
+                        Thêm đối tượng
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>
             <SubMenu id="properties">
                 <MenuTitle title={data.permission} />
-                <MenuContent subtitle="Gestion des propriétés">
+                <MenuContent subtitle="Quản lý tài sản">
                     <MenuItemCheckbox
                         onChange={value => {
                             fetchNui(NuiEvent.AdminMenuMapperShowAllProperty, { show: value });
                         }}
                     >
-                        Afficher tous les bâtiments
+                        Hiển thị tất cả tòa nhà
                     </MenuItemCheckbox>
                     <MenuItemSelect
                         title="🏢 Bâtiments"
@@ -190,13 +190,13 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                             setProperties(properties);
                         }}
                     >
-                        ➕ Ajouter un bâtiment
+                        ➕ Thêm tòa nhà
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>
             <SubMenu id="tools">
                 <MenuTitle title={data.permission} />
-                <MenuContent subtitle="Menu pour les mappeurs"></MenuContent>
+                <MenuContent subtitle="Menu dành cho người lập bản đồ"></MenuContent>
             </SubMenu>
             {sortedProperties.map(property => (
                 <Fragment key={property.id}>
@@ -219,7 +219,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                             />
                             {property.apartments.map(apartment => (
                                 <MenuItemSubMenuLink key={apartment.id} id={`apartment_${apartment.identifier}`}>
-                                    Appartement: {apartment.label}
+                                    Căn hộ: {apartment.label}
                                 </MenuItemSubMenuLink>
                             ))}
                             <MenuItemButton
@@ -232,7 +232,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     setProperties(properties);
                                 }}
                             >
-                                ➕ Ajouter un appartement
+                                ➕ Thêm một căn hộ
                             </MenuItemButton>
                             <MenuItemSelect
                                 title="🏢 Cullings"
@@ -256,12 +256,12 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     }
                                 }}
                             >
-                                <MenuItemSelectOption key="add" helper="Ajouter" value="add">
-                                    Ajouter un culling
+                                <MenuItemSelectOption key="add" helper="Thêm vào" value="add">
+                                    Thêm loại bỏ
                                 </MenuItemSelectOption>
                                 {property.exteriorCulling.map(culling => (
-                                    <MenuItemSelectOption key={culling} helper={`Supprimer ${culling}`} value={culling}>
-                                        Supprimer "{culling}"
+                                    <MenuItemSelectOption key={culling} helper={`Xóa ${culling}`} value={culling}>
+                                        XÓA BỎ "{culling}"
                                     </MenuItemSelectOption>
                                 ))}
                             </MenuItemSelect>
@@ -277,7 +277,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     setProperties(properties);
                                 }}
                             >
-                                ❌ Supprimer
+                                ❌ Xóa
                             </MenuItemButton>
                         </MenuContent>
                     </SubMenu>
@@ -336,7 +336,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     }}
                                 >
                                     <div className="flex justify-between">
-                                        <span>💲 Prix</span>
+                                        <span>💲 Giá</span>
                                         <span>${apartment.price?.toLocaleString()}</span>
                                     </div>
                                 </MenuItemButton>
@@ -402,7 +402,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     setProperties={setProperties}
                                 />
                                 <ZoneHouseMenuSelect
-                                    title="👛 Zone du coffre d'argent"
+                                    title="👛 Khu vực rương tiền"
                                     type="money"
                                     zone={apartment.moneyZone}
                                     propertyId={property.id}
@@ -422,7 +422,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                         setProperties(properties);
                                     }}
                                 >
-                                    ❌ Supprimer
+                                    ❌ Xóa
                                 </MenuItemButton>
                                 {apartment.owner === null && (
                                     <MenuItemSelect
@@ -436,7 +436,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                             });
                                         }}
                                     >
-                                        <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
+                                        <MenuItemSelectOption value={null}>Không có</MenuItemSelectOption>
                                         {data.parties.map(party => (
                                             <MenuItemSelectOption key={party.id} value={party.id}>
                                                 {party.name}
@@ -453,7 +453,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                             });
                                         }}
                                     >
-                                        Définir le propriétaire
+                                        Đặt chủ sở hữu
                                     </MenuItemButton>
                                 )}
                                 {apartment.owner !== null && (
@@ -465,7 +465,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                             });
                                         }}
                                     >
-                                        ❌ Enlever le propriétaire ({apartment.owner})
+                                        ❌ Xóa chủ sở hữu ({apartment.owner})
                                     </MenuItemButton>
                                 )}
                                 {Object.entries(TYPE_LABEL).map(([type, label]) => {
@@ -520,7 +520,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
             ))}
             <SubMenu id="zones">
                 <MenuTitle title={data.permission} />
-                <MenuContent subtitle="Des zones, des zoneuh, oui mais des panzazones !">
+                <MenuContent subtitle="Khu, khu, vâng nhưng panzazone!">
                     {Object.values(ZoneType).map(type => (
                         <MenuItemSubMenuLink key={'link_zones_' + type} id={'zones_' + type}>
                             {ZoneTypeLabel[type]}
@@ -560,7 +560,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                 })
                             }
                         >
-                            ➕ Ajouter une zone
+                            ➕ Thêm một khu vực
                         </MenuItemButton>
                         {Object.values(zones)
                             .filter(zone => zone.data.type == type)
@@ -610,7 +610,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                     <MenuItemSelectOption value="teleport">Téléporter</MenuItemSelectOption>
                                     <MenuItemSelectOption value="show">Afficher</MenuItemSelectOption>
                                     <MenuItemSelectOption value="hide">Cacher</MenuItemSelectOption>
-                                    <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                    <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                                     <MenuItemSelectOption value="rename">Renommer</MenuItemSelectOption>
                                     <MenuItemSelectOption value="update">Modifier</MenuItemSelectOption>
                                 </MenuItemSelect>
@@ -622,7 +622,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                 <MenuTitle title={data.permission} />
                 <MenuContent subtitle={`Remplacement de modèle`}>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.AdminMenuMapperModelSwapAdd)}>
-                        ➕ Ajouter un remplacement de modèle
+                        ➕ Thêm mẫu thay thế
                     </MenuItemButton>
                     {Object.values(swaps)
                         .sort((a, b) => a.source.localeCompare(b.source))
@@ -642,7 +642,7 @@ export const AdminMenuMapper: FunctionComponent<AdminMapperMenuStateProps> = ({ 
                                 }}
                             >
                                 <MenuItemSelectOption value="teleport">Téléporter</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             </MenuItemSelect>
                         ))}
                 </MenuContent>

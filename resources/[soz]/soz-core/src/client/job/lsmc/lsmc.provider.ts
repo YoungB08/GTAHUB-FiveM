@@ -257,7 +257,7 @@ export class LSMCProvider {
                     },
                 },
                 {
-                    label: 'Faire monter',
+                    label: 'Nuôi dưỡng',
                     icon: 'ems/sortir',
                     category: 'society',
                     canInteract: entity => {

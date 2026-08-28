@@ -92,7 +92,7 @@ export class VehiclePushProvider {
         this.targetFactory.createForAllVehicle(
             [
                 {
-                    label: 'Pousser le véhicule',
+                    label: 'Đẩy xe',
                     icon: 'vehicle/car',
                     category: 'citizen',
                     canInteract: async (vehicle: number) => {

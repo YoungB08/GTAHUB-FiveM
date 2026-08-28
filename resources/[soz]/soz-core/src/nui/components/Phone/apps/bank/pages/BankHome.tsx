@@ -62,7 +62,7 @@ export const BankHome = memo(() => {
                 </div>
 
                 <div className="absolute text-white flex flex-col items-center justify-center w-full h-full">
-                    <span className="font-light">Compte principal</span>
+                    <span className="font-light">Tài khoản chính</span>
                     <h2
                         className={clsx('text-6xl', {
                             'text-red-500': balance <= 0,

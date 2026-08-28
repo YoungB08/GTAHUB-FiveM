@@ -540,7 +540,7 @@ export class ShopProvider {
         // Notify player
         this.notifier.notify(
             source,
-            `Vous avez acheté un.e ~b~${product.label}~s~ pour ~g~$${await this.priceService.getPrice(
+            `Bạn đã mua ~b~${product.label}~s~ với giá ~g~$${await this.priceService.getPrice(
                 product.price,
                 isInCayo ? null : TaxType.SUPPLY
             )}.`,

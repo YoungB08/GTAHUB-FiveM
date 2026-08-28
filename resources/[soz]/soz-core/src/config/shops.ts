@@ -6027,7 +6027,7 @@ export const UndershirtTypes: Record<
                 'gris',
                 'motif de violettes',
                 'carreaux rouge',
-                'noir carré argent',
+                'bạc vuông đen',
                 'rose',
                 'blanc',
                 'bleu et noir',

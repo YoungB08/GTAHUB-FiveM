@@ -53,7 +53,7 @@ QBCore.Commands.Add('tp', 'TP To Player or Coords (Admin Only)', { { name = 'id/
             local coords = GetEntityCoords(target)
             TriggerClientEvent('QBCore:Command:TeleportToPlayer', src, coords)
         else
-            TriggerClientEvent('soz-core:client:notification:draw', src, 'Joueur non trouvé', "error")
+            TriggerClientEvent('soz-core:client:notification:draw', src, 'Không tìm thấy người chơi', "error")
         end
     else
         if args[1] and args[2] and args[3] then
@@ -92,7 +92,7 @@ QBCore.Commands.Add('givemoney', 'Give A Player Money (Admin Only)', { { name = 
     if Player then
         Player.Functions.AddMoney(tostring(args[2]), tonumber(args[3]))
     else
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Joueur non trouvé', "error")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Không tìm thấy người chơi', "error")
     end
 end, 'admin')
 
@@ -102,7 +102,7 @@ QBCore.Commands.Add('setmoney', 'Set Players Money Amount (Admin Only)', { { nam
     if Player then
         Player.Functions.SetMoney(tostring(args[2]), tonumber(args[3]))
     else
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Joueur non trouvé', "error")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Không tìm thấy người chơi', "error")
     end
 end, 'admin')
 
@@ -120,7 +120,7 @@ QBCore.Commands.Add('setjob', 'Set A Players Job (Admin Only)', { { name = 'id',
     if Player then
         Player.Functions.SetJob(tostring(args[2]), tostring(args[3]))
     else
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Joueur non trouvé', "error")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Không tìm thấy người chơi', "error")
     end
 end, 'admin')
 

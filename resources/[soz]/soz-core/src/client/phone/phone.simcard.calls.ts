@@ -34,7 +34,7 @@ export class PhoneSimCardCalls {
     @OnNuiEvent(NuiEvent.PhoneSimCardCallsInit)
     async onCallsInit(phoneNumber: string) {
         if (this.phoneState.isInCall() || this.playerService.getState().isDead) {
-            return Err('Appel impossible');
+            return Err('Không thể thực hiện cuộc gọi');
         }
 
         return emitRpc(RpcServerEvent.PHONE_SIMCARD_CALLS_INIT, phoneNumber);

@@ -1136,7 +1136,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'prop_exercisebike',
-            label: "Velo d'appartement",
+            label: "Xe đạp tập thể dục",
         },
         {
             model: 'prop_tennis_ball',
@@ -1578,7 +1578,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'apa_mp_h_bed_with_table_02',
-            label: 'Lit double avec table de chevet 1',
+            label: 'Giường đôi có bàn cạnh giường ngủ 1',
         },
         {
             model: 'apa_mp_h_yacht_bed_01',
@@ -4266,7 +4266,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'prop_cs_tv_stand',
-            label: 'Télévision avec support',
+            label: 'Tivi có chân đế',
         },
         {
             model: 'prop_monitor_03b',
@@ -4854,7 +4854,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'ex_prop_exec_award_silver',
-            label: 'Trophée en argent',
+            label: 'Cúp bạc',
         },
         {
             model: 'ex_prop_exec_cigar_01',
@@ -6156,11 +6156,11 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'prop_flag_lsfd',
-            label: 'Drapeau des pompiers de Los Santos',
+            label: 'Cờ của Sở cứu hỏa Los Santos',
         },
         {
             model: 'prop_flag_lsservices',
-            label: 'Drapeau des services de Los Santos',
+            label: 'Cờ dịch vụ Los Santos',
         },
         {
             model: 'prop_flag_mexico',
@@ -6184,7 +6184,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'prop_flag_us',
-            label: 'Drapeau des États-Unis',
+            label: 'Cờ Hoa Kỳ',
         },
     ],
     ['Camionettes & Stands']: [
@@ -6272,23 +6272,23 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'prop_table_para_comb_01',
-            label: 'Table avec parasol 1',
+            label: 'Bàn có ô 1',
         },
         {
             model: 'prop_table_para_comb_02',
-            label: 'Table avec parasol 2',
+            label: 'Bàn có ô 2',
         },
         {
             model: 'prop_table_para_comb_03',
-            label: 'Table avec parasol 3',
+            label: 'Bàn có ô 3',
         },
         {
             model: 'prop_table_para_comb_04',
-            label: 'Table avec parasol 4',
+            label: 'Bàn có ô 4',
         },
         {
             model: 'prop_table_para_comb_05',
-            label: 'Table avec parasol 5',
+            label: 'Bàn có ô 5',
         },
         {
             model: 'apa_mp_h_din_table_01',
@@ -6660,7 +6660,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_bend_15d',
-            label: 'Route (virage 15°) avec barrière',
+            label: 'Đường (uốn cong 15°) có rào chắn',
         },
         {
             model: 'stt_prop_track_bend_180d',
@@ -6668,7 +6668,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_bend_180d_bar',
-            label: 'Route (virage 180°) avec barrière',
+            label: 'Đường (uốn cong 180°) có rào chắn',
         },
         {
             model: 'stt_prop_track_bend_30d',
@@ -6676,7 +6676,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_bend_30d_bar',
-            label: 'Route (virage 30°) avec barrière',
+            label: 'Đường (uốn cong 30°) có rào chắn',
         },
         {
             model: 'stt_prop_track_bend_5d',
@@ -6684,11 +6684,11 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_bend_5d_bar',
-            label: 'Route (virage 5°) avec barrière',
+            label: 'Đường (uốn cong 5°) có rào chắn',
         },
         {
             model: 'stt_prop_track_bend_bar_l',
-            label: 'Route (virage 45°) avec barrière',
+            label: 'Đường (uốn cong 45°) có rào chắn',
         },
         {
             model: 'stt_prop_track_bend_l',
@@ -6732,7 +6732,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_cross_bar',
-            label: 'Route (croisement) avec barrière',
+            label: 'Đường (ngang qua) có rào chắn',
         },
         {
             model: 'stt_prop_track_fork',
@@ -6740,7 +6740,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_fork_bar',
-            label: 'Route (fourche) avec barrière',
+            label: 'Đường (ngã ba) có rào chắn',
         },
         {
             model: 'stt_prop_track_link',
@@ -6748,15 +6748,15 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'stt_prop_track_straight_bar_l',
-            label: 'Route (ligne droite large) avec barrière',
+            label: 'Đường (đường thẳng rộng) có rào chắn',
         },
         {
             model: 'stt_prop_track_straight_bar_m',
-            label: 'Route (ligne droite moyenne) avec barrière',
+            label: 'Đường (đường thẳng vừa) có rào chắn',
         },
         {
             model: 'stt_prop_track_straight_bar_s',
-            label: 'Route (ligne droite courte) avec barrière',
+            label: 'Đường (đường thẳng ngắn) có rào chắn',
         },
         {
             model: 'stt_prop_track_straight_l',
@@ -6828,7 +6828,7 @@ export const PLACEMENT_PROP_LIST: PlacementPropList = {
         },
         {
             model: 'xs_prop_gate_tyre_01a_wl',
-            label: 'Porte de pneus (large)',
+            label: 'Giá đỡ lốp (lớn)',
         },
         {
             model: 'xs_prop_wall_tyre_l_01a',

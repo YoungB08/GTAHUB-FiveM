@@ -1052,7 +1052,7 @@ export class AnimalProvider {
             }
         }
 
-        this.notifier.notify("~g~Aucune~s~ trace de drogue n'a été trouvée sur cette ~y~personne~s~.", 'info');
+        this.notifier.notify("~g~No ~s~ không tìm thấy dấu vết ma túy trên ~y~person~s~ này.", 'info');
     }
 
     private async searchOnVeh(pet: AnyClientPet, veh: number) {
@@ -1072,7 +1072,7 @@ export class AnimalProvider {
             return;
         }
 
-        this.notifier.notify("~g~Aucune~s~ trace de drogue n'a été trouvée dans cette ~y~voiture~s~.", 'info');
+        this.notifier.notify("~g~Không tìm thấy dấu vết ma túy ~s~ trong ~y~car~s~ này.", 'info');
     }
 
     private async attackExcecutionOrder(entity: number) {

@@ -115,7 +115,7 @@ export class GouvRadarProvider {
                 },
             },
             {
-                label: 'Supprimer',
+                label: 'XÓA BỎ',
                 icon: 'global/trash',
                 job: JobType.Gouv,
                 blackoutJob: JobType.Gouv,

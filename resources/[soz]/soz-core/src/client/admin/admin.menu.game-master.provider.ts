@@ -103,7 +103,7 @@ export class AdminMenuGameMasterProvider {
                 1
             );
         } else {
-            this.notifier.notify(`Vous n'avez pas sélectionné de destination.`, 'error');
+            this.notifier.notify(`Bạn chưa chọn điểm đến.`, 'error');
         }
     }
 

@@ -51,7 +51,7 @@ export class InputService {
                     return Ok(input.toLowerCase() === 'oui');
                 }
 
-                return Err('Vous devez écrire "oui" ou "non" pour confirmer');
+                return Err('Bạn phải viết "có" hoặc "không" để xác nhận');
             }
         );
 

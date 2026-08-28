@@ -165,7 +165,7 @@ export class ApiProvider {
 
             return Response.ok();
         } else {
-            return Response.internalServerError('Joueur non trouvé ou non connecté');
+            return Response.internalServerError('Không tìm thấy trình phát hoặc không kết nối');
         }
     }
 
@@ -185,7 +185,7 @@ export class ApiProvider {
 
             return Response.ok();
         } else {
-            return Response.internalServerError('Joueur non trouvé ou non connecté');
+            return Response.internalServerError('Không tìm thấy trình phát hoặc không kết nối');
         }
     }
 
@@ -200,7 +200,7 @@ export class ApiProvider {
 
             return Response.ok();
         } else {
-            return Response.internalServerError('Joueur non trouvé ou non connecté');
+            return Response.internalServerError('Không tìm thấy trình phát hoặc không kết nối');
         }
     }
 
@@ -331,7 +331,7 @@ export class ApiProvider {
                 }
             }
             if (msg.length == 0) {
-                msg = 'Pas de véhicule trouvé avec la plaque ' + data.plate;
+                msg = 'Không tìm thấy xe nào có biển số' + data.plate;
             }
             return Response.ok(
                 JSON.stringify({

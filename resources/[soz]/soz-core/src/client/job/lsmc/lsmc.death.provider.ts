@@ -626,7 +626,7 @@ export class LSMCDeathProvider {
             position: true,
         });
         TriggerServerEvent(ServerEvent.LSMC_NEW_URGENCY);
-        this.notifier.notify('Vous avez appelé le ~g~LSMC~s~ !', 'info');
+        this.notifier.notify('Bạn đã gọi ~g~LSMC~s~!', 'info');
     }
 
     @OnEvent(ClientEvent.INJURY_DEATH)

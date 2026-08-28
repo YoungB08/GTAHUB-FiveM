@@ -132,7 +132,7 @@ export class LaserGameProvider {
         if (player.metadata.plaster?.length || GetEntityHealth(GetPlayerPed(player.source)) <= CRITICAL_HEALTH) {
             this.notifier.notify(
                 player.source,
-                'Regarde son état, il devrait plutôt se faire soigner avant de vouloir jouer.',
+                'Hãy nhìn vào tình trạng của anh ấy, anh ấy nên được điều trị trước khi muốn thi đấu.',
                 'error'
             );
 
@@ -140,7 +140,7 @@ export class LaserGameProvider {
         }
 
         if (this.isPlayerRegisterInAnyGame(player.citizenid)) {
-            this.notifier.notify(source, 'Vous avez déjà enregistré pour une partie', 'error');
+            this.notifier.notify(source, 'Bạn đã đăng ký một trò chơi', 'error');
 
             return null;
         }
@@ -196,7 +196,7 @@ export class LaserGameProvider {
         );
         this.notifier.notify(
             source,
-            'Un ordinateur est accessible dans le hub du laser game afin de gérer la partie.',
+            'Có thể truy cập máy tính trong trung tâm trò chơi laser để quản lý trò chơi.',
             'success',
             15000
         );
@@ -326,7 +326,7 @@ export class LaserGameProvider {
         if (GetEntityHealth(GetPlayerPed(target.source)) <= CRITICAL_HEALTH) {
             this.notifier.notify(
                 player.source,
-                'Regarde son état, il devrait plutôt se faire soigner avant de participer.',
+                'Nhìn vào tình trạng của anh ấy, anh ấy nên được điều trị trước khi tham gia.',
                 'error'
             );
 
@@ -338,7 +338,7 @@ export class LaserGameProvider {
         }
 
         if (this.isPlayerRegisterInAnyGame(target.citizenid)) {
-            this.notifier.notify(player.source, 'La personne participe déjà à une partie.', 'error');
+            this.notifier.notify(player.source, 'Người này đang chơi một trò chơi.', 'error');
 
             return;
         }
@@ -354,7 +354,7 @@ export class LaserGameProvider {
             this.getGameAsClientData(this.games[player.citizenid])
         );
         this.setPlayerCloth(target, this.games[player.citizenid]);
-        this.notifier.notify(player.source, 'La personne est enregistré pour la partie.', 'success');
+        this.notifier.notify(player.source, 'Người đó đã đăng ký trò chơi.', 'success');
     }
     @OnEvent(ServerEvent.LASER_GAME_REJOIN_GAME)
     public onrejoinGame(source: number): void {
@@ -390,14 +390,14 @@ export class LaserGameProvider {
         if (!game.scoreGoal) {
             this.notifier.notify(
                 source,
-                'La partie ne peut démarrer sans avoir ajouter un score de victoire.',
+                'Trò chơi không thể bắt đầu nếu không cộng thêm điểm chiến thắng.',
                 'error'
             );
             return;
         }
 
         if (game.gameDuration < LaserGameMinimalDuration || game.gameDuration > LaserGameMaximalDuration) {
-            this.notifier.notify(source, "Une partie ne peut durer qu'entre 10 et 60 minutes.", 'error');
+            this.notifier.notify(source, "Một trận đấu chỉ có thể kéo dài từ 10 đến 60 phút.", 'error');
             return;
         }
 
@@ -601,10 +601,10 @@ export class LaserGameProvider {
     private enoughPlayerInGame(game: LaserGameInfo) {
         const nPlayer = Object.keys(game.players).length;
         if (nPlayer < LaserGameMinimalPlayer[game.type]) {
-            this.notifier.notify(source, "Il n'y a pas assez de joueurs dans la partie", 'error');
+            this.notifier.notify(source, "Không có đủ người chơi trong trò chơi", 'error');
             return false;
         } else if (nPlayer > LaserGameMaximalPlayer[game.type]) {
-            this.notifier.notify(source, 'Il y a trop de joueurs dans la partie', 'error');
+            this.notifier.notify(source, 'Có quá nhiều người chơi trong trò chơi', 'error');
             return false;
         }
 
@@ -620,10 +620,10 @@ export class LaserGameProvider {
         const teamBPlayers = Object.values(game.players).filter(player => player.team === LaserGameTeamEnum.B);
         const maxTeamSize = LaserGameMaximalPlayer[game.type] / 2;
         if (teamAPlayers.length > maxTeamSize) {
-            this.notifier.notify(source, "Il y a trop de joueurs dans l'équipe A", 'error');
+            this.notifier.notify(source, "Có quá nhiều người chơi ở Đội A", 'error');
             return true;
         } else if (teamBPlayers.length > maxTeamSize) {
-            this.notifier.notify(source, "Il y a trop de joueurs dans l'équipe B", 'error');
+            this.notifier.notify(source, "Có quá nhiều người chơi ở đội B", 'error');
             return true;
         }
 
@@ -649,7 +649,7 @@ export class LaserGameProvider {
 
     private isGameInCreateState(game: LaserGameInfo): boolean {
         if (game && game.state !== LaserGameStateEnum.CREATED) {
-            this.notifier.notify(source, 'Aucune partie de disponible.', 'error');
+            this.notifier.notify(source, 'Không có trò chơi nào có sẵn.', 'error');
 
             return false;
         }

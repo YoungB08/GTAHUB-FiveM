@@ -153,7 +153,7 @@ export class SuperetteShopProvider {
         if (product.type !== 'weapon') {
             const value = await this.inputService.askInput(
                 {
-                    title: 'Quantité à acheter',
+                    title: 'Số lượng cần mua',
                     defaultValue: '1',
                     maxCharacters: 3,
                 },

@@ -250,7 +250,7 @@ export class Halloween2023Scenario1Provider {
                         [3382.53, 3704.28, 35.83, 275.75]
                     ),
                     {
-                        label: 'Donner',
+                        label: 'Đưa',
                         icon: 'pole/livrer',
                         item: 'halloween_prehistoric_blood_analysis',
                         category: 'citizen',
@@ -389,7 +389,7 @@ export class Halloween2023Scenario1Provider {
                         [-2077.01, 2603.37, 2.03, 135.77]
                     ),
                     {
-                        label: 'Donner',
+                        label: 'Đưa',
                         icon: 'pole/livrer',
                         category: 'citizen',
                         canInteract: () => {
@@ -439,7 +439,7 @@ export class Halloween2023Scenario1Provider {
                     action: async () => {
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000,
                             {
                                 dictionary: 'missfbi4prepp1',

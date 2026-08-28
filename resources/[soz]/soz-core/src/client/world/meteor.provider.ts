@@ -503,7 +503,7 @@ export class MeteorProvider {
             type: 'sandstorm',
             reporterId: '',
             job: '',
-            message: `Alerte Tempête - Une épaisse tempête de sable va fouetter l'entiereté de l'île dans les prochaines minutes. Nous vous invitons à protéger votre visage du sable.`,
+            message: `Cảnh báo Bão - Một cơn bão cát dày sẽ tấn công toàn bộ hòn đảo trong vài phút tới. Chúng tôi mời bạn bảo vệ khuôn mặt của bạn khỏi cát.`,
         });
     }
 
@@ -513,7 +513,7 @@ export class MeteorProvider {
             type: 'earthquake',
             reporterId: '',
             job: '',
-            message: `Alerte Séisme - Un ou plusieurs tremblements de terre de magnitude élevée vont toucher l'île. Nous vous invitons à vous mettre à l'abri, loin de tout objet explosif.`,
+            message: `Cảnh báo động đất - Một hoặc nhiều trận động đất có cường độ lớn sẽ xảy ra trên đảo. Chúng tôi mời bạn trú ẩn, tránh xa mọi vật thể nổ.`,
         });
     }
 
@@ -524,7 +524,7 @@ export class MeteorProvider {
             reporterId: '',
             job: '',
             message:
-                'Alerte Inondation - Suite à de fortes pluies, une importante montée des eaux à été détéctée. Nous vous invitons à éviter les endroits à risques.',
+                'Cảnh báo lũ lụt - Sau trận mưa lớn, mực nước được phát hiện đã tăng đáng kể. Chúng tôi mời bạn tránh những nơi nguy hiểm.',
         });
     }
 
@@ -535,7 +535,7 @@ export class MeteorProvider {
             reporterId: '',
             job: '',
             message:
-                "Une tornade a été détectée dans votre secteur. Mettez-vous immédiatement à l’abri dans un endroit sûr (sous-sol ou pièce sans fenêtre). Évitez les déplacements. Restez à l'écoute des consignes des autorités.",
+                "Một cơn lốc xoáy đã được phát hiện trong khu vực của bạn. Hãy trú ẩn ngay ở nơi an toàn (tầng hầm hoặc phòng không có cửa sổ). Tránh đi du lịch. Hãy chú ý đến những hướng dẫn từ cơ quan chức năng.",
         });
     }
 }

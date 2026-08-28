@@ -206,7 +206,7 @@ export class PhoneAppSocietyProvider {
         if (originalPlayer && societyMessage.isTaken && !societyMessage.isDone) {
             this.notifier.notify(
                 originalPlayer.source,
-                `Votre ~b~appel~s~ au ${societyMessage.conversation_id} vient d'être pris !`,
+                `~b~Cuộc gọi~s~ của bạn tới ${societyMessage.conversation_id} vừa được tiếp nhận!`,
                 'info',
                 10000
             );

@@ -48,20 +48,20 @@ export const AboutTax = () => {
                     )}
                 >
                     <section className="flex flex-col gap-4">
-                        <span className="font-semibold text-green-500 text-lg">Qu'est-ce qu'une taxe ?</span>
+                        <span className="font-semibold text-green-500 text-lg">Thuế là gì?</span>
                         <span className="text-m">
-                            Une taxe est une contribution financière obligatoire imposée par le gouvernement sur les
-                            revenus, les biens, les transactions, et les services. Elle constitue une source de revenus
-                            essentielle pour l'État, permettant de financer divers services publics tels que
-                            l'éducation, la santé, et les infrastructures.
+                            Thuế là khoản đóng góp tài chính bắt buộc do Chính phủ áp đặt đối với
+                            thu nhập, hàng hóa, giao dịch và dịch vụ. Nó là nguồn thu nhập
+                            cần thiết cho Nhà nước, giúp Nhà nước có thể tài trợ cho nhiều dịch vụ công khác nhau như
+                            giáo dục, y tế và cơ sở hạ tầng.
                         </span>
                     </section>
                     <section className="flex flex-col gap-4">
-                        <span className="font-semibold text-green-500 text-lg">Objectifs des Taxes</span>
+                        <span className="font-semibold text-green-500 text-lg">Mục tiêu thuế</span>
                         <span className="text-m">
-                            Les taxes servent à plus qu'à financer les services publics. Elles sont également utilisées
-                            pour influencer les comportements économiques, comme encourager l'adoption de pratiques
-                            écologiques ou décourager la consommation de produits nocifs.
+                            Thuế được sử dụng không chỉ cho các dịch vụ công. Chúng cũng được sử dụng
+                            để tác động đến hành vi kinh tế, chẳng hạn như khuyến khích việc áp dụng các thực tiễn
+                            sinh thái hoặc ngăn cản việc tiêu thụ các sản phẩm có hại.
                         </span>
                     </section>
                 </div>

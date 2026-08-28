@@ -80,7 +80,7 @@ export class VehicleSeatbeltProvider {
     }
 
     @Command('soz_vehicle_toggle_vehicle_seatbelt', {
-        description: 'Mettre/Enlever la ceinture de sécurité',
+        description: 'Đeo/tháo dây an toàn',
         keys: [
             {
                 mapper: 'keyboard',
@@ -121,7 +121,7 @@ export class VehicleSeatbeltProvider {
         }
 
         if (GetEntitySpeed(vehicle) * 3.6 > 75 && !this.isSeatbeltOn) {
-            this.notifier.notify('Vous allez trop vite pour faire ça.', 'error');
+            this.notifier.notify('Bạn đang đi quá nhanh để làm điều đó.', 'error');
 
             return;
         }

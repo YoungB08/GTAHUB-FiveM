@@ -49,7 +49,7 @@ export const TetrisGame: FunctionComponent = () => {
                                 <div className="relative">
                                     {points > bestPlayerScore && (
                                         <div className="absolute -rotate-12 -top-3 left-1/3 bg-yellow-500 text-sm text-white font-bold px-2 py-1 rounded">
-                                            Nouveau record !
+                                            Kỷ lục mới!
                                         </div>
                                     )}
                                     <header className="flex justify-around items-center text-white font-semibold px-2 mt-6">

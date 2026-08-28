@@ -97,7 +97,7 @@ export class ModelSwapProvider {
         }
 
         const target = await this.inputService.askInput({
-            title: 'Modèle de remplacement ou vide pour cacher',
+            title: 'Mẫu thay thế hoặc trống để ẩn',
         });
 
         const range = await this.inputService.askInput(

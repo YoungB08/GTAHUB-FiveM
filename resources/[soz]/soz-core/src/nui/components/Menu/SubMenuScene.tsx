@@ -124,7 +124,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                         🔎 Rechercher un modèle
                     </MenuItemButton>
                     <MenuItemSubMenuLink id={`scene-collection-${scene.id}`}>
-                        ➕ Ajouter une entité via liste
+                        ➕ Thêm thực thể qua danh sách
                     </MenuItemSubMenuLink>
                     <MenuItemButton
                         onConfirm={async () => {
@@ -134,7 +134,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                         }}
                         onSelected={() => fetchNui(NuiEvent.SceneSetEntityHighlighted, { objectId: null })}
                     >
-                        ➕ Ajouter une entité
+                        ➕ Thêm một thực thể
                     </MenuItemButton>
                     {isStaff(player) && context !== 'hammer' && (
                         <MenuItemButton
@@ -145,7 +145,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                             }}
                             onSelected={() => fetchNui(NuiEvent.SceneSetEntityHighlighted, { objectId: null })}
                         >
-                            ➕ Ajouter un ped
+                            ➕ Thêm một bàn đạp
                         </MenuItemButton>
                     )}
                     <MenuItemButton
@@ -155,9 +155,9 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                             });
                         }}
                         onSelected={() => fetchNui(NuiEvent.SceneSetEntityHighlighted, { objectId: null })}
-                        description="Un marker est un point d'intérêt, il peut être utilisé pour la régie pour définir l'emplacement d'un effet ou faire pointer des lumières sur cet emplacement."
+                        description="Điểm đánh dấu là một điểm quan tâm, nó có thể được sử dụng để điều khiển nhằm xác định vị trí của hiệu ứng hoặc để chiếu đèn vào vị trí này."
                     >
-                        ➕ Ajouter un marker
+                        ➕ Thêm điểm đánh dấu
                     </MenuItemButton>
                     {allowLoad && (
                         <>
@@ -226,7 +226,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                         }}
                         onSelected={() => fetchNui(NuiEvent.SceneSetEntityHighlighted, { objectId: null })}
                     >
-                        ❌ Supprimer
+                        ❌ Xóa
                     </MenuItemButton>
                     <MenuItemSubMenuLink id={`scene-entity-${scene.id}`}>Entités</MenuItemSubMenuLink>
                     {isStaff(player) && context !== 'hammer' && (
@@ -264,7 +264,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                                 }
                             }}
                         >
-                            <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                            <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             <MenuItemSelectOption value="transfer">Transféré l'ownership</MenuItemSelectOption>
                         </MenuItemSelect>
                     ))}
@@ -330,12 +330,12 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                         >
                             <MenuItemSelectOption value="edit">Editer</MenuItemSelectOption>
                             <MenuItemSelectOption value="duplicate">Dupliquer</MenuItemSelectOption>
-                            <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                            <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             {allowInventory && (
                                 <>
                                     <MenuItemSelectOption value="inventory">Définir l'inventaire</MenuItemSelectOption>
                                     <MenuItemSelectOption value="inventory_delete">
-                                        Supprimer l'inventaire
+                                        Xóa hàng tồn kho
                                     </MenuItemSelectOption>
                                 </>
                             )}
@@ -395,7 +395,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                         >
                             <MenuItemSelectOption value="edit">Position</MenuItemSelectOption>
                             <MenuItemSelectOption value="duplicate">Dupliquer</MenuItemSelectOption>
-                            <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                            <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             <MenuItemSelectOption value="weapon">Arme</MenuItemSelectOption>
                             <MenuItemSelectOption value="behavior">Comportement</MenuItemSelectOption>
                         </MenuItemSelect>
@@ -428,7 +428,7 @@ export const SubMenuScene: FunctionComponent<SubMenuSceneProps> = ({
                             }}
                         >
                             <MenuItemSelectOption value="edit">Editer</MenuItemSelectOption>
-                            <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                            <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                         </MenuItemSelect>
                     ))}
                 </MenuContent>

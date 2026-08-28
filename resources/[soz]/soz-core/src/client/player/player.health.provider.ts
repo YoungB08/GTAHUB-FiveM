@@ -806,13 +806,13 @@ export class PlayerHealthProvider {
         for (const { name, zone, coords } of CHIN_UPS_COORDS) {
             this.targetFactory.createForBoxZone(name, zone, [
                 {
-                    label: 'Faire des tractions',
+                    label: 'Thực hiện động tác kéo',
                     icon: 'sport/traction',
                     category: 'citizen',
                     canInteract: () => true,
                     action: () => {
                         if (!(this.playerService.getPlayer().metadata.cloth_type === 'SPORT')) {
-                            this.notifier.error('Enfile une tenue de sport dans le vestiaire à côté !');
+                            this.notifier.error('Mặc trang phục thể thao vào phòng thay đồ bên cạnh!');
                             return;
                         }
                         this.doChinUps(coords);
@@ -824,13 +824,13 @@ export class PlayerHealthProvider {
         for (const { name, zone } of FREE_WEIGHT_COORDS) {
             this.targetFactory.createForBoxZone(name, zone, [
                 {
-                    label: 'Faire des haltères',
+                    label: 'Tập tạ',
                     icon: 'sport/halteres',
                     category: 'citizen',
                     canInteract: () => true,
                     action: () => {
                         if (!(this.playerService.getPlayer().metadata.cloth_type === 'SPORT')) {
-                            this.notifier.error('Enfile une tenue de sport dans le vestiaire à côté !');
+                            this.notifier.error('Mặc trang phục thể thao vào phòng thay đồ bên cạnh!');
                             return;
                         }
                         this.doFreeWeight();
@@ -1063,7 +1063,7 @@ export class PlayerHealthProvider {
                 distance: 2.5,
                 options: [
                     {
-                        label: 'Prendre un abonnement.',
+                        label: 'Hãy đăng ký.',
                         icon: 'sport/abonnement',
                         category: 'citizen',
                         canInteract: () => {

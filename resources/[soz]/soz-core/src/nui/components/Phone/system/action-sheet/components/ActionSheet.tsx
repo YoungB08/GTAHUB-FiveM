@@ -69,7 +69,7 @@ export const ActionSheet: FunctionComponent = () => {
 
             <ActionSheetContainer>
                 <ActionSheetItem bold onClick={onClose}>
-                    Fermer
+                    Đóng
                 </ActionSheetItem>
             </ActionSheetContainer>
         </animated.div>

@@ -68,7 +68,7 @@ export class ObjectProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove(item, 1, false)) {
-            this.notifier.error(source, 'Vous ne possédez pas cet objet.');
+            this.notifier.error(source, 'Bạn không sở hữu mặt hàng này.');
 
             return;
         }
@@ -143,7 +143,7 @@ export class ObjectProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (isErr(inventory.add(item, 1))) {
-            this.notifier.error(source, 'Vous ne pouvez pas récupérer cet objet');
+            this.notifier.error(source, 'Bạn không thể khôi phục mục này');
 
             return;
         }
@@ -151,7 +151,7 @@ export class ObjectProvider {
         this.deleteObject(id);
 
         const itemDef = this.itemService.getItem(item);
-        this.notifier.notify(source, `Vous avez récupéré ~g~${itemDef.label}~s~.`);
+        this.notifier.notify(source, `Bạn đã nhận lại ~g~${itemDef.label}~s~.`);
     }
 
     @Rpc(RpcServerEvent.OBJECT_GET_LIST)

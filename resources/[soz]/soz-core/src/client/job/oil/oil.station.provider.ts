@@ -89,7 +89,7 @@ export class OilStationProvider {
         const vehicleNetworkId = NetworkGetNetworkIdFromEntity(vehicle);
 
         if (!vehicle) {
-            this.notifier.notify('Aucune citerne de relié.', 'error');
+            this.notifier.notify('Không có bể kết nối.', 'error');
 
             return;
         }
@@ -106,7 +106,7 @@ export class OilStationProvider {
 
         const refill = await this.inputService.askInput<number>(
             {
-                title: 'Quantité à ajouter (en litres) :',
+                title: 'Số lượng cần thêm (lít):',
                 maxCharacters: 4,
                 defaultValue: (3000 - station.stock).toString(),
             },
@@ -114,7 +114,7 @@ export class OilStationProvider {
                 const value = Number(input);
 
                 if (isNaN(value) || value < 0 || value > 3000) {
-                    return Err('Veuillez entrer un nombre entre 0 et 3000');
+                    return Err('Vui lòng nhập số từ 0 đến 3000');
                 }
 
                 if (value > 3000 - station.stock) {
@@ -154,7 +154,7 @@ export class OilStationProvider {
 
         const refill = await this.inputService.askInput<number>(
             {
-                title: 'Quantité à ajouter (en litres) :',
+                title: 'Số lượng cần thêm (lít):',
                 maxCharacters: 4,
                 defaultValue: (3000 - station.stock).toString(),
             },
@@ -162,7 +162,7 @@ export class OilStationProvider {
                 const value = Number(input);
 
                 if (isNaN(value) || value < 0 || value > 3000) {
-                    return Err('Veuillez entrer un nombre entre 0 et 3000');
+                    return Err('Vui lòng nhập số từ 0 đến 3000');
                 }
 
                 if (value > 3000 - station.stock) {
@@ -195,7 +195,7 @@ export class OilStationProvider {
     public async onAskStationPrice({ price, type }) {
         const newPrice = await this.inputService.askInput(
             {
-                title: 'Nouveau prix :',
+                title: 'Giá mới:',
                 maxCharacters: 5,
                 defaultValue: price ? price.toFixed(2).toString() : null,
             },

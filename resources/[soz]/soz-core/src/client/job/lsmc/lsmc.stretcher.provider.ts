@@ -80,7 +80,7 @@ export class LSMCStretcherProvider {
                     action: async entity => {
                         const { completed } = await this.progressService.progress(
                             'stretcher_retrieve',
-                            'Vous repliez le brancard...',
+                            'Bạn gấp cáng lại...',
                             3000,
                             {
                                 dictionary: 'mp_common',
@@ -163,7 +163,7 @@ export class LSMCStretcherProvider {
                 },
             },
             {
-                label: 'Faire descendre',
+                label: 'hạ xuống',
                 icon: 'police/escorter',
                 category: 'citizen',
                 canInteract: entity =>

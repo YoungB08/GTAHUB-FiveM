@@ -22,7 +22,7 @@ export class GizmoControlProvider {
     }
 
     @Command('gizmo_place', {
-        description: 'Housing : Confirmer et placer.',
+        description: 'Nhà ở: Xác nhận và địa điểm.',
         keys: [
             {
                 mapper: 'keyboard',
@@ -35,7 +35,7 @@ export class GizmoControlProvider {
     }
 
     @Command('gizmo_delete', {
-        description: "Housing : Effacer l'objet.",
+        description: "Nhà ở: Xóa đối tượng.",
         keys: [
             {
                 mapper: 'keyboard',
@@ -48,7 +48,7 @@ export class GizmoControlProvider {
     }
 
     @Command('gizmo_toggle_snap', {
-        description: "Housing : Aligner l'objet.",
+        description: "Nhà ở: Căn chỉnh đồ vật.",
         keys: [
             {
                 mapper: 'keyboard',

@@ -231,7 +231,7 @@ export class LSMCItemProvider {
         const { completed } = await this.progressService.progress(
             source,
             'use_wheelchair',
-            'Vous dépliez la chaise roulante...',
+            'Bạn mở chiếc xe lăn ra...',
             3000,
             {
                 dictionary: 'mp_common',

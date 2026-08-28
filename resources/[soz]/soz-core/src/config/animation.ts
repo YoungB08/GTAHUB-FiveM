@@ -152,7 +152,7 @@ export const Moods: MoodConfigList = [
     { name: 'Grincheux 3', mood: 'pose_angry_1' },
     { name: 'Joyeux', mood: 'mood_happy_1' },
     { name: 'Mort', mood: 'dead_1' },
-    { name: 'Ne cligne jamais des yeux', mood: 'pose_normal_1' },
+    { name: 'Không bao giờ chớp mắt', mood: 'pose_normal_1' },
     { name: 'Pas content', mood: 'mood_drivefast_1' },
     { name: 'Pleurer', mood: 'console_wasnt_fun_end_loop_floyd_facial' },
     { name: 'Respirer par la bouche', mood: 'smoking_hold_1' },
@@ -6358,7 +6358,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Pas dans le rythme',
+                name: 'Không nhịp nhàng',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -6658,7 +6658,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Pointe des pieds',
+                name: 'Nhón chân',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -7909,7 +7909,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Sur place',
+                name: 'Trên trang web',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -8455,7 +8455,7 @@ export const Animations: AnimationConfigList = [
         items: [
             {
                 type: 'animation',
-                name: 'Faire un bisou',
+                name: 'Trao một nụ hôn',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -8689,7 +8689,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Faire un bisou',
+                name: 'Trao một nụ hôn',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -9691,7 +9691,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Aucune idée',
+                name: 'không biết',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -9791,7 +9791,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Jeter des billets',
+                        name: 'Vứt vé đi',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -9915,7 +9915,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Est-ce que vous êtes là !?',
+                name: 'Bạn có ở đó không!?',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -9963,7 +9963,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Faire du stop',
+                name: 'Đi nhờ xe',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -9980,11 +9980,11 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'category',
-                name: "Faire l'animal",
+                name: "Làm con vật",
                 items: [
                     {
                         type: 'animation',
-                        name: "Faire l'oiseau",
+                        name: "Làm con chim",
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -9996,7 +9996,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Faire le Canard',
+                        name: 'Chơi vịt',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10008,7 +10008,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Faire le poulet',
+                        name: 'Làm con gà',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10035,7 +10035,7 @@ export const Animations: AnimationConfigList = [
                 items: [
                     {
                         type: 'animation',
-                        name: 'Balle dans la tete',
+                        name: 'Viên đạn vào đầu',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10079,7 +10079,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Doigt dans le c**',
+                        name: 'Ngón tay vào mông',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10096,7 +10096,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Doigt dans le nez',
+                        name: 'Ngón tay vào mũi',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10473,7 +10473,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Prendre une douche',
+                        name: 'Đi tắm',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -10749,7 +10749,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Main dans les poches (Sweat)',
+                name: 'Tay đút túi (Áo)',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -10767,7 +10767,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'animation',
-                name: 'Police - Garde à Vous',
+                name: 'Cảnh sát - Chú ý',
                 rightLabel: null,
                 icon: null,
                 animation: {
@@ -11459,7 +11459,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Radiocassette (avec lunettes)',
+                        name: 'Radio cassette (có kính)',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -12181,7 +12181,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Mains dans le dos #1',
+                        name: 'Đưa tay ra sau lưng số 1',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -12196,7 +12196,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Mains dans le dos #2',
+                        name: 'Đưa tay ra sau lưng số 2',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -12475,7 +12475,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'Tomber dans les pommes',
+                        name: 'bất tỉnh',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -13318,7 +13318,7 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'category',
-                name: 'Se mettre à genoux',
+                name: 'Hãy quỳ xuống',
                 items: [
                     {
                         type: 'animation',
@@ -13591,7 +13591,7 @@ export const Animations: AnimationConfigList = [
                     },
                     {
                         type: 'animation',
-                        name: 'xxx : Donner faim',
+                        name: 'xxx: Làm bạn đói',
                         rightLabel: null,
                         icon: null,
                         animation: {
@@ -13845,28 +13845,28 @@ export const Animations: AnimationConfigList = [
             },
             {
                 type: 'event',
-                name: 'Faire des abdos',
+                name: 'tập cơ bụng',
                 rightLabel: null,
                 icon: '💪',
                 event: ClientEvent.PLAYER_HEALTH_DO_SIT_UP,
             },
             {
                 type: 'event',
-                name: 'Faire des haltères',
+                name: 'Tập tạ',
                 rightLabel: null,
                 icon: '💪',
                 event: ClientEvent.PLAYER_HEALTH_DO_FREE_WEIGHT,
             },
             {
                 type: 'event',
-                name: 'Faire des pompes',
+                name: 'Chống đẩy',
                 rightLabel: null,
                 icon: '💪',
                 event: ClientEvent.PLAYER_HEALTH_DO_PUSH_UP,
             },
             {
                 type: 'event',
-                name: 'Faire du yoga',
+                name: 'tập yoga',
                 rightLabel: null,
                 icon: '🧘',
                 event: ClientEvent.PLAYER_HEALTH_DO_YOGA,

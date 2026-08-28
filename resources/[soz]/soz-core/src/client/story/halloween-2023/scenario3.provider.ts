@@ -149,7 +149,7 @@ export class Halloween2023Scenario3Provider {
                         [794.95, 1205.33, 339.57, 74.08]
                     ),
                     {
-                        label: 'Donner',
+                        label: 'Đưa',
                         icon: 'pole/livrer',
                         item: 'halloween_beef_with_bone',
                         category: 'citizen',
@@ -243,7 +243,7 @@ export class Halloween2023Scenario3Provider {
                     action: async () => {
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000,
                             {
                                 dictionary: 'missfbi4prepp1',
@@ -281,7 +281,7 @@ export class Halloween2023Scenario3Provider {
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
                         if (!this.electricity) {
-                            this.notifier.error('Impossible de sortir tant que la porte n’est pas alimentée..');
+                            this.notifier.error('Không thể thoát ra cho đến khi cửa được cấp nguồn.');
                             return;
                         }
                         this.audioService.playAudio('audio/halloween-2023/scenario3/teleportation.mp3', 0.2);
@@ -350,7 +350,7 @@ export class Halloween2023Scenario3Provider {
                     category: 'citizen',
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
-                        this.notifier.notify('Des livres d’histoires sur des MJs.. Je préfère voir ça en Live.');
+                        this.notifier.notify('Sách truyện về MJ.. Tôi thích xem trực tiếp hơn.');
                     },
                 },
             ]
@@ -371,7 +371,7 @@ export class Halloween2023Scenario3Provider {
                     category: 'citizen',
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
-                        this.notifier.notify('Des photos d’une charmante jeune femme, pas autant que l’Admin..');
+                        this.notifier.notify('Hình ảnh thiếu nữ duyên dáng, không nhiều như Admin..');
                     },
                 },
             ]
@@ -392,7 +392,7 @@ export class Halloween2023Scenario3Provider {
                     category: 'citizen',
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
-                        this.notifier.notify('Un sarcophage ? Barker a dû connaître cette époque..');
+                        this.notifier.notify('Một cỗ quan tài? Barker chắc hẳn đã biết những thời điểm đó.');
                     },
                 },
             ]
@@ -413,7 +413,7 @@ export class Halloween2023Scenario3Provider {
                     category: 'citizen',
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
-                        this.notifier.notify("Des bouteilles d'alcool et aucune bière en vue, étrange..");
+                        this.notifier.notify("Chai rượu và không có bia trong tầm nhìn, lạ..");
                     },
                 },
             ]
@@ -457,7 +457,7 @@ export class Halloween2023Scenario3Provider {
                         this.storyService.canInteractForPart('halloween2023', 'scenario3', 2) && !this.doorUnlock,
                     action: async () => {
                         this.notifier.notify(
-                            'Vous trouvez un bouton caché, en appuyant dessus, un clique retenti, la porte semble être dévérouillée'
+                            'Bạn tìm thấy một nút ẩn, nhấn vào nó, có tiếng click, cửa dường như được mở khóa'
                         );
                         this.doorUnlock = true;
                     },
@@ -480,7 +480,7 @@ export class Halloween2023Scenario3Provider {
                     category: 'citizen',
                     canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario3', 2),
                     action: async () => {
-                        this.notifier.notify('Star Citizen ? Même la Haute Criminalité sortira avant.');
+                        this.notifier.notify('Công dân ngôi sao? Ngay cả High Crime cũng sẽ được ra mắt trước đó.');
                     },
                 },
             ]

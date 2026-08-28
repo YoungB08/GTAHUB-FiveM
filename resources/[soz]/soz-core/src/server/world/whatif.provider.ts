@@ -250,7 +250,7 @@ export class WhatIfProvider {
     }
 
     @Command('spawn-zombie', {
-        description: 'Spawn des zombies',
+        description: 'Tạo zombie',
         arguments: [{ name: 'count', help: 'amount of zombies to spawn' }],
         role: ['admin', 'staff'],
     })
@@ -270,7 +270,7 @@ export class WhatIfProvider {
     }
 
     @Command('delete-zombie', {
-        description: 'Delete des zombies dans une zone',
+        description: 'Xóa zombie trong một khu vực',
         arguments: [{ name: 'radius', help: 'radius of the zone' }],
         role: ['admin', 'staff'],
     })
@@ -861,7 +861,7 @@ export class WhatIfProvider {
             return;
         }
 
-        const { completed } = await this.progressService.progress(source, 'wear_bag', 'Vou vous soignez', 10_000, {
+        const { completed } = await this.progressService.progress(source, 'wear_bag', 'Bạn hãy chăm sóc bản thân mình', 10_000, {
             name: 'miranda_shooting_up',
             dictionary: 'rcmpaparazzo1ig_4',
             options: {

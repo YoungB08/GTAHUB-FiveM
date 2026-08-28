@@ -158,7 +158,7 @@ export class BennysVehicleProvider {
             },
             {
                 icon: 'mechanic/repair_wheel',
-                label: 'Changement des roues',
+                label: 'Thay đổi bánh xe',
                 action: this.repairVehicleWheel.bind(this),
                 blackoutGlobal: true,
                 blackoutJob: JobType.Bennys,
@@ -178,7 +178,7 @@ export class BennysVehicleProvider {
             },
             {
                 icon: 'mechanic/repair_diag',
-                label: 'Faire un diagnostic',
+                label: 'Đưa ra chẩn đoán',
                 blackoutGlobal: true,
                 blackoutJob: JobType.Bennys,
                 job: JobType.Bennys,
@@ -225,7 +225,7 @@ export class BennysVehicleProvider {
             this.vehicleService.isInBadCondition(vehicleEntityId, vehicleCondition)
         ) {
             this.notifier.notify(
-                'Ce véhicule est trop endommagé pour être modifié, veuillez le réparer avant de le modifier.',
+                'Chiếc xe này quá hư hỏng để sửa đổi, vui lòng sửa chữa nó trước khi sửa đổi nó.',
                 'error'
             );
 
@@ -234,7 +234,7 @@ export class BennysVehicleProvider {
 
         if ([LSCustomMode.LsCustom, LSCustomMode.NewGahray].includes(mode) && vehicleCondition.dirtLevel > 5.0) {
             this.notifier.notify(
-                'Ce véhicule est trop sale pour être modifié, veuillez le laver avant de le modifier.',
+                'Chiếc xe này quá bẩn để sửa đổi, vui lòng rửa sạch trước khi sửa đổi.',
                 'error'
             );
 
@@ -348,7 +348,7 @@ export class BennysVehicleProvider {
     public async analyzeVehicle(vehicle: number) {
         if (this.phoneService.isPhoneVisible()) {
             this.notifier.notify(
-                'Vous ne pouvez pas faire un diagnostic lorsque vous utilisez votre téléphone',
+                'Bạn không thể chẩn đoán khi đang sử dụng điện thoại',
                 'error'
             );
 
@@ -357,7 +357,7 @@ export class BennysVehicleProvider {
 
         const { completed } = await this.progressService.progress(
             'vehicle_analyze',
-            'Vous analysez le véhicule.',
+            'Bạn phân tích chiếc xe.',
             BennysConfig.Estimate.duration,
             {
                 name: 'base',
@@ -431,7 +431,7 @@ export class BennysVehicleProvider {
         const orderZone = BennysConfig.Order.zone;
         this.targetFactory.createForBoxZone(orderZone.name, orderZone, [
             {
-                label: 'Commander une voiture',
+                label: 'Đặt xe',
                 icon: 'mechanic/order',
                 job: JobType.Bennys,
                 blackoutJob: JobType.Bennys,

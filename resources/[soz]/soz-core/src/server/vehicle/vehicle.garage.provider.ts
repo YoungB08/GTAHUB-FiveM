@@ -618,7 +618,7 @@ export class VehicleGarageProvider {
         });
 
         if (!vehicle) {
-            return Err("ce véhicule n'existe pas");
+            return Err("chiếc xe này không tồn tại");
         }
 
         const citizenIds = await this.getCitizenIdsForGarage(player, garage, id);
@@ -631,7 +631,7 @@ export class VehicleGarageProvider {
             !vehicle.job &&
             !citizenIds.has(vehicle.citizenid)
         ) {
-            return Err("ce véhicule n'est pas à vous");
+            return Err("chiếc xe này không phải của bạn");
         } else if (
             (garage.type === GarageType.Private ||
                 garage.type === GarageType.Public ||
@@ -643,7 +643,7 @@ export class VehicleGarageProvider {
                 this.getPermissionForGarage(garage.type, garage.category)
             ))
         ) {
-            return Err("vous n'avez pas la permission de ranger un véhicule entreprise dans un garage publique/privé");
+            return Err("bạn không được phép cất giữ xe của công ty trong gara công cộng/riêng");
         } else if (
             (garage.type === GarageType.Private ||
                 garage.type === GarageType.Public ||
@@ -656,27 +656,27 @@ export class VehicleGarageProvider {
             )) &&
             !player.job.onduty
         ) {
-            return Err("vous n'êtes pas en service pour ranger un véhicule entrprise");
+            return Err("bạn không có nhiệm vụ cất giữ xe của công ty");
         } else if (garage.type === GarageType.Job && garage.job !== player.job.id) {
-            return Err("vous n'avez pas accès à ce garage entreprise");
+            return Err("bạn không có quyền truy cập vào gara của công ty này");
         } else if (
             garage.type === GarageType.Depot &&
             player.job.id !== JobType.Bennys &&
             !FDO.includes(player.job.id)
         ) {
-            return Err("vous n'avez pas accès à ce garage fourrière");
+            return Err("bạn không có quyền truy cập vào nhà để xe tạm giữ này");
         } else if (
             garage.type === GarageType.JobLuxury &&
             (garage.job !== player.job.id || (!vehicle.plate.startsWith('LUXE') && !vehicle.plate.startsWith('ESSAI')))
         ) {
-            return Err("vous n'avez pas accès à ce garage luxe ou ce véhicule n'est pas un véhicule de luxe");
+            return Err("bạn không có quyền vào gara sang trọng này hoặc chiếc xe này không phải là một chiếc xe sang trọng");
         } else if (garage.type === GarageType.House && vehicle.job !== null) {
-            return Err('ce véhicule appartient à une entreprise');
+            return Err('chiếc xe này thuộc sở hữu của một công ty');
         } else if (garage.type === GarageType.House) {
             if (houseIdType === 'apartment') {
                 const apartment = await this.housingRepository.getApartmentByIdentifier(id);
                 if (apartment.owner && !apartment.tenant && !apartment.roommate) {
-                    return Err(`Vous n'avez pas accès à ce garage.`);
+                    return Err(`Bạn không có quyền truy cập vào nhà để xe này.`);
                 }
             } else if (houseIdType === 'property') {
                 const property = await this.housingRepository.getPropertyByIdentifier(id);

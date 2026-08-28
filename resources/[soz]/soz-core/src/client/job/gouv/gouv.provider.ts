@@ -112,7 +112,7 @@ export class GouvProvider {
 
         const value = await this.inputService.askInput(
             {
-                title: 'Nouveau seuil des impôts',
+                title: 'Ngưỡng thuế mới',
                 maxCharacters: 20,
                 defaultValue: configuration[tier].toString(),
             },
@@ -120,7 +120,7 @@ export class GouvProvider {
                 const inputNumber = Number(input);
 
                 if (isNaN(inputNumber) || inputNumber < 0) {
-                    return Err('Veuillez entrer un nombre positif');
+                    return Err('Vui lòng nhập số dương');
                 }
 
                 return Ok(inputNumber);
@@ -142,7 +142,7 @@ export class GouvProvider {
 
         const value = await this.inputService.askInput(
             {
-                title: 'Nouveau pourcentage des impôts',
+                title: 'Tỷ lệ thuế mới',
                 maxCharacters: 20,
                 defaultValue: configuration[tier].toString(),
             },
@@ -150,7 +150,7 @@ export class GouvProvider {
                 const inputNumber = Number(input);
 
                 if (isNaN(inputNumber) || inputNumber < 0 || inputNumber > 100) {
-                    return Err('Veuillez entrer un nombre positif et inférieur à 100');
+                    return Err('Vui lòng nhập số dương và nhỏ hơn 100');
                 }
 
                 return Ok(inputNumber);
@@ -181,11 +181,11 @@ export class GouvProvider {
                 const inputNumber = Number(input);
 
                 if (isNaN(inputNumber) || inputNumber < 0) {
-                    return Err('Veuillez entrer un nombre entre 16 et 30');
+                    return Err('Vui lòng nhập số từ 16 đến 30');
                 }
 
                 if (!isAdmin && (inputNumber < 16 || inputNumber > 30)) {
-                    return Err('Veuillez entrer un nombre entre 16 et 30');
+                    return Err('Vui lòng nhập số từ 16 đến 30');
                 }
 
                 return Ok(inputNumber);

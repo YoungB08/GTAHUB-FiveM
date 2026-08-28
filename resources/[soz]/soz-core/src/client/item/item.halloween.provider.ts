@@ -70,7 +70,7 @@ export class ItemHalloweenProvider {
 
     @OnEvent(ClientEvent.HALLOWEEN_DEMON_ANALISYS)
     public async onUseDemonAnalysis() {
-        this.notifier.notify('Un point a été ajouté sur votre GPS');
+        this.notifier.notify('Một điểm đã được thêm vào GPS của bạn');
         SetNewWaypoint(5046.58, -5819.29);
     }
 }

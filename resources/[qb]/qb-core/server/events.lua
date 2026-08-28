@@ -142,16 +142,16 @@ RegisterNetEvent('QBCore:ToggleDuty', function()
     local itt = player.PlayerData.metadata["itt"]
 
     if itt then
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Vous êtes en interdiction de travail temporaire', "info")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Bạn đang bị đình chỉ công việc tạm thời', "info")
         return
     end
 
     if player.PlayerData.job.onduty then
         player.Functions.SetJobDuty(false)
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Vous êtes hors service', "info")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Bạn đã hết ca', "info")
     else
         player.Functions.SetJobDuty(true)
-        TriggerClientEvent('soz-core:client:notification:draw', src, 'Vous êtes en service', "info")
+        TriggerClientEvent('soz-core:client:notification:draw', src, 'Bạn đã vào ca', "info")
     end
     TriggerClientEvent('QBCore:Client:SetDuty', src, player.PlayerData.job.onduty)
     TriggerEvent('QBCore:Server:SetDuty', player.PlayerData.job.id, player.PlayerData.job.onduty, src)

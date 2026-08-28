@@ -28,7 +28,7 @@ export class BaunResellProvider {
             },
             [
                 {
-                    label: 'Vendre',
+                    label: 'Bán',
                     icon: 'baun/sell',
                     job: JobType.Baun,
                     item: 'cocktail_box',

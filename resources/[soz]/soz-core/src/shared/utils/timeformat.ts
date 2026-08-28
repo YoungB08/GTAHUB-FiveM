@@ -10,5 +10,5 @@ export function formatDuration(ms: number) {
         .map(([key, val]) => `${val} ${key}${val !== 1 ? 's' : ''}`)
         .join(', ');
 
-    return ret.length > 0 ? ret : "Moins d'une minute";
+    return ret.length > 0 ? ret : "Chưa đầy một phút";
 }

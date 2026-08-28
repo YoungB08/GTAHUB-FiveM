@@ -391,7 +391,7 @@ export class WhatIf2Provider {
             },
             [
                 {
-                    label: 'Ouvrir',
+                    label: 'Mở',
                     icon: 'inventory/ouvrir_le_stockage',
                     category: 'citizen',
                     event: 'all',
@@ -416,7 +416,7 @@ export class WhatIf2Provider {
             },
             [
                 {
-                    label: 'Ouvrir',
+                    label: 'Mở',
                     icon: 'inventory/ouvrir_le_stockage',
                     category: 'citizen',
                     event: 'all',
@@ -518,7 +518,7 @@ export class WhatIf2Provider {
                             action: () => this.openCloakroom(WhatIf2Cloakroom),
                         },
                         {
-                            label: 'Ouvrir mon casier',
+                            label: 'Mở tủ đồ của tôi',
                             icon: 'inventory/archive',
                             category: 'citizen',
                             event: 'whatif:2',

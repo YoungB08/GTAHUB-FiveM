@@ -450,7 +450,7 @@ export class ObjectEditorProvider {
     }
 
     @Command('soz_object_editor_validate', {
-        description: "Valider l'objet en cours de modification",
+        description: "Xác thực đối tượng đang được sửa đổi",
         keys: [
             {
                 mapper: 'keyboard',
@@ -463,7 +463,7 @@ export class ObjectEditorProvider {
     }
 
     @Command('soz_object_editor_delete', {
-        description: "Supprime l'objet en cours de modification",
+        description: "Xóa đối tượng đang được chỉnh sửa",
         keys: [
             {
                 mapper: 'keyboard',
@@ -476,7 +476,7 @@ export class ObjectEditorProvider {
     }
 
     @Command('soz_object_editor_duplicate', {
-        description: "Duplique et valide l'objet en cours de modification",
+        description: "Sao chép và xác nhận đối tượng đang được sửa đổi",
         keys: [
             {
                 mapper: 'keyboard',

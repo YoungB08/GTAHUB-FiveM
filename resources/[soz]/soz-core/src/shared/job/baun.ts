@@ -445,7 +445,7 @@ export const BaunConfig = {
 
 export const BaunCloakroom: WardrobeConfig = {
     [GetHashKey('mp_m_freemode_01')]: {
-        ['Tenue de travail']: {
+        ['Trang phục đi làm']: {
             Components: {
                 [3]: { Drawable: 26, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 148, Texture: 3, Palette: 0 },
@@ -521,7 +521,7 @@ export const BaunCloakroom: WardrobeConfig = {
         },
     },
     [GetHashKey('mp_f_freemode_01')]: {
-        ['Tenue de travail']: {
+        ['Trang phục đi làm']: {
             Components: {
                 [3]: { Drawable: 6, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 4, Texture: 2, Palette: 0 },
@@ -545,7 +545,7 @@ export const BaunCloakroom: WardrobeConfig = {
             },
             Props: {},
         },
-        ['Tenue chic avec talons']: {
+        ['Trang phục sang trọng với giày cao gót']: {
             Components: {
                 [3]: { Drawable: 14, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 133, Texture: 16, Palette: 0 },
@@ -557,7 +557,7 @@ export const BaunCloakroom: WardrobeConfig = {
             },
             Props: {},
         },
-        ['Tenue chic sans talons']: {
+        ['Trang phục sang trọng không có giày cao gót']: {
             Components: {
                 [3]: { Drawable: 14, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 133, Texture: 16, Palette: 0 },

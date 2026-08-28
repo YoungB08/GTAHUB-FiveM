@@ -184,7 +184,7 @@ export class QueenHarvestProvider {
                         icon: 'global/search',
                         action: () => {
                             this.notifier.notify(
-                                "Écoute attentivement, mortel… ~r~Soixante-six Coupes de Sang ont été éparpillées aux confins de cette île~s~, chacune placée avec soin pour ceux capables d'en saisir la puissance. Chaque entreprise détient sa propre coupe, tandis que les autres demeurent cachées dans les ténèbres, en attente de leur maître. ~r~Peut-être que la récompense te sera accordée, si tu as le courage de toutes les retrouver~s~.",
+                                "Hãy lắng nghe cẩn thận, phàm nhân... ~r~Sáu mươi sáu Cốc máu đã được rải khắp nơi trên hòn đảo này~s~, mỗi cốc được đặt cẩn thận cho những ai có thể nắm bắt được sức mạnh của nó. Mỗi đội đều giữ chiếc cốc riêng của mình, trong khi những đội khác vẫn ẩn mình trong bóng tối, chờ đợi chủ nhân của mình. ~r~Có lẽ phần thưởng sẽ được trao cho bạn nếu bạn có đủ can đảm để tìm thấy tất cả~s~.",
                                 'error',
                                 21_000
                             );

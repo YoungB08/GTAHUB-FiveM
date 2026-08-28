@@ -468,7 +468,7 @@ export class Halloween2022Scenario4Provider {
 
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000
                         );
 
@@ -749,7 +749,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "J'ai trouvé 106 citrouilles, mais on m'a tout de même refusé l'installation d'une chaise électrique pour vous torturer... C't'un drame lo",
+                            "Tìm được 106 quả bí ngô nhưng vẫn bị từ chối lắp ghế điện để tra tấn bạn... Bi kịch đấy lo",
                             'info'
                         );
                     },
@@ -984,7 +984,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Fais pas attention à moi, j'attends juste qu'ils amènent le buffet. D'ailleurs, un conseil entre nous... évite la bière.",
+                            "Đừng để ý đến tôi, tôi chỉ đợi họ mang buffet lên thôi. Ngoài ra, một số lời khuyên giữa chúng ta... hãy tránh uống bia.",
                             'info'
                         );
                     },
@@ -1441,7 +1441,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Si seulement j'avais pu prendre le flacon d'ADN de poulpe au labo ... plusieurs bras pour inventorier les citrouilles ça n'aurait pas été du luxe !  10h de boulot !",
+                            "Giá như tôi có thể mang chai bạch tuộc ADN đến phòng thí nghiệm... vài người kiểm kê những quả bí ngô sẽ không phải là một điều xa xỉ!  10 giờ làm việc!",
                             'info'
                         );
                     },
@@ -1576,7 +1576,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            'Hmm... Tu veux quoi ? On a passé des heures dessus. Donc tu as intérêt à nous laisser 5 étoiles où je te retrouve et je te coule dans le lac.',
+                            'Ừm... Bạn muốn gì? Chúng tôi đã dành hàng giờ cho nó. Vì vậy, tốt nhất bạn nên để lại cho chúng tôi 5 sao nếu không tôi sẽ tìm thấy bạn và nhấn chìm bạn xuống hồ.',
                             'info'
                         );
                     },
@@ -1941,7 +1941,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Quoi, t'es encore là ? J'pensais que tu t'serais barré avec tout ça l'ami(e). T'es plus coriace que t'en a l'air.",
+                            "Cái gì, cậu vẫn ở đây à? Tôi nghĩ bạn sẽ thoát khỏi tất cả những điều đó, bạn ạ. Bạn cứng rắn hơn vẻ ngoài của bạn.",
                             'info'
                         );
                     },
@@ -2055,7 +2055,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            'Quelqu’un n’aurait pas vu passer un troupeau de citrouille avec des pattes de loups-garous ?',
+                            'Có ai nhìn thấy một đàn bí ngô có bàn chân người sói đi ngang qua không?',
                             'info'
                         );
                     },
@@ -2168,7 +2168,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Mon entreprise de BTP Sancto&Co est quand même pas mal quand on a besoin d'un nouvel intérieur non ? Je prend du retard je pense, à plus !",
+                            "Công ty BTP Sancto&Co của tôi vẫn không tệ khi bạn cần nội thất mới phải không? Tôi nghĩ mình đang bị tụt lại phía sau, hẹn gặp lại!",
                             'info'
                         );
                     },
@@ -2291,7 +2291,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "En tant que fier Sheriff du BCSO, je n'ai résolu aucune enquête.",
+                            "Với tư cách là Cảnh sát trưởng kiêu hãnh của BCSO, tôi chưa giải quyết được vụ án nào.",
                             'info'
                         );
                     },
@@ -2524,7 +2524,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Moi, à une époque, je voulais faire vœu de pauvreté... Mais avec le pognon que j'rentrais, j'arrivais pas à concilier les deux.",
+                            "Có lúc tôi muốn phát nguyện sống nghèo khó... Nhưng với số tiền mang về, tôi không thể dung hòa được hai điều đó.",
                             'info'
                         );
                     },
@@ -2661,7 +2661,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Alors si je compte trois potions par try, puis pour huit joueurs ça me ferait... Hein ? Hé, j'espère que t'as kiffé l'event !",
+                            "Vì vậy, nếu tôi đếm ba lọ thuốc mỗi lần thử, thì đối với tám người chơi sẽ cho tôi... Hả? Này, tôi hy vọng bạn thích sự kiện này!",
                             'info'
                         );
                     },
@@ -2777,7 +2777,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Content de voir tout le chemin que t'as parcouru, juste pour voir Papy... Quoi ? C'est pas pour moi que t'es là ? ... Ca fait quand même plaisir de te voir, le jeune !",
+                            "Vui mừng khi thấy bạn đã đi được bao xa, chỉ để gặp ông nội... Cái gì? Bạn không ở đây vì tôi à? ...Thật vui được gặp lại cậu, chàng trai trẻ!",
                             'info'
                         );
                     },
@@ -2886,7 +2886,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Heureusement que l'alien faisait juste son footing pour rester en forme et qu'il n'avait pas faim...",
+                            "May mắn thay, người ngoài hành tinh chỉ chạy bộ để giữ dáng và anh ta không đói...",
                             'info'
                         );
                     },
@@ -3041,7 +3041,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Hey, tu as une sale tête toi ! on dirait que tu as bien dégusté ! tu n'as même pas idée de ce qui t’attend encore, j'espère que tu as les reins solides.",
+                            "Này, mặt cậu xấu quá! Có vẻ như bạn rất thích nó! Bạn thậm chí còn không biết điều gì đang chờ đợi mình, tôi hy vọng bạn có chỗ dựa vững chắc.",
                             'info'
                         );
                     },
@@ -3206,7 +3206,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            'Si tu as eu peur avec ce que tu viens de voir, ne viens même pas me voir gamin. Passe ton chemin',
+                            'Nếu cậu sợ những gì vừa thấy thì đừng đến gặp tôi nữa, nhóc. Đi theo cách của bạn',
                             'info'
                         );
                     },
@@ -3318,7 +3318,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Vu comment vous aviez l'air de galérer avec les citrouilles, je suis bien content qu'on ai fait une carte sur le panel avec leurs positions. J'espère qu'elle t'a servie !",
+                            "Xem xét bạn dường như đang vật lộn với những quả bí ngô như thế nào, tôi rất vui vì chúng tôi đã tạo một bản đồ trên bảng với vị trí của chúng. Tôi hy vọng nó hữu ích cho bạn!",
                             'info'
                         );
                     },
@@ -3426,7 +3426,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Ahhh te voilà  ! Dernier petit changement d'état de ton personna... oh merde attention derrière toi ! Euh, bon courage",
+                            "Ahhh bạn đây rồi! Thay đổi nhỏ cuối cùng về trạng thái nhân vật của bạn... ôi chết tiệt, hãy coi chừng phía sau bạn! Ờ, chúc may mắn",
                             'info'
                         );
                     },
@@ -3645,7 +3645,7 @@ export class Halloween2022Scenario4Provider {
                     category: 'citizen',
                     action: async () => {
                         this.notifier.notify(
-                            "Normalement, les vilains, je les mets dans mes cellules, mais toi, je vais peut-être t'envoyer ailleurs...",
+                            "Thông thường, tôi nhốt kẻ xấu vào phòng giam của mình, nhưng có lẽ tôi sẽ gửi bạn đi nơi khác...",
                             'info'
                         );
                     },

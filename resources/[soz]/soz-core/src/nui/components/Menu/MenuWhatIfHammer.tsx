@@ -43,14 +43,14 @@ export const MenuWhatIfHammer: FunctionComponent<{ data: HammerProp[] }> = ({ da
             <MainMenu>
                 <MenuTitle title="Edition de zone" />
                 <MenuContent subtitle={player.charinfo.firstname + ' ' + player.charinfo.lastname}>
-                    <MenuItemSubMenuLink id={`zone_prop_choose`}>➕ Ajouter un prop</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id={`zone_prop_choose`}>➕ Thêm chỗ dựa</MenuItemSubMenuLink>
                     <MenuItemText>
                         <div className="pr-2 flex items-center justify-between">
                             <span> Nombre de props </span>
                             <span>{data.length}</span>
                         </div>
                     </MenuItemText>
-                    <MenuSubTitle>Liste des props</MenuSubTitle>
+                    <MenuSubTitle>Danh sách ủng hộ</MenuSubTitle>
                     {props.map(({ id, model }) => {
                         return (
                             <MenuItemSelect
@@ -76,7 +76,7 @@ export const MenuWhatIfHammer: FunctionComponent<{ data: HammerProp[] }> = ({ da
                             >
                                 <MenuItemSelectOption value="edit">Editer</MenuItemSelectOption>
                                 <MenuItemSelectOption value="duplicate">Dupliquer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}

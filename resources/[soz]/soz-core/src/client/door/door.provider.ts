@@ -75,7 +75,7 @@ export class DoorProvider {
             DoorModels,
             [
                 {
-                    label: 'Admin: Ajouter une porte',
+                    label: 'Quản trị viên: Thêm cửa',
                     icon: 'door/door',
                     category: 'citizen',
                     canInteract: entity => {
@@ -132,7 +132,7 @@ export class DoorProvider {
                     },
                 },
                 {
-                    label: 'Admin: Ajouter un battant',
+                    label: 'Quản trị viên: Thêm một chiếc lá',
                     icon: 'door/double',
                     category: 'citizen',
                     canInteract: entity => {
@@ -195,7 +195,7 @@ export class DoorProvider {
                     },
                 },
                 {
-                    label: 'Admin: Configurer la porte',
+                    label: 'Quản trị viên: Cấu hình cửa',
                     icon: 'door/cogwheel',
                     category: 'citizen',
                     canInteract: entity => {

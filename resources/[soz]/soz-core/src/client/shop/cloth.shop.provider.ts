@@ -81,7 +81,7 @@ export class ClothingShopProvider {
 
         if (!shop_content) {
             this.logger.error(`Shop ${brand} not initialized`);
-            this.notifier.notify(`Ce magasin n'est pas encore ouvert. Merci de patienter.`, 'error');
+            this.notifier.notify(`Cửa hàng này vẫn chưa mở. Vui lòng chờ.`, 'error');
 
             return;
         }

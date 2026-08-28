@@ -207,7 +207,7 @@ export class JobBellProvider {
             },
         });
 
-        let message = "Une personne vous demande à l'accueil";
+        let message = "Có người hỏi bạn ở quầy lễ tân";
         if (location) {
             message += ` - ${location}`;
         }

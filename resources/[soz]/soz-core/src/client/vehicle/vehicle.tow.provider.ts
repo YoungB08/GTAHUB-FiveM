@@ -88,7 +88,7 @@ export class VehicleTowProvider {
                 action: async entity => this.useTowCable(entity, 'artisanal_tow_cable'),
             },
             {
-                label: 'Annuler le Remorquage',
+                label: 'Hủy kéo',
                 icon: 'mechanic/Attacher',
                 category: 'citizen',
                 canInteract: entity => entity == this.from,

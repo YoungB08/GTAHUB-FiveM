@@ -44,7 +44,7 @@ export enum ZoneType {
 
 export const ZoneTypeLabel: Record<ZoneType, string> = {
     NoStress: 'No stress zone',
-    VehBizSpawn: 'VehBiz Spawn de véhicule',
+    VehBizSpawn: 'Xe VehBiz xuất hiện',
     VehBizDelivery: 'VehBiz Conteneur de livraison',
     VehBizResell: 'VehBiz Revente de caisse',
     VehBizGarage: 'VehBiz Garage',

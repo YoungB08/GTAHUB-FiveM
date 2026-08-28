@@ -67,14 +67,14 @@ export class EasterHuntProvider {
         });
 
         if (pumpkin.length > 0) {
-            this.notifier.notify(source, 'Vous avez déjà fouillé ce panier', 'info');
+            this.notifier.notify(source, 'Bạn đã tìm kiếm giỏ hàng này', 'info');
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'easter_hunt',
-            'Vous fouillez...',
+            'Bạn tìm kiếm...',
             2000,
             {
                 dictionary: 'anim@mp_radio@garage@low',

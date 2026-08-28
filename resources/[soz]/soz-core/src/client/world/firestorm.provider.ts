@@ -269,7 +269,7 @@ export class FirestormProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuFireStorm)
     public async tornadoMenu() {
-        const confirmed = await this.input.askConfirm('Confirmer le lancement de la cinématique Firestorm (oui)');
+        const confirmed = await this.input.askConfirm('Xác nhận ra mắt phim điện ảnh Firestorm (có)');
         if (!confirmed) {
             return;
         }

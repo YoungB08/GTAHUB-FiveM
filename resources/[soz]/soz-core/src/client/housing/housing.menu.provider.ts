@@ -44,7 +44,7 @@ export class HousingMenuProvider {
         this.nuiMenu.closeMenu();
 
         const [confirmed, timeout] = await this.notifier.notifyWithConfirm(
-            `Êtes-vous sûr.e de vouloir changer d'habitation principale ? Si aucun résident.e ne loge dans cette habitation, les stockages ne seront plus accessible.~n~~n~Faites ~g~Y~s~ pour l'accepter ou ~r~N~s~ pour la refuser`
+            `Bạn có chắc chắn muốn thay đổi nơi cư trú chính của mình không? Nếu không có cư dân nào sống trong ngôi nhà này, kho lưu trữ sẽ không thể truy cập được nữa.~n~~n~Do ~g~Y~s~ để chấp nhận hoặc ~r~N~s~ để từ chối`
         );
 
         if (timeout || !confirmed) {
@@ -65,7 +65,7 @@ export class HousingMenuProvider {
         const [playerId, distance] = this.playerService.getClosestPlayer();
 
         if (!playerId || playerId < 0 || distance > 2.0) {
-            this.notifier.error("Personne n'est à portée de vous.");
+            this.notifier.error("Không ai ở trong phạm vi của bạn.");
 
             return;
         }
@@ -86,7 +86,7 @@ export class HousingMenuProvider {
         const [playerId, distance] = this.playerService.getClosestPlayer();
 
         if (!playerId || playerId < 0 || distance > 2.0) {
-            this.notifier.error("Personne n'est à portée de vous.");
+            this.notifier.error("Không ai ở trong phạm vi của bạn.");
 
             return;
         }
@@ -134,7 +134,7 @@ export class HousingMenuProvider {
     @OnNuiEvent(NuiEvent.HousingSell)
     public async sell({ apartmentId, propertyId }: { apartmentId: number; propertyId: number }) {
         const confirm = await this.inputService.askConfirm(
-            'Voulez-vous vraiment vendre cette habitation ? Entrez OUI pour confirmer.'
+            'Bạn có thực sự muốn bán căn nhà này? Nhập OUI để xác nhận.'
         );
 
         if (confirm) {
@@ -222,7 +222,7 @@ export class HousingMenuProvider {
     public async storeFournitureInApartment({ apartmentId, propertyId }: { apartmentId: number; propertyId: number }) {
         const { completed } = await this.progressService.progress(
             'store_fourntiure',
-            'Rangement des meubles...',
+            'Kho chứa đồ đạc...',
             2500,
             {
                 dictionary: 'anim@narcotics@trash',

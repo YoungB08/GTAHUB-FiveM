@@ -88,7 +88,7 @@ export class PlayerMenuProvider {
     }
 
     @Command('soz_core_toggle_personal_menu', {
-        description: 'Ouvrir le menu personnel',
+        description: 'Mở menu cá nhân',
         passthroughNuiFocus: true,
         keys: [
             {
@@ -188,7 +188,7 @@ export class PlayerMenuProvider {
 
     @OnNuiEvent(NuiEvent.PlayerMenuVoipReset)
     public async resetVoip() {
-        await this.voiceProvider.reconnect(true, 'Demande joueur');
+        await this.voiceProvider.reconnect(true, 'Yêu cầu của người chơi');
     }
 
     @OnNuiEvent(NuiEvent.PlayerMenuVoipSetIntent)

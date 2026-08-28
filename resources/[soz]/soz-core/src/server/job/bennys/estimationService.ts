@@ -17,7 +17,7 @@ export class EstimationService {
         const vehicle = await this.vehicleService.getVehicle(model);
 
         if (!vehicle) {
-            return Err(`Ce véhicule n'est pas ~r~estimable~s~.`);
+            return Err(`Chiếc xe này không phải là ~r~estimable~s~.`);
         }
 
         const basePrice = vehicle.price;

@@ -634,16 +634,16 @@ export const LockPickAlertChance = 0.1;
 
 export const LockPickAlertMessage = {
     all: [
-        'Dans ${0}, ça essaye de tirer une ${1}, juste devant moi là ! Juste là !',
-        "Encore un clodo qui essaye de dormir au chaud ce soir à ${0} , mais cette ${1} n'est pas à lui",
+        'Trong ${0}, nó cố kéo ${1}, ngay trước mặt tôi! Ngay đó!',
+        "Lại một kẻ ăn bám khác đang cố gắng ngủ ấm áp tối nay tại ${0}, nhưng ${1} này không phải của anh ấy",
         'BORDEL MA CAISSE ! ON ME VOLE MA ${1} ! JE SUIS PROCHE DE ${0} !',
-        "Hey ! J'ai un vol d'une ${1} sous les yeux, venez vite à ${0} !",
-        "Mais où êtes vous ?! Quelqu'un vole des ${1} aux alentours de ${0} !",
+        "Chào! Trước mặt tôi có trộm một chiếc ${1}, nhanh tay đến với ${0} nhé!",
+        "Nhưng bạn đang ở đâu?! Ai đó đang đánh cắp ${1} xung quanh ${0}!",
     ],
     carjack: [
-        "J'viens de me faire carjacker ! Mais oui, on m'a carjacké l'auto j'vous dis ! Cela s'est déroulé à ${0}, une ${1} !",
+        "Tôi vừa bị cướp xe! Nhưng vâng, xe của tôi đã bị cướp, tôi nói cho bạn biết! Điều này đã xảy ra tại ${0}, ${1}!",
     ],
-    lockpick: ["Une personne louche tripote la poignée d'une ${1} proche de ${0} !"],
+    lockpick: ["Một kẻ mờ ám đang nghịch tay cầm của chiếc ${1} gần ${0}!"],
 };
 
 export type VehicleLocation = {

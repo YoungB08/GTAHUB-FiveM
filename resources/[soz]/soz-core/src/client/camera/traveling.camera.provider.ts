@@ -124,7 +124,7 @@ export class TravelingCameraProvider {
 
     @OnNuiEvent(NuiEvent.TravelingDelete)
     public async travelingDelete(id: number) {
-        const name = await this.inputService.askConfirm('Veuillez confimer la suppression du traveling (OUI)');
+        const name = await this.inputService.askConfirm('Vui lòng xác nhận việc xóa du lịch (OUI)');
 
         if (!name) {
             return;
@@ -300,7 +300,7 @@ export class TravelingCameraProvider {
         const traveling = this.cameraTravelingRepository.find(id);
         const newName = await this.inputService.askInput(
             {
-                title: 'Nouveau nom',
+                title: 'Tên mới',
                 defaultValue: traveling.name,
             },
             NotEmptyStringValidator

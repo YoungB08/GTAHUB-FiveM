@@ -104,7 +104,7 @@ export class VehicleElectricProvider {
 
         const { completed } = await this.progressService.progress(
             'get_fuel_level',
-            'Vous vérifiez la charge...',
+            'Bạn kiểm tra tải...',
             5000,
             {
                 task: 'PROP_HUMAN_PARKING_METER',
@@ -212,7 +212,7 @@ export class VehicleElectricProvider {
             },
             {
                 icon: 'fuel/plug',
-                label: 'Prendre la prise',
+                label: 'Lấy phích cắm',
                 category: 'citizen',
                 action: (entity: number) => {
                     this.toggleStationPlug(entity);
@@ -288,7 +288,7 @@ export class VehicleElectricProvider {
 
         await this.targetFactory.createForAllVehicle([
             {
-                label: 'Charger le véhicule',
+                label: 'Tải xe',
                 icon: 'fuel/recharge',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -358,20 +358,20 @@ export class VehicleElectricProvider {
         const model = GetEntityModel(vehicle);
 
         if (!this.vehicleService.checkBackOfVehicle(vehicle)) {
-            this.notifier.notify('~r~Vous devez être derrière le véhicule pour le recharger.', 'error');
+            this.notifier.notify('~r~Bạn phải ở phía sau xe để sạc pin.', 'error');
 
             return;
         }
 
         if (IsThisModelABicycle(model)) {
-            this.notifier.notify("~r~Ce véhicule fonctionne uniquement à l'huile de coude", 'error');
+            this.notifier.notify("~r~Xe này chạy chỉ bằng mỡ khuỷu tay", 'error');
             await this.disableStationPlug();
 
             return;
         }
 
         if (IsThisModelAHeli(model) || IsThisModelAPlane(model) || !isVehicleModelElectric(model)) {
-            this.notifier.notify("~r~Ce véhicule n'est pas éléctrique.", 'error');
+            this.notifier.notify("~r~Xe này không chạy bằng điện.", 'error');
             await this.disableStationPlug();
 
             return;
@@ -389,14 +389,14 @@ export class VehicleElectricProvider {
         const driver = GetPedInVehicleSeat(vehicle, VehicleSeat.Driver);
 
         if (driver) {
-            this.notifier.notify('Vous ne pouvez pas charger un véhicule avec un conducteur au volant.', 'error');
+            this.notifier.notify('Bạn không thể sạc xe khi có người lái xe ngồi sau tay lái.', 'error');
             await this.disableStationPlug();
 
             return;
         }
 
         if (GetIsVehicleEngineRunning(vehicle)) {
-            this.notifier.notify('Vous ne pouvez pas charger un véhicule avec le moteur allumé.', 'error');
+            this.notifier.notify('Bạn không thể sạc xe khi động cơ đang chạy.', 'error');
             await this.disableStationPlug();
 
             return;
@@ -406,7 +406,7 @@ export class VehicleElectricProvider {
         const condition = await this.vehicleStateService.getVehicleCondition(vehicle);
 
         if (condition.fuelLevel > 0.97 * getVehicleMaxFuelStorage(vehDef)) {
-            this.notifier.notify('Le véhicule est déjà plein.', 'error');
+            this.notifier.notify('Xe đã đầy rồi.', 'error');
             await this.disableStationPlug();
 
             return;
@@ -554,7 +554,7 @@ export class VehicleElectricProvider {
         const maxPrice = amount * price;
 
         this.nuiDispatch.dispatch('progress', 'Start', {
-            label: 'Chargement du véhicule...',
+            label: 'Đang tải xe...',
             duration,
             color: 'text-yellow-400',
             units: [

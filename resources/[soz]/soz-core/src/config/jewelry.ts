@@ -187,7 +187,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: "Micros D'Argent",
+                        Localized: "Xe bán tải bạc",
                     },
                 },
                 '19': {
@@ -429,7 +429,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '5': {
                         GXT: '',
-                        Localized: 'Argent Accent Shields',
+                        Localized: 'Bạc Accent Shields',
                     },
                     '6': {
                         GXT: '',
@@ -713,7 +713,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '7': {
                         GXT: '',
-                        Localized: 'Argent Tige mince',
+                        Localized: 'Thanh bạc mỏng',
                     },
                 },
                 '19': {
@@ -1759,7 +1759,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Rondes',
+                        Localized: 'Vòng bạc',
                     },
                     '2': {
                         GXT: '',
@@ -1783,7 +1783,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '7': {
                         GXT: '',
-                        Localized: 'Ecaille de tortue Argent Rondes',
+                        Localized: 'Vòng bạc đồi mồi',
                     },
                     '8': {
                         GXT: '',
@@ -1809,7 +1809,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Carrées Argent',
+                        Localized: 'Hình vuông bạc',
                     },
                     '2': {
                         GXT: '',
@@ -1859,7 +1859,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Yeux de chat Argent',
+                        Localized: 'Mắt mèo bạc',
                     },
                     '2': {
                         GXT: '',
@@ -1909,7 +1909,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Rectangulaires',
+                        Localized: 'Hình chữ nhật bạc',
                     },
                     '2': {
                         GXT: '',
@@ -1959,7 +1959,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Ergonomiques',
+                        Localized: 'Bạc tiện dụng',
                     },
                     '2': {
                         GXT: '',
@@ -2009,7 +2009,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Ronde Argent Rétro',
+                        Localized: 'Vòng bạc cổ điển',
                     },
                     '2': {
                         GXT: '',
@@ -6549,7 +6549,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '12': {
                         GXT: '',
-                        Localized: 'Chapeau melon Argent sublime',
+                        Localized: 'Mũ quả dưa màu bạc siêu sang',
                     },
                     '13': {
                         GXT: '',
@@ -6607,7 +6607,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '12': {
                         GXT: '',
-                        Localized: 'Haut de forme argent',
+                        Localized: 'Chiếc mũ bạc',
                     },
                     '13': {
                         GXT: '',
@@ -6981,7 +6981,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '34': {
                     '0': {
                         GXT: '',
-                        Localized: 'Couronne des États-Unis',
+                        Localized: 'Vương miện Hoa Kỳ',
                     },
                 },
                 '35': {
@@ -7533,13 +7533,13 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '47': {
                     '0': {
                         GXT: '',
-                        Localized: 'Noir brillant tout-terrain',
+                        Localized: 'Màu đen bóng mọi địa hình',
                     },
                 },
                 '48': {
                     '0': {
                         GXT: '',
-                        Localized: 'Noir mat tout-terrain',
+                        Localized: 'Màu đen mờ mọi địa hình',
                     },
                 },
                 '49': {
@@ -7899,7 +7899,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Casque retro fermé Argent bande',
+                        Localized: 'Mũ bảo hiểm kín cổ điển Dây bạc',
                     },
                     '2': {
                         GXT: '',
@@ -7907,7 +7907,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Casque retro fermé Argent',
+                        Localized: 'Mũ bảo hiểm kín cổ điển Bạc',
                     },
                 },
                 '80': {
@@ -7917,7 +7917,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Casque retro Ouvert Argent bande',
+                        Localized: 'Mũ bảo hiểm retro Dây bạc mở',
                     },
                     '2': {
                         GXT: '',
@@ -7925,7 +7925,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Casque retro Ouvert Argent',
+                        Localized: 'Mũ bảo hiểm mở retro màu bạc',
                     },
                 },
                 '81': {
@@ -8529,7 +8529,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Montre de Mode Argent',
+                        Localized: 'Đồng hồ thời trang bạc',
                     },
                     '2': {
                         GXT: '',
@@ -8547,7 +8547,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent CaCa Di Lusso',
+                        Localized: 'Bạc CaCa Di Lusso',
                     },
                     '2': {
                         GXT: '',
@@ -8557,7 +8557,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '4': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Didier Sachs Mignon',
+                        Localized: 'Tiền Didier Sachs Mignon',
                     },
                     '1': {
                         GXT: '',
@@ -8575,7 +8575,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent iFruit',
+                        Localized: 'Tiền iFruit',
                     },
                     '2': {
                         GXT: '',
@@ -8603,7 +8603,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Le Chien Marquise',
+                        Localized: 'Silver The Dog Marquise',
                     },
                     '2': {
                         GXT: '',
@@ -8627,7 +8627,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '9': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Anna Rex Prestige',
+                        Localized: 'Bạc Anna Rex Prestige',
                     },
                     '1': {
                         GXT: '',
@@ -8659,7 +8659,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Enduring',
+                        Localized: 'Bạc Enduring',
                     },
                     '2': {
                         GXT: '',
@@ -8685,7 +8685,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Tempo',
+                        Localized: 'Bạc Kronos Tempo',
                     },
                     '2': {
                         GXT: '',
@@ -8711,7 +8711,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Pulse',
+                        Localized: 'Bạc Kronos Pulse',
                     },
                     '2': {
                         GXT: '',
@@ -8719,11 +8719,11 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Argent Fifty Kronos Pulse',
+                        Localized: 'Bạc Fifty Kronos Pulse',
                     },
                     '4': {
                         GXT: '',
-                        Localized: 'Argent Roulette Kronos Pulse',
+                        Localized: 'Bạc Roulette Kronos Pulse',
                     },
                     '5': {
                         GXT: '',
@@ -8753,7 +8753,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Ära',
+                        Localized: 'Bạc Kronos Ära',
                     },
                     '2': {
                         GXT: '',
@@ -8779,7 +8779,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Automatique Argent',
+                        Localized: 'Bạc tự động',
                     },
                     '2': {
                         GXT: '',
@@ -8801,7 +8801,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '24': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Crowex Époque',
+                        Localized: 'Thời kỳ bạc Crowex',
                     },
                     '1': {
                         GXT: '',
@@ -8831,7 +8831,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Kronos Argent Rectangulaire',
+                        Localized: 'Hình chữ nhật bạc Kronos',
                     },
                     '2': {
                         GXT: '',
@@ -8853,7 +8853,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '26': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Crowex Ronde',
+                        Localized: 'Vòng Crowex bạc',
                     },
                     '1': {
                         GXT: '',
@@ -8941,7 +8941,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '27': {
                     '0': {
                         GXT: '',
-                        Localized: 'Bracelet Argent SASS',
+                        Localized: 'Vòng tay bạc SASS',
                     },
                     '1': {
                         GXT: '',
@@ -8955,7 +8955,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                 '28': {
                     '0': {
                         GXT: '',
-                        Localized: 'Bracelet Rond Argent SASS',
+                        Localized: 'Vòng tay bạc tròn SASS',
                     },
                     '1': {
                         GXT: '',
@@ -9693,7 +9693,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Trio de colliers argent',
+                        Localized: 'Bộ ba dây chuyền bạc',
                     },
                 },
                 '11': {
@@ -10617,7 +10617,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 1',
+                        Localized: 'Dây chuyền bạc 1',
                     },
                 },
                 '66': {
@@ -10627,7 +10627,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 2',
+                        Localized: 'Dây chuyền bạc 2',
                     },
                 },
                 '67': {
@@ -10637,7 +10637,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 3',
+                        Localized: 'Dây chuyền bạc 3',
                     },
                 },
                 '68': {
@@ -10647,7 +10647,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 4',
+                        Localized: 'Dây chuyền bạc 4',
                     },
                 },
                 '69': {
@@ -10657,7 +10657,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 5',
+                        Localized: 'Dây chuyền bạc 5',
                     },
                 },
                 '70': {
@@ -10667,7 +10667,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 6',
+                        Localized: 'Dây chuyền bạc 6',
                     },
                 },
                 '71': {
@@ -10677,7 +10677,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 7',
+                        Localized: 'Dây chuyền bạc 7',
                     },
                 },
                 '72': {
@@ -10687,7 +10687,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 8',
+                        Localized: 'Dây chuyền bạc 8',
                     },
                 },
                 '73': {
@@ -10697,7 +10697,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 9',
+                        Localized: 'Dây chuyền bạc 9',
                     },
                 },
                 '81': {
@@ -10717,7 +10717,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines M argent',
+                        Localized: 'Dây chuyền bạc M',
                     },
                 },
                 '84': {
@@ -10743,7 +10743,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines jante argent',
+                        Localized: 'Dây chuyền viền bạc',
                     },
                 },
                 '91': {
@@ -10763,7 +10763,7 @@ export const FemaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines jante inversée argent',
+                        Localized: 'Dây chuyền vành ngược màu bạc',
                     },
                 },
                 '93': {
@@ -11985,7 +11985,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '24': {
                     '0': {
                         GXT: '',
-                        Localized: "Boucles d'oreilles crâne en Argent",
+                        Localized: "Bông tai đầu lâu bạc",
                     },
                     '1': {
                         GXT: '',
@@ -12003,7 +12003,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '25': {
                     '0': {
                         GXT: '',
-                        Localized: "Boucles d'oreilles crâne en Argent",
+                        Localized: "Bông tai đầu lâu bạc",
                     },
                     '1': {
                         GXT: '',
@@ -12021,7 +12021,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '26': {
                     '0': {
                         GXT: '',
-                        Localized: "Boucles d'oreilles crâne en Argent",
+                        Localized: "Bông tai đầu lâu bạc",
                     },
                     '1': {
                         GXT: '',
@@ -12145,7 +12145,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: "L'École du micro d'Argent",
+                        Localized: "Trường Micro Bạc",
                     },
                 },
                 '38': {
@@ -12275,7 +12275,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Blanc Argent',
+                        Localized: 'Bạc trắng',
                     },
                     '2': {
                         GXT: '',
@@ -12381,7 +12381,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '2': {
                         GXT: '',
-                        Localized: 'Argent Aviateurs Marron ',
+                        Localized: 'Phi công Bạc Nâu',
                     },
                     '3': {
                         GXT: '',
@@ -12389,7 +12389,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '4': {
                         GXT: '',
-                        Localized: 'Argent Aviateurs Bleu ',
+                        Localized: 'Phi công bạc xanh',
                     },
                     '5': {
                         GXT: '',
@@ -12401,7 +12401,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '7': {
                         GXT: '',
-                        Localized: 'Argent Aviateurs Cuivre',
+                        Localized: 'Bạc phi công đồng',
                     },
                 },
                 '7': {
@@ -12441,7 +12441,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Eyewear',
+                        Localized: 'Bạc Eyewear',
                     },
                     '2': {
                         GXT: '',
@@ -12513,7 +12513,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '2': {
                         GXT: '',
-                        Localized: 'Argent Bull Emic',
+                        Localized: 'Bạc Bull Emic',
                     },
                     '3': {
                         GXT: '',
@@ -12671,7 +12671,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '17': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Raffiné',
+                        Localized: 'Bạc tinh luyện',
                     },
                     '1': {
                         GXT: '',
@@ -12717,7 +12717,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Argent Supérieur',
+                        Localized: 'Bạc cao cấp',
                     },
                     '4': {
                         GXT: '',
@@ -12733,7 +12733,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '7': {
                         GXT: '',
-                        Localized: 'Argent Chaux Supérieur',
+                        Localized: 'Bạc vôi cao cấp',
                     },
                 },
                 '19': {
@@ -12743,11 +12743,11 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Tendances Noir & Argent',
+                        Localized: 'Xu hướng Đen & Bạc',
                     },
                     '2': {
                         GXT: '',
-                        Localized: 'Tendances Argent',
+                        Localized: 'Xu hướng bạc',
                     },
                     '4': {
                         GXT: '',
@@ -13549,7 +13549,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: "Rond d'Argent",
+                        Localized: "Vòng bạc",
                     },
                     '2': {
                         GXT: '',
@@ -13573,7 +13573,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '7': {
                         GXT: '',
-                        Localized: 'Rond Écaille & Argent',
+                        Localized: 'Đồi Rùa Tròn & Bạc',
                     },
                     '8': {
                         GXT: '',
@@ -13599,7 +13599,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Carré en Argent',
+                        Localized: 'Quảng trường bạc',
                     },
                     '2': {
                         GXT: '',
@@ -13649,7 +13649,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: "Oeil de chat d'Argent",
+                        Localized: "Mắt mèo bạc",
                     },
                     '2': {
                         GXT: '',
@@ -13699,7 +13699,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Rectangulaire',
+                        Localized: 'Hình chữ nhật bạc',
                     },
                     '2': {
                         GXT: '',
@@ -13749,7 +13749,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Ergonomiques',
+                        Localized: 'Bạc tiện dụng',
                     },
                     '2': {
                         GXT: '',
@@ -13799,7 +13799,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Rétro Rond',
+                        Localized: 'Vòng bạc cổ điển',
                     },
                     '2': {
                         GXT: '',
@@ -18290,7 +18290,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '12': {
                         GXT: '',
-                        Localized: 'Chapeau melon argent sublime',
+                        Localized: 'Mũ quả dưa màu bạc siêu sang',
                     },
                     '13': {
                         GXT: '',
@@ -18348,7 +18348,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '12': {
                         GXT: '',
-                        Localized: 'Haut de forme argent',
+                        Localized: 'Chiếc mũ bạc',
                     },
                     '13': {
                         GXT: '',
@@ -18870,7 +18870,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '35': {
                     '0': {
                         GXT: '',
-                        Localized: 'Couronne des États-Unis',
+                        Localized: 'Vương miện Hoa Kỳ',
                     },
                 },
                 '36': {
@@ -19368,13 +19368,13 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '48': {
                     '0': {
                         GXT: '',
-                        Localized: 'Noir brillant tout-terrain',
+                        Localized: 'Màu đen bóng mọi địa hình',
                     },
                 },
                 '49': {
                     '0': {
                         GXT: '',
-                        Localized: 'Noir mat tout-terrain',
+                        Localized: 'Màu đen mờ mọi địa hình',
                     },
                 },
                 '50': {
@@ -19798,7 +19798,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Casque retro fermé Argent bande',
+                        Localized: 'Mũ bảo hiểm kín cổ điển Dây bạc',
                     },
                     '2': {
                         GXT: '',
@@ -19806,7 +19806,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Casque retro fermé Argent',
+                        Localized: 'Mũ bảo hiểm kín cổ điển Bạc',
                     },
                 },
                 '81': {
@@ -19816,7 +19816,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Casque retro Ouvert Argent bande',
+                        Localized: 'Mũ bảo hiểm retro Dây bạc mở',
                     },
                     '2': {
                         GXT: '',
@@ -19824,7 +19824,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Casque retro Ouvert Argent',
+                        Localized: 'Mũ bảo hiểm mở retro màu bạc',
                     },
                 },
                 '82': {
@@ -20436,7 +20436,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Montre en Argent',
+                        Localized: 'Đồng hồ bạc',
                     },
                     '2': {
                         GXT: '',
@@ -20472,7 +20472,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Quantum',
+                        Localized: 'Bạc Kronos Quantum',
                     },
                     '2': {
                         GXT: '',
@@ -20524,7 +20524,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '10': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Crowex Chromosphere',
+                        Localized: 'Bạc Crowex Chromosphere',
                     },
                     '1': {
                         GXT: '',
@@ -20542,7 +20542,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Vangelico Geomeister',
+                        Localized: 'Bạc Vangelico Geomeister',
                     },
                     '2': {
                         GXT: '',
@@ -20556,7 +20556,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent iFruit Link',
+                        Localized: 'Bạc iFruit Link',
                     },
                     '2': {
                         GXT: '',
@@ -20580,7 +20580,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '14': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Covgari Explorer',
+                        Localized: 'Nhà thám hiểm Covgari bạc',
                     },
                     '1': {
                         GXT: '',
@@ -20594,7 +20594,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '15': {
                     '0': {
                         GXT: '',
-                        Localized: 'Pendule en Argent',
+                        Localized: 'Con lắc bạc',
                     },
                     '1': {
                         GXT: '',
@@ -20612,7 +20612,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Covgari Universe',
+                        Localized: 'Vũ trụ Covgari Bạc',
                     },
                     '2': {
                         GXT: '',
@@ -20630,7 +20630,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '2': {
                         GXT: '',
-                        Localized: 'Argent Gaulle Destiny',
+                        Localized: 'Bạc Gaulle Destiny',
                     },
                 },
                 '18': {
@@ -20640,7 +20640,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Medici Radial',
+                        Localized: 'Bạc Medici Radial',
                     },
                     '2': {
                         GXT: '',
@@ -20650,15 +20650,15 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '19': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Étoile du temps',
+                        Localized: 'Ngôi sao bạc của thời gian',
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Or Étoile du temps',
+                        Localized: 'Sao vàng của thời gian',
                     },
                     '2': {
                         GXT: '',
-                        Localized: 'Carbon Étoile du temps',
+                        Localized: 'Ngôi sao cacbon của thời gian',
                     },
                 },
                 '20': {
@@ -20696,7 +20696,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Enduring',
+                        Localized: 'Bạc Enduring',
                     },
                     '2': {
                         GXT: '',
@@ -20722,7 +20722,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Tempo',
+                        Localized: 'Bạc Kronos Tempo',
                     },
                     '2': {
                         GXT: '',
@@ -20748,7 +20748,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Pulse',
+                        Localized: 'Bạc Kronos Pulse',
                     },
                     '2': {
                         GXT: '',
@@ -20756,11 +20756,11 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '3': {
                         GXT: '',
-                        Localized: 'Argent Fifty Kronos Pulse',
+                        Localized: 'Bạc Fifty Kronos Pulse',
                     },
                     '4': {
                         GXT: '',
-                        Localized: 'Argent Roulette Kronos Pulse',
+                        Localized: 'Bạc Roulette Kronos Pulse',
                     },
                     '5': {
                         GXT: '',
@@ -20790,7 +20790,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Argent Kronos Ära',
+                        Localized: 'Bạc Kronos Ära',
                     },
                     '2': {
                         GXT: '',
@@ -20816,7 +20816,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Automatique Argent',
+                        Localized: 'Bạc tự động',
                     },
                     '2': {
                         GXT: '',
@@ -20838,7 +20838,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '35': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Crowex Époque',
+                        Localized: 'Thời kỳ bạc Crowex',
                     },
                     '1': {
                         GXT: '',
@@ -20868,7 +20868,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Kronos Argent Rectangulaire',
+                        Localized: 'Hình chữ nhật bạc Kronos',
                     },
                     '2': {
                         GXT: '',
@@ -20890,7 +20890,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '37': {
                     '0': {
                         GXT: '',
-                        Localized: 'Argent Crowex Ronde',
+                        Localized: 'Vòng Crowex bạc',
                     },
                     '1': {
                         GXT: '',
@@ -20916,7 +20916,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '38': {
                     '0': {
                         GXT: '',
-                        Localized: 'Bracelet Argent SASS',
+                        Localized: 'Vòng tay bạc SASS',
                     },
                     '1': {
                         GXT: '',
@@ -20930,7 +20930,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                 '39': {
                     '0': {
                         GXT: '',
-                        Localized: 'Bracelet Rond Argent SASS',
+                        Localized: 'Vòng tay bạc tròn SASS',
                     },
                     '1': {
                         GXT: '',
@@ -22252,7 +22252,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines ZS argent',
+                        Localized: 'Dây chuyền bạc ZS',
                     },
                 },
                 '50': {
@@ -22262,7 +22262,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines crâne argent',
+                        Localized: 'Dây chuyền đầu lâu bạc',
                     },
                 },
                 '51': {
@@ -22278,7 +22278,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines puzzle argent',
+                        Localized: 'Dây chuyền câu đố bạc',
                     },
                 },
                 '53': {
@@ -22288,7 +22288,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines LC argent',
+                        Localized: 'Dây chuyền bạc LC',
                     },
                 },
                 '54': {
@@ -22298,7 +22298,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines DIX argent',
+                        Localized: 'Dây chuyền bạc DIX',
                     },
                 },
                 '55': {
@@ -22308,7 +22308,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines LE CHIEN argent',
+                        Localized: 'Dây chuyền bạc LE CHIEN',
                     },
                 },
                 '75': {
@@ -22418,7 +22418,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 1',
+                        Localized: 'Dây chuyền bạc 1',
                     },
                 },
                 '87': {
@@ -22428,7 +22428,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 2',
+                        Localized: 'Dây chuyền bạc 2',
                     },
                 },
                 '88': {
@@ -22438,7 +22438,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 3',
+                        Localized: 'Dây chuyền bạc 3',
                     },
                 },
                 '89': {
@@ -22448,7 +22448,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 4',
+                        Localized: 'Dây chuyền bạc 4',
                     },
                 },
                 '90': {
@@ -22458,7 +22458,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 5',
+                        Localized: 'Dây chuyền bạc 5',
                     },
                 },
                 '91': {
@@ -22468,7 +22468,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 6',
+                        Localized: 'Dây chuyền bạc 6',
                     },
                 },
                 '92': {
@@ -22478,7 +22478,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 7',
+                        Localized: 'Dây chuyền bạc 7',
                     },
                 },
                 '93': {
@@ -22488,7 +22488,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 8',
+                        Localized: 'Dây chuyền bạc 8',
                     },
                 },
                 '94': {
@@ -22498,7 +22498,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines en argent 9',
+                        Localized: 'Dây chuyền bạc 9',
                     },
                 },
                 '110': {
@@ -22518,7 +22518,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines M argent',
+                        Localized: 'Dây chuyền bạc M',
                     },
                 },
                 '113': {
@@ -22544,7 +22544,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines jante argent',
+                        Localized: 'Dây chuyền viền bạc',
                     },
                 },
                 '121': {
@@ -22564,7 +22564,7 @@ export const MaleJewelryItems: ShopJewelryContent = {
                     },
                     '1': {
                         GXT: '',
-                        Localized: 'Chaines jante inversée argent',
+                        Localized: 'Dây chuyền vành ngược màu bạc',
                     },
                 },
                 '123': {

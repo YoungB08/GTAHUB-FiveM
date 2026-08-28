@@ -281,7 +281,7 @@ export class PlayerStressProvider {
                 }
             });
 
-        const { completed } = await this.progressService.progress('Yoga', 'Vous vous relaxez...', 30000);
+        const { completed } = await this.progressService.progress('Yoga', 'Bạn thư giãn...', 30000);
         this.animationService.stop();
 
         if (!completed) {

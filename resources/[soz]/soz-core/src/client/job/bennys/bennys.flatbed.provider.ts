@@ -168,7 +168,7 @@ export class BennysFlatbedProvider {
             return;
         }
 
-        this.ropeService.deleteRope(this.currentFlatbedAttach.rope);
+        this.ropeService.deleteRope();
 
         this.currentFlatbedAttach = null;
 
@@ -284,7 +284,7 @@ export class BennysFlatbedProvider {
         );
 
         if (!controlFlatbed) {
-            this.notifier.notify('Impossible de prendre le contrôle du flatbed, ressayer plus tard', 'error');
+            this.notifier.notify('Không thể điều khiển màn hình phẳng, hãy thử lại sau', 'error');
 
             return;
         }
@@ -296,7 +296,7 @@ export class BennysFlatbedProvider {
         );
 
         if (!controlTarget) {
-            this.notifier.notify('Impossible de prendre le controle du vehicule cible, ressayer plus tard', 'error');
+            this.notifier.notify('Không thể điều khiển xe mục tiêu, hãy thử lại sau', 'error');
 
             return;
         }
@@ -336,7 +336,7 @@ export class BennysFlatbedProvider {
         }
 
         if (vehicle === this.currentFlatbedAttach?.entity) {
-            this.notifier.notify('Vous ne pouvez pas attacher le flatbed à lui-même.', 'error');
+            this.notifier.notify('Bạn không thể gắn tấm phẳng vào chính nó.', 'error');
 
             return;
         }

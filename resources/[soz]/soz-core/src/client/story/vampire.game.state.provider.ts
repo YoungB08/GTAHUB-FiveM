@@ -64,27 +64,27 @@ export class VampireGameStateProvider {
         switch (objective) {
             case 'battery':
                 return [
-                    'Vous tentez de relancer les batteries d’urgences de la ville, mais il est nécessaire que',
+                    'Bạn đang cố gắng khởi động lại pin khẩn cấp của thành phố, nhưng điều đó là cần thiết',
                     `~${this.getObjectivePart2PlayerRequired(objective)} Personnes le fassent en même temps~`,
-                    `pour que ça fonctionne !`,
+                    `để làm cho nó hoạt động!`,
                 ];
             case 'dam':
                 return [
-                    'Vous tentez de relancer le barrage de la ville, mais il est nécessaire que',
+                    'Bạn đang cố gắng khởi động lại con đập của thành phố, nhưng điều đó là cần thiết',
                     `~${this.getObjectivePart2PlayerRequired(objective)} Personnes le fassent en même temps~`,
-                    'pour que ça fonctionne !',
+                    'để làm cho nó hoạt động!',
                 ];
             case 'vampire':
                 return [
-                    'Vous tentez de vous renseigner sur les vampires, mais il est nécessaire que',
+                    'Bạn đang cố gắng tìm hiểu về ma cà rồng, nhưng điều đó là cần thiết.',
                     `~${this.getObjectivePart2PlayerRequired(objective)} Personnes réfléchissent en même temps~`,
-                    'pour trouver la solution !',
+                    'để tìm ra giải pháp!',
                 ];
             case 'weapon':
                 return [
-                    'Vous tentez de forger des armes anti-vampire, mais il est nécessaire que',
+                    'Bạn đang cố gắng rèn vũ khí chống ma cà rồng, nhưng điều đó là cần thiết',
                     `~${this.getObjectivePart2PlayerRequired(objective)} Personnes fondent en même temps~`,
-                    'pour avoir assez d’armes !',
+                    'có đủ vũ khí!',
                 ];
         }
     }

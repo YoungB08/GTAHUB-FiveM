@@ -85,7 +85,7 @@ export class AlbumProvider {
             target: {
                 options: [
                     {
-                        label: 'Liste des Albums',
+                        label: 'Danh sách Album',
                         icon: 'magasin/album',
                         category: 'citizen',
                         action: () => {
@@ -112,7 +112,7 @@ export class AlbumProvider {
         const tracks = AlbumTracks[albumName];
 
         if (!tracks) {
-            this.notifier.notify('Pas de musique dans cette album', 'error');
+            this.notifier.notify('Không có nhạc trong album này', 'error');
             return;
         }
 

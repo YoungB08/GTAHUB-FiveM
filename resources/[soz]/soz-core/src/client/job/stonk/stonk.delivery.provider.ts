@@ -66,7 +66,7 @@ export class StonkDeliveryProvider {
         this.currentDeliverLocation = location;
         this.targetFactory.createForBoxZone(location.name, location, [this.deliverAction()]);
         SetNewWaypoint(location.center[0], location.center[1]);
-        this.notifier.notify('Les coordonnées de la livraison ont été ajoutées sur votre GPS');
+        this.notifier.notify('Chi tiết giao hàng đã được thêm vào GPS của bạn');
     }
 
     private deliverAction(): TargetOption {

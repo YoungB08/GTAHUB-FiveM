@@ -24,7 +24,7 @@ export const LSMCButton = () => {
 
     if (lsmcCalled) {
         return (
-            <div className="text-gray-900 text-center w-4/5 rounded-2xl p-4 bg-gray-300">Alerte envoyée au LSMC</div>
+            <div className="text-gray-900 text-center w-4/5 rounded-2xl p-4 bg-gray-300">Đã gửi cảnh báo tới LSMC</div>
         );
     }
 
@@ -33,7 +33,7 @@ export const LSMCButton = () => {
             className="text-white text-center w-4/5 rounded-2xl p-4 bg-green-500 cursor-pointer"
             onClick={handleCallLSMC}
         >
-            {!isDead ? 'Signaler une urgence' : 'Signaler un décès'}
+            {!isDead ? 'Báo cáo trường hợp khẩn cấp' : 'Signaler un décès'}
         </div>
     );
 };

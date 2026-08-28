@@ -240,7 +240,7 @@ export class PlayerHeatProvider {
                 this.damage = true;
                 if (!this.sandstorm) {
                     this.notifier.notify(
-                        'La tempête fouette votre visage, trouvez de quoi vous protéger la bouche et les yeux',
+                        'Giông bão quất vào mặt, tìm gì bảo vệ miệng và mắt',
                         'warning'
                     );
                 }
@@ -256,7 +256,7 @@ export class PlayerHeatProvider {
             if (this.heatScore >= 6) {
                 this.damage = true;
                 if (!this.heat) {
-                    this.notifier.notify('Vous commencez à transpirer due à la forte chaleur', 'warning');
+                    this.notifier.notify('Bạn bắt đầu đổ mồ hôi do nhiệt độ cao', 'warning');
                 }
                 this.hudWeatherIconProvider.add('heat');
                 this.heat = true;

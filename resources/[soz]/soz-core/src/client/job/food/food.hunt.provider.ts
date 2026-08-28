@@ -141,7 +141,7 @@ export class FoodHuntProvider {
         }
 
         if (HasEntityBeenDamagedByAnyVehicle(entity)) {
-            this.notifier.notify("L'animal est tout écrabouillé, on ne pourra rien en tirer...", 'warning');
+            this.notifier.notify("Con vật đã bị nghiền nát hoàn toàn, chúng ta sẽ không thể lấy được gì từ nó...", 'warning');
 
             return;
         }

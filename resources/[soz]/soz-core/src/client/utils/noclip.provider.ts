@@ -170,7 +170,7 @@ export class NoClipProvider {
                 ClearPedTasksImmediately(playerPed);
             } else {
                 this.notifier.notify(
-                    "Le noclip en véhicule fait depop les PNJ d'ambiance en cas de collision",
+                    "Noclip trong xe sẽ loại bỏ PNJ xung quanh trong trường hợp va chạm",
                     'warning'
                 );
             }
@@ -180,7 +180,7 @@ export class NoClipProvider {
 
     public async ToggleNoClipMode() {
         if (!this.adminSpectateProvider.isNotSpectating()) {
-            this.notifier.notify('Le mode spectateur doit être stoppé pour désactiver le mode NoClip.', 'warning');
+            this.notifier.notify('Chế độ khán giả phải được dừng để tắt chế độ NoClip.', 'warning');
             return;
         }
         return await this.SetNoClip(!this.isNoClipping);
@@ -301,7 +301,7 @@ export class NoClipProvider {
     @OnEvent(ClientEvent.ADMIN_SPECTATE_PLAYER)
     public async onSpectatePlayer(player: AdminPlayer, position: Vector3): Promise<void> {
         if (!this.IsNoClipMode()) {
-            this.notifier.notify(`Le mode NoClip doit être activé pour observer un joueur.`, 'info');
+            this.notifier.notify(`Chế độ NoClip phải được kích hoạt để quan sát người chơi.`, 'info');
             return;
         }
 

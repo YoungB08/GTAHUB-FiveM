@@ -19,17 +19,17 @@ export const DarkWebConversationCreateModal = memo(({ isOpen, onClose, onConfirm
 
     const handleConfirm = () => {
         if (!subject) {
-            setErrorMessage('ERREUR : Titre manquant');
+            setErrorMessage('LỖI: Thiếu tiêu đề');
             return;
         }
 
         if (!password) {
-            setErrorMessage('ERREUR : Mot de passe manquant');
+            setErrorMessage('LỖI: Thiếu mật khẩu');
             return;
         }
 
         if (password && password.length < 4) {
-            setErrorMessage('ERREUR : Mot de passe trop petit');
+            setErrorMessage('LỖI: Mật khẩu quá ngắn');
             return;
         }
 
@@ -68,7 +68,7 @@ export const DarkWebConversationCreateModal = memo(({ isOpen, onClose, onConfirm
                 } rounded-lg items-center flex flex-col justify-center text-center py-4 w-5/6`}
             >
                 <div className="m-auto pt-1 pb-3 flex flex-col w-5/6">
-                    <h2 className="text-4xl font-black mb-8 uppercase">NOUVEAU THREAD</h2>
+                    <h2 className="text-4xl font-black mb-8 uppercase">CUỘC TRÒ CHUYỆN MỚI</h2>
                     <InputBase
                         className={`${
                             !errorMessage

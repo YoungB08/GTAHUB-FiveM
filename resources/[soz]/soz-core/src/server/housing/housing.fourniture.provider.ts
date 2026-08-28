@@ -386,7 +386,7 @@ export class HousingFournitureProvider {
         if (!validateCount) {
             this.notifier.notify(
                 source,
-                'Tu as placé assez de meuble. Améliore ton habitation pour faire plus de place!',
+                'Bạn đã đặt đủ đồ đạc. Cải thiện ngôi nhà của bạn để tạo ra nhiều không gian hơn!',
                 'error'
             );
             return false;

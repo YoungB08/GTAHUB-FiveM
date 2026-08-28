@@ -77,7 +77,7 @@ export class InventoryKeyProvider {
         });
     }
     @Command('openPlayerKeyInventory', {
-        description: 'Ouvrir le trousseau de clés',
+        description: 'Mở móc khóa',
         keys: [{ mapper: 'keyboard', key: '' }],
     })
     @OnNuiEvent(NuiEvent.InventoryActionOpenKeychain)
@@ -86,7 +86,7 @@ export class InventoryKeyProvider {
     }
 
     @Command('open-wallet', {
-        description: 'Ouvrir le portefeuille',
+        description: 'Mở ví',
         keys: [{ mapper: 'keyboard', key: '' }],
     })
     @OnNuiEvent(NuiEvent.InventoryActionOpenWallet)
@@ -115,20 +115,20 @@ export class InventoryKeyProvider {
         const player = await this.playerFinderService.getPlayerFromMode(mode);
 
         if (!player) {
-            this.notifier.error("Personne n'est à portée de vous.");
+            this.notifier.error("Không ai ở trong phạm vi của bạn.");
 
             return;
         }
 
         if (keys.length === 0) {
-            this.notifier.error('Aucune clef à donner.');
+            this.notifier.error('Không có chìa khóa để đưa ra.');
 
             return;
         }
 
         const sourcePosition = GetEntityCoords(PlayerPedId()) as Vector3;
         if (getDistance(sourcePosition, player.position) > 4.0) {
-            this.notifier.notify('Vous êtes trop loin, rapprochez-vous.', 'error');
+            this.notifier.notify('Bạn ở xa quá, hãy đến gần hơn.', 'error');
             return;
         }
 
@@ -151,7 +151,7 @@ export class InventoryKeyProvider {
         const players = target ? [target] : this.playerService.getPlayersAround(position, 3.0);
 
         if (players.length < 1) {
-            this.notifier.notify("Personne n'est a portée de vous.", 'error');
+            this.notifier.notify("Không ai ở trong tầm tay của bạn.", 'error');
             return;
         }
 

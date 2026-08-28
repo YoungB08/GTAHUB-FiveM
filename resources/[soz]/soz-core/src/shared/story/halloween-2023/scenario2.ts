@@ -8,9 +8,9 @@ export const Halloween2023Scenario2: Story = {
         part1: {
             audio: 'audio/halloween-2023/scenario2/part1.mp3',
             text: [
-                'Ooh bonsoir ! Vous êtes de retour ? Écoutez bien, ',
-                'il semblerait que San Andreas subisse des catastrophes naturelles provoqués par ce cristal !',
-                'Il serait judicieux de se renseigner auprès des résidents sur comment le cristal est apparu !',
+                'Ồ chào buổi tối! Bạn có quay lại không? Hãy lắng nghe cẩn thận,',
+                'Có vẻ như San Andreas đang hứng chịu thiên tai do viên pha lê này gây ra!',
+                'Sẽ là khôn ngoan nếu hỏi người dân về việc viên pha lê xuất hiện như thế nào!',
                 'Allez donc demander aux gens près du bar, quelqu’un a sûrement dû voir quelque chose.',
             ],
             timing: [3750, 5500, 4750, 4000],
@@ -18,8 +18,8 @@ export const Halloween2023Scenario2: Story = {
         part2: {
             audio: 'audio/halloween-2023/scenario2/part2.mp3',
             text: [
-                "Shhh.. Taisez vous! Le cristal nous entend j'en suis sûr! On va tous mourir..",
-                'On va tous mourir! Il est sorti du sol, VOUS ENTENDEZ? IL EST SORTI DU SOL!',
+                "Suỵt.. Im đi! Tôi chắc chắn rằng tinh thể nghe thấy chúng tôi! Tất cả chúng ta đều sẽ chết...",
+                'Tất cả chúng ta sẽ chết! Nó trồi lên khỏi mặt đất, CÁC NGƯỜI CÓ NGHE KHÔNG? NÓ ĐÃ CHUI LÊN TỪ LÒNG ĐẤT!',
                 "ALLEZ DEMANDER A L'ALCOOLIQUE A L'INTERIEUR!",
             ],
             timing: [4125, 3750, 2500],
@@ -27,7 +27,7 @@ export const Halloween2023Scenario2: Story = {
         part3: {
             audio: 'audio/halloween-2023/scenario2/part3.mp3',
             text: [
-                "Ecoutez.. J'vous dirais rien tant qu'vous m'aurez pas apportez un nouveau vin.. ",
+                "Nghe này... Tôi sẽ không nói gì cho đến khi bạn mang cho tôi rượu mới...",
                 "Et j'veux un truc fort !",
             ],
             timing: [3500, 2500],
@@ -35,8 +35,8 @@ export const Halloween2023Scenario2: Story = {
         part4: {
             audio: 'audio/halloween-2023/scenario2/part4.mp3',
             text: [
-                'Ooooh bonne mère ! Je vais m’exploser le bide avec ce que vous m’avez apporté !',
-                'Pour être honnête, j’avais juste soif, mais j’ai aucune information à vous donner…',
+                'Ôi mẹ tốt quá! Tôi sẽ vỡ bụng với những gì bạn mang đến cho tôi!',
+                'Thành thật mà nói, tôi chỉ khát nước thôi, nhưng tôi không có thông tin nào để cung cấp cho bạn…',
                 'Peut-être que l’autre espionne sur le toit de la caravane a vu quelque chose… Gloups.',
             ],
             timing: [3500, 3500, 3500],
@@ -44,27 +44,27 @@ export const Halloween2023Scenario2: Story = {
         part5: {
             audio: 'audio/halloween-2023/scenario2/part5.mp3',
             text: [
-                'Vous là ! Je vous ai vu parler aux scientifiques !',
-                "J'ai une information importante à vous donner.",
-                'Avant que le cristal ne sorte du sol',
+                'Bạn đó! Tôi thấy bạn đang nói chuyện với các nhà khoa học!',
+                "Tôi có thông tin quan trọng muốn cung cấp cho bạn.",
+                'Trước khi tinh thể ra khỏi mặt đất',
                 "j'ai vu les extraterrestres danser sous la pleine lune en agitant un étrange artéfact.",
-                "Je les ai écouté de loin et ils ont dit qu'ils allaient le cacher à l'abri des regards.",
-                'De mémoire, ils parlaient des marais.',
+                "Tôi lắng nghe họ từ xa và họ nói sẽ giấu nó đi.",
+                'Theo tôi nhớ, họ đang nói về đầm lầy.',
                 "Alors, je ne sais pas si j'ai très bien entendu",
-                "mais j'espère que ça vous aidera quand même.",
+                "nhưng dù sao tôi cũng hy vọng nó sẽ giúp ích cho bạn.",
             ],
             timing: [2750, 2150, 2150, 5150, 5000, 2500, 3000, 2750],
         },
         part6: {
             audio: 'audio/halloween-2023/scenario2/part6.mp3',
             text: [
-                'Qu’est ce donc ?... Quel étrange artéfact vous avez là !',
-                'Je pense l’avoir déjà vu dans certains ouvrages !',
-                'De mémoire, il servait autrefois à une race extraterrestre.',
-                'J’ai toujours cru que c’était un conte pour enfants…',
-                'Dans tous les cas, l’enquête avance de bon train !',
-                'Toutes nos félicitations, vous êtes l’associé idéal à mon génie !',
-                'Ne me remerciez pas, c’est tout à fait normal.',
+                'Vậy đây là gì?... Bạn có một hiện vật kỳ lạ ở đó!',
+                'Tôi nghĩ tôi đã nhìn thấy nó trong một số cuốn sách!',
+                'Theo tôi nhớ, nó từng được sử dụng bởi một chủng tộc ngoài hành tinh.',
+                'Tôi luôn nghĩ đó là một câu chuyện dành cho trẻ em...',
+                'Dù thế nào đi nữa, cuộc điều tra đang tiến triển tốt!',
+                'Xin chúc mừng, bạn là đối tác lý tưởng cho thiên tài của tôi!',
+                'Đừng cảm ơn tôi, điều đó hoàn toàn bình thường.',
             ],
             timing: [4000, 3000, 3000, 3000, 3000, 5000, 3000],
         },

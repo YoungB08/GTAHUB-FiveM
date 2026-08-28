@@ -5728,7 +5728,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
     [JobType.LSPD]: {
         [PlayerPedHash.Male]: {
             [WardRobeElements.Helmet]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Helmet]: { Clear: true },
                     },
@@ -5750,7 +5750,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -6649,7 +6649,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -6661,7 +6661,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 15, Texture: 0, Palette: 0 },
                     },
@@ -6759,7 +6759,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
         },
         [PlayerPedHash.Female]: {
             [WardRobeElements.Helmet]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Helmet]: { Clear: true },
                     },
@@ -6781,7 +6781,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -7418,7 +7418,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -7430,7 +7430,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 14, Texture: 0, Palette: 0 },
                     },
@@ -7555,7 +7555,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
     [JobType.BCSO]: {
         [PlayerPedHash.Male]: {
             [WardRobeElements.Helmet]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Helmet]: { Clear: true },
                     },
@@ -7577,7 +7577,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -8420,7 +8420,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -8432,7 +8432,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 15, Texture: 0, Palette: 0 },
                     },
@@ -8540,7 +8540,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
         },
         [PlayerPedHash.Female]: {
             [WardRobeElements.Helmet]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Helmet]: { Clear: true },
                     },
@@ -8562,7 +8562,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -9111,7 +9111,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -9123,7 +9123,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 14, Texture: 0, Palette: 0 },
                     },
@@ -9258,7 +9258,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
     [JobType.SASP]: {
         [PlayerPedHash.Male]: {
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -9295,7 +9295,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -9307,7 +9307,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 15, Texture: 0, Palette: 0 },
                     },
@@ -9350,7 +9350,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
         },
         [PlayerPedHash.Female]: {
             [WardRobeElements.Hat]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Props: {
                         [Prop.Hat]: { Clear: true },
                     },
@@ -9387,7 +9387,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Accessory]: {
-                ['Aucun']: {
+                ['Không có']: {
                     Components: {
                         [Component.Accessories]: { Drawable: 0, Texture: 0, Palette: 0 },
                     },
@@ -9399,7 +9399,7 @@ export const POLICE_CUSTOM_CLOAKROOM: Partial<Record<JobType, Record<PlayerPedHa
                 },
             },
             [WardRobeElements.Belt]: {
-                ['Aucune']: {
+                ['Không có']: {
                     Components: {
                         [Component.Undershirt]: { Drawable: 14, Texture: 0, Palette: 0 },
                     },

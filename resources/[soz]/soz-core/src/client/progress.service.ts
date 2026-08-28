@@ -65,12 +65,12 @@ export class ProgressService {
         const ped = PlayerPedId();
 
         if (IsEntityDead(ped) && !options.useWhileDead) {
-            this.notifier.notify('Vous ne pouvez réaliser cette action !', 'error');
+            this.notifier.notify('Bạn không thể thực hiện hành động này!', 'error');
             return { completed: false, progress: 0 };
         }
 
         if (this.isDoingAction()) {
-            this.notifier.notify('Une action est déjà en cours !', 'error');
+            this.notifier.notify('Hành động đã được tiến hành!', 'error');
             return { completed: false, progress: 0 };
         }
 
@@ -191,7 +191,7 @@ export class ProgressService {
                     Control.FrontendRRight,
                     'ou',
                     Control.CursorCancel,
-                    'pour annuler',
+                    'hủy bỏ',
                 ]);
             }
             this.nuiDispatch.dispatch('progress', 'Start', {

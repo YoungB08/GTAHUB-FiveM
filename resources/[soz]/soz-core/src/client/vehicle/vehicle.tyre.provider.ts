@@ -98,7 +98,7 @@ export class VehicleTyreProvider {
                             const duration = getRandomInt(3000, 5000);
                             const { completed } = await this.progressService.progress(
                                 'deflate_tire_with_weapon',
-                                'Vous percez le pneu...',
+                                'Bạn thủng lốp...',
                                 duration,
                                 {
                                     dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
@@ -121,7 +121,7 @@ export class VehicleTyreProvider {
                                     GetEntityCoords(PlayerPedId()) as Vector3
                                 ) > 2.5
                             ) {
-                                this.notifier.error('Le véhicule est trop loin');
+                                this.notifier.error('Xe đi quá xa');
                                 return;
                             }
 

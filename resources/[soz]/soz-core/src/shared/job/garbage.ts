@@ -70,7 +70,7 @@ export const GarbageCloakroom: WardrobeConfig = {
             },
             Props: {},
         },
-        ['Opérateur des Déchets']: {
+        ['Người vận hành chất thải']: {
             Components: {
                 [3]: { Drawable: 4, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 86, Texture: 10, Palette: 0 },
@@ -174,7 +174,7 @@ export const GarbageCloakroom: WardrobeConfig = {
             },
             Props: {},
         },
-        ['Opératrice des Déchets']: {
+        ['Người vận hành chất thải']: {
             Components: {
                 [3]: { Drawable: 3, Texture: 0, Palette: 0 },
                 [4]: { Drawable: 89, Texture: 10, Palette: 0 },

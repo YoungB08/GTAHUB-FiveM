@@ -124,7 +124,7 @@ export class BillboardProvider {
                     },
                 },
                 {
-                    label: 'Mettre de la publicité',
+                    label: 'Đặt quảng cáo',
                     category: 'society',
                     canInteract: entity => {
                         const player = this.playerService.getPlayer();
@@ -153,7 +153,7 @@ export class BillboardProvider {
                     },
                 },
                 {
-                    label: 'Retirer la publicité',
+                    label: 'Xóa quảng cáo',
                     category: 'society',
                     canInteract: entity => {
                         const player = this.playerService.getPlayer();

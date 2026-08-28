@@ -343,7 +343,7 @@ export class HousingFournitureProvider {
         } else if (fourniture.storageType == 'cash_stock') {
             this.targetFactory.createForEntity(entity, [
                 {
-                    label: "Coffre d'argent",
+                    label: "Rương tiền",
                     icon: 'bank/compte_safe',
                     category: 'citizen',
                     canInteract: () => {
@@ -355,7 +355,7 @@ export class HousingFournitureProvider {
                     },
                 },
             ]);
-            targetLabel.push("Coffre d'argent");
+            targetLabel.push("Rương tiền");
         } else if (fourniture.storageType == 'food_stock') {
             this.targetFactory.createForEntity(entity, [
                 {
@@ -896,7 +896,7 @@ export class HousingFournitureProvider {
 
         const apartment = await this.housingRepository.findApartmentFromCollision(this.debugProp.entity);
         if (!apartment || apartment.id !== this.lastApartment.id) {
-            this.notifier.error('Le meuble doit être placé dans le logement!');
+            this.notifier.error('Đồ nội thất phải được đặt trong chỗ ở!');
             return Err(false);
         }
 
@@ -1095,7 +1095,7 @@ export class HousingFournitureProvider {
     };
 
     @Command('housing-menu', {
-        description: 'Ouvrir le menu habitation',
+        description: 'Mở menu chính',
         keys: [{ mapper: 'keyboard', key: 'H' }],
     })
     public async openHousingMenu() {

@@ -123,7 +123,7 @@ export class LaserGameProvider {
                 distance: 2.5,
                 options: [
                     {
-                        label: 'Créer une partie de Laser Game',
+                        label: 'Tạo trò chơi Laser Game',
                         icon: 'global/users',
                         category: 'citizen',
                         canInteract: async () => {
@@ -139,7 +139,7 @@ export class LaserGameProvider {
                         },
                     },
                     {
-                        label: 'Entrer dans le hub du Laser Game',
+                        label: 'Vào trung tâm trò chơi Laser',
                         icon: 'housing/enter',
                         category: 'citizen',
                         canInteract: async () => {
@@ -268,7 +268,7 @@ export class LaserGameProvider {
 
         this.targetFactory.createForAllPlayer([
             {
-                label: 'Ajouter dans la partie',
+                label: 'Thêm vào phần',
                 icon: 'crimi/user-plus',
                 category: 'citizen',
                 canInteract: entity => {
@@ -458,7 +458,7 @@ export class LaserGameProvider {
         this.game.state = gameData.state;
         if (this.game.state !== LaserGameStateEnum.STARTED) return;
 
-        this.notifier.notify('Vous êtes de nouveau dans la partie');
+        this.notifier.notify('Bạn lại tham gia trò chơi');
         const player = this.playerService.getPlayer();
 
         this.playerService.updateState({ isInGame: true });
@@ -653,7 +653,7 @@ export class LaserGameProvider {
 
         this.hasGameRequest = true;
         const [confirmed] = await this.notifier.notifyWithConfirm(
-            `Vous êtes invité à rejoindre une partie de laser game.~n~Faites ~g~Y~s~ pour l'accepter ou ~r~N~s~ pour la refuser`
+            `Bạn được mời tham gia trò chơi bắn súng laser.~n~Do ~g~Y~s~ để chấp nhận hoặc ~r~N~s~ để từ chối`
         );
 
         player = this.playerService.getPlayer();
@@ -665,7 +665,7 @@ export class LaserGameProvider {
             }
             if (GetEntityHealth(PlayerPedId()) <= CRITICAL_HEALTH) {
                 this.notifier.notify(
-                    'Regarde ton état, tu devrais plutôt te faire soigner avant de participer.',
+                    'Nhìn vào tình trạng của bạn, bạn nên điều trị trước khi tham gia.',
                     'error'
                 );
 

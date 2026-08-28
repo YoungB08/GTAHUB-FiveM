@@ -132,7 +132,7 @@ export class ZkeaFournitureShopProvider {
         this.playerService.updateState({ isInventoryBusy: false });
 
         if (this.inventoryManager.hasEnoughItem('zkea_crate', 1)) {
-            this.notifier.notify(`Tu as fait des achats ? Loue-moi un camion pour les ramener chez toi.`, 'info');
+            this.notifier.notify(`Bạn có thực hiện bất kỳ giao dịch mua hàng nào không? Thuê cho tôi một chiếc xe tải để đưa họ về nhà.`, 'info');
         }
     }
 

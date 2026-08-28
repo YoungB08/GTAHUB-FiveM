@@ -417,13 +417,13 @@ export const modificationTabs = [
     {
         id: 'brakes',
         title: 'Freinage',
-        description: 'Réglage des paramètres liés au freinage du véhicle.',
+        description: 'Điều chỉnh các thông số liên quan đến phanh xe.',
         handlings: [
             {
                 type: VehicleHandlingType.fBrakeBiasFront,
                 label: 'Répartition du freinage',
                 description:
-                    "Une valeur comprise entre 0,01 et 0,49 signifie que l'essieu arrière recevra plus d'effort de freinage que l'avant et une valeur comprise entre 0,051 et 0,99 signifie que les essieux avant recevront plus de force de freinage que l'arrière.",
+                    "Giá trị từ 0,01 đến 0,49 nghĩa là trục sau sẽ nhận nhiều lực phanh hơn trục trước và giá trị từ 0,051 đến 0,99 nghĩa là trục trước sẽ nhận nhiều lực phanh hơn trục sau.",
             },
             {
                 type: VehicleHandlingType.fBrakeForce,
@@ -440,7 +440,7 @@ export const modificationTabs = [
     {
         id: 'clutch',
         title: 'Embrayage',
-        description: "Réglage des paramètres de l'embryage",
+        description: "Điều chỉnh thông số ly hợp",
         handlings: [
             {
                 type: VehicleHandlingType.fClutchChangeRateScaleDownShift,
@@ -459,58 +459,58 @@ export const modificationTabs = [
     {
         id: 'engine',
         title: 'Moteur',
-        description: 'Réglage des paramètres liés au compartiment moteur',
+        description: 'Cài đặt các thông số liên quan đến khoang động cơ',
         handlings: [
             {
                 type: VehicleHandlingType.fInitialDriveForce,
                 label: 'Couple',
                 description:
-                    'Réglage du coefficient de couple du véhicule. Plus la valeur est haute, plus la puissance transmise aux roues est élevée.',
+                    'Điều chỉnh hệ số mô men xoắn của xe. Giá trị càng cao thì lực truyền tới bánh xe càng lớn.',
             },
             {
                 type: VehicleHandlingType.fDriveInertia,
                 label: 'Rupteur',
-                description: 'Réglage du coefficient concernant le réglage du rupteur et des tours par minute maximum.',
+                description: 'Điều chỉnh hệ số liên quan đến việc cài đặt cầu dao và số vòng quay tối đa mỗi phút.',
             },
             {
                 type: VehicleHandlingType.fInitialDriveMaxFlatVel,
                 label: 'VMAX',
-                description: 'Réglage de la vitesse maximale théorique autorisée par le système du véhicule.',
+                description: 'Thiết lập tốc độ tối đa theo lý thuyết cho phép của hệ thống xe.',
             },
         ],
     },
     {
         id: 'grip',
         title: 'Adhérence',
-        description: "Réglage des paramètres d'adhérence",
+        description: "Điều chỉnh cài đặt độ bám dính",
         handlings: [
             {
                 type: VehicleHandlingType.fTractionCurveMin,
                 label: "Coefficient d'adhérence minimal",
                 description:
-                    "Coefficient d'adhérence en glissement pour le virage et l'accélération. Cela décrit l'état d'adhérence après une perte de traction, par exemple, des pneus qui patinent, du survirage ou du sous-virage.",
+                    "Hệ số bám trượt khi vào cua và tăng tốc. Điều này mô tả trạng thái bám đường sau khi mất độ bám đường, ví dụ như lốp quay tròn, lái quá lái hoặc thiếu lái.",
             },
             {
                 type: VehicleHandlingType.fTractionCurveMax,
                 label: "Coefficient d'adhérence maximal",
                 description:
-                    "Coefficient maximal d'adhérence en virage et en accélération. Cela représente l'état d'adhérence maximale avant le début de toute perte de traction.",
+                    "Hệ số bám tối đa khi vào cua và tăng tốc. Điều này thể hiện trạng thái bám đường tối đa trước khi bắt đầu mất lực kéo.",
             },
             {
                 type: VehicleHandlingType.fTractionCurveLateral,
                 label: "Coefficient d'adhérence latéral",
                 description:
-                    "Abaisser cette valeur rend la réaction de l'adhérence du véhicule plus immédiate, toutefois elle sera moins tolérante en cas de perte de traction. À l'inverse, augmenter cette valeur rend l'adhérence moins prompte, mais permet une meilleure tolérance face à la perte de traction. Ce phénomène est aussi appelé 'angle de glissement'.",
+                    "Việc giảm giá trị này làm cho phản ứng bám đường của xe trở nên tức thời hơn, tuy nhiên, nó sẽ kém khả năng chịu đựng hơn trong trường hợp mất lực bám. Ngược lại, việc tăng giá trị này làm cho độ bám kém nhanh hơn nhưng cho phép khả năng chịu mất lực kéo tốt hơn. Hiện tượng này còn được gọi là “góc trượt”.",
             },
             {
                 type: VehicleHandlingType.fTractionBiasFront,
                 label: 'Répartition de traction',
                 description:
-                    "De 0,01 à 0,99. Un réglage à 0,01 signifie que seule l'adhérence sur l'essieu arrière est active, tandis qu'un réglage à 0,99 indique que l'adhérence est principalement sur l'essieu avant. Il est possible d'ajuster ce paramètre pour modifier la répartition de l'adhérence, par exemple, à 0,25 pour 25% sur l'essieu arrière et 0,75 pour 75% sur l'essieu avant.",
+                    "Từ 0,01 đến 0,99. Cài đặt 0,01 có nghĩa là chỉ có lực bám ở trục sau hoạt động, trong khi cài đặt 0,99 cho biết lực bám chủ yếu ở trục trước. Có thể điều chỉnh thông số này để thay đổi sự phân bố độ bám, ví dụ như 0,25 cho 25% ở cầu sau và 0,75 cho 75% ở cầu trước.",
             },
             {
                 type: VehicleHandlingType.fTractionLossMult,
-                label: "Coefficient de perte d'adhérence tout terrain",
+                label: "Hệ số mất độ bám trên mọi địa hình",
                 description: 'Force du freinage',
             },
         ],
@@ -530,13 +530,13 @@ export const modificationTabs = [
     {
         id: 'suspensions',
         title: 'Suspensions',
-        description: 'Réglage des suspensions',
+        description: 'Điều chỉnh hệ thống treo',
         handlings: [
             {
                 type: VehicleHandlingType.fSuspensionBiasFront,
                 label: "Répartition d'amortissement",
                 description:
-                    "Ce paramètre permet de choisir quelle suspension, avant ou arrière, sera la plus rigide. Si la valeur est au-dessus de 0,50, cela signifie que la suspension avant est réglée pour être plus dure. Si elle est en dessous, c'est la suspension arrière qui est rendue plus rigide.",
+                    "Thông số này cho phép bạn chọn hệ thống treo nào, trước hay sau, sẽ cứng nhất. Nếu giá trị trên 0,50 nghĩa là hệ thống treo trước đã được điều chỉnh cứng hơn. Nếu thấp hơn thì hệ thống treo sau được làm cứng hơn.",
             },
             {
                 type: VehicleHandlingType.fSuspensionCompDamp,
@@ -548,17 +548,17 @@ export const modificationTabs = [
                 type: VehicleHandlingType.fSuspensionForce,
                 label: 'Rigidité',
                 description:
-                    'Influe sur la rigidité de la suspension. Peut être utile si la voiture a tendance à se renverser facilement lors des virages.',
+                    'Ảnh hưởng đến độ cứng của hệ thống treo. Có thể hữu ích nếu xe có xu hướng dễ bị lật khi rẽ.',
             },
             {
                 type: VehicleHandlingType.fSuspensionLowerLimit,
                 label: 'Expansion maximale',
-                description: 'Expansion maximale des suspensions',
+                description: 'Mở rộng hệ thống treo tối đa',
             },
             {
                 type: VehicleHandlingType.fSuspensionUpperLimit,
                 label: 'Compression maximale',
-                description: 'Compression maximale des suspensions',
+                description: 'Nén hệ thống treo tối đa',
             },
             {
                 type: VehicleHandlingType.fSuspensionReboundDamp,
@@ -570,7 +570,7 @@ export const modificationTabs = [
                 type: VehicleHandlingType.fSuspensionRaise,
                 label: 'Hauteur de voie',
                 description:
-                    "La hauteur à laquelle la suspension soulève la carrosserie au-dessus des roues. Il est recommandé d'ajuster au deuxième chiffre après la virgule, sauf si le véhicule dispose d'espace pour bouger.",
+                    "Độ cao mà hệ thống treo nâng thân xe lên trên các bánh xe. Nên chỉnh về số thập phân thứ 2 trừ khi xe còn chỗ để di chuyển.",
             },
         ],
     },

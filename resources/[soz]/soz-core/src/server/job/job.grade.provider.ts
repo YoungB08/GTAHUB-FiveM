@@ -44,13 +44,13 @@ export class JobGradeProvider {
         }
 
         if (grade.owner) {
-            this.notifier.error(source, `Vous ne pouvez pas supprimer le grade de patron !`);
+            this.notifier.error(source, `Bạn không thể loại bỏ cấp bậc ông chủ!`);
 
             return;
         }
 
         if (grade.is_default) {
-            this.notifier.error(source, `Vous ne pouvez pas supprimer le grade par défaut !`);
+            this.notifier.error(source, `Bạn không thể xóa điểm mặc định!`);
 
             return;
         }

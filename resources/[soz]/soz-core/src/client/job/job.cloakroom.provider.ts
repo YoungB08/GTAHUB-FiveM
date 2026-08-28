@@ -79,7 +79,7 @@ export class JobCloakroomProvider {
         const result = await emitRpc<number>(RpcServerEvent.INVENTORY_GET_ITEM_COUNT, storageId, 'work_clothes');
 
         if (result <= 0) {
-            this.notifier.notify(`Il n'y a pas de tenue de travail dans le vestiaire.`, 'error');
+            this.notifier.notify(`Không có quần áo làm việc trong phòng thay đồ.`, 'error');
             return;
         }
 
@@ -102,7 +102,7 @@ export class JobCloakroomProvider {
             storageIdToSave &&
             !(await emitRpc<boolean>(RpcServerEvent.JOBS_USE_WORK_CLOTHES, storageIdToSave))
         ) {
-            this.notifier.notify("Il n'y a pas de tenue de travail dans le vestiaire.", 'error');
+            this.notifier.notify("Không có quần áo làm việc trong phòng thay đồ.", 'error');
             return;
         }
         const progress = await this.playerWardrobe.waitProgress(false);

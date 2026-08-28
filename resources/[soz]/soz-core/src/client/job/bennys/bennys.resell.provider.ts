@@ -68,7 +68,7 @@ export class BennysResellProvider {
                     const label = GetLabelText(displayName).toLowerCase();
                     const value = await this.inputService.askInput(
                         {
-                            title: 'Veuillez confirmer le modèle suivant: ' + label,
+                            title: 'Vui lòng xác nhận mô hình sau:' + label,
                             maxCharacters: label.length,
                         },
                         value => {
@@ -78,7 +78,7 @@ export class BennysResellProvider {
                             if (value.toLowerCase() === label) {
                                 return Ok(value);
                             }
-                            return Err(`La valeur saisie ne correspond pas au modèle du véhicule.`);
+                            return Err(`Giá trị được nhập không tương ứng với mẫu xe.`);
                         }
                     );
 

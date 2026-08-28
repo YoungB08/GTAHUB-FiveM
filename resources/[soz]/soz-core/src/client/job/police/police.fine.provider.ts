@@ -26,7 +26,7 @@ export class PoliceFineProvider {
         });
 
         if (!amount || isNaN(Number(amount)) || Number(amount) < fine.price.min || Number(amount) > fine.price.max) {
-            this.notifier.error('Montant invalide');
+            this.notifier.error('Số tiền không hợp lệ');
             return;
         }
 
@@ -58,7 +58,7 @@ export class PoliceFineProvider {
         const amount = await this.inputService.askInput(
             {
                 maxCharacters: 30,
-                title: "Montant de l'amende",
+                title: "Số tiền phạt",
             },
             PositiveNumberValidator
         );

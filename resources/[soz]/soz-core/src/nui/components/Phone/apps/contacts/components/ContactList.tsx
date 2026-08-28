@@ -125,14 +125,14 @@ const ContactItem: FunctionComponent<VirtualizedListProps<Contact | Separator>> 
             style={style}
             actions={[
                 {
-                    label: 'Retirer',
+                    label: 'Rút',
                     color: 'bg-gray-500 text-yellow-300',
                     icon: StarIcon,
                     onClick: () => removeFavoriteContact(contact.id),
                     condition: Boolean(contact.favorite),
                 },
                 {
-                    label: 'Ajouter',
+                    label: 'Thêm vào',
                     color: 'bg-gray-500 text-yellow-300',
                     icon: StarIcon,
                     onClick: () => addFavoriteContact(contact.id),

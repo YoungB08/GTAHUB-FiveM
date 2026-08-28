@@ -117,7 +117,7 @@ export class InventoryOpenProvider {
 
                 const options: TargetOption[] = [
                     {
-                        label: 'Ouvrir',
+                        label: 'Mở',
                         icon: 'inventory/ouvrir_le_stockage',
                         category: 'society',
                         job: openJob,
@@ -143,7 +143,7 @@ export class InventoryOpenProvider {
 
                 if (inventory.data.type === InventoryType.Cloakroom) {
                     options.push({
-                        label: 'Ouvrir mon casier',
+                        label: 'Mở tủ đồ của tôi',
                         icon: 'inventory/archive',
                         category: 'society',
                         canInteract: async () => {
@@ -236,7 +236,7 @@ export class InventoryOpenProvider {
                     if (inventory.data.type === InventoryType.IceMachine) {
                         options.push({
                             category: 'society',
-                            label: 'Faire des glaçons',
+                            label: 'Làm đá viên',
                             icon: 'baun/ice',
                             job: job as JobType,
                             blackoutGlobal: true,

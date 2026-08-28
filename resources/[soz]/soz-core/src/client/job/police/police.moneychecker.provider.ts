@@ -114,7 +114,7 @@ export class PoliceMoneyCheckerProvider {
                                     amount: amount,
                                 });
                             } else {
-                                this.notifier.error('Aucun joueur à proximité');
+                                this.notifier.error('Không có người chơi nào ở gần');
                             }
                         },
                     },

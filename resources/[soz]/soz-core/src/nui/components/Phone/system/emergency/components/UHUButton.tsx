@@ -47,7 +47,7 @@ export const UHUButton = () => {
             style={{ lineHeight: '2rem' }}
             className="text-1xl text-gray-500 text-center w-4/5 rounded-2xl p-4 bg-gray-300"
         >
-            UHU disponible dans {formatDistanceToNow(UHUAvailableAt, { includeSeconds: true, locale: fr })}
+            UHU có sẵn {formatDistanceToNow(UHUAvailableAt, { includeSeconds: true, locale: fr })}
         </div>
     );
 };

@@ -33,7 +33,7 @@ export class JobTemporaryProvider {
     @OnEvent(ServerEvent.JOB_TEMPORARY_UNEMPLOYED)
     public async temporaryUnemployed(source: number, vehicleNetId: number) {
         this.playerService.setJob(source, JobType.Unemployed, null);
-        this.notifier.notify(source, 'Vous êtes à nouveau sans emploi');
+        this.notifier.notify(source, 'Bạn lại thất nghiệp');
 
         await this.vehicleSpawner.delete(vehicleNetId);
     }

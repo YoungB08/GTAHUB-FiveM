@@ -100,7 +100,7 @@ export class BaunProvider {
         this.blipFactory.hide('displayFurnitureBlip', true);
 
         this.blipFactory.create('displayBeerBlip', {
-            name: 'Point de récolte des bières',
+            name: 'Điểm thu gom bia',
             coords: BEER_SHOP_CONFIG.coords,
             sprite: 478,
             color: 28,
@@ -118,7 +118,7 @@ export class BaunProvider {
         this.blipFactory.hide('displaySnackBlip', true);
 
         this.blipFactory.create('displayResellBlip', {
-            name: 'Point de vente des cocktails',
+            name: 'Điểm bán cocktail',
             coords: { x: 393.02, y: 177.3, z: 103.86 },
             sprite: 478,
             color: 28,

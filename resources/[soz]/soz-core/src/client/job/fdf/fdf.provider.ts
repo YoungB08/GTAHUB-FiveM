@@ -86,7 +86,7 @@ export class FDFProvider {
             });
 
             this.blipFactory.create('fdfResellBlip' + index, {
-                name: 'Point de vente des palettes',
+                name: 'Điểm bán pallet',
                 coords: toVector4Object(zone.npcCoord),
                 sprite: 478,
                 color: 28,

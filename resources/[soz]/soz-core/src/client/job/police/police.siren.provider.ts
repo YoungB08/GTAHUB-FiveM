@@ -152,7 +152,7 @@ export class PoliceSirenProvider {
         const vehDef = this.vehicleRepository.getByModelHash(vehModel);
         const isSuper = vehDef ? vehDef.category == 'Super' : GetVehicleClass(veh) == 7;
         if (isSuper) {
-            this.notifier.error('Véhicule incompatible.');
+            this.notifier.error('Xe không tương thích.');
             return;
         }
 
@@ -176,7 +176,7 @@ export class PoliceSirenProvider {
         } while (result[0] == 1);
 
         if (result[2][2] - coords[2] < 0.6) {
-            this.notifier.error('Véhicule incompatible.');
+            this.notifier.error('Xe không tương thích.');
             return;
         }
 

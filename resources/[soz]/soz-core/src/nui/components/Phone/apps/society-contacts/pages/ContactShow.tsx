@@ -91,7 +91,7 @@ export const ContactShow: FunctionComponent = () => {
 
                     <div>
                         <Checkbox
-                            title="Envoyer avec ma position"
+                            title="Gửi kèm theo vị trí của tôi"
                             enabled={watch('position')}
                             onClick={value => setValue('position', value)}
                         />

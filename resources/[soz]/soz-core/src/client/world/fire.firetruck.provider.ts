@@ -65,7 +65,7 @@ export class FireFiretruckProvider {
             ['firetruk'],
             [
                 {
-                    label: 'Prendre la lance',
+                    label: 'Lấy ngọn giáo',
                     icon: 'fire/pipe',
                     category: 'society',
                     canInteract: () => !this.currentFiretruckAttached,
@@ -112,7 +112,7 @@ export class FireFiretruckProvider {
         const isLocked = await emitRpc<boolean>(RpcServerEvent.FIRE_LOCK_FIRETRUCK, vehicleNetId);
 
         if (!isLocked) {
-            this.notifier.error('Tous les tuyaux sont déjà utilisés');
+            this.notifier.error('Tất cả các đường ống đã được sử dụng');
 
             return;
         }

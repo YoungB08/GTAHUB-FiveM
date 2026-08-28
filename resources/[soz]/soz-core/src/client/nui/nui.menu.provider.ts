@@ -11,7 +11,7 @@ export class NuiMenuProvider {
     private nuiDispatch: NuiDispatch;
 
     @Command('soz_menu_toggle_focus_2', {
-        description: 'Active ou désactive la souris dans le menu',
+        description: 'Bật hoặc tắt chuột trong menu',
         passthroughNuiFocus: true,
         keys: [
             {
@@ -25,7 +25,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_up', {
-        description: 'Haut dans un menu',
+        description: 'Đầu trong một menu',
         keys: [
             {
                 mapper: 'keyboard',
@@ -38,7 +38,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_down', {
-        description: 'Bas dans un menu',
+        description: 'Xuống trong một menu',
         keys: [
             {
                 mapper: 'keyboard',
@@ -51,7 +51,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_left', {
-        description: 'Gauche dans un menu',
+        description: 'Còn lại trong một menu',
         keys: [
             {
                 mapper: 'keyboard',
@@ -64,7 +64,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_right', {
-        description: 'Droite dans un menu',
+        description: 'Ngay trong thực đơn',
         keys: [
             {
                 mapper: 'keyboard',
@@ -77,7 +77,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_enter', {
-        description: 'Confirmer dans un menu',
+        description: 'Xác nhận trong menu',
         keys: [
             {
                 mapper: 'keyboard',
@@ -90,7 +90,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_back', {
-        description: 'Revenir en arrière dans un menu',
+        description: 'Quay lại trong một menu',
         keys: [
             {
                 mapper: 'keyboard',
@@ -103,7 +103,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_close', {
-        description: 'Fermer un menu',
+        description: 'Đóng một trình đơn',
         keys: [
             {
                 mapper: 'keyboard',
@@ -116,7 +116,7 @@ export class NuiMenuProvider {
     }
 
     @Command('soz_menu_reset', {
-        description: 'Reset une option du menu',
+        description: 'Đặt lại tùy chọn menu',
         keys: [
             {
                 mapper: 'keyboard',

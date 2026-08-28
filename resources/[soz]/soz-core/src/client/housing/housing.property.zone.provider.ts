@@ -222,7 +222,7 @@ export class HousingPropertyZoneProvider {
                 if (category === 'building') {
                     name = 'Habitation - Immeuble';
                 } else {
-                    name = 'Habitation - Maison';
+                    name = 'Nhà ở - Nhà ở';
                 }
             }
 
@@ -281,7 +281,7 @@ export class HousingPropertyZoneProvider {
 
         this.targetFactory.createForBoxZone(`housing:property:${property.id}`, property.entryZone, [
             {
-                label: 'Acheter',
+                label: 'Mua',
                 icon: 'housing/buy',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -315,7 +315,7 @@ export class HousingPropertyZoneProvider {
                 },
             },
             {
-                label: 'Vendre',
+                label: 'Bán',
                 icon: 'housing/sell',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -508,7 +508,7 @@ export class HousingPropertyZoneProvider {
                 },
             },
             {
-                label: 'Ajouter un locataire',
+                label: 'Thêm người thuê nhà',
                 icon: 'jobs/enroll',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -530,7 +530,7 @@ export class HousingPropertyZoneProvider {
                 },
             },
             {
-                label: 'Ajouter un colocataire',
+                label: 'Thêm bạn cùng phòng',
                 icon: 'jobs/enroll',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -552,7 +552,7 @@ export class HousingPropertyZoneProvider {
                 },
             },
             {
-                label: 'Retirer locataire',
+                label: 'Xóa người thuê',
                 icon: 'jobs/fire',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -574,7 +574,7 @@ export class HousingPropertyZoneProvider {
                 },
             },
             {
-                label: 'Retirer colocataire',
+                label: 'Xóa bạn cùng phòng',
                 icon: 'jobs/fire',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -1012,7 +1012,7 @@ export class HousingPropertyZoneProvider {
         }
 
         const confirm = await this.inputService.askConfirm(
-            "Voulez-vous vraiment retirer l'accès de cette habituation au colocataire ? Entrez OUI pour confirmer"
+            "Bạn có thực sự muốn loại bỏ quyền truy cập vào thói quen này của bạn cùng phòng không? Nhập OUI để xác nhận"
         );
 
         if (!confirm) {

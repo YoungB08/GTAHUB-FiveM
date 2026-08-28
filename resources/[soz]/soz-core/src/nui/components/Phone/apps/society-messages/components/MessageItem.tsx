@@ -52,7 +52,7 @@ export const MessageItem: FunctionComponent<{ message: SocietyMessage }> = ({ me
                         condition: message.isTaken && !message.isDone,
                     },
                     {
-                        label: 'Prendre',
+                        label: 'Lấy',
                         color: 'bg-orange-500 text-white',
                         icon: BookmarkIcon,
                         onClick: () =>

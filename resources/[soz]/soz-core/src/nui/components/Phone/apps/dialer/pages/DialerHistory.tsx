@@ -140,7 +140,7 @@ const HistoryItem: FunctionComponent<VirtualizedListProps<CallHistory>> = ({ ind
             style={style}
             actions={[
                 {
-                    label: 'Ajouter',
+                    label: 'Thêm vào',
                     color: 'bg-gray-500 text-white',
                     icon: UserAddIcon,
                     onClick: () => navigate(`/contacts/-1?addNumber=${contactNumber}&referral=/phone/contacts`),

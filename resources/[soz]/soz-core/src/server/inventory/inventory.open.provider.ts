@@ -148,7 +148,7 @@ export class InventoryOpenProvider {
             return;
         }
 
-        this.notifier.notify(target, "Quelqu'un fouille vos poches...");
+        this.notifier.notify(target, "Ai đó đang lục soát túi của bạn...");
 
         const { completed } = await this.progressService.progress(
             source,

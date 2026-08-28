@@ -56,7 +56,7 @@ export class InventoryPlayerProvider {
     }
 
     @Command('inventory', {
-        description: "Ouvrir l'inventaire",
+        description: "Mở kho hàng",
         passthroughNuiFocus: true,
         keys: [
             {

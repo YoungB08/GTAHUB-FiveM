@@ -394,7 +394,7 @@ export class AnimalProvider {
         if (this.playerJobPets[player.citizenid]) {
             this.notifier.notify(
                 source,
-                `Tu as déjà un ~r~animal d'entreprise~s~ avec toi. ~r~Dépose le~s~ au chenil pour en emporter un autre.`
+                `Bạn đã có ~r~company pet~s~ bên mình. ~r~DThả ~s~ vào cũi để lấy một con khác.`
             );
             return;
         }
@@ -403,7 +403,7 @@ export class AnimalProvider {
         if (!inventory || !inventory.canCarryItem(`whistle_${player.job.id}`)) {
             this.notifier.notify(
                 source,
-                `Tu ~r~ne possèdes pas~s~ suffisamment de place dans votre inventaire pour recevoir ton ~b~sifflet~s~.`
+                `~r~ của bạn không có đủ dung lượng ~s~ trong kho để nhận ~b~whistle~s~.`
             );
             return;
         }
@@ -440,7 +440,7 @@ export class AnimalProvider {
         if (!inventory || !inventory.hasEnoughItem(`whistle_${player.job.id}`)) {
             this.notifier.notify(
                 source,
-                `Revient avec ton ~b~sifflet~s~ si tu veux que je recupère ton animal d'entreprise.`
+                `Hãy quay lại với ~b~whistle~s~ của bạn nếu bạn muốn tôi lấy lại thú cưng của công ty bạn.`
             );
             return;
         }
@@ -484,7 +484,7 @@ export class AnimalProvider {
                 },
             })
         ) {
-            this.notifier.notify(source, `Tu ne peux pas ~r~abandonner~s~ un animal qui est avec un employé.`);
+            this.notifier.notify(source, `Bạn không thể ~r~abandon~s~ một con vật ở cùng với nhân viên.`);
             return;
         }
 
@@ -514,7 +514,7 @@ export class AnimalProvider {
 
         const player = this.playerService.getPlayerByCitizenId(pet.owner_id);
         if (player) {
-            this.notifier.notify(source, `Tu ne peux pas ~r~rappeler~s~ un animal qui est avec un employé en ville.`);
+            this.notifier.notify(source, `Bạn không thể ~r~ gọi ~s~ một con vật đi cùng một nhân viên trong thị trấn.`);
             return;
         }
 
@@ -559,7 +559,7 @@ export class AnimalProvider {
 
         const result = inventory.add(PET_BALL_OBJECT);
         if (isErr(result)) {
-            this.notifier.error(source, `Impossible de rajouter l'objet: ${ADD_ERROR_MESSAGE[result.err]}`);
+            this.notifier.error(source, `Không thể thêm vật phẩm: ${ADD_ERROR_MESSAGE[result.err]}`);
 
             return;
         }

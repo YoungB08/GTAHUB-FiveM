@@ -279,7 +279,7 @@ export const ItemSlot: FunctionComponent<ItemSlotProps> = ({
                                             margin: '0.1rem 0.2rem',
                                         }}
                                     >
-                                        Porte-clés
+                                        Móc khóa
                                     </div>
                                 )}
                                 {inventoryItem && inventoryItem instanceof Object && (

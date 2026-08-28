@@ -108,7 +108,7 @@ export class PolicePlayerProvider {
                     },
                 },
                 {
-                    label: 'Permis',
+                    label: 'Cho phép làm gì',
                     icon: 'police/permis',
                     job: job,
                     category: 'society',
@@ -149,7 +149,7 @@ export class PolicePlayerProvider {
                                 const playerId = GetPlayerServerId(player);
                                 TriggerServerEvent(ServerEvent.CUFF_PLAYER, playerId, false);
                             } else {
-                                this.notifier.error('Vous ne pouvez pas menotter une personne dans un véhicule');
+                                this.notifier.error('Bạn không thể còng tay một người trong xe');
                             }
                         } else {
                             await wait(2000);
@@ -185,7 +185,7 @@ export class PolicePlayerProvider {
                                 TriggerServerEvent(ServerEvent.UNCUFF_PLAYER, playerId);
                                 await wait(500);
                             } else {
-                                this.notifier.error('Vous ne pouvez pas démenotter une personne dans un véhicule');
+                                this.notifier.error('Bạn không thể cởi còng cho một người trong xe');
                             }
                         } else {
                             await wait(2000);
@@ -202,7 +202,7 @@ export class PolicePlayerProvider {
                         const target = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
                         const { completed } = await this.progressService.progress(
                             'police_gather_drug_person',
-                            'Récupération des empreintes digitales',
+                            'Phục hồi vân tay',
                             3000,
                             {
                                 name: 'player_search',
@@ -226,7 +226,7 @@ export class PolicePlayerProvider {
                     },
                 },
                 {
-                    label: 'Rechercher des traces de poudre',
+                    label: 'Tìm dấu vết bột',
                     icon: 'police/fouiller',
                     job: job,
                     category: 'society',
@@ -527,7 +527,7 @@ export class PolicePlayerProvider {
             DisableControlAction(0, 21, true);
         }
         BeginTextCommandDisplayHelp('STRING');
-        AddTextComponentSubstringPlayerName('~INPUT_FRONTEND_RRIGHT~ Pour lâcher');
+        AddTextComponentSubstringPlayerName('~INPUT_FRONTEND_RRIGHT~ Buông tay đi');
         EndTextCommandDisplayHelp(0, false, false, -1);
 
         if (

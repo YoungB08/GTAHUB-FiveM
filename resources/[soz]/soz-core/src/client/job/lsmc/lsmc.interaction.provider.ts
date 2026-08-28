@@ -119,7 +119,7 @@ export class LSMCInteractionProvider {
                 action: async entity => {
                     const duration = await this.inputService.askInput(
                         {
-                            title: "Durée avant que le pharmacien puisse enlever l'ITT en minutes",
+                            title: "Thời gian trước khi dược sĩ có thể loại bỏ ITT trong vài phút",
                             defaultValue: '',
                         },
                         PositiveNumberValidator
@@ -271,7 +271,7 @@ export class LSMCInteractionProvider {
                 action: async entity => {
                     const { completed } = await this.progressService.progress(
                         'Take_Blood',
-                        'Vous faites une prise de sang...',
+                        'Bạn đi xét nghiệm máu...',
                         10000,
                         {
                             task: 'CODE_HUMAN_MEDIC_TEND_TO_DEAD',
@@ -300,7 +300,7 @@ export class LSMCInteractionProvider {
                 item: 'empty_bloodbag',
             },
             {
-                label: 'Donner le diplôme de secourisme',
+                label: 'Trao bằng sơ cứu',
                 job: JobType.LSMC,
                 icon: 'ems/rescuer',
                 category: 'society',
@@ -327,7 +327,7 @@ export class LSMCInteractionProvider {
                 },
             },
             {
-                label: 'Retirer le diplôme de secourisme',
+                label: 'Nhận bằng sơ cứu',
                 job: JobType.LSMC,
                 icon: 'ems/notrescuer',
                 category: 'society',

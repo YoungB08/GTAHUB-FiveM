@@ -134,7 +134,7 @@ export const DarkChatConversations = () => {
                         className="border-[0.2vh] py-2 px-4 text-teal-500 border-teal-500 rounded-lg my-2 hover:bg-teal-900 cursor-pointer"
                         onClick={() => handleOpenCreationModal()}
                     >
-                        NOUVEAU THREAD ({THREAD_PRICE.toLocaleString()}$)
+                        CUỘC TRÒ CHUYỆN MỚI ({THREAD_PRICE.toLocaleString()}$)
                     </button>
                 </div>
 

@@ -243,13 +243,13 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                         </MenuSubTitle>
                     )}
                     <MenuItemSubMenuLink id={`collection/props`} disabled={Boolean(shell)}>
-                        📝 Voir la liste des meubles placés
+                        📝 Xem danh sách đồ đạc đã đặt
                     </MenuItemSubMenuLink>
                     <MenuItemSubMenuLink id={`collection/propchoose`} disabled={Boolean(shell)}>
                         ➕ Placer un meuble
                     </MenuItemSubMenuLink>
                     <MenuItemCheckbox
-                        description={`Désactive le highlight des objets afin d'éviter de crash pour tout utilisateur de QuantV.`}
+                        description={`Tắt tính năng đánh dấu đối tượng để tránh sự cố đối với bất kỳ người dùng QuantV nào.`}
                         checked={highlightDisabledQuantV}
                         onChange={async value => {
                             await fetchNui(NuiEvent.SetHousingHighlightDisabled, value);
@@ -338,7 +338,7 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                                     await fetchNui(NuiEvent.SelectHousingPlacedProp, { prop: prop });
                                 }}
                                 description={
-                                    ZkeaFourniture[prop.model]?.collision !== true ? '⚠ : Sans collision' : null
+                                    ZkeaFourniture[prop.model]?.collision !== true ? '⚠ : Không va chạm' : null
                                 }
                                 onConfirm={async (_, value) => {
                                     switch (value) {
@@ -355,7 +355,7 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                                 }}
                             >
                                 <MenuItemSelectOption value="edit">Editer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">XÓA BỎ</MenuItemSelectOption>
                             </MenuItemSelect>
                         ))}
                     </MenuContent>
@@ -406,7 +406,7 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                                 onSelected={onSelectedCreateProp(prop)}
                                 onConfirm={onChooseCreateProp(prop)}
                                 description={
-                                    ZkeaFourniture[prop.model]?.collision !== true ? '⚠ : Sans collision' : null
+                                    ZkeaFourniture[prop.model]?.collision !== true ? '⚠ : Không va chạm' : null
                                 }
                             >
                                 <div className="flex justify-between items-center">
@@ -434,7 +434,7 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                             disabled={ZkeaFourniture[debugProp?.model]?.collision !== true}
                             value={null}
                         >
-                            Aucun
+                            Không có
                         </MenuItemSelectOption>
                         <MenuItemSelectOption
                             disabled={ZkeaFourniture[debugProp?.model]?.collision !== true}
@@ -446,7 +446,7 @@ export const MenuPropPlacementHousing: FunctionComponent<MenuPropPlacementProps>
                             disabled={ZkeaFourniture[debugProp?.model]?.collision !== true}
                             value="cash_stock"
                         >
-                            Coffre d'argent
+                            Rương tiền
                         </MenuItemSelectOption>
                         <MenuItemSelectOption
                             disabled={ZkeaFourniture[debugProp?.model]?.collision !== true}
@@ -539,7 +539,7 @@ const HousingHelpPanel = (
     <>
         <MenuSubTitle>Contrôle général</MenuSubTitle>
         <MenuItemText> Tab : Basculer le mode caméra ou souris</MenuItemText>
-        <MenuItemText> Clic Gauche (en mode souris) : Sélection d'objet</MenuItemText>
+        <MenuItemText> Nhấp chuột trái (ở chế độ chuột): Chọn đối tượng</MenuItemText>
         <MenuItemText> O (hors menu) : Allumer/éteindre les lumières</MenuItemText>
     </>
 );
@@ -550,8 +550,8 @@ const HousingPlacementHelpPanel = (
         <MenuItemText> Tab : Basculer le mode caméra ou souris</MenuItemText>
         <MenuItemText> R : Basculer le mode translation/rotation</MenuItemText>
         <MenuItemText> L : Basculer mode de reférence</MenuItemText>
-        <MenuItemText> C : Aligner l'objet ⬇️</MenuItemText>
-        <MenuItemText> Espace : Confirmer et placer l'objet ✔️</MenuItemText>
-        <MenuItemText> Suppr : Effacer l'objet sélectionné ❌</MenuItemText>
+        <MenuItemText> C: Căn chỉnh đối tượng ⬇️</MenuItemText>
+        <MenuItemText> Space: Xác nhận và đặt đối tượng ✔️</MenuItemText>
+        <MenuItemText> Xóa: Xóa đối tượng đã chọn ❌</MenuItemText>
     </>
 );

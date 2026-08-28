@@ -382,7 +382,7 @@ export class Halloween2022Scenario1Provider {
 
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000
                         );
 

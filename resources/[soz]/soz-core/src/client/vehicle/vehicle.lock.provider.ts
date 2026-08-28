@@ -316,7 +316,7 @@ export class VehicleLockProvider {
     }
 
     @Command('soz_vehicle_toggle_vehicle_trunk', {
-        description: 'Ouvrir le coffre du véhicule',
+        description: 'Mở cốp xe',
         keys: [
             {
                 mapper: 'keyboard',
@@ -344,7 +344,7 @@ export class VehicleLockProvider {
               });
 
         if (!vehicle || !IsEntityAVehicle(vehicle)) {
-            this.notifier.notify('Aucun véhicule à proximité.', 'error');
+            this.notifier.notify('Không có xe cộ gần đó.', 'error');
 
             return;
         }
@@ -360,7 +360,7 @@ export class VehicleLockProvider {
         };
 
         if (!this.isInTrunkZone(opened)) {
-            this.notifier.notify('Vous devez être à côté du véhicule.', 'error');
+            this.notifier.notify('Bạn phải ở bên cạnh chiếc xe.', 'error');
 
             return;
         }
@@ -372,7 +372,7 @@ export class VehicleLockProvider {
         }
 
         if (!vehicleState.forced && !player.metadata.godmode && checkOpen && !vehicleState.open) {
-            this.notifier.notify('Véhicule verrouillé.', 'error');
+            this.notifier.notify('Xe bị khóa.', 'error');
 
             return;
         }
@@ -419,7 +419,7 @@ export class VehicleLockProvider {
     }
 
     @Command('soz_vehicle_toggle_vehicle_lock', {
-        description: 'Ouvrir/Fermer le véhicule',
+        description: 'Mở/Đóng xe',
         keys: [
             {
                 mapper: 'keyboard',
@@ -442,7 +442,7 @@ export class VehicleLockProvider {
             return;
         }
         if (this.playerService.getState().isInventoryBusy) {
-            this.notifier.notify('Une action est déjà en cours !', 'warning');
+            this.notifier.notify('Hành động đã được tiến hành!', 'warning');
 
             return;
         }
@@ -450,7 +450,7 @@ export class VehicleLockProvider {
         const vehicle = this.vehicleService.getClosestVehicle();
 
         if (!vehicle) {
-            this.notifier.notify('Aucun vehicule à proximité.', 'error');
+            this.notifier.notify('Không có xe cộ gần đó.', 'error');
 
             return;
         }

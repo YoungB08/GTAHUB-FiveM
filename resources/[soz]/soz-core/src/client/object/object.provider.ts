@@ -329,7 +329,7 @@ export class ObjectProvider {
 
         if (object.inventoryId) {
             targets.push({
-                label: 'Ouvrir',
+                label: 'Mở',
                 icon: 'inventory/ouvrir_le_stockage',
                 category: 'citizen',
                 canInteract: () => true,
@@ -402,7 +402,7 @@ export class ObjectProvider {
 
         if (spawnableObject.object.inventoryId) {
             targets.push({
-                label: 'Ouvrir',
+                label: 'Mở',
                 icon: 'inventory/ouvrir_le_stockage',
                 category: 'citizen',
                 canInteract: () => true,

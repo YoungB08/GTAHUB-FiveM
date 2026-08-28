@@ -36,7 +36,7 @@ export const HistoryTable: FunctionComponent<HistoryTableProps> = ({ account, co
                 </div>
             ))}
 
-            {history.length === 0 && <div className="p-3 text-center">Aucun historique pour ce compte</div>}
+            {history.length === 0 && <div className="p-3 text-center">Không có lịch sử cho tài khoản này</div>}
         </>
     );
 };

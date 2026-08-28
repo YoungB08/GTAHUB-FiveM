@@ -62,7 +62,7 @@ export class UpwProvider {
     public async init() {
         this.targetFactory.createForBoxZone('UPW_resale', UpwConfig.Resale.Zone, [
             {
-                label: "Vendre l'énergie",
+                label: "Bán năng lượng",
                 icon: 'upw/vendre',
                 category: 'society',
                 job: JobType.Upw,

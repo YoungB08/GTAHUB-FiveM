@@ -78,7 +78,7 @@ const TemporaryJobs: Partial<Record<JobType, TemporaryJob>> = {
             new BoxZone([-1221.01, -1546.34, 18.48], 48.8, 76.6, { heading: 305, maxZ: 7.08, minZ: 3.08 }),
         ],
         targetIcon: 'jobs/duty',
-        targetLabel: 'Donner une info chat',
+        targetLabel: 'Cung cấp thông tin trò chuyện',
         targetCanInteract: (entity: number) => {
             return GetEntityType(entity) === 1;
         },
@@ -97,7 +97,7 @@ const TemporaryJobs: Partial<Record<JobType, TemporaryJob>> = {
             disableMouse: false,
         },
         repeat: { min: 3, max: 6 },
-        description: 'Vous êtes un prêtre, rend toi dans chaque zone et donne des infochats aux passants.',
+        description: 'Bạn là một linh mục, hãy đi đến từng khu vực và cung cấp infochats cho những người qua đường.',
     },
     [JobType.Delivery]: {
         zone: new BoxZone([-424.06, -2789.62, 5.4], 1, 1, {
@@ -156,7 +156,7 @@ const TemporaryJobs: Partial<Record<JobType, TemporaryJob>> = {
             disableMouse: false,
         },
         description:
-            'Vous êtes un livreur de fougère, livrez la fougère dans la boite aux lettres indiqué sur votre carte.',
+            'Bạn là người giao dương xỉ, hãy giao dương xỉ vào hộp thư ghi trên thẻ của bạn.',
     },
     [JobType.Adsl]: {
         zone: new BoxZone([479.17, -107.53, 62.16], 1, 1, {
@@ -219,7 +219,7 @@ const TemporaryJobs: Partial<Record<JobType, TemporaryJob>> = {
             disableMouse: false,
         },
         description:
-            'Vous êtes un technicien ADSL, rendez-vous dans chaque zone et réparez les boitiers ADSL défectueux.',
+            'Bạn là kỹ thuật viên ADSL, hãy đến từng khu vực và sửa chữa những hộp ADSL bị lỗi.',
     },
 };
 
@@ -273,7 +273,7 @@ export class TemporaryProvider {
 
             options.push({
                 icon: temporaryJob.targetIcon,
-                label: 'Allez au métier: ' + job.label,
+                label: 'Đi vào nghề:' + job.label,
                 action: () => {
                     this.notifier.notify(
                         `${job.label} recrute, rendez vous au point sur votre carte pour prendre le métier`
@@ -400,11 +400,11 @@ export class TemporaryProvider {
             sprite: 225,
             color: 32,
             scale: 0.8,
-            name: 'Véhicule de service',
+            name: 'Xe dịch vụ',
             coords: { x: job.vehicleSpawn[0], y: job.vehicleSpawn[1], z: job.vehicleSpawn[2] },
         });
 
-        this.notifier.notify('Monte dans ton véhicule de service pour commencer le travail.');
+        this.notifier.notify('Lên xe dịch vụ của bạn để bắt đầu công việc.');
 
         while (!IsPedInVehicle(PlayerPedId(), vehicleEntity, true)) {
             await wait(100);
@@ -463,7 +463,7 @@ export class TemporaryProvider {
             },
         ]);
 
-        this.notifier.notify('Rendez-vous au point sur la carte pour continuer votre travail.');
+        this.notifier.notify('Đi đến điểm trên bản đồ để tiếp tục công việc của bạn.');
     }
 
     private async doMission(jobType: JobType, entity: number) {
@@ -499,7 +499,7 @@ export class TemporaryProvider {
             this.missionIndex = null;
 
             SetNewWaypoint(job.zone.center[0], job.zone.center[1]);
-            this.notifier.notify('Retournez au point de départ pour continuer ou finir le travail.');
+            this.notifier.notify('Quay trở lại điểm bắt đầu để tiếp tục hoặc kết thúc công việc.');
 
             return;
         }

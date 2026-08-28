@@ -344,7 +344,7 @@ export const SnakeGame: FunctionComponent = () => {
                 >
                     {(snakePositionRef.current.length - 3) * 100 > bestPlayerScore && (
                         <div className="absolute -rotate-12 -top-6 left-1/3 bg-yellow-500 text-sm text-white font-bold px-2 py-1 rounded">
-                            Nouveau record !
+                            Kỷ lục mới!
                         </div>
                     )}
                     <header className="flex justify-around items-center text-white font-semibold px-2 mt-6">

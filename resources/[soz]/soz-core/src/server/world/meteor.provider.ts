@@ -151,11 +151,11 @@ export class MeteorProvider {
             return;
         }
 
-        let message = "L'impact de la météorite vous a assommé, vous pourrez vous réveiller dans quelques minutes...";
+        let message = "Tác động của thiên thạch đã đánh gục bạn, bạn sẽ có thể tỉnh lại sau vài phút...";
 
         if (this.featureProvider.isFeatureEnabled(Feature.WhatIfFirstEpisode)) {
             message =
-                "Suite à l'impact de la bombe nucléaire, San Andreas et ses habitants se sont évaporés, clôturant ainsi cette première édition du WHAT IF ! Merci à tous les joueurs pour leur participation. ❤️";
+                "Sau tác động của quả bom hạt nhân, San Andreas và cư dân của nó đã bốc hơi, do đó, phiên bản đầu tiên của WHAT IF! Cảm ơn tất cả người chơi vì sự tham gia của họ. ❤️";
         }
 
         if (this.featureProvider.isFeatureEnabled(Feature.WhatIfSecondEpisode)) {
@@ -164,16 +164,16 @@ export class MeteorProvider {
                 '\n' +
                 '"Ils nous avaient promis le salut. Ils nous ont offert la mort."\n' +
                 '\n' +
-                'Les Lucioles nous ont trahis. Elles n’ont jamais eu l’intention de nous évacuer. Quand leur avant-garde a posé le pied sur San Andreas, nous pensions enfin voir la lumière au bout de l’enfer. Mais ce fut des balles, pas des promesses, qui ont jailli. Les mitrailleuses ont balayé les foules, fauchant survivants et clans confondus. Une scène d’horreur. Du sang sur le béton, des cris étouffés sous le fracas des armes. Quelques-uns ont fui, se cachant dans les décombres, mais la plupart… n’ont jamais eu cette chance.\n' +
+                'Đom Đóm đã phản bội chúng ta. Họ chưa bao giờ có ý định sơ tán chúng tôi. Khi đội tiên phong của họ đặt chân lên San Andreas, chúng tôi nghĩ rằng cuối cùng mình cũng sẽ nhìn thấy ánh sáng nơi tận cùng địa ngục. Nhưng chính những viên đạn đã bay tới chứ không phải những lời hứa hẹn. Những khẩu súng máy quét qua đám đông, hạ gục những người sống sót cũng như các gia tộc. Một cảnh tượng kinh hoàng. Máu trên bê tông, tiếng la hét bị bóp nghẹt dưới tiếng va chạm của vũ khí. Một số bỏ trốn, trốn trong đống đổ nát, nhưng hầu hết... không bao giờ có cơ hội.' +
                 '\n' +
-                'Et le répit n’a duré qu’un souffle. Peu après, le ciel s’est embrasé. Les avions ont bombardé l’île sans relâche, réduisant villes et forêts en cendres. Les camps n’existent plus. Les routes ne mènent plus nulle part. Partout, des cadavres — vivants ou morts, infectés ou non, tous mêlés dans le même charnier. San Andreas est devenue un cimetière à ciel ouvert, une plaie béante où même les corbeaux n’osent plus se poser.\n' +
+                'Và thời gian nghỉ ngơi chỉ kéo dài một hơi thở. Một lúc sau, bầu trời bùng cháy. Máy bay bắn phá hòn đảo không ngừng nghỉ, biến các thị trấn và rừng rậm thành tro bụi. Các trại không còn tồn tại nữa. Những con đường không còn dẫn đến đâu nữa. Khắp nơi, xác chết – còn sống hay đã chết, bị nhiễm bệnh hay không, tất cả đều nằm lẫn trong cùng một ngôi mộ tập thể. San Andreas đã trở thành một nghĩa trang lộ thiên, một vết thương hở hang mà ngay cả lũ quạ cũng không dám đậu xuống.' +
                 '\n' +
-                'Cela fait des jours que le feu tombe du ciel. Mon bras est brisé, chaque mouvement m’arrache une douleur que je ne peux plus calmer. Je n’ai plus de médicaments, presque plus de nourriture. Tous les abris ont été rasés. Chaque nuit, je m’enfouis sous les ruines, priant que la prochaine vague de bombes m’oublie. Mais je sais qu’elle finira par me trouver.\n' +
+                'Lửa đã từ trên trời rơi xuống trong nhiều ngày. Cánh tay tôi bị gãy, mỗi cử động đều khiến tôi đau đớn không thể nguôi ngoai được nữa. Tôi không còn thuốc, gần như không còn thức ăn. Tất cả các nơi trú ẩn đã bị san bằng. Mỗi đêm tôi đào dưới đống đổ nát, cầu nguyện rằng đợt bom tiếp theo sẽ quên tôi. Nhưng tôi biết cuối cùng cô ấy sẽ tìm thấy tôi.' +
                 '\n' +
-                'Je ne crois plus qu’il reste beaucoup de temps. Peut-être quelques heures, peut-être un jour de plus. Ce journal s’arrête ici, avec mes derniers mots, avant que le silence ne m’avale à mon tour.\n' +
+                'Tôi không nghĩ còn nhiều thời gian nữa. Có thể là vài giờ, có thể là một ngày khác. Nhật ký này kết thúc ở đây, với những lời cuối cùng của tôi, trước khi sự im lặng nuốt chửng tôi.' +
                 '\n' +
                 'Adieu, San Andreas.\n' +
-                'Je t’aurai aimé… même dans ta laideur, même dans ta cruauté.';
+                'Tôi sẽ yêu em... ngay cả khi em xấu xí, thậm chí cả sự tàn ác của em.';
         }
 
         this.rebootProvider.kickAll(message);

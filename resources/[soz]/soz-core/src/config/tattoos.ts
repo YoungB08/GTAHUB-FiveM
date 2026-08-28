@@ -4642,7 +4642,7 @@ export const ShopTattooProducts: TattooShopItem[] = [
     },
     {
         Name: 'TAT_FM_022',
-        LocalizedName: 'Ne Crois Personne',
+        LocalizedName: 'Đừng tin bất cứ ai',
         Collection: 'multiplayer_overlays',
         HashNameMale: 'FM_Tat_Award_M_014',
         HashNameFemale: 'FM_Tat_Award_F_014',

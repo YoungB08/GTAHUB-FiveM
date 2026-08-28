@@ -206,7 +206,7 @@ export class ShopProvider {
             },
             {
                 icon: 'mechanic/reparer',
-                label: 'Prix Pit Stop',
+                label: 'Giá dừng lỗ',
                 category: 'citizen',
                 canInteract: entity =>
                     this.shopService.checkTarget([ShopBrand.LsCustom], entity) &&
@@ -443,7 +443,7 @@ export class ShopProvider {
             },
             [
                 {
-                    label: 'Acheter un masque',
+                    label: 'Mua mặt nạ',
                     icon: 'shop/mask',
                     category: 'citizen',
                     blackoutGlobal: true,

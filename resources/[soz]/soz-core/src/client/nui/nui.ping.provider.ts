@@ -31,13 +31,13 @@ export class NuiPingProvider {
             return;
         }
 
-        this.drawService.drawText('Perte de communication avec les interfaces...', [0.315, 0.015], {
+        this.drawService.drawText('Mất liên lạc với các giao diện...', [0.315, 0.015], {
             font: Font.ChaletComprimeCologne,
             size: 1.0,
             color: [244, 43, 29, 255],
         });
         this.drawService.drawText(
-            'Ton installation de FiveM ne supporte pas la charge des interfaces...',
+            'Cài đặt FiveM của bạn không hỗ trợ tải giao diện...',
             [0.355, 0.075],
             {
                 font: Font.ChaletComprimeCologne,

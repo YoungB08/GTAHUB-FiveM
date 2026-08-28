@@ -121,7 +121,7 @@ export class Halloween2023Scenario2Provider {
                         [2010.59, 3116.91, 47.01, 271.1]
                     ),
                     {
-                        label: 'Donner',
+                        label: 'Đưa',
                         icon: 'pole/livrer',
                         item: 'halloween_alien_artifact',
                         category: 'citizen',
@@ -344,7 +344,7 @@ export class Halloween2023Scenario2Provider {
                         [1995.07, 3048.68, 47.22, 296.48]
                     ),
                     {
-                        label: 'Donner',
+                        label: 'Đưa',
                         icon: 'pole/livrer',
                         category: 'citizen',
                         canInteract: () => {
@@ -432,7 +432,7 @@ export class Halloween2023Scenario2Provider {
                     action: async () => {
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000,
                             {
                                 dictionary: 'missfbi4prepp1',

@@ -52,7 +52,7 @@ export class StonkProvider {
         });
 
         this.blipFactory.create('displayResellJewelbagBlip', {
-            name: 'Point de vente des sacs de bijoux',
+            name: 'Điểm bán túi trang sức',
             coords: { x: 301.56, y: -884.64, z: 29.24 },
             sprite: 605,
             scale: 0.6,
@@ -60,7 +60,7 @@ export class StonkProvider {
         this.blipFactory.hide('displayResellJewelbagBlip', true);
 
         this.blipFactory.create('displayResellBigBagBlip', {
-            name: "Point de vente des gros sacs d'argent",
+            name: "Điểm bán túi tiền lớn",
             coords: { x: -693.44, y: -581.7, z: 31.55 },
             sprite: 605,
             scale: 0.6,
@@ -68,7 +68,7 @@ export class StonkProvider {
         this.blipFactory.hide('displayResellBigBagBlip', true);
 
         this.blipFactory.create('displayResellMediumBagBlip', {
-            name: "Point de vente des sacs d'argent moyen",
+            name: "Điểm bán túi tiền trung bình",
             coords: { x: -1381.23, y: -498.95, z: 33.16 },
             sprite: 605,
             scale: 0.6,
@@ -76,7 +76,7 @@ export class StonkProvider {
         this.blipFactory.hide('displayResellMediumBagBlip', true);
 
         this.blipFactory.create('displayResellSmallBagBlip', {
-            name: "Point de vente des petit sacs d'argent",
+            name: "Điểm bán túi tiền nhỏ",
             coords: { x: -864.59, y: -192.82, z: 37.7 },
             sprite: 605,
             scale: 0.6,

@@ -88,11 +88,11 @@ export class UtilsProvider {
                 {
                     username: 'SOZ reporter',
                     embeds: {
-                        ['title']: '**Intrusion dans une zone interdite**',
+                        ['title']: '**Xâm nhập vào khu vực cấm**',
                         ['color']: 16586776,
                         ['fields']: [
                             {
-                                ['name']: 'Joueur',
+                                ['name']: 'Người chơi',
                                 ['value']: player.charinfo.firstname + ' ' + player.charinfo.lastname,
                                 ['inline']: true,
                             },

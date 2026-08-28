@@ -125,9 +125,9 @@ export class AdminMenuPlayerProvider {
             const isMuted = await emitRpc<boolean>(RpcServerEvent.VOIP_IS_MUTED, player.id);
 
             if (isMuted) {
-                this.notifier.notify(`Le joueur est ~r~muté.`, 'info');
+                this.notifier.notify(`Trình phát bị tắt tiếng ~r~.`, 'info');
             } else {
-                this.notifier.notify(`Le joueur ~g~n'est pas muté.`, 'info');
+                this.notifier.notify(`Người chơi ~g~ không được chuyển.`, 'info');
             }
         } else if (action === 'mute') {
             const hasBeenMuted = await emitRpc<boolean>(RpcServerEvent.VOIP_SET_MUTE, player.id, true);

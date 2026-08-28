@@ -49,7 +49,7 @@ export const EmergencyApp = () => {
                             <ul style={{ listStyleType: 'circle' }} className="text-1xl font-light w-3/4 mt-5 pl-5">
                                 <li>L'envoi est instantané</li>
                                 <li>Les médecins seront alertés</li>
-                                <li>L'Unité Hospitalière d'Urgence est disponible après 15 minutes</li>
+                                <li>Đơn vị bệnh viện cấp cứu có mặt sau 15 phút</li>
                             </ul>
                         )}
                     </div>

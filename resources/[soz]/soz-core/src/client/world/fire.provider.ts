@@ -562,7 +562,7 @@ export class FireProvider {
                 if (getDistance(fire.position, playerCoords) > fireScale[fire.type] * 10) continue;
 
                 this.notifier.notify(
-                    'Vous commencer à avoir très chaud, il vous faut une tenue approprié sinon vous risquez de bruler',
+                    'Bạn bắt đầu cảm thấy rất nóng, bạn cần quần áo phù hợp nếu không bạn có nguy cơ bị bỏng',
                     'warning'
                 );
 
@@ -626,7 +626,7 @@ export class FireProvider {
             reporterId: '',
             job: '',
             message:
-                'Alerte Incendie - Suite à une sècheresse accrue, un départ de feu à été détecté. Nous vous invitons à éviter les endroits à risques.',
+                'Cảnh báo hỏa hoạn - Sau khi hạn hán gia tăng, một đám cháy đã được phát hiện. Chúng tôi mời bạn tránh những nơi nguy hiểm.',
         });
     }
 
@@ -643,7 +643,7 @@ export class FireProvider {
         const [isValid, newZ] = GetGroundZFor_3dCoord(coords[0], coords[1], coords[2], false);
 
         if (!isValid) {
-            this.notifier.error('Impossible de trouver une zone solide');
+            this.notifier.error('Không thể tìm thấy một khu vực vững chắc');
             this.previewFirePit = null;
             return;
         }
@@ -687,7 +687,7 @@ export class FireProvider {
         const [isValid, newZ] = GetGroundZFor_3dCoord(coords[0], coords[1], coords[2], false);
 
         if (!isValid) {
-            this.notifier.error('Impossible de trouver une zone solide');
+            this.notifier.error('Không thể tìm thấy một khu vực vững chắc');
             return;
         }
 
@@ -703,7 +703,7 @@ export class FireProvider {
     async stopAllFirePits(instant: boolean) {
         TriggerServerEvent(ServerEvent.ADMIN_FORCE_PIT_EXTINGUISH, instant);
 
-        this.notifier.notify("Tous les feux commencent à s'éteindre");
+        this.notifier.notify("Tất cả các đám cháy đang bắt đầu tắt");
     }
 
     @OnNuiEvent(NuiEvent.AdminMenuFireRemoveModelSwap)

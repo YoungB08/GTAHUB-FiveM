@@ -35,7 +35,7 @@ export class AdminMenuJobProvider {
 
         TriggerServerEvent(ServerEvent.ADMIN_SET_JOB, jobId, jobGrade);
 
-        this.notifier.notify(`Vous êtes maintenant '~g~'${grade ? grade.name : 'N/A'}'~s~' chez ~g~${job.label}~s~!`);
+        this.notifier.notify(`Bạn hiện là '~g~'${grade ? grade.name : 'N/A'}'~s~' tại ~g~${job.label}~s~!`);
     }
 
     @OnNuiEvent(NuiEvent.AdminToggleDuty)

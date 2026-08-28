@@ -172,7 +172,7 @@ export class VehicleDealershipProvider {
                             blackoutGlobal: true,
                             action: () => {
                                 if (dealership !== DealershipType.Boat && this.gangService.isHC()) {
-                                    this.notifier.error('Je refuse de servir des ~r~criminels~s~ comme vous.');
+                                    this.notifier.error('Tôi từ chối phục vụ ~r~tội phạm~s~ như bạn.');
                                     return;
                                 }
                                 this.openDealership(dealership as DealershipType, config);
@@ -305,7 +305,7 @@ export class VehicleDealershipProvider {
     @OnNuiEvent<{ name: string }>(NuiEvent.VehicleAuctionBid)
     public async onAuctionBid({ name, auction }: { name: string; auction: AuctionVehicle }) {
         if (!auction) {
-            this.notifier.notify(`Cette enchère n'existe plus.`, 'error');
+            this.notifier.notify(`Phiên đấu giá này không còn tồn tại.`, 'error');
             this.nuiMenu.closeMenu();
 
             return;
@@ -417,7 +417,7 @@ export class VehicleDealershipProvider {
             }
 
             if (freePlaces.length === 0) {
-                this.notifier.notify('Aucune place de parking disponible', 'error');
+                this.notifier.notify('Không có chỗ đậu xe', 'error');
 
                 return;
             }
@@ -467,7 +467,7 @@ export class VehicleDealershipProvider {
             const isVehicleNetwork = NetworkGetEntityIsNetworked(vehicle);
 
             if (isVehicleNetwork) {
-                this.notifier.notify('Un véhicule est trop proche du showroom.', 'error');
+                this.notifier.notify('Một chiếc xe quá gần phòng trưng bày.', 'error');
 
                 return;
             }
@@ -574,7 +574,7 @@ export class VehicleDealershipProvider {
         const auction = auctionVehicles[name] || null;
 
         if (!auction) {
-            this.notifier.notify(`Cette enchère n'existe plus.`, 'error');
+            this.notifier.notify(`Phiên đấu giá này không còn tồn tại.`, 'error');
 
             return;
         }
@@ -585,7 +585,7 @@ export class VehicleDealershipProvider {
             requiredLicense &&
             (!player.metadata.licences[requiredLicense] || player.metadata.licences[requiredLicense] < 1)
         ) {
-            this.notifier.notify(`Vous n'avez pas le permis requis pour cette enchère.`, 'error');
+            this.notifier.notify(`Bạn không có giấy phép cần thiết cho cuộc đấu giá này.`, 'error');
 
             return;
         }

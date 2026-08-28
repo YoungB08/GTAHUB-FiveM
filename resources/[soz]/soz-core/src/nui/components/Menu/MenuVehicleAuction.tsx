@@ -25,7 +25,7 @@ export const MenuVehicleAuction: FunctionComponent<MenuVehicleAuctionProps> = ({
                 <MenuTitle title="Enchère véhicules" />
                 <MenuContent>
                     <MenuItemButton onConfirm={onConfirm} disabled={data.isAuctionDisable}>
-                        Faire une enchère sur {data.auction.vehicle.name}
+                        Đặt giá thầu trên {data.auction.vehicle.name}
                     </MenuItemButton>
                     {data.isAuctionDisable && <MenuItemText>Les enchères sont fermées.</MenuItemText>}
                     {data.auction.bestBid && (
@@ -34,7 +34,7 @@ export const MenuVehicleAuction: FunctionComponent<MenuVehicleAuctionProps> = ({
                         </MenuItemText>
                     )}
                     {!data.auction.bestBid && !data.isAuctionDisable && (
-                        <MenuItemText>Mise à prix: ${data.auction.vehicle.price}</MenuItemText>
+                        <MenuItemText>Giá khởi điểm: ${data.auction.vehicle.price}</MenuItemText>
                     )}
                 </MenuContent>
             </MainMenu>

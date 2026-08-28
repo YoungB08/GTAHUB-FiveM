@@ -306,14 +306,14 @@ export const PlayerLicencePointType: Record<PlayerLicenceType, boolean> = {
 };
 
 export const PlayerLicenceLabels = {
-    [PlayerLicenceType.Car]: 'Permis voiture',
-    [PlayerLicenceType.Truck]: 'Permis poids lourd',
-    [PlayerLicenceType.Moto]: 'Permis moto',
-    [PlayerLicenceType.Boat]: 'Permis maritime',
-    [PlayerLicenceType.Heli]: "Permis d'aviation",
-    [PlayerLicenceType.Weapon]: "Permis port d'arme",
-    [PlayerLicenceType.Fishing]: 'Permis de pêche',
-    [PlayerLicenceType.Hunting]: 'Permis de chasse',
+    [PlayerLicenceType.Car]: 'Giấy phép ô tô',
+    [PlayerLicenceType.Truck]: 'Giấy phép xe chở hàng nặng',
+    [PlayerLicenceType.Moto]: 'Bằng lái mô tô',
+    [PlayerLicenceType.Boat]: 'Giấy phép hàng hải',
+    [PlayerLicenceType.Heli]: "Giấy phép hàng không",
+    [PlayerLicenceType.Weapon]: "Giấy phép vũ khí",
+    [PlayerLicenceType.Fishing]: 'Giấy phép câu cá',
+    [PlayerLicenceType.Hunting]: 'Giấy phép săn bắn',
     [PlayerLicenceType.Rescuer]: 'Secouriste',
 };
 

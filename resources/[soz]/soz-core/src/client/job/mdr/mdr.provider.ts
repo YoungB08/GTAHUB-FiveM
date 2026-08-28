@@ -66,7 +66,7 @@ export class MandatoryProvider {
             [
                 {
                     icon: 'stonk/collecter',
-                    label: 'Réhabilitation des billets',
+                    label: 'Phục hồi tiền giấy',
                     category: 'society',
                     canInteract: () => {
                         return this.jobService.hasPermission(JobType.MDR, JobPermission.MdrMarkedMoneyCleaning);
@@ -145,7 +145,7 @@ export class MandatoryProvider {
             const target = GetPlayerServerId(player);
             TriggerServerEvent(ServerEvent.MDR_SHOW_TICKET, target, dlc);
         } else {
-            this.notifier.notify("Il n'y a personne à proximité", 'error');
+            this.notifier.notify("Không có ai ở gần", 'error');
         }
     }
 }

@@ -303,6 +303,6 @@ export class PlayerWardrobe {
     @Command('dump_vet')
     public dump_vet() {
         this.clipboard.copy(this.clothingService.getClothSet());
-        this.notifier.notify('Tenue copiée dans le presse-papier');
+        this.notifier.notify('Đã sao chép trang phục vào bảng nhớ tạm');
     }
 }

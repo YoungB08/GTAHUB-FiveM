@@ -75,7 +75,7 @@ export class LSMCPharmacyProvider {
             target: {
                 options: [
                     {
-                        label: 'Liste des médicaments',
+                        label: 'Danh sách thuốc',
                         icon: 'ems/painkiller',
                         category: 'citizen',
                         action: () => {

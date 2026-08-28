@@ -38,7 +38,7 @@ export class PoliceSpikeProvider {
             TriggerClientEvent(
                 ClientEvent.NOTIFICATION_DRAW,
                 player.source,
-                'Vous ne possédez pas cet objet.',
+                'Bạn không sở hữu mặt hàng này.',
                 'error'
             );
         }

@@ -264,7 +264,7 @@ export class Halloween2023Scenario4Provider {
                         action: () => {
                             TriggerServerEvent(ServerEvent.STORY_HALLOWEEN_2023_SCENARIO_4, 2);
                             this.notifier.notify(
-                                'Le corps n’est pas frais, il a déjà été analysé… Peut-être que des documents à l’étage m’en diront plus…'
+                                'Thi thể không còn tươi, đã được phân tích rồi... Có lẽ tài liệu trên lầu sẽ cho tôi biết thêm...'
                             );
                         },
                     },
@@ -275,7 +275,7 @@ export class Halloween2023Scenario4Provider {
                         canInteract: () => this.storyService.canInteractForPart('halloween2023', 'scenario4', 2),
                         action: () => {
                             this.notifier.notify(
-                                'Le corps n’est pas frais, il a déjà été analysé… Peut-être que des documents à l’étage m’en diront plus…'
+                                'Thi thể không còn tươi, đã được phân tích rồi... Có lẽ tài liệu trên lầu sẽ cho tôi biết thêm...'
                             );
                         },
                     },
@@ -437,7 +437,7 @@ export class Halloween2023Scenario4Provider {
                     action: async () => {
                         const { completed } = await this.progressService.progress(
                             'Recherche',
-                            'Vous recherchez...',
+                            'Bạn đang tìm kiếm...',
                             5000,
                             {
                                 dictionary: 'missfbi4prepp1',
@@ -477,7 +477,7 @@ export class Halloween2023Scenario4Provider {
                         this.storyService.canInteractForPart('halloween2023', 'scenario4', 4),
                     action: async () => {
                         this.notifier.notify(
-                            "En touchant la statuette, une révélation vous apparaît. Afin de rejoindre les enfers, il suffirait de vendre son âme à un diable ou une diablesse, devenant ainsi son chien pour l'éternité."
+                            "Bằng cách chạm vào bức tượng, bạn sẽ thấy một điều khải thị. Để gia nhập thế giới ngầm, chỉ cần bán linh hồn của bạn cho một ác quỷ hoặc ác quỷ, từ đó trở thành con chó của hắn vĩnh viễn."
                         );
                         TriggerServerEvent(ServerEvent.STORY_HALLOWEEN_2023_SCENARIO_4, 4);
                     },
@@ -598,7 +598,7 @@ export class Halloween2023Scenario4Provider {
                     action: () => {
                         TriggerServerEvent(ServerEvent.STORY_HALLOWEEN_2023_SCENARIO_4, 6);
                         this.notifier.notify(
-                            "Félicitation pour tes enquêtes ! On te doit une fière chandelle ! Allez prend place  ce soir en enfer c'est 900K !"
+                            "Xin chúc mừng cuộc điều tra của bạn! Chúng tôi nợ bạn một món nợ lớn! Nào, tối nay ngồi xuống địa ngục nhé, 900K đấy!"
                         );
                     },
                 },
@@ -702,7 +702,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/comment',
                         category: 'citizen',
                         action: () => {
-                            this.notifier.notify('Ooh, notre nouveau chien ! Bonsoir');
+                            this.notifier.notify('Ôi, con chó mới của chúng tôi! Buổi tối vui vẻ');
                         },
                     },
                 ],
@@ -911,7 +911,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/question',
                         category: 'citizen',
                         action: async () => {
-                            this.notifier.notify('La douceur des enfers te plait?', 'info');
+                            this.notifier.notify('Bạn có thích vị ngọt của địa ngục không?', 'info');
                         },
                     },
                 ],
@@ -1055,7 +1055,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Hmm... Vous avez eu votre ticket d'entrée pour les enfers ? Vous avez bien lu les petites lignes ? Hmm... Votre âme ? J'ai bien peur que ce soit déjà trop tard...",
+                                "Hmm... Bạn đã nhận được vé vào địa ngục chưa? Bạn đã đọc bản in đẹp một cách chính xác? Ừm... Linh hồn của bạn? Tôi sợ đã quá muộn rồi...",
                                 'info'
                             );
                         },
@@ -1279,7 +1279,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Par cette incantation je te maudis : tu as désormais des miettes dans ton lit !',
+                                'Với câu thần chú này, tôi nguyền rủa bạn: giờ bạn có những mảnh vụn trên giường!',
                                 'info'
                             );
                         },
@@ -1699,7 +1699,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "L'enfer des uns est le paradis des autres. Joins-toi à moi dans les limbes pour l'éternité !",
+                                "Địa ngục của người này là thiên đường của người khác. Hãy cùng tôi đi vào tình trạng lấp lửng mãi mãi!",
                                 'info'
                             );
                         },
@@ -1822,7 +1822,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Hmm. Tu es en vie... Bravo. Reste à savoir pendant combien de temps, si tu continues à me faire perdre du temps.',
+                                'Ừm. Bạn còn sống... Làm tốt lắm. Còn phải xem bao lâu nữa, nếu bạn tiếp tục lãng phí thời gian của tôi.',
                                 'info'
                             );
                         },
@@ -2163,7 +2163,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Vous avez aussi survécu à ça ? Vous êtes de vrais cafards ma parole.',
+                                'Bạn cũng sống sót sau đó phải không? Bạn là những con gián thực sự, lời nói của tôi.',
                                 'info'
                             );
                         },
@@ -2268,7 +2268,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                ' Je vois des citrouilles partout ... Je crois même en avoir vu certaines marcher ...',
+                                'Tôi nhìn thấy bí ngô ở khắp mọi nơi...Tôi nghĩ tôi thậm chí còn nhìn thấy một số người đang đi bộ...',
                                 'info'
                             );
                         },
@@ -2370,7 +2370,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/question',
                         category: 'citizen',
                         action: async () => {
-                            this.notifier.notify('Des travaux, encore des travaux... Un travail démoniaque...', 'info');
+                            this.notifier.notify('Làm việc, làm việc nhiều hơn nữa... Công việc quỷ quái...', 'info');
                         },
                     },
                 ],
@@ -2571,7 +2571,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Rassurez vous tout va bien la situation est sous contrôle ... Oui Commissionner ? c'est classé secret défense ? très bien, Le Commissionner m'informe que c'est classé secret défense.  Sujet suivant s'il vous plait.",
+                                "Hãy yên tâm, mọi thứ đều ổn, tình hình trong tầm kiểm soát... Vâng Ủy viên? Nó có được coi là bí mật quốc phòng không? rất tốt, Ủy viên thông báo với tôi rằng đó là bí mật quốc phòng.  Xin vui lòng chủ đề tiếp theo.",
                                 'info'
                             );
                         },
@@ -2888,7 +2888,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Moi, de mon temps, pour être récompenser, fallait sauter sur des éoliennes... Tout se perd, je vous jure... Les zombies auraient dû gagner, je vous le dis moi...',
+                                'Ở thời của tôi, để được khen thưởng, tôi phải nhảy lên tua-bin gió... Mọi thứ đã mất, tôi thề... Lẽ ra lũ thây ma phải thắng, tôi nói cho bạn biết...',
                                 'info'
                             );
                         },
@@ -2987,7 +2987,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Quoi.. Déjà fini? Tu as pourtant l'air effrayé, on aurait peut-être dû vous laisser avec les zombies..",
+                                "Cái gì.. Đã xong chưa? Tuy nhiên, trông bạn có vẻ sợ hãi, có lẽ chúng tôi nên để bạn lại với lũ thây ma..",
                                 'info'
                             );
                         },
@@ -3134,7 +3134,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Une histoire commence, une autre continue, puis une autre ce fini, tu es le héros de ta propre histoire, attention qu'elle ne se finisse pas rapidement pour toi, bouge de là !",
+                                "Một câu chuyện bắt đầu, một câu chuyện khác tiếp tục, rồi một câu chuyện khác kết thúc, bạn là người hùng trong câu chuyện của chính mình, hãy cẩn thận kẻo nó kết thúc nhanh chóng với bạn, hãy ra khỏi đó!",
                                 'info'
                             );
                         },
@@ -3292,7 +3292,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Tu veux vraiment me chercher après avoir vécu tout ça ces derniers jours? T’es fou ou quoi?',
+                                'Bạn có thực sự muốn tìm kiếm tôi sau khi trải qua tất cả những điều này trong vài ngày qua không? Bạn bị điên hay sao vậy?',
                                 'info'
                             );
                         },
@@ -3397,7 +3397,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "J'espère que t'as aimé les petites enquêtes. En espérant que la facture LSMC était pas trop salée !",
+                                "Tôi hy vọng bạn thích những cuộc điều tra nhỏ. Hy vọng rằng hóa đơn LSMC không quá dốc!",
                                 'info'
                             );
                         },
@@ -3499,7 +3499,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Que les esprits d'Halloween vous accompagnent tout au long de la nuit. N'oubliez pas de rester prudents et de passer une effrayante et joyeuse soirée d'Halloween !",
+                                "Có thể linh hồn của Halloween sẽ đồng hành cùng bạn suốt đêm. Hãy nhớ giữ an toàn và có một buổi tối Halloween ma quái và vui vẻ nhé!",
                                 'info'
                             );
                         },
@@ -3710,7 +3710,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/question',
                         category: 'citizen',
                         action: async () => {
-                            this.notifier.notify('Lâchez votre arme !... Et heuuu... le cerceuil aussi.', 'info');
+                            this.notifier.notify('Hãy bỏ vũ khí xuống!... Và ừm... cả quan tài nữa.', 'info');
                         },
                     },
                 ],
@@ -3827,7 +3827,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/question',
                         category: 'citizen',
                         action: async () => {
-                            this.notifier.notify('Ici, la curiosité peut être mortelle. Garde tes distances.', 'info');
+                            this.notifier.notify('Ở đây, sự tò mò có thể gây chết người. Giữ khoảng cách của bạn.', 'info');
                         },
                     },
                 ],
@@ -3935,7 +3935,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                'Je suis en pleine affaire, ne viens pas me causer des ennuis.',
+                                'Tôi đang bận việc, đừng đến gây rắc rối cho tôi.',
                                 'info'
                             );
                         },
@@ -4046,7 +4046,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Bien joué, t'as trouvé plein de citrouilles, j'espère que tu trouveras les chocolats de Noël dans 2 mois ma gueule .",
+                                "Làm tốt lắm, bạn đã tìm thấy rất nhiều bí ngô, tôi hy vọng bạn sẽ tìm thấy sôcôla Giáng sinh sau 2 tháng nữa, em yêu.",
                                 'info'
                             );
                         },
@@ -4203,7 +4203,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Ma patience a des limites. Eloigne toi avant qu'elle ne se brise.",
+                                "Sự kiên nhẫn của tôi có giới hạn. Hãy tránh xa trước khi nó vỡ.",
                                 'info'
                             );
                         },
@@ -4335,7 +4335,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Tout le chaos des derniers jours, et c'est maintenant que tu veux me provoquer ? T'es coriace, je l'admets.",
+                                "Mấy ngày nay hỗn loạn, bây giờ lại muốn khiêu khích ta? Anh thật cứng rắn, tôi thừa nhận điều đó.",
                                 'info'
                             );
                         },

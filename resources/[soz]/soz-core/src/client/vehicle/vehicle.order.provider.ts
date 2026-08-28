@@ -16,7 +16,7 @@ export class VehicleOrderProvider {
     @OnNuiEvent(NuiEvent.VehicleCancelOrder)
     public async onCancelOrder({ uuid, mode }: { uuid: string; mode: VehicleOrderMode }) {
         const value = await this.inputService.askConfirm(
-            'Voulez-vous vraiment annuler cette commande ? Pas de remboursement'
+            'Bạn có chắc chắn muốn hủy đơn hàng này không? Không hoàn lại tiền'
         );
 
         if (value) {
@@ -36,7 +36,7 @@ export class VehicleOrderProvider {
         if ([VehicleOrderMode.Crimi, VehicleOrderMode.Cartel].includes(mode)) {
             phone = await this.inputService.askInput(
                 {
-                    title: 'Numéro de téléphone du futur propriétaire',
+                    title: 'Số điện thoại của chủ sở hữu tương lai',
                 },
                 (input: string) => {
                     if (input == null) {
@@ -44,7 +44,7 @@ export class VehicleOrderProvider {
                     }
 
                     if (input.trim() === '') {
-                        return Err('Veuillez entrer une valeur');
+                        return Err('Vui lòng nhập một giá trị');
                     }
 
                     if (!input.match('555-[0-9]{4}')) {

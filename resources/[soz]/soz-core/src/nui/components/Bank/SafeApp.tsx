@@ -140,7 +140,7 @@ export const SafeApp: FunctionComponent = () => {
                                     setAction(index);
                                     reset();
                                 }}
-                                tabs={['Retirer', 'Déposer']}
+                                tabs={['Rút', 'Déposer']}
                             />
                         </div>
 
@@ -151,7 +151,7 @@ export const SafeApp: FunctionComponent = () => {
                                 })}
                             >
                                 <div className="flex justify-between mb-4">
-                                    <Title size="xsmall">Argent</Title>
+                                    <Title size="xsmall">Tiền</Title>
                                     <span
                                         className={cn('text-sm', {
                                             'text-[#268116]': !isDaltonism,
@@ -187,7 +187,7 @@ export const SafeApp: FunctionComponent = () => {
                             })}
                         >
                             <div className="flex justify-between mb-4">
-                                <Title size="xsmall">Argent marqué</Title>
+                                <Title size="xsmall">Đánh dấu bạc</Title>
 
                                 <span
                                     className={cn('text-sm', {
@@ -235,14 +235,14 @@ export const SafeApp: FunctionComponent = () => {
                         <>
                             {isSafeStorage ? (
                                 isCashTransfer ? (
-                                    <Button disabled={isSubmitting}>Retirer l'argent</Button>
+                                    <Button disabled={isSubmitting}>Rút tiền</Button>
                                 ) : (
                                     <div className="py-[15px]">
                                         Seul un agent STONK Security peut accéder à ce coffre
                                     </div>
                                 )
                             ) : (
-                                <Button disabled={isSubmitting}>Retirer l'argent</Button>
+                                <Button disabled={isSubmitting}>Rút tiền</Button>
                             )}
                         </>
                     )}
@@ -252,13 +252,13 @@ export const SafeApp: FunctionComponent = () => {
                             {isSafeStorage ? (
                                 isCashTransfer && !isOwnAccount ? (
                                     <div className="py-[15px]">
-                                        Vous n'avez pas l'autorisation de déposer sur ce compte.
+                                        Bạn không có quyền gửi tiền vào tài khoản này.
                                     </div>
                                 ) : (
-                                    <Button disabled={isSubmitting}>Déposer l'argent</Button>
+                                    <Button disabled={isSubmitting}>Gửi tiền</Button>
                                 )
                             ) : (
-                                <Button disabled={isSubmitting}>Déposer l'argent</Button>
+                                <Button disabled={isSubmitting}>Gửi tiền</Button>
                             )}
                         </>
                     )}
