@@ -122,7 +122,7 @@ export class CraftProvider {
 
                 this.notifier.error(
                     source,
-                    `Vous n'avez pas assez de ${requiredItem.label} pour créer "${item.label}".`
+                    `Bạn không có đủ ${requiredItem.label} để chế tạo "${item.label}".`
                 );
 
                 return false;
@@ -144,7 +144,7 @@ export class CraftProvider {
         }
 
         if (!recipe) {
-            this.notifier.error(source, `Aucune recette associée pour créer "${item.label}".`);
+            this.notifier.error(source, `Không có công thức tương ứng để chế tạo "${item.label}".`);
             return await this.getTransformRecipes(source, type, true);
         }
 
@@ -157,7 +157,7 @@ export class CraftProvider {
         const { completed } = await this.progressService.progress(
             source,
             'craft_transform',
-            `Création de "${item.label}"`,
+            `Đang chế tạo "${item.label}"...`,
             crafts[category].duration,
             crafts[category].animation || {
                 dictionary: 'mp_fm_intro_cut',
@@ -198,7 +198,7 @@ export class CraftProvider {
         const amount = recipe.amount;
         inventory.add(item.name, amount, metadata);
 
-        this.notifier.notify(source, `Vous avez confectionné ~y~${amount}~s~ ~g~${item.label}~s~.`, 'success');
+        this.notifier.notify(source, `Bạn đã chế tạo ~y~${amount}~s~ ~g~${item.label}~s~.`, 'success');
 
         this.monitor.traceEvent(crafts[category].event, {
             item_id: item.name,

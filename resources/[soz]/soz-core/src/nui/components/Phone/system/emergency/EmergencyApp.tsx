@@ -58,7 +58,7 @@ export const EmergencyApp = () => {
                 <div>
                     {!whatIf2Enabled && (
                         <div className="text-base flex flex-col justify-center items-center text-white">
-                            Votre position sera envoyée.
+                            Vị trí của bạn sẽ được gửi đi.
                         </div>
                     )}
 

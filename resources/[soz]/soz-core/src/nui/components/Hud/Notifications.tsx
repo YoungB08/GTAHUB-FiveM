@@ -165,32 +165,32 @@ const PoliceNotification: FunctionComponent<PoliceNotificationProps> = ({ notifi
             let titleType = '';
             switch (notification.policeStyle) {
                 case 'red-alert':
-                    titleType = 'code rouge';
+                    titleType = 'báo động đỏ';
                     break;
                 case 'robbery':
-                    titleType = 'braquage';
+                    titleType = 'vụ cướp';
                     break;
                 case 'vandalism':
-                    titleType = 'vandalisme';
+                    titleType = 'phá hoại tài sản';
                     break;
                 case 'racket':
-                    titleType = 'racket';
+                    titleType = 'tống tiền / bảo kê';
                     break;
                 case 'shooting':
-                    titleType = 'coup de feu';
+                    titleType = 'vụ nổ súng';
                     break;
                 case 'explosion':
-                    titleType = 'explosion';
+                    titleType = 'vụ nổ';
                     break;
                 case 'auto-theft':
-                    titleType = 'vol de voiture';
+                    titleType = 'trộm cắp xe';
                     break;
                 case 'drug':
-                    titleType = 'Stupéfiant';
+                    titleType = 'tội phạm ma túy';
                     break;
                 case 'default':
                 default:
-                    titleType = 'message';
+                    titleType = 'thông báo';
                     break;
             }
             return titleType;
@@ -296,9 +296,9 @@ const PoliceNotification: FunctionComponent<PoliceNotificationProps> = ({ notifi
                     borderClassName="rounded-xl"
                 >
                     <div className="flex gap-2">
-                        <img className="w-6" src={image()} alt="Blason des forces de l'ordre" />
+                        <img className="w-6" src={image()} alt="Huy hiệu lực lượng cảnh sát" />
                         <p className="flex items-center uppercase text-base lg:text-xl">
-                            <span>Alerte :&nbsp;</span>
+                            <span>Cảnh báo :&nbsp;</span>
                             <span className="font-semibold" dangerouslySetInnerHTML={{ __html: formatText(title()) }} />
                         </p>
                     </div>

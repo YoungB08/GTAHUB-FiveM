@@ -90,7 +90,7 @@ export class PlayerZombieProvider {
         if (inventory.remove('halloween_zombie_serum', 1, false)) {
             this.removeZombiePlayer(target);
         } else {
-            this.notifier.notify(source, "Vous n'avez plus de sérum...");
+            this.notifier.notify(source, "Bạn không còn huyết thanh...");
         }
     }
 
@@ -130,7 +130,7 @@ export class PlayerZombieProvider {
 
         this.notifier.notify(
             player.source,
-            'Tu as été ~r~contaminé~s~ ! Trouve rapidement un ~g~sérum~s~ si tu ne veux pas te transformer en ~r~zombie~s~.'
+            'Bạn đã bị ~r~lây nhiễm~s~! Hãy nhanh chóng tìm ~g~huyết thanh~s~ nếu không muốn biến thành ~r~zombie~s~.'
         );
 
         TriggerClientEvent(ClientEvent.PLAYER_ZOMBIE_TRANSFORM, source);
@@ -165,7 +165,7 @@ export class PlayerZombieProvider {
         const now = Date.now();
 
         if (now - lastTp < 3 * 60 * 1000) {
-            this.notifier.notify(source, 'Tu dois ~r~attendre~s~ avant de pouvoir te téléporter !');
+            this.notifier.notify(source, 'Bạn cần phải ~r~chờ~s~ trước khi có thể dịch chuyển tức thời!');
 
             return;
         }

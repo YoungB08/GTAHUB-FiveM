@@ -36,7 +36,7 @@ export class PawlProcessingProvider {
     @OnEvent(ServerEvent.PAWL_PROCESSING_START)
     async onStartProcessing(source: number) {
         if (this.enabled) {
-            this.notifier.notify(source, 'Un traitement est déjà en cours.', 'error');
+            this.notifier.notify(source, 'Một quy trình chế biến đang diễn ra.', 'error');
 
             return;
         }
@@ -45,19 +45,19 @@ export class PawlProcessingProvider {
         const sawdustInventory = await this.inventoryFactory.get('pawl_sawdust_storage');
 
         if (!plankInventory || !sawdustInventory) {
-            this.notifier.notify(source, 'Impossible de trouver les inventaires.', 'error');
+            this.notifier.notify(source, 'Không tìm thấy kho chứa.', 'error');
 
             return;
         }
 
         if (!plankInventory.canCarryItem('wood_plank', 30)) {
-            this.notifier.error(source, 'Le stockage de planches est plein !');
+            this.notifier.error(source, 'Kho chứa ván gỗ đã đầy!');
 
             return;
         }
 
         if (!sawdustInventory.canCarryItem('sawdust', 60)) {
-            this.notifier.error(source, 'Le stockage de sciure est plein !');
+            this.notifier.error(source, 'Kho chứa mùn cưa đã đầy!');
 
             return;
         }
@@ -65,7 +65,7 @@ export class PawlProcessingProvider {
         this.enabled = true;
         this.startedAt = Date.now();
 
-        this.notifier.notify(source, 'Le traitement ~g~commence~s~.', 'success');
+        this.notifier.notify(source, 'Quy trình chế biến ~g~bắt đầu~s~.', 'success');
 
         TriggerLatentClientEvent(ClientEvent.PAWL_SYNC_PROCESSING, -1, 16 * 1024, true);
     }
@@ -73,14 +73,14 @@ export class PawlProcessingProvider {
     @OnEvent(ServerEvent.PAWL_PROCESSING_STOP)
     async onStopProcessing(source: number) {
         if (!this.enabled) {
-            this.notifier.notify(source, "Aucun traitement n'est en cours.", 'error');
+            this.notifier.notify(source, "Không có quy trình chế biến nào đang hoạt động.", 'error');
 
             return;
         }
 
         this.disableProcessing();
 
-        this.notifier.notify(source, 'Le traitement est arrêté.', 'success');
+        this.notifier.notify(source, 'Quy trình chế biến đã dừng.', 'success');
     }
 
     @OnEvent(ServerEvent.PAWL_PROCESSING_STATUS)
@@ -97,13 +97,13 @@ export class PawlProcessingProvider {
                 if (remainingMinutes === 0) {
                     this.notifier.notify(
                         source,
-                        `Il reste ${remainingSecondsFormatted} seconde(s) avant la fin du traitement de l'arbre.`,
+                        `Còn lại ${remainingSecondsFormatted} giây trước khi kết thúc xẻ gỗ.`,
                         'info'
                     );
                 } else {
                     this.notifier.notify(
                         source,
-                        `Il reste ${remainingMinutes} minute(s) et ${remainingSecondsFormatted} seconde(s) avant la fin du traitement de l'arbre.`,
+                        `Còn lại ${remainingMinutes} phút ${remainingSecondsFormatted} giây trước khi kết thúc xẻ gỗ.`,
                         'info'
                     );
                 }
@@ -112,7 +112,7 @@ export class PawlProcessingProvider {
             }
         }
 
-        this.notifier.notify(source, "Aucun traitement n'est en cours.", 'info');
+        this.notifier.notify(source, "Không có quy trình chế biến nào đang hoạt động.", 'info');
     }
 
     @Tick(TickInterval.EVERY_SECOND)

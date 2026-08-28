@@ -101,19 +101,22 @@ export class BusMissionService {
         }
     }
 
-    //mission pnj
     private async checkBusVehicle(): Promise<boolean> {
+        const ped = PlayerPedId();
+        const currentVehicle = GetVehiclePedIsIn(ped, false);
+
         if (!this.validVehicle()) {
-            this.notifier.notify('Remontez dans le bus ou la mission sera annulée', 'warning');
-            for (let i = 0; i < 120; i++) {
-                await wait(1000);
-                if (this.validVehicle()) {
-                    return true;
-                }
-            }
-            await this.cancelMission();
+            this.notifier.notify('Bạn đã rời khỏi xe buýt, nhiệm vụ bị hủy.', 'error');
+            this.savedBusLineName = null;
+            await this.clearMission();
             return false;
         }
+
+        if (this.busVehicle === 0) {
+            this.busVehicle = currentVehicle;
+            SetPedRelationshipGroupHash(ped, this.busGroupHash);
+        }
+
         return true;
     }
 
@@ -128,12 +131,12 @@ export class BusMissionService {
 
     public async doBusService() {
         if (!this.validVehicle()) {
-            this.notifier.notify("Vous n'êtes pas dans un bus.", 'error');
+            this.notifier.notify("Bạn không ở trong một chiếc xe buýt.", 'error');
             return;
         }
 
         if (this.state.busMissionInProgress || this.state.taxiMissionInProgress) {
-            this.notifier.notify('Vous êtes déjà en mission.', 'error');
+            this.notifier.notify('Bạn đã đang trong một nhiệm vụ.', 'error');
             return;
         }
 
@@ -147,7 +150,7 @@ export class BusMissionService {
         this.savedBusLineName = this.busLineName;
 
         this.busStopNumber = 0;
-        this.notifier.notify(`Rends toi au premier arrêt de la ligne ~g~${this.busLineName}~s~.`);
+        this.notifier.notify(`Hãy đến điểm dừng đầu tiên của tuyến xe ~g~${this.busLineName}~s~.`);
         const busStopNumber = busLines[this.busLineName].length;
         for (let i = 0; this.busStopNumber < busStopNumber; i++) {
             if (!this.state.busMissionInProgress) {
@@ -162,12 +165,12 @@ export class BusMissionService {
 
             const getBlipName = () => {
                 if (isTerminus) {
-                    return 'Terminus';
+                    return 'Bến cuối';
                 }
                 if (isFirstStop) {
-                    return 'Départ';
+                    return 'Khởi hành';
                 }
-                return 'Arrêt';
+                return 'Điểm dừng';
             };
 
             this.blipFactory.create('nextBusStop', {
@@ -220,7 +223,7 @@ export class BusMissionService {
 
                         if (this.inBusPeds.length > 0) {
                             if (isTerminus) {
-                                this.notifier.notify('Terminus, tout le monde descend.', 'success');
+                                this.notifier.notify('Bến cuối, tất cả hành khách xuống xe.', 'success');
                             }
 
                             for (let index = 0; index < pedsToLeave; index++) {
@@ -257,18 +260,18 @@ export class BusMissionService {
 
                             if (pedsCantGettingIn > 1) {
                                 this.notifier.notify(
-                                    `Il n'y'a plus de place, ces personnes prendront le prochain.`,
+                                    `Xe đã hết chỗ, những người này sẽ đón chuyến tiếp theo.`,
                                     'info'
                                 );
                             } else if (pedsCantGettingIn === 1) {
                                 this.notifier.notify(
-                                    `Il n'y'a plus de place, cette personne prendra le prochain.`,
+                                    `Xe đã hết chỗ, người này sẽ đón chuyến tiếp theo.`,
                                     'info'
                                 );
                             }
 
                             if (pedsCantGettingIn !== this.waitingPeds.length) {
-                                this.notifier.notify(`Attends que tout le monde soit installé.`, 'info');
+                                this.notifier.notify(`Hãy đợi tất cả mọi người ổn định chỗ ngồi.`, 'info');
                                 let allPedsInBus = true;
                                 await wait(this.waitingPeds.length - pedsCantGettingIn * 1000);
                                 let maxTimer = 0;
@@ -295,11 +298,11 @@ export class BusMissionService {
             this.blipFactory.remove('nextBusStop');
             if (this.state.busMissionInProgress) {
                 if (!isTerminus && !nextIsTerminus) {
-                    this.notifier.notify(`Va au prochain ~b~arrêt~s~.`, 'info');
+                    this.notifier.notify(`Hãy di chuyển đến ~b~điểm dừng~s~ tiếp theo.`, 'info');
                 } else if (nextIsTerminus) {
-                    this.notifier.notify(`Rends-toi au ~g~terminus~s~.`, 'info');
+                    this.notifier.notify(`Hãy di chuyển đến ~g~bến cuối~s~.`, 'info');
                 } else if (isTerminus) {
-                    this.notifier.notify(`Tu as terminé ton service sur cette ligne.`, 'info');
+                    this.notifier.notify(`Bạn đã hoàn thành lượt chạy trên tuyến xe này.`, 'info');
                     this.savedBusLineName = null;
                     this.updateState({
                         busMissionInProgress: false,

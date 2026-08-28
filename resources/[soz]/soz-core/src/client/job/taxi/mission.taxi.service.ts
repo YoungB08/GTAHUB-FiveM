@@ -155,7 +155,7 @@ export class TaxiMissionService {
 
     public setHorodateurStarted(status: boolean) {
         if (!this.validVehicle()) {
-            this.notifier.notify("Vous n'êtes pas dans un taxi", 'error');
+            this.notifier.notify('Bạn không ở trong một chiếc xe taxi', 'error');
             return;
         }
 
@@ -174,7 +174,7 @@ export class TaxiMissionService {
 
     public setHorodateurDisplay(status: boolean) {
         if (status && !this.validVehicle()) {
-            this.notifier.notify("Vous n'êtes pas dans un taxi", 'error');
+            this.notifier.notify('Bạn không ở trong một chiếc xe taxi', 'error');
             return;
         }
 
@@ -186,7 +186,7 @@ export class TaxiMissionService {
     //mission pnj
     private async checkVehicle(): Promise<boolean> {
         if (!this.validVehicle()) {
-            this.notifier.notify('Remontez dans le taxi ou la mission sera annulée', 'warning');
+            this.notifier.notify('Hãy quay lại xe taxi nếu không nhiệm vụ sẽ bị hủy', 'warning');
             for (let i = 0; i < 120; i++) {
                 await wait(1000);
                 if (this.validVehicle()) {
@@ -194,7 +194,7 @@ export class TaxiMissionService {
                 }
             }
 
-            this.notifier.notify('Mission annulée', 'error');
+            this.notifier.notify('Nhiệm vụ chở khách đã bị hủy', 'error');
             await this.clearMission();
             return false;
         }
@@ -203,12 +203,12 @@ export class TaxiMissionService {
 
     public async doTaxiNpc() {
         if (!this.validVehicle()) {
-            this.notifier.notify("Vous n'êtes pas dans un taxi", 'error');
+            this.notifier.notify('Bạn không ở trong một chiếc xe taxi', 'error');
             return;
         }
 
         if (this.state.taxiMissionInProgress || this.state.busMissionInProgress) {
-            this.notifier.notify('Vous êtes déjà en mission', 'error');
+            this.notifier.notify('Bạn đang trong một chuyến xe khác', 'error');
             return;
         }
 
@@ -223,7 +223,7 @@ export class TaxiMissionService {
             : getRandomItem(NPCTakeLocations.filter(location => location[2] > currentWaterLevel[1]));
 
         if (!targetNPCLocation) {
-            this.notifier.notify("Il n'y'a actuellement pas de client.", 'error');
+            this.notifier.notify('Hiện tại không có hành khách nào gọi xe.', 'error');
             return;
         }
         this.savedNpcPosition = targetNPCLocation;
@@ -301,14 +301,14 @@ export class TaxiMissionService {
                     while (!IsPedInVehicle(this.Npc, veh, false)) {
                         if (count == 15 || dist > requiredDist) {
                             await this.clearMission();
-                            this.notifier.notify('Ouvre ton véhicule la prochaine fois ?', 'error');
+                            this.notifier.notify('Hãy mở khóa cửa xe cho khách lên nhé?', 'error');
                             return;
                         }
                         await wait(1000);
                         TaskEnterVehicle(this.Npc, veh, -1, freeSeat, 1.0, 1, 0);
                         count = count + 1;
                     }
-                    this.notifier.notify('Amenez la personne à la destination spécifiée', 'success');
+                    this.notifier.notify('Hãy đưa hành khách đến điểm đến đã chỉ định trên GPS', 'success');
                     if (this.NpcBlip) {
                         RemoveBlip(this.NpcBlip);
                         this.NpcBlip = 0;
@@ -319,7 +319,7 @@ export class TaxiMissionService {
                     );
 
                     if (!deliveryLocation) {
-                        this.notifier.notify('Le client ne sait pas où aller, laisse tomber cette mission.', 'error');
+                        this.notifier.notify('Khách hàng không xác định được điểm đến, chuyến xe đã bị hủy.', 'error');
                         return;
                     }
 
@@ -356,7 +356,7 @@ export class TaxiMissionService {
                     const veh = GetVehiclePedIsIn(ped, false);
                     if (!IsPedInVehicle(this.Npc, veh, false)) {
                         await this.clearMission();
-                        this.notifier.notify("Vous n'avez pas la personne dans votre véhicule", 'error');
+                        this.notifier.notify('Hành khách không có trên xe của bạn', 'error');
                         return;
                     }
 
@@ -370,7 +370,7 @@ export class TaxiMissionService {
                         ServerEvent.TAXI_NPC_PAY,
                         Math.ceil((this.totalDistance / 100.0) * HorodateurTarif)
                     );
-                    this.notifier.notify('Vous avez déposé la personne', 'success');
+                    this.notifier.notify('Bạn đã đưa khách đến nơi an toàn và nhận tiền cước', 'success');
 
                     await this.clearMission();
                     this.setHorodateurStarted(false);

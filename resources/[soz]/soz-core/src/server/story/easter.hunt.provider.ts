@@ -106,20 +106,20 @@ export class EasterHuntProvider {
             },
         });
 
-        this.notifier.notify(source, `Vous avez fouillé ~b~${count}~s~ panier(s)`, 'success');
+        this.notifier.notify(source, `Bạn đã lục soát ~b~${count}~s~ giỏ quà`, 'success');
         const loot = doLooting(this.loots);
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (loot.type === 'item') {
             if (inventory.canCarryItem(loot.value.toString(), 1)) {
                 inventory.add(loot.value as string, 1);
-                return this.notifier.notify(source, 'Vous avez trouvé un objet', 'success');
+                return this.notifier.notify(source, 'Bạn đã tìm thấy một vật phẩm', 'success');
             } else {
                 return this.notifier.notify(source, ADD_ERROR_MESSAGE['not_enough_space'], 'error');
             }
         } else if (loot.type === 'money') {
             this.playerMoneyService.add(source, loot.value as number);
-            return this.notifier.notify(source, "Vous avez trouvé de l'argent", 'success');
+            return this.notifier.notify(source, "Bạn đã tìm thấy tiền", 'success');
         }
     }
 }

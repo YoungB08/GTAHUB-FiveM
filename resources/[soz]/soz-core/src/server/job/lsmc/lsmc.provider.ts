@@ -112,7 +112,7 @@ export class LSMCProvider {
 
         if (player.metadata.disease == 'grippe') {
             this.playerService.setPlayerDisease(player.source, false);
-            this.notifier.notify(player.source, 'Vous êtes guéri!');
+            this.notifier.notify(player.source, 'Bạn đã được chữa khỏi bệnh!');
         }
 
         this.LSMCDamageProvider.removeDamages(player.source);
@@ -150,7 +150,7 @@ export class LSMCProvider {
             thirst: player.metadata.thirst - 20,
         });
 
-        this.notifier.notify(player.source, 'Vous avez ~g~donné~s~ votre sang !');
+        this.notifier.notify(player.source, 'Bạn đã ~g~hiến~s~ máu!');
     }
 
     @OnEvent(ServerEvent.LSMC_TELEPORTATION)
@@ -170,20 +170,20 @@ export class LSMCProvider {
 
         if (itt) {
             this.playerService.setPlayerMetadata(id, 'itt', false);
-            this.notifier.notify(id, 'Vous pouvez reprendre le travail');
+            this.notifier.notify(id, 'Bạn đã có thể tiếp tục làm việc trở lại');
             if (source != id) {
-                this.notifier.notify(source, "Vous avez enlevé l'interdiction de travail temporaire");
+                this.notifier.notify(source, 'Bạn đã hủy lệnh cấm làm việc tạm thời cho bệnh nhân');
             }
         } else {
             if (player.job.onduty) {
                 this.playerService.setJobDuty(id, false);
-                this.notifier.notify(id, 'Vous êtes hors service', 'info');
+                this.notifier.notify(id, 'Bạn đã rời khỏi ca làm việc', 'info');
             }
 
             this.playerService.setPlayerMetadata(id, 'itt', true);
             this.playerService.setPlayerMetadata(id, 'itt_end', Date.now() + duration);
-            this.notifier.notify(id, 'Vous avez été mis en interdiction de travail temporaire');
-            this.notifier.notify(source, 'Vous avez mis la personne en interdiction de travail temporaire');
+            this.notifier.notify(id, 'Bạn đã bị tạm đình chỉ công việc do lý do sức khỏe');
+            this.notifier.notify(source, 'Bạn đã tạm đình chỉ công việc của người này');
         }
     }
 
@@ -219,7 +219,7 @@ export class LSMCProvider {
         if (organ) {
             const item = this.itemService.getItem(organ as string);
             inventory.add('expired_organ', 1);
-            this.notifier.notify(source, `Vous avez retiré un ${item.label}`, 'success');
+            this.notifier.notify(source, `Bạn đã lấy ra một ${item.label}`, 'success');
         }
     }
 

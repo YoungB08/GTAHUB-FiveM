@@ -95,8 +95,8 @@ export const HousingUpgradesMenu: FunctionComponent<HousingUpgradesMenuProps> = 
     return (
         <Menu type={MenuType.HousingUpgrades}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
-                <MenuContent subtitle="Améliorations">
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
+                <MenuContent subtitle="Nâng cấp bất động sản">
                     {Object.entries(TYPE_LABEL).map(([type, label]) => {
                         if (label !== TYPE_LABEL.park_tier || !data.isApartmentTrailer) {
                             return (
@@ -125,7 +125,7 @@ export const HousingUpgradesMenu: FunctionComponent<HousingUpgradesMenuProps> = 
                                     onChange={(_, value) => onChange(type, value)}
                                 >
                                     {Array.from(Array(maxTier + 1).keys()).map(tier => {
-                                        const label = tier !== 0 ? `Niveau ${tier + 1}` : 'Origine';
+                                        const label = tier !== 0 ? `Cấp độ ${tier + 1}` : 'Mặc định';
                                         return (
                                             <MenuItemSelectOption key={tier} value={tier}>
                                                 {label}
@@ -158,16 +158,16 @@ export const HousingUpgradesMenu: FunctionComponent<HousingUpgradesMenuProps> = 
                                     showAllOptions
                                     alignRight
                                 >
-                                    <MenuItemSelectOptionBox value={false}>Désactivé</MenuItemSelectOptionBox>
-                                    <MenuItemSelectOptionBox value={true}>Activé</MenuItemSelectOptionBox>
+                                    <MenuItemSelectOptionBox value={false}>Tắt</MenuItemSelectOptionBox>
+                                    <MenuItemSelectOptionBox value={true}>Bật</MenuItemSelectOptionBox>
                                 </MenuItemSelect>
                             );
                         }
                     })}
                     <MenuItemButton className="border-t border-white/50" onConfirm={() => onConfirm()}>
                         <div className="flex w-full justify-between items-center">
-                            <span>Confirmer</span>
-                            <span>${getPrice(tierPrice + parkingPrice, TaxType.HOUSING).toLocaleString('fr-FR')}</span>
+                            <span>Xác nhận nâng cấp</span>
+                            <span>${getPrice(tierPrice + parkingPrice, TaxType.HOUSING).toLocaleString('vi-VN')}</span>
                         </div>
                     </MenuItemButton>
                 </MenuContent>

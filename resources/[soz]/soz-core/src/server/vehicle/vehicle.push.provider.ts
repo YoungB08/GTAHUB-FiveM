@@ -43,7 +43,7 @@ export class VehiclePushProvider {
         if (currentPedId) {
             const currentPed = NetworkGetEntityFromNetworkId(currentPedId);
             if (DoesEntityExist(currentPed) && vehicle === GetEntityAttachedTo(currentPed)) {
-                this.notifier.notify(source, `Quelqu'un pousse déjà le véhicule.`, 'error');
+                this.notifier.notify(source, `Đã có người đang đẩy phương tiện này.`, 'error');
                 return false;
             }
         }
@@ -79,7 +79,7 @@ export class VehiclePushProvider {
         if (currentPedId) {
             const currentPed = NetworkGetEntityFromNetworkId(currentPedId);
             if (DoesEntityExist(currentPed) && vehicle === GetEntityAttachedTo(currentPed)) {
-                this.notifier.notify(source, `La place est déjà prise.`, 'error');
+                this.notifier.notify(source, `Vị trí này đã có người đứng.`, 'error');
                 return false;
             }
         }
@@ -157,7 +157,7 @@ export class VehiclePushProvider {
         }
 
         if (owner === -1) {
-            this.notifier.notify(source, `Quelque chose ne va pas, la véhicule est impossible à bouger`, 'error');
+            this.notifier.notify(source, `Có lỗi xảy ra, không thể di chuyển phương tiện này`, 'error');
         }
 
         return owner;

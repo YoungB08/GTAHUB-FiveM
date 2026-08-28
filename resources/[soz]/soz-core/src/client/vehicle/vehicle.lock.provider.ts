@@ -458,7 +458,7 @@ export class VehicleLockProvider {
         if (GetEntityModel(vehicle) === GetHashKey(POLICE_MINESWEEPER_ROBOT_CAR_MODEL)) return;
 
         if (GetEntitySpeed(vehicle) * 3.6 > 75) {
-            this.notifier.notify('Vous allez trop vite pour faire ça.', 'error');
+            this.notifier.notify('Bạn đang đi quá nhanh để làm điều này.', 'error');
 
             return;
         }
@@ -467,7 +467,7 @@ export class VehicleLockProvider {
         const hasVehicleKey = await this.hasVehicleKey(player, state);
 
         if (!hasVehicleKey) {
-            this.notifier.notify("Vous n'avez pas les clés..", 'error');
+            this.notifier.notify("Bạn không có chìa khóa..", 'error');
 
             return;
         }

@@ -343,13 +343,13 @@ export class HousingFournitureProvider {
         if (shellEnable) {
             this.notifier.notify(
                 source,
-                "Tu as ~r~désactivé~s~ ton aménagement personnalisé ! Tes meubles d'origines ont été remis dans ton habitation.",
+                "Bạn đã ~r~tắt~s~ bố trí nội thất tùy chỉnh! Nội thất mặc định ban đầu đã được phục hồi trong nhà của bạn.",
                 'info'
             );
         } else {
             this.notifier.notify(
                 source,
-                "Tu as ~g~activé~s~ ton aménagement personnalisé ! Tes meubles d'origines ont été retirés de ton habitation.",
+                "Bạn đã ~g~bật~s~ bố trí nội thất tùy chỉnh! Nội thất mặc định ban đầu đã được gỡ bỏ khỏi nhà của bạn.",
                 'info'
             );
         }

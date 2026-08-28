@@ -81,9 +81,9 @@ export const ContactShow: FunctionComponent = () => {
                     <TextareaField
                         className="grow"
                         {...register('message', {
-                            minLength: { value: 5, message: 'Votre message est trop court' },
-                            maxLength: { value: 255, message: 'Votre message est trop long' },
-                            required: 'Votre message est vide',
+                            minLength: { value: 5, message: 'Tin nhắn quá ngắn' },
+                            maxLength: { value: 255, message: 'Tin nhắn quá dài' },
+                            required: 'Tin nhắn đang để trống',
                         })}
                         variant="outlined"
                         placeholder={t('SOCIETY_CONTACTS.FORM_MESSAGE')}
@@ -108,7 +108,7 @@ export const ContactShow: FunctionComponent = () => {
                         <ChatIcon className="size-6" />
                         {!isValid ? (
                             <p className="text-sm text-center text-gray-500">
-                                {errors.message?.message ?? 'Vous devez remplir le formulaire'}
+                                {errors.message?.message ?? 'Bạn cần điền đầy đủ biểu mẫu'}
                             </p>
                         ) : (
                             <p className="text-sm text-center">{t('SOCIETY_CONTACTS.SEND')}</p>

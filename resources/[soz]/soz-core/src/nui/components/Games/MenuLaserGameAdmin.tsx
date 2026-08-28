@@ -22,13 +22,13 @@ export const MenuLaserGameAdmin: FunctionComponent<MenuLaserGameAdminProps> = ({
     return (
         <Menu type={MenuType.LaserGameAdmin}>
             <MainMenu>
-                <MenuTitle title="Laser Game" />
+                <MenuTitle title="Bắn Súng Laser (Admin)" />
                 <MenuContent>
-                    {Object.keys(data).length === 0 && <MenuItemText>Aucune partie enregistrée</MenuItemText>}
+                    {Object.keys(data).length === 0 && <MenuItemText>Không có phòng chơi nào</MenuItemText>}
                     {Object.values(data).map(game => {
                         return (
                             <MenuItemSubMenuLink key={`game_${game.creator}`} id={`game_${game.creator}`}>
-                                {`Partie de ${game.players[game.creator].rpFullName}`}
+                                {`Phòng của ${game.players[game.creator].rpFullName}`}
                             </MenuItemSubMenuLink>
                         );
                     })}
@@ -49,21 +49,21 @@ export const LaserGameSubMenu: FunctionComponent<MenuLaserGameSubProps> = ({ dat
     return (
         <>
             <SubMenu id={`game_${data.creator}`}>
-                <MenuTitle title={`Partie de ${data.players[data.creator].rpFullName}`} />
+                <MenuTitle title={`Phòng của ${data.players[data.creator].rpFullName}`} />
                 <MenuContent>
                     <MenuItemSubMenuLink key={`players_${data.creator}`} id={`players_${data.creator}`}>
-                        Liste des joueurs
+                        Danh sách người chơi
                     </MenuItemSubMenuLink>
-                    <MenuItemText>{`Mode de partie: ${LaserGameType[data.type].name}`}</MenuItemText>
+                    <MenuItemText>{`Chế độ chơi: ${LaserGameType[data.type].name}`}</MenuItemText>
                 </MenuContent>
             </SubMenu>
             <SubMenu id={`players_${data.creator}`}>
-                <MenuTitle title="Joueurs" />
+                <MenuTitle title="Người chơi" />
                 <MenuContent>
                     {Object.values(data.players).map(player => (
                         <MenuItemButton
                             key={player.citizenId}
-                            description="Observer le joueur"
+                            description="Theo dõi người chơi (Spectate)"
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.AdminMenuPlayerSpectate, player);
                             }}

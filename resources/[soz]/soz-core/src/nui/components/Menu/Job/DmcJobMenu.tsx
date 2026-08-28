@@ -13,10 +13,10 @@ type DmcStateProps = {
 };
 
 const labels = {
-    'job:dmc:iron_mine': 'Afficher la mine de fer',
-    'job:dmc:aluminium_mine': "Afficher la mine d'aluminium",
-    'job:dmc:uranium_mine': "Afficher la mine d'uranium",
-    'job:dmc:resell': 'Afficher le point de revente de métaux',
+    'job:dmc:iron_mine': 'Hiển thị mỏ sắt',
+    'job:dmc:aluminium_mine': 'Hiển thị mỏ nhôm',
+    'job:dmc:uranium_mine': 'Hiển thị mỏ uranium',
+    'job:dmc:resell': 'Hiển thị điểm bán quặng & kim loại',
 };
 
 export const DmcJobMenu: FunctionComponent<DmcStateProps> = ({ data }) => {
@@ -28,7 +28,7 @@ export const DmcJobMenu: FunctionComponent<DmcStateProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.dmc} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>

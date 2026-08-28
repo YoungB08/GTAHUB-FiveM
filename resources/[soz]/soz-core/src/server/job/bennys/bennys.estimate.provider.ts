@@ -29,7 +29,7 @@ export class BennysEstimateProvider {
         const { completed } = await this.progressService.progress(
             source,
             'vehicle_estimate',
-            'Vous estimez le véhicule.',
+            'Đang thẩm định giá phương tiện...',
             BennysConfig.Estimate.duration,
             {
                 name: 'base',
@@ -74,6 +74,6 @@ export class BennysEstimateProvider {
 
         const price = result.ok;
 
-        this.notifier.notify(source, `Le prix du véhicule est estimé à ~g~$${price.toLocaleString()}~s~ !`, 'success');
+        this.notifier.notify(source, `Giá trị phương tiện được ước tính là ~g~$${price.toLocaleString()}~s~ !`, 'success');
     }
 }

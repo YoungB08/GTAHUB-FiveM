@@ -19,7 +19,7 @@ export class PoliceSearchWarrantProvider {
 
         const { completed } = await this.progressService.progress(
             'force_house_with_search_warrant',
-            "Vous forcez l'accès de l'habitation...",
+            "Đang cưỡng chế mở khóa vào nhà...",
             20000,
             {
                 dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
@@ -42,7 +42,7 @@ export class PoliceSearchWarrantProvider {
 
         const { completed } = await this.progressService.progress(
             'force_house_with_search_warrant',
-            "Vous fermez l'accès de l'habitation...",
+            "Đang niêm phong khóa cửa nhà...",
             30000,
             {
                 dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',

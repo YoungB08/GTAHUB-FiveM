@@ -45,18 +45,18 @@ export class FoodMealsProvider {
     @OnEvent(ServerEvent.FOOD_ORDER_MEALS)
     public async onOrderMeals(source: number) {
         if (this.orderedMeals >= this.LIMIT_OF_ORDERS) {
-            this.notifier.notify(source, `Désolé nos chefs sont occupés pour la journée. Revenez ~r~demain~s~.`);
+            this.notifier.notify(source, `Xin lỗi, các đầu bếp của chúng tôi hôm nay đã kín lịch. Vui lòng quay lại vào ~r~ngày mai~s~.`);
             return;
         }
         if (this.orderInProgress) {
-            this.notifier.notify(source, 'Une commande est déjà en cours.');
+            this.notifier.notify(source, 'Đang có một đơn hàng đang được xử lý.');
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'food_meal',
-            'Vous passez une commande...',
+            'Đang đặt hàng món ăn...',
             10000,
             {
                 name: 'base',
@@ -105,12 +105,12 @@ export class FoodMealsProvider {
 
             this.notifier.notify(
                 source,
-                `Merci pour votre commande ! Cela fera ~r~${this.ORDER_PRICE.toLocaleString()}$~s~. Celle-ci sera prête dans ~g~une heure~s~.`
+                `Cảm ơn bạn đã đặt hàng! Tổng chi phí là ~r~$${this.ORDER_PRICE.toLocaleString()}~s~. Đơn hàng sẽ sẵn sàng trong ~g~1 giờ nữa~s~.`
             );
         } else {
             this.notifier.notify(
                 source,
-                `Il te manque ~r~${this.ORDER_PRICE.toLocaleString()}$~s~ sur le compte de l'entreprise.`
+                `Tài khoản doanh nghiệp còn thiếu ~r~$${this.ORDER_PRICE.toLocaleString()}~s~.`
             );
         }
     }
@@ -118,14 +118,14 @@ export class FoodMealsProvider {
     @OnEvent(ServerEvent.FOOD_RETRIEVE_ORDER)
     public async onRetrieveOrder(source: number) {
         if (!this.orderInProgress) {
-            this.notifier.notify(source, 'Aucune commande en cours.');
+            this.notifier.notify(source, 'Không có đơn hàng nào đang chờ nhận.');
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'food_meal',
-            'Vous récupérer une commande...',
+            'Đang nhận đơn hàng...',
             10000,
             {
                 dictionary: 'oddjobs@bailbond_hobohang_out_street_b',
@@ -152,9 +152,7 @@ export class FoodMealsProvider {
             );
             this.notifier.notify(
                 source,
-                `Votre commande n'est pas encore prête ! Revenez dans ~r~${minutesLeft} minute${
-                    minutesLeft > 1 ? 's' : ''
-                }~s~.`
+                `Đơn hàng của bạn chưa sẵn sàng! Vui lòng quay lại sau ~r~${minutesLeft} phút~s~ nữa.`
             );
             return;
         } else if (!inventory.canCarryItem(this.MEAL_BOX_ITEM, this.MEAL_BOXES_PER_ORDER)) {
@@ -162,7 +160,7 @@ export class FoodMealsProvider {
             return;
         }
         inventory.add(this.MEAL_BOX_ITEM, this.MEAL_BOXES_PER_ORDER);
-        this.notifier.notify(source, `Vous avez ~g~récupéré~s~ votre commande. Bon appétit !`);
+        this.notifier.notify(source, `Bạn đã ~g~nhận~s~ đơn hàng thành công. Chúc ngon miệng !`);
 
         this.updateOrderInProgress(false);
     }

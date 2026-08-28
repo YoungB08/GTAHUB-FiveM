@@ -98,13 +98,13 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
     return (
         <Menu type={MenuType.LaserGameManage}>
             <MainMenu>
-                <MenuTitle title={`Laser Game - ${LaserGameType[type].name}`} />
+                <MenuTitle title={`Bắn Súng Laser - ${LaserGameType[type].name}`} />
                 <MenuContent helpPanel={LaserGameHelpPanel}>
                     <MenuItemSubMenuLink key={`laser_game_manage_player`} id={`laser_game_manage_player`}>
-                        Gérer les joueurs
+                        Quản lý người chơi
                     </MenuItemSubMenuLink>
                     <MenuItemSubMenuLink key={`laser_game_manage_team`} id={`laser_game_manage_team`}>
-                        Gérer la tenue des joueurs
+                        Tùy chỉnh màu trang phục
                     </MenuItemSubMenuLink>
                     <MenuItemNumberInput
                         name="score"
@@ -112,7 +112,7 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
                         onBlur={onScoreGoalBlur}
                         value={scoreMenu}
                     >
-                        Score de victoire:
+                        Điểm số thắng cuộc:
                     </MenuItemNumberInput>
                     <MenuItemNumberInput
                         name="duration"
@@ -120,36 +120,36 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
                         onBlur={onDurationBlur}
                         value={durationMenu}
                     >
-                        Temps maximal de la partie (minutes):
+                        Thời gian tối đa mỗi hiệp (phút):
                     </MenuItemNumberInput>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.LaserGameStartGame);
                         }}
                     >
-                        Démarrer la partie
+                        Bắt đầu trận đấu
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.LaserGameCancelGame);
                         }}
                     >
-                        Annuler la partie
+                        Hủy trận đấu
                     </MenuItemButton>
                 </MenuContent>
             </MainMenu>
             <SubMenu id={'laser_game_manage_player'}>
-                <MenuTitle title="Gérer les joueurs" />
+                <MenuTitle title="Quản lý người chơi" />
                 <MenuContent>
                     {type === LaserGameTypeEnum.FFA && Object.keys(playerData).length <= 1 && (
-                        <MenuItemText>Aucun joueur enregistré</MenuItemText>
+                        <MenuItemText>Chưa có người chơi tham gia</MenuItemText>
                     )}
                     {Object.values(playerData).map(
                         player =>
                             (!(type === LaserGameTypeEnum.FFA && player.citizenId === creator) ||
                                 type !== LaserGameTypeEnum.FFA) && (
                                 <MenuItemSelect
-                                    title={`${player.name} - ${LaserGameTeam[player.team] || 'Aucune Team'}`}
+                                    title={`${player.name} - ${LaserGameTeam[player.team] || 'Chưa có Đội'}`}
                                     onConfirm={async (_, value) => {
                                         await fetchNui(NuiEvent.LaserGameActionPlayer, {
                                             action: value,
@@ -158,18 +158,18 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
                                     }}
                                 >
                                     {player.citizenId !== creator && (
-                                        <MenuItemSelectOption value="kick">Kick Player</MenuItemSelectOption>
+                                        <MenuItemSelectOption value="kick">Đuổi khỏi phòng</MenuItemSelectOption>
                                     )}
                                     {type != LaserGameTypeEnum.FFA && (
                                         <>
                                             <MenuItemSelectOption value="team1">
-                                                Ajouter à l'équipe A
+                                                Chuyển vào Đội A
                                             </MenuItemSelectOption>
                                             <MenuItemSelectOption value="team2">
-                                                Ajouter à l'équipe B
+                                                Chuyển vào Đội B
                                             </MenuItemSelectOption>
                                             <MenuItemSelectOption value="noteam">
-                                                Retirer de l'équipe
+                                                Xóa khỏi đội
                                             </MenuItemSelectOption>
                                         </>
                                     )}
@@ -179,7 +179,7 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
                 </MenuContent>
             </SubMenu>
             <SubMenu id={'laser_game_manage_team'}>
-                <MenuTitle title="Gérer la tenue des joueurs" />
+                <MenuTitle title="Tùy chỉnh màu trang phục" />
                 <MenuContent>
                     {type === LaserGameTypeEnum.FFA &&
                         Object.values(playerData).map(player => (
@@ -233,10 +233,10 @@ export const MenuLaserGameManage: FunctionComponent<MenuLaserGameManageProps> = 
 
 const LaserGameHelpPanel = (
     <>
-        <MenuSubTitle>Info</MenuSubTitle>
-        <MenuItemText> Score : Nombre de kill a atteindre pour gagner la partie</MenuItemText>
+        <MenuSubTitle>Hướng dẫn</MenuSubTitle>
+        <MenuItemText> Điểm số : Số mạng tiêu diệt cần đạt để chiến thắng</MenuItemText>
         <MenuItemText>
-            La partie s'arrête quand le score est atteint ou que la limite de temps est atteinte.
+            Trận đấu kết thúc khi có đội/người đạt đủ điểm hoặc hết thời gian tối đa.
         </MenuItemText>
     </>
 );

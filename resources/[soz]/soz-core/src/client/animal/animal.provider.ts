@@ -393,13 +393,13 @@ export class AnimalProvider {
         }
 
         if (!this.isOwningPet()) {
-            this.notifier.notify("Tu ne possèdes pas d'animal.", 'error');
+            this.notifier.notify("Bạn không sở hữu thú cưng nào.", 'error');
             return;
         }
 
         const pet = this.getCurrentPet();
         if (!pet) {
-            this.notifier.notify('Ton animal se repose.', 'info');
+            this.notifier.notify('Thú cưng của bạn đang nghỉ ngơi.', 'info');
             return;
         }
         const actions = this.petOrderAvailable(pet);
@@ -503,7 +503,7 @@ export class AnimalProvider {
     @OnEvent(ClientEvent.PET_USE_K9_WHISTLE)
     async onUseK9Whistle() {
         if (!this.isOwningPet()) {
-            this.notifier.notify("Tu ne possèdes pas d'animal.", 'error');
+            this.notifier.notify("Bạn không sở hữu thú cưng nào.", 'error');
             return;
         }
         if (this.isUsingWhistle) return;
@@ -517,14 +517,14 @@ export class AnimalProvider {
 
         const pet = this.getCurrentPet();
         if (pet?.entity && pet?.model !== k9_model) {
-            this.notifier.notify(`Tu ne peux pas utiliser ce sifflet avec ${pet.name || `cet animal`}.`, 'error');
+            this.notifier.notify(`Bạn không thể sử dụng chiếc còi này với ${pet.name || `thú cưng này`}.`, 'error');
             this.isUsingWhistle = false;
             return;
         } else if (pet?.entity) {
             const distance = getDistance(GetEntityCoords(ped) as Vector3, GetEntityCoords(pet.entity) as Vector3);
             if (distance >= PetDistanceForceFollowPlayer) {
                 this.notifier.notify(
-                    `${pet.name || `Ton animal`} est ~y~trop éloigné~s~ de toi pour entendre le sifflet.`,
+                    `${pet.name || `Thú cưng của bạn`} đang ở ~y~quá xa~s~ để nghe thấy tiếng còi.`,
                     'info'
                 );
                 this.isUsingWhistle = false;
@@ -532,14 +532,14 @@ export class AnimalProvider {
             }
             await this.playWhistleAnimation();
             await this.despawnAnimal(pet);
-            this.notifier.notify(`${pet.name || `Ton animal`} est parti ~g~se reposer~s~.`, 'info');
+            this.notifier.notify(`${pet.name || `Thú cưng của bạn`} đã đi ~g~nghỉ ngơi~s~.`, 'info');
             this.isUsingWhistle = false;
             return;
         }
 
         if (this.job_pet.dead) {
             this.notifier.notify(
-                `${this.job_pet.name || `Ton animal`} est à ~r~bout de force~s~, rend toi au ~b~vétérinaire~s~ au plus vite !`,
+                `${this.job_pet.name || `Thú cưng của bạn`} đang ~r~kiệt sức~s~, hãy đưa nó đến ~b~bác sĩ thú y~s~ càng sớm càng tốt!`,
                 'info'
             );
             this.isUsingWhistle = false;
@@ -548,14 +548,14 @@ export class AnimalProvider {
 
         await this.playWhistleAnimation();
         await this.spawnAnimal(this.job_pet);
-        this.notifier.notify(`${this.job_pet.name || `Ton animal`} commence à ~g~te suivre~s~.`, 'info');
+        this.notifier.notify(`${this.job_pet.name || `Thú cưng của bạn`} bắt đầu ~g~đi theo bạn~s~.`, 'info');
         this.isUsingWhistle = false;
     }
 
     @OnEvent(ClientEvent.PET_USE_WHISTLE)
     async onUseWhistle() {
         if (!this.isOwningPet()) {
-            this.notifier.notify("Tu ne possèdes pas d'animal.", 'error');
+            this.notifier.notify("Bạn không sở hữu thú cưng nào.", 'error');
             return;
         }
         if (this.isUsingWhistle) return;
@@ -569,14 +569,14 @@ export class AnimalProvider {
 
         const pet = this.getCurrentPet();
         if (pet?.entity && pet?.model === k9_model) {
-            this.notifier.notify(`Tu ne peux pas utiliser ce sifflet avec ${pet.name || `cet animal`}.`, 'error');
+            this.notifier.notify(`Bạn không thể sử dụng chiếc còi này với ${pet.name || `thú cưng này`}.`, 'error');
             this.isUsingWhistle = false;
             return;
         } else if (pet?.entity) {
             const distance = getDistance(GetEntityCoords(ped) as Vector3, GetEntityCoords(pet.entity) as Vector3);
             if (distance >= PetDistanceForceFollowPlayer) {
                 this.notifier.notify(
-                    `${pet.name || `Ton animal`} est ~y~trop éloigné~s~ de toi pour entendre le sifflet.`,
+                    `${pet.name || `Thú cưng của bạn`} đang ở ~y~quá xa~s~ để nghe thấy tiếng còi.`,
                     'info'
                 );
                 this.isUsingWhistle = false;
@@ -584,14 +584,14 @@ export class AnimalProvider {
             }
             await this.playWhistleAnimation();
             await this.despawnAnimal(pet);
-            this.notifier.notify(`${pet.name || `Ton animal`} est parti ~g~se reposer~s~.`, 'info');
+            this.notifier.notify(`${pet.name || `Thú cưng của bạn`} đã đi ~g~nghỉ ngơi~s~.`, 'info');
             this.isUsingWhistle = false;
             return;
         }
 
         if (this.pet.dead) {
             this.notifier.notify(
-                `${this.pet.name || `Ton animal`} est à ~r~bout de force~s~, rend toi au ~b~vétérinaire~s~ au plus vite !`,
+                `${this.pet.name || `Thú cưng của bạn`} đang ~r~kiệt sức~s~, hãy đưa nó đến ~b~bác sĩ thú y~s~ càng sớm càng tốt!`,
                 'info'
             );
             this.isUsingWhistle = false;
@@ -600,7 +600,7 @@ export class AnimalProvider {
 
         await this.playWhistleAnimation();
         await this.spawnAnimal(this.pet);
-        this.notifier.notify(`${this.pet.name || `Ton animal`} commence à ~g~te suivre~s~.`, 'info');
+        this.notifier.notify(`${this.pet.name || `Thú cưng của bạn`} bắt đầu ~g~đi theo bạn~s~.`, 'info');
         this.isUsingWhistle = false;
     }
 
@@ -1367,14 +1367,14 @@ export class AnimalProvider {
             );
         } else {
             if (!(await emitRpc<boolean>(RpcServerEvent.PET_CONSUME_BALL))) {
-                this.notifier.notify("Tu n'as pas de balle à lancer !", 'error');
+                this.notifier.notify("Bạn không có bóng để ném!", 'error');
                 return;
             }
             await this.throwBall();
         }
 
         if (pet.energy <= 0 && order !== PetOrder.FOLLOW) {
-            this.notifier.notify(`${pet.name || `Ton animal`} est ~b~trop épuisé~s~ pour réaliser ton ordre.`, 'info');
+            this.notifier.notify(`${pet.name || `Thú cưng của bạn`} đang ~b~quá mệt mỏi~s~ để thực hiện mệnh lệnh của bạn.`, 'info');
             return;
         }
 
@@ -1388,12 +1388,12 @@ export class AnimalProvider {
 
         if (!success) {
             this.notifier.notify(
-                `${pet.name || `Ton animal`} te regarde ~y~sans comprendre~s~ ce que tu lui demandes ! Malheureusement, il va falloir le ~b~dresser~s~ petit à petit.`,
+                `${pet.name || `Thú cưng của bạn`} nhìn bạn ~y~ngơ ngác không hiểu~s~ bạn yêu cầu gì! Bạn cần phải ~b~huấn luyện~s~ nó dần dần.`,
                 'info'
             );
         } else {
             this.notifier.notify(
-                `${pet.name || `Ton animal`} exécute l'ordre ~g~${petOrderMeta[order].label}~s~ !`,
+                `${pet.name || `Thú cưng của bạn`} thực hiện mệnh lệnh ~g~${petOrderMeta[order].label}~s~!`,
                 'info'
             );
             await this.execOrder(pet, order);

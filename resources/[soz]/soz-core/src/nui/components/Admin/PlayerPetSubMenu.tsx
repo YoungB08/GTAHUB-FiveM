@@ -36,7 +36,7 @@ export const PlayerPetSubMenu: FunctionComponent<PlayerPetSubMenuProps> = ({ per
         return (
             <SubMenu id={`player-pet-${player.citizenId}`}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle={`Animal de ${player.name}`}>
+                <MenuContent subtitle={`Thú cưng của ${player.name}`}>
                     <MenuItemText
                         onSelected={() => {
                             fetchNui<string, Result<ServerPet, never>>(
@@ -55,7 +55,7 @@ export const PlayerPetSubMenu: FunctionComponent<PlayerPetSubMenuProps> = ({ per
                             });
                         }}
                     >
-                        Chargement ...
+                        Đang tải dữ liệu...
                     </MenuItemText>
                 </MenuContent>
             </SubMenu>
@@ -66,13 +66,13 @@ export const PlayerPetSubMenu: FunctionComponent<PlayerPetSubMenuProps> = ({ per
         <>
             <SubMenu id={`player-pet-${player.citizenId}`}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle={`Animal de ${player.name}`}>
-                    {disabled && <MenuItemText>Pas de permission pour voir ce menu</MenuItemText>}
-                    {!disabled && !pet.id && <MenuItemText>Aucun animal de disponible</MenuItemText>}
+                <MenuContent subtitle={`Thú cưng của ${player.name}`}>
+                    {disabled && <MenuItemText>Bạn không có quyền xem menu này</MenuItemText>}
+                    {!disabled && !pet.id && <MenuItemText>Không có thú cưng nào</MenuItemText>}
                     {!disabled && !!pet.id && (
                         <>
                             <MenuItemSelect
-                                title={`État de l'animal : ${pet.dead ? `Mort` : `En vie`}`}
+                                title={`Trạng thái : ${pet.dead ? `Chết` : `Còn sống`}`}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminSetPlayerPetSeath, {
                                         citizenId: player.citizenId,
@@ -81,32 +81,32 @@ export const PlayerPetSubMenu: FunctionComponent<PlayerPetSubMenuProps> = ({ per
                                 }}
                             >
                                 <MenuItemSelectOption key={'revive'} value={false}>
-                                    Soigner
+                                    Hồi sinh / Chữa trị
                                 </MenuItemSelectOption>
                                 <MenuItemSelectOption key={'kill'} value={true}>
-                                    Tuer
+                                    Tiêu diệt
                                 </MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>A tenter de s'enfuire</span>
-                                    <span>{pet.perDays.escape ? 'Oui' : 'Non'}</span>
+                                    <span>Đã từng thử bỏ trốn</span>
+                                    <span>{pet.perDays.escape ? 'Có' : 'Không'}</span>
                                 </div>
                             </MenuItemText>
-                            <MenuSubTitle>Personnalité</MenuSubTitle>
+                            <MenuSubTitle>Đặc tính</MenuSubTitle>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>Bonus</span>
+                                    <span>Tích cực</span>
                                     <span>{pet.trait_up}</span>
                                 </div>
                             </MenuItemText>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>Malus</span>
+                                    <span>Tiêu cực</span>
                                     <span>{pet.trait_down}</span>
                                 </div>
                             </MenuItemText>
-                            <MenuSubTitle>Statistique</MenuSubTitle>
+                            <MenuSubTitle>Chỉ số thú cưng</MenuSubTitle>
                             {[...increamentalPetMeta].map(meta => (
                                 <MenuItemButton
                                     key={meta.toString()}
@@ -123,13 +123,13 @@ export const PlayerPetSubMenu: FunctionComponent<PlayerPetSubMenuProps> = ({ per
                                     </div>
                                 </MenuItemButton>
                             ))}
-                            <MenuSubTitle>Limitation par jour</MenuSubTitle>
+                            <MenuSubTitle>Giới hạn mỗi ngày</MenuSubTitle>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminResetPlayerPetResetMeta, player.citizenId);
                                 }}
                             >
-                                Reset des limitations par jours
+                                Đặt lại giới hạn mỗi ngày
                             </MenuItemButton>
                             {[...incrementalPetResetMetadata].map(resetMeta => (
                                 <MenuItemButton

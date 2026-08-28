@@ -34,18 +34,18 @@ export class PoliceMoneyCheckerProvider {
                     TriggerClientEvent(
                         ClientEvent.NOTIFICATION_DRAW,
                         player.source,
-                        `Vous avez confisqué ~g~$${markedAmount}~s~ à ${target.charinfo.firstname} ${target.charinfo.lastname}`
+                        `Bạn đã tịch thu ~g~$${markedAmount}~s~ từ ${target.charinfo.firstname} ${target.charinfo.lastname}`
                     );
                     TriggerClientEvent(
                         ClientEvent.NOTIFICATION_DRAW,
                         target.source,
-                        `~r~$${markedAmount}~s~ vous ont été confisqué par ${player.charinfo.firstname} ${player.charinfo.lastname}`
+                        `~r~$${markedAmount}~s~ của bạn đã bị tịch thu bởi ${player.charinfo.firstname} ${player.charinfo.lastname}`
                     );
                 } else {
                     TriggerClientEvent(
                         ClientEvent.NOTIFICATION_DRAW,
                         player.source,
-                        `${target.name} n'a pas d'argent sur lui`
+                        `${target.name} không có tiền bẩn trên người`
                     );
                 }
             }

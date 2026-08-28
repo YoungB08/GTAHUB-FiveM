@@ -75,7 +75,7 @@ export const ContactEdit: FunctionComponent = () => {
     const handleContactAdd = () => addNewContact({ display: name, number }, referral);
 
     const handleContactDelete = () => {
-        sendAlert('Supprimer le contact ?', t('GENERIC.DELETE_CONFIRM_CONTENT'), () => {
+        sendAlert('Xóa liên hệ?', t('GENERIC.DELETE_CONFIRM_CONTENT'), () => {
             deleteContact(contact.id);
         });
     };

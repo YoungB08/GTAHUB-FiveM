@@ -313,7 +313,7 @@ export class WeaponProvider {
 
     private async useAmmo(source: number, item: InventoryItem) {
         if (this.playerStateService.getClientState(source).isInventoryBusy) {
-            this.notifier.notify(source, "Inventaire en cours d'utilisation", 'warning');
+            this.notifier.notify(source, 'Túi đồ đang bận', 'warning');
             return;
         }
 
@@ -346,12 +346,12 @@ export class WeaponProvider {
         }
 
         if (ammo.name !== this.getWeaponConfig(weapon.name)?.ammo) {
-            this.notifier.notify(source, 'Vous ne pouvez pas utiliser ces munitions avec cette arme', 'error');
+            this.notifier.notify(source, 'Bạn không thể dùng loại đạn này cho vũ khí đang chọn', 'error');
             return;
         }
 
         if (weapon.metadata.ammo + ammoInClip > ammoInClip * GlobalWeaponConfig.MaxAmmoRefill(weapon.name)) {
-            this.notifier.notify(source, 'Vous avez déjà assez de munitions...', 'info');
+            this.notifier.notify(source, 'Vũ khí đã nạp đầy đạn...', 'info');
             return;
         }
 
@@ -369,7 +369,7 @@ export class WeaponProvider {
     @OnEvent(ServerEvent.WEAPON_GET_SNOW)
     public async snow(source: number, curWeapon: InventoryItem) {
         if (!this.store.getState().global.snow) {
-            this.notifier.notify(source, 'Où tu as vu de la neige ???', 'error');
+            this.notifier.notify(source, 'Khu vực này hiện không có tuyết!', 'error');
             return;
         }
 
@@ -386,7 +386,7 @@ export class WeaponProvider {
 
         if (weapon) {
             if (weapon.metadata.ammo >= 10) {
-                this.notifier.notify(source, 'Tu as trop de boules de neige sur toi !', 'error');
+                this.notifier.notify(source, 'Bạn đang mang tối đa bóng tuyết!', 'error');
                 return;
             }
             inventory.updateMetadataAtSlot(weapon.slot, {
@@ -395,7 +395,7 @@ export class WeaponProvider {
         } else {
             inventory.add('weapon_snowball', 1, { ammo: 1 });
         }
-        this.notifier.notify(source, 'Tu as ramassé une boule de neige');
+        this.notifier.notify(source, 'Bạn đã nhặt một quả bóng tuyết');
     }
 
     @Once(OnceStep.Start)

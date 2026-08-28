@@ -44,13 +44,13 @@ export class ItemFuelProvider {
         const closestVehicle = await this.vehicleSpawner.getClosestVehicle(source);
 
         if (!closestVehicle) {
-            this.notifier.notify(source, 'Aucun véhicule à proximité');
+            this.notifier.notify(source, 'Không có phương tiện nào ở gần');
 
             return;
         }
 
         if (closestVehicle.isInside) {
-            this.notifier.notify(source, "Vous ne pouvez pas utiliser ceci à l'intérieur d'un véhicule", 'error');
+            this.notifier.notify(source, "Bạn không thể sử dụng vật phẩm này khi đang ở trong xe", 'error');
 
             return;
         }
@@ -64,14 +64,14 @@ export class ItemFuelProvider {
             vehicleType === 'submarine' ||
             isVehicleModelElectric(GetEntityModel(closestVehicle.vehicleEntityId))
         ) {
-            this.notifier.notify(source, 'Vous ne pouvez pas utiliser ce carburant pour ce véhicule.', 'error');
+            this.notifier.notify(source, 'Bạn không thể sử dụng loại nhiên liệu này cho phương tiện này.', 'error');
 
             return;
         }
 
         const vehModel = await this.vehicleRepository.findByHash(GetEntityModel(closestVehicle.vehicleEntityId));
         if (vehModel && vehModel.category == 'Cycles') {
-            this.notifier.notify(source, 'Vous ne pouvez pas utiliser ce carburant pour ce véhicule.', 'error');
+            this.notifier.notify(source, 'Bạn không thể sử dụng loại nhiên liệu này cho phương tiện này.', 'error');
 
             return;
         }
@@ -87,7 +87,7 @@ export class ItemFuelProvider {
         const { progress } = await this.progressService.progress(
             source,
             'fuel_jerrycan_essence',
-            'Remplissage du véhicule...',
+            'Đang nạp nhiên liệu cho xe...',
             10000,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -111,7 +111,7 @@ export class ItemFuelProvider {
             fuelLevel: Math.min(maxFuel, vehicleState.condition.fuelLevel + filledFuel),
         });
 
-        this.notifier.notify(source, "Vous avez ~g~utilisé~s~ un jerrycan d'essence.", 'success');
+        this.notifier.notify(source, "Bạn đã ~g~sử dụng~s~ một can xăng.", 'success');
     }
 
     public async useKeroseneJerrycan(
@@ -123,13 +123,13 @@ export class ItemFuelProvider {
         const closestVehicle = await this.vehicleSpawner.getClosestVehicle(source);
 
         if (!closestVehicle) {
-            this.notifier.notify(source, 'Aucun véhicule à proximité');
+            this.notifier.notify(source, 'Không có phương tiện nào ở gần');
 
             return;
         }
 
         if (closestVehicle.isInside) {
-            this.notifier.notify(source, "Vous ne pouvez pas utiliser ceci à l'intérieur d'un véhicule", 'error');
+            this.notifier.notify(source, "Bạn không thể sử dụng vật phẩm này khi đang ở trong xe", 'error');
 
             return;
         }
@@ -142,7 +142,7 @@ export class ItemFuelProvider {
             vehicleType !== 'boat' &&
             vehicleType !== 'submarine'
         ) {
-            this.notifier.notify(source, 'Vous ne pouvez pas utiliser ce carburant pour ce véhicule', 'error');
+            this.notifier.notify(source, 'Bạn không thể sử dụng loại nhiên liệu này cho phương tiện này', 'error');
 
             return;
         }
@@ -159,7 +159,7 @@ export class ItemFuelProvider {
         const { progress } = await this.progressService.progress(
             source,
             'fuel_jerrycan_kerosene',
-            'Remplissage du véhicule...',
+            'Đang nạp nhiên liệu cho xe...',
             10000,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -183,26 +183,26 @@ export class ItemFuelProvider {
             fuelLevel: Math.min(maxFuel, vehicleState.condition.fuelLevel + filledFuel),
         });
 
-        this.notifier.notify(source, 'Vous avez ~g~utilisé~s~ un jerrycan de kérosène.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~g~sử dụng~s~ một can dầu hỏa.', 'success');
     }
 
     public async useOilJerrycan(source: number, item: CommonItem, inventoryItem: InventoryItem, inventory: Inventory) {
         const closestVehicle = await this.vehicleSpawner.getClosestVehicle(source);
 
         if (!closestVehicle) {
-            this.notifier.notify(source, 'Aucun véhicule à proximité');
+            this.notifier.notify(source, 'Không có phương tiện nào ở gần');
 
             return;
         }
 
         if (isVehicleModelElectric(GetEntityModel(closestVehicle.vehicleEntityId))) {
-            this.notifier.notify(source, "Ce véhicule n'a pas besoin d'huile, il est éléctrique !", 'error');
+            this.notifier.notify(source, "Phương tiện này không cần nhớt, nó là xe điện!", 'error');
 
             return;
         }
 
         if (closestVehicle.isInside) {
-            this.notifier.notify(source, "Vous ne pouvez pas utiliser ceci à l'intérieur d'un véhicule", 'error');
+            this.notifier.notify(source, "Bạn không thể sử dụng vật phẩm này khi đang ở trong xe", 'error');
 
             return;
         }
@@ -216,7 +216,7 @@ export class ItemFuelProvider {
         const { progress } = await this.progressService.progress(
             source,
             'oil_jerrycan_kerosene',
-            'Remplissage du véhicule...',
+            'Đang nạp nhiên liệu cho xe...',
             10000,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -236,7 +236,7 @@ export class ItemFuelProvider {
             oilLevel: Math.min(vehicleState.condition.oilLevel + filledOil, 100),
         });
 
-        this.notifier.notify(source, "Vous avez ~g~utilisé~s~ un bidon d'huile.", 'success');
+        this.notifier.notify(source, "Bạn đã ~g~sử dụng~s~ một bình nhớt động cơ.", 'success');
     }
 
     public async usePortableBattery(
@@ -248,13 +248,13 @@ export class ItemFuelProvider {
         const closestVehicle = await this.vehicleSpawner.getClosestVehicle(source);
 
         if (!closestVehicle) {
-            this.notifier.notify(source, 'Aucun véhicule à proximité');
+            this.notifier.notify(source, 'Không có phương tiện nào ở gần');
 
             return;
         }
 
         if (!isVehicleModelElectric(GetEntityModel(closestVehicle.vehicleEntityId))) {
-            this.notifier.notify(source, "Ce véhicule ne roule pas à l'éléctrique", 'error');
+            this.notifier.notify(source, "Phương tiện này không phải là xe chạy điện", 'error');
             return;
         }
 
@@ -270,7 +270,7 @@ export class ItemFuelProvider {
         const { progress } = await this.progressService.progress(
             source,
             'recharger_battery',
-            'Rechargement de la batterie...',
+            'Đang sạc pin cho xe...',
             10000,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -290,7 +290,7 @@ export class ItemFuelProvider {
             fuelLevel: Math.min(maxFuel, vehicleState.condition.fuelLevel + filledFuel),
         });
 
-        this.notifier.notify(source, 'Vous avez ~g~rechargé~s~ la batterie du véhicule.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~g~sạc~s~ ắc quy/pin của phương tiện.', 'success');
     }
 
     @Once()

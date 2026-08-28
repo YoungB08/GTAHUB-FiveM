@@ -34,9 +34,9 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
     return (
         <SubMenu id="game_master">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="Dieu ? C'est toi ?">
+            <MenuContent subtitle="Menu Quản Trò (GameMaster)">
                 <MenuItemSelect
-                    title="💰 Se donner de l'argent propre"
+                    title="💰 Nhận tiền sạch"
                     disabled={!isAdmin}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminGiveMoney, MONEY_OPTIONS[index].value);
@@ -47,7 +47,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                     ))}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title="💰 Se donner de l'argent marqué"
+                    title="💰 Nhận tiền bẩn (Đánh dấu)"
                     disabled={!isAdmin}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminGiveMarkedMoney, MONEY_OPTIONS[index].value);
@@ -62,10 +62,10 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminTeleportToWaypoint);
                     }}
                 >
-                    🥷 Se téléporter au marqueur
+                    🥷 Dịch chuyển đến Điểm đánh dấu (Waypoint)
                 </MenuItemButton>
                 <MenuItemSelect
-                    title="Se donner le permis"
+                    title="Cấp bằng lái / Giấy phép"
                     disabled={!isAdmin}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminGiveLicence, LICENCES[index].value);
@@ -82,7 +82,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminToggleMoneyCase, value);
                     }}
                 >
-                    💼 Mallette d'argent
+                    💼 Vali tiền
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.invisible}
@@ -91,14 +91,14 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetVisible, !value);
                     }}
                 >
-                    Invisible
+                    Tàng hình (Invisible)
                 </MenuItemCheckbox>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminAutoPilot);
                     }}
                 >
-                    🏎️ Auto-pilote
+                    🏎️ Tự động lái xe (Auto-pilot)
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={player.metadata.godmode}
@@ -107,14 +107,14 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetGodMode, value);
                     }}
                 >
-                    🔱 Mode Dieu
+                    🔱 Chế độ Bất tử (God Mode)
                 </MenuItemCheckbox>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuGameMasterUncuff);
                     }}
                 >
-                    Se libérer des menottes
+                    Tự mở khóa còng tay
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.adminGPS}
@@ -124,7 +124,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetAdminGPS, value);
                     }}
                 >
-                    🗺 GPS permanent
+                    🗺 GPS vĩnh viễn
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.adminPoliceLocator}
@@ -134,7 +134,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetPoliceLocator, value);
                     }}
                 >
-                    🗺️ Affichage des patrouilles
+                    🗺️ Hiện vị trí tuần tra cảnh sát
                 </MenuItemCheckbox>
                 <MenuItemButton
                     disabled={!isAdminOrStaffOrGM}
@@ -142,7 +142,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminMenuGameMasterArmor);
                     }}
                 >
-                    𐂫 Armure
+                    𐂫 Hồi đầy Giáp
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.adminInfiniteAmmo}
@@ -152,7 +152,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetAdminInfiniteAmmo, value);
                     }}
                 >
-                    🔫 Munitions infinis
+                    🔫 Đạn vô hạn
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.adminNoRecoil}
@@ -162,7 +162,7 @@ export const GameMasterSubMenu: FunctionComponent<GameMasterSubMenuProps> = ({ p
                         await fetchNui(NuiEvent.AdminSetAdminNoRecoil, value);
                     }}
                 >
-                    🔫 Pas de recul
+                    🔫 Không giật súng (No Recoil)
                 </MenuItemCheckbox>
             </MenuContent>
         </SubMenu>

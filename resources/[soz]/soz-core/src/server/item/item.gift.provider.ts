@@ -90,7 +90,7 @@ export class ItemGiftProvider {
 
     private async useZRTBlizzard(source: number) {
         if (!this.featureProvider.isFeatureEnabled(Feature.Christmas)) {
-            this.notifier.error(source, 'Noël est fini !');
+            this.notifier.error(source, 'Giáng Sinh đã kết thúc!');
             return;
         }
 
@@ -108,7 +108,7 @@ export class ItemGiftProvider {
         });
 
         if (playerVeh > 0) {
-            this.notifier.error(source, `Tu possèdes déjà une ~g~ZRT Blizzard~s~, ça ne te suffit pas ?`);
+            this.notifier.error(source, `Bạn đã sở hữu một chiếc ~g~ZRT Blizzard~s~ rồi, như vậy chưa đủ sao?`);
             return;
         }
 
@@ -118,7 +118,7 @@ export class ItemGiftProvider {
     @OnEvent(ServerEvent.GIFT_GIVE_ZRT_BLIZZARD)
     public async onGiveZRTBlizzard(source: number) {
         if (!this.featureProvider.isFeatureEnabled(Feature.Christmas)) {
-            this.notifier.error(source, "L'hiver est fini !");
+            this.notifier.error(source, "Mùa đông đã kết thúc!");
             return;
         }
 
@@ -151,7 +151,7 @@ export class ItemGiftProvider {
         const garageConfig = GarageList[garage];
         this.notifier.notify(
             source,
-            `Une ~g~ZRT Blizzard~s~ a été envoyé au garage ~b~${garageConfig.name}~s~. Profite bien de la neige !`,
+            `Một chiếc ~g~ZRT Blizzard~s~ đã được chuyển vào gara ~b~${garageConfig.name}~s~. Chúc bạn tận hưởng tuyết vui vẻ!`,
             'success'
         );
     }
@@ -190,7 +190,7 @@ export class ItemGiftProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez deballé votre ~g~${giftLabel}~s~ ! Surprise, tu as reçu : ~b~${giftedLabel.join('~s~, ~b~')}~s~.`,
+            `Bạn đã mở món quà ~g~${giftLabel}~s~ ! Bất ngờ chưa, bạn nhận được: ~b~${giftedLabel.join('~s~, ~b~')}~s~.`,
             'success'
         );
     }
@@ -201,11 +201,11 @@ export class ItemGiftProvider {
 
         let notif: string;
         if (randNumber === 0 || randNumber === 501) {
-            notif = `La personne à côté de toi a lancé sa pièce ! Sur la ~b~Tranche~s~...`;
+            notif = `Người bên cạnh bạn vừa tung đồng xu! Đồng xu rơi nghiêng ở ~b~Cạnh~s~...`;
         } else if (randNumber % 2) {
-            notif = `La personne à côté de toi a lancé sa pièce ! Elle a obtenu ~b~Face~s~ !`;
+            notif = `Người bên cạnh bạn vừa tung đồng xu! Kết quả là mặt ~b~Ngửa~s~ !`;
         } else {
-            notif = `La personne à côté de toi a lancé sa pièce ! Elle a obtenu ~b~Pile~s~ !`;
+            notif = `Người bên cạnh bạn vừa tung đồng xu! Kết quả là mặt ~b~Sấp~s~ !`;
         }
 
         for (const player of players) {

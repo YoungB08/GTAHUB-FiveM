@@ -74,6 +74,6 @@ export class AdminMenuGameProvider {
             false
         );
         this.playerService.updateClothConfig(source, 'BaseClothSet', outfit, false);
-        this.notifier.notify(source, 'Tenue sauvegardée.', 'success');
+        this.notifier.notify(source, 'Đã lưu trang phục.', 'success');
     }
 }

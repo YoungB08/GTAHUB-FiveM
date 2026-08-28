@@ -50,14 +50,14 @@ export enum PetOrder {
 }
 
 export const petOrderMeta: Record<PetOrder, { label: string; icon: any }> = {
-    [PetOrder.FOLLOW]: { label: 'Suis-moi', icon: 'follow' },
-    [PetOrder.STOP]: { label: 'Reste ici', icon: 'stop' },
-    [PetOrder.SIT]: { label: 'Assis', icon: 'sit' },
-    [PetOrder.LAY_DOWN]: { label: 'Couché', icon: 'lay' },
-    [PetOrder.PET]: { label: 'Caresse', icon: 'pet' },
-    [PetOrder.TRICK]: { label: 'Fais ton numéro', icon: 'trick' },
-    [PetOrder.CATCH]: { label: 'Va chercher', icon: 'catch' },
-    [PetOrder.SEARCH]: { label: 'Cherche', icon: 'search' },
+    [PetOrder.FOLLOW]: { label: 'Đi theo tôi', icon: 'follow' },
+    [PetOrder.STOP]: { label: 'Đứng yên', icon: 'stop' },
+    [PetOrder.SIT]: { label: 'Ngồi xuống', icon: 'sit' },
+    [PetOrder.LAY_DOWN]: { label: 'Nằm xuống', icon: 'lay' },
+    [PetOrder.PET]: { label: 'Vuốt ve', icon: 'pet' },
+    [PetOrder.TRICK]: { label: 'Làm trò', icon: 'trick' },
+    [PetOrder.CATCH]: { label: 'Đi nhặt đồ', icon: 'catch' },
+    [PetOrder.SEARCH]: { label: 'Tìm kiếm / Đánh hơi', icon: 'search' },
 };
 export const orderJobRestriction: Record<PetOrder, Array<JobType>> = {
     [PetOrder.FOLLOW]: null,
@@ -370,11 +370,11 @@ export const increamentalPetMeta: Set<IncrementalPetData> = new Set([
     'training',
 ]);
 export const PetMetaLabel: Record<IncrementalPetData, string> = {
-    hunger: 'Faim',
-    thirst: 'Soif',
-    energy: 'Energie',
-    affection: 'Affection',
-    training: 'Entrainement',
+    hunger: 'Đói',
+    thirst: 'Khát',
+    energy: 'Năng lượng',
+    affection: 'Độ thân thiết',
+    training: 'Độ huấn luyện',
 };
 
 export type IncrementalPetResetMetadataType = 'affectionGain' | 'affectionLoss' | 'training';
@@ -384,9 +384,9 @@ export const incrementalPetResetMetadata: Set<IncrementalPetResetMetadataType> =
     'training',
 ]);
 export const PetResetMetaLabel: Record<IncrementalPetResetMetadataType, { label: string; max: number }> = {
-    affectionGain: { label: "Gain d'affection", max: PetAffectionGainPerDay },
-    affectionLoss: { label: "Perte d'affection", max: PetAffectionLossPerDay },
-    training: { label: "Gain d'entrainement", max: PetTrainingGainPerDay },
+    affectionGain: { label: "Thân thiết nhận được", max: PetAffectionGainPerDay },
+    affectionLoss: { label: "Thân thiết bị giảm", max: PetAffectionLossPerDay },
+    training: { label: "Điểm huấn luyện nhận được", max: PetTrainingGainPerDay },
 };
 
 export enum PetTraits {
@@ -397,32 +397,32 @@ export enum PetTraits {
 }
 
 export const positiveTraitLabel: Record<PetTraits, string> = {
-    [PetTraits.ENERGY]: 'Actif',
-    [PetTraits.TRAINING]: 'Génie',
-    [PetTraits.FOOD]: 'Frugal',
-    [PetTraits.AFFECTION]: 'Affectif',
+    [PetTraits.ENERGY]: 'Năng động',
+    [PetTraits.TRAINING]: 'Thông minh',
+    [PetTraits.FOOD]: 'Tiết kiệm thức ăn',
+    [PetTraits.AFFECTION]: 'Thân thiện',
 };
 export const negativeTraitLabel: Record<PetTraits, string> = {
-    [PetTraits.ENERGY]: 'Paresseux',
-    [PetTraits.TRAINING]: 'Idiot',
-    [PetTraits.FOOD]: 'Glouton',
-    [PetTraits.AFFECTION]: 'Distant',
+    [PetTraits.ENERGY]: 'Lười biếng',
+    [PetTraits.TRAINING]: 'Khó bảo',
+    [PetTraits.FOOD]: 'Háu ăn',
+    [PetTraits.AFFECTION]: 'Lạnh lùng',
 };
 
 export const getAffectionLabel = (affection: number) => {
-    if (affection >= 100) return 'Harmonie totale';
-    if (affection >= 75) return 'Dévotion';
-    if (affection >= 50) return 'Attachement';
-    if (affection >= 25) return 'Curiosité';
-    return 'Méfiance';
+    if (affection >= 100) return 'Gắn kết tuyệt đối';
+    if (affection >= 75) return 'Rất trung thành';
+    if (affection >= 50) return 'Thân thiết';
+    if (affection >= 25) return 'Tò mò làm quen';
+    return 'Cảnh giác';
 };
 
 export const getTrainingLabel = (training: number) => {
-    if (training >= 100) return 'Obéissance totale';
-    if (training >= 75) return 'Maîtrise';
-    if (training >= 50) return 'Discipline';
-    if (training >= 25) return 'Apprentissage';
-    return 'Sauvage';
+    if (training >= 100) return 'Vâng lời tuyệt đối';
+    if (training >= 75) return 'Thuần thục';
+    if (training >= 50) return 'Kỷ luật tốt';
+    if (training >= 25) return 'Đang học việc';
+    return 'Còn hoang dã';
 };
 
 export type Pet = {
@@ -521,85 +521,85 @@ export const petShopContent: Record<petBreed, petInShop> = {
     a_c_husky: {
         model: 'a_c_husky',
         label: 'Husky',
-        type: 'Chien',
+        type: 'Chó',
         price: 60_000,
     },
     a_c_retriever: {
         model: 'a_c_retriever',
-        label: 'Retriever',
-        type: 'Chien',
+        label: 'Golden Retriever',
+        type: 'Chó',
         price: 75_000,
     },
     a_c_westy: {
         model: 'a_c_westy',
         label: 'Westie',
-        type: 'Chien',
+        type: 'Chó',
         price: 25_000,
     },
     a_c_rottweiler: {
         model: 'a_c_rottweiler',
         label: 'Rottweiler',
-        type: 'Chien',
+        type: 'Chó',
         price: 67_500,
     },
     a_c_shepherd: {
         model: 'a_c_shepherd',
         label: 'Border Collie',
-        type: 'Chien',
+        type: 'Chó',
         price: 45_000,
     },
     a_c_pug: {
         model: 'a_c_pug',
-        label: 'Carlin',
-        type: 'Chien',
+        label: 'Pug',
+        type: 'Chó',
         price: 35_000,
     },
     a_c_poodle: {
         model: 'a_c_poodle',
-        label: 'Caniche',
-        type: 'Chien',
+        label: 'Poodle',
+        type: 'Chó',
         price: 52_500,
     },
     a_c_cat_01: {
         model: 'a_c_cat_01',
-        label: 'Chat de rue',
-        type: 'Chat',
+        label: 'Mèo mướp',
+        type: 'Mèo',
         price: 20_000,
     },
     a_c_boar: {
         model: 'a_c_boar',
-        label: 'Sanglier',
-        type: 'Ferme',
+        label: 'Lợn rừng',
+        type: 'Nông trại',
         price: 20_000,
     },
     a_c_cow: {
         model: 'a_c_cow',
-        label: 'Vache',
-        type: 'Ferme',
+        label: 'Bò sữa',
+        type: 'Nông trại',
         price: 20_000,
     },
     a_c_pig: {
         model: 'a_c_pig',
-        label: 'Cochon',
-        type: 'Ferme',
+        label: 'Lợn',
+        type: 'Nông trại',
         price: 20_000,
     },
     a_c_rabbit_01: {
         model: 'a_c_rabbit_01',
-        label: 'Lapin',
-        type: 'Ferme',
+        label: 'Thỏ',
+        type: 'Nông trại',
         price: 10_000,
     },
     a_c_hen: {
         model: 'a_c_hen',
-        label: 'Poule',
-        type: 'Ferme',
+        label: 'Gà',
+        type: 'Nông trại',
         price: 10_000,
     },
     [k9_model]: {
         model: k9_model,
-        label: 'Berger Allemand',
-        type: 'Chien',
+        label: 'Chó nghiệp vụ K9 (Berger Allemand)',
+        type: 'Nghiệp vụ',
         price: 150_000,
         jobs: [JobType.BCSO, JobType.LSPD, JobType.SASP],
     },

@@ -33,7 +33,7 @@ export class PropsProvider {
         if (isPlayerInsideApartment(player) && !isStaff(player)) {
             this.notifier.notify(
                 source,
-                "Attend, tu as vraiment voulu utiliser ton pouvoir dans ton habitation ? Tu n'es pas assez riche comme cela ? Respecte toi un peu et va donc acheter tes meubles au ZKEA.",
+                "Khoan đã, bạn thực sự muốn sử dụng quyền năng trong nhà của mình sao? Bạn chưa đủ giàu hay sao? Hãy tự trọng một chút và đi mua đồ nội thất tại ZKEA đi.",
                 'error'
             );
             return;

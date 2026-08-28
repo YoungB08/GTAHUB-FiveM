@@ -51,7 +51,7 @@ export class DmcForgeProvider {
                     return true;
                 }
 
-                this.notifier.error(source, `Impossible d'accéder au Convertisseur lorsque sa température s'ajuste.`);
+                this.notifier.error(source, `Không thể truy cập Máy chuyển đổi khi nhiệt độ đang điều chỉnh.`);
 
                 return false;
             }
@@ -70,7 +70,7 @@ export class DmcForgeProvider {
             this.converterState.temperature = 0;
             this.converterState.targetTemperature = 0;
         }
-        this.notifier.notify(source, `Vous avez ${value ? '~g~allumé' : '~r~éteint'}~s~ le Convertisseur.`, 'info');
+        this.notifier.notify(source, `Bạn đã ${value ? '~g~bật' : '~r~tắt'}~s~ Máy chuyển đổi.`, 'info');
 
         this.monitor.traceEvent(`job_dmc_${value ? 'start' : 'stop'}_converter`, {
             player_source: source,
@@ -85,7 +85,7 @@ export class DmcForgeProvider {
         const readySeconds = readyTotal % 60;
         this.notifier.notify(
             source,
-            `La température du Convertisseur a été ajusté à ~g~${temperature}°C~s~ ! Il sera prêt dans ~r~${readyMinutes}m${readySeconds}s~s~.`,
+            `Nhiệt độ của Máy chuyển đổi đã được điều chỉnh thành ~g~${temperature}°C~s~ ! Sẽ sẵn sàng trong ~r~${readyMinutes}m${readySeconds}s~s~.`,
             'info'
         );
 

@@ -134,23 +134,23 @@ export class BillboardProvider {
         const conf = billboardOffsets[hashModel];
         const player = this.playerService.getPlayer(source);
         if (!player || !Object.keys(conf.max).includes(player.job.id)) {
-            this.notifier.error(source, "Vous n'avez pas le droit d'utiliser cet objet.");
+            this.notifier.error(source, "Bạn không có quyền sử dụng vật phẩm này.");
             return;
         }
 
         if (!player.job?.onduty) {
-            this.notifier.error(source, 'Vous devez être en service pour utiliser cet objet.');
+            this.notifier.error(source, 'Bạn phải đang làm nhiệm vụ để sử dụng vật phẩm này.');
             return;
         }
 
         if (!(await this.jobService.hasPermission(player, player.job.id, JobPermission.NewsCreateBillboard))) {
-            this.notifier.error(source, "Vous n'avez pas la permission d'utiliser cet objet.");
+            this.notifier.error(source, "Bạn không được phép sử dụng vật phẩm này.");
             return;
         }
 
         const slotsFormodel = this.getSlotsForModel(hashModel);
         if (slotsFormodel.filter(elem => elem.job === player.job.id).length >= conf.max[player.job.id]) {
-            this.notifier.error(source, 'Tous les emplacements pour ce modèle sont utilisés');
+            this.notifier.error(source, 'Tất cả các vị trí cho mô hình này đều đã được sử dụng');
             return;
         }
 
@@ -167,7 +167,7 @@ export class BillboardProvider {
 
     @OnEvent(ServerEvent.BILLBOARD_PLACE_PROP)
     public async billboardUse(source: number, position: Vector4, inventoryItem: InventoryItem) {
-        const progress = await this.progressService.progress(source, 'billboard_use', 'Placement en cours...', 10000, {
+        const progress = await this.progressService.progress(source, 'billboard_use', 'Đang đặt biển quảng cáo...', 10000, {
             dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
             name: 'machinic_loop_mechandplayer',
             options: {
@@ -194,7 +194,7 @@ export class BillboardProvider {
         const conf = billboardOffsets[hashModel];
         const slotsFormodel = this.getSlotsForModel(hashModel);
         if (slotsFormodel.filter(elem => elem.job === player.job.id).length >= conf.max[player.job.id]) {
-            this.notifier.error(source, 'Tous les emplacements pour ce modèle sont utilisés');
+            this.notifier.error(source, 'Tất cả các vị trí cho mô hình này đều đã được sử dụng');
             return;
         }
         let index = 0;
@@ -207,13 +207,13 @@ export class BillboardProvider {
         }
 
         if (index == 0) {
-            this.notifier.error(source, 'Tous les emplacements pour ce modèle sont utilisés');
+            this.notifier.error(source, 'Tất cả các vị trí cho mô hình này đều đã được sử dụng');
             return;
         }
 
         const inventory = await this.inventory.getPlayerInventory(source);
         if (!inventory.removeAtSlot(inventoryItem.slot, 1)) {
-            this.notifier.error(source, `Il vous manque un ~b~${item.label}~s~.`);
+            this.notifier.error(source, `Bạn đang thiếu một ~b~${item.label}~s~.`);
             return;
         }
 
@@ -297,16 +297,16 @@ export class BillboardProvider {
             try {
                 const resp = await axios.get(textureUrl);
                 if (resp.status != 200 && resp.status != 304) {
-                    this.notifier.error(source, 'URL non valide');
+                    this.notifier.error(source, 'Đường dẫn URL không hợp lệ');
                     return;
                 }
                 const contentType = resp.headers['content-type'] ?? resp.headers['Content-Type'];
                 if (!contentType || !contentType.toString().startsWith('image')) {
-                    this.notifier.error(source, `L'URL n'est pas une image`);
+                    this.notifier.error(source, `Đường dẫn URL không phải là hình ảnh`);
                     return;
                 }
             } catch (e) {
-                this.notifier.error(source, 'URL non valide');
+                this.notifier.error(source, 'Đường dẫn URL không hợp lệ');
                 return;
             }
         }

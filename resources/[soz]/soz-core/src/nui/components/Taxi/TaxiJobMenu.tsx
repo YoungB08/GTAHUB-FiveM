@@ -19,7 +19,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.taxi} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -37,7 +37,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiDisplayHorodateur, false);
                             }}
                         >
-                            Cacher Horodateur
+                            Ẩn đồng hồ tính tiền
                         </MenuItemButton>
                     ) : (
                         <MenuItemButton
@@ -45,7 +45,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiDisplayHorodateur, true);
                             }}
                         >
-                            Afficher Horodateur
+                            Hiện đồng hồ tính tiền
                         </MenuItemButton>
                     )}
                     {status.horodateurStarted ? (
@@ -54,7 +54,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiSetHorodateur, false);
                             }}
                         >
-                            Désactiver Horodateur
+                            Dừng tính tiền cước
                         </MenuItemButton>
                     ) : (
                         <MenuItemButton
@@ -62,7 +62,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiSetHorodateur, true);
                             }}
                         >
-                            Activer Horodateur
+                            Bắt đầu tính tiền cước
                         </MenuItemButton>
                     )}
                     {status.taxiMissionInProgress ? (
@@ -71,7 +71,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiSetMission, false);
                             }}
                         >
-                            Annuler la mission
+                            Hủy nhiệm vụ
                         </MenuItemButton>
                     ) : (
                         <MenuItemButton
@@ -79,7 +79,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.TaxiSetMission, true);
                             }}
                         >
-                            Prendre une mission en taxi
+                            Nhận chuyến chở khách Taxi (NPC)
                         </MenuItemButton>
                     )}
                     {status.busMissionInProgress ? (
@@ -88,7 +88,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.BusSetService, false);
                             }}
                         >
-                            Annuler la mission
+                            Hủy nhiệm vụ
                         </MenuItemButton>
                     ) : (
                         <MenuItemButton
@@ -96,7 +96,7 @@ export const TaxiJobMenu: FunctionComponent = () => {
                                 await fetchNui(NuiEvent.BusSetService, true);
                             }}
                         >
-                            Prendre une mission en bus
+                            Nhận tuyến xe Buýt (NPC)
                         </MenuItemButton>
                     )}
                 </MenuContent>

@@ -265,7 +265,7 @@ export class RaceProvider {
     private async askName(defaultValue: string = null) {
         return this.inputService.askInput(
             {
-                title: 'Nom de la course',
+                title: 'Tên đường đua',
                 maxCharacters: 50,
                 defaultValue,
             },
@@ -277,7 +277,7 @@ export class RaceProvider {
                 }
 
                 if (Object.values(locations).find(elem => elem.name.toLocaleLowerCase() == value.toLocaleLowerCase())) {
-                    return Err('Une course avec ce nom existe déjà');
+                    return Err('Một đường đua với tên này đã tồn tại');
                 }
 
                 return Ok(value);
@@ -288,7 +288,7 @@ export class RaceProvider {
     private async askModel(defaultValue: string = null) {
         return this.inputService.askInput<string>(
             {
-                title: 'Modèle de voiture',
+                title: 'Mô hình xe (Model)',
                 maxCharacters: 50,
                 defaultValue,
             },
@@ -303,10 +303,10 @@ export class RaceProvider {
 
                 const hash = GetHashKey(value);
                 if (!IsModelValid(hash)) {
-                    return Err("Ce modèle n'existe pas");
+                    return Err("Mô hình này không tồn tại");
                 }
                 if (!IsModelAVehicle(hash)) {
-                    return Err("Ce modèle n'est pas un vehicule");
+                    return Err("Mô hình này không phải là một phương tiện");
                 }
 
                 return Ok(value);
@@ -315,9 +315,9 @@ export class RaceProvider {
     }
 
     private async askRadius(defaultValue: string = null) {
-        return await this.inputService.askInput(
+        return this.inputService.askInput(
             {
-                title: 'Rayon',
+                title: 'Bán kính',
                 maxCharacters: 3,
                 defaultValue: defaultValue ?? '5',
             },
@@ -403,12 +403,12 @@ export class RaceProvider {
                     const ped = PlayerPedId();
                     const vehicle = GetVehiclePedIsIn(ped, false);
                     if (!vehicle) {
-                        this.notifier.error("Tu n'es pas dans un véhicle");
+                        this.notifier.error("Bạn không ở trong một phương tiện");
                         return;
                     }
 
                     if (GetEntityModel(vehicle) != GetHashKey(race.carModel)) {
-                        this.notifier.error("Tu n'es pas dans le bon modèle de véhicle");
+                        this.notifier.error("Bạn không ở đúng mẫu phương tiện của đường đua");
                         return;
                     }
 

@@ -94,21 +94,21 @@ export class StonkDeliveryProvider {
                 JobPermission.CashTransfer_CollectSecure
             ))
         ) {
-            this.notifier.notify(source, `Vous n'avez pas les accreditations nécessaires.`, 'error');
+            this.notifier.notify(source, `Bạn không có quyền hạn cần thiết.`, 'error');
             return;
         }
 
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.canCarryItem(StonkConfig.delivery.item, 1)) {
-            this.notifier.notify(source, `Vous n'avez pas ~r~assez~s~ de place dans vos poches.`, 'error');
+            this.notifier.notify(source, `Túi đồ của bạn không có đủ chỗ trống.`, 'error');
             return false;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'stonk_delivery',
-            'Vous récupérez une caisse...',
+            'Đang lấy thùng hàng...',
             StonkConfig.delivery.duration,
             {
                 dictionary: 'anim@mp_radio@garage@low',
@@ -129,15 +129,15 @@ export class StonkDeliveryProvider {
         const harvest = await this.fieldService.harvestField(this.fieldIdentifier, 1);
 
         if (!harvest) {
-            this.notifier.notify(source, `Vous n'avez plus de caisse à récupérer.`, 'error');
+            this.notifier.notify(source, `Không còn thùng hàng nào để lấy.`, 'error');
             return false;
         }
 
         const addRequest = inventory.add(StonkConfig.delivery.item, 1);
         if (isOk(addRequest)) {
-            this.notifier.notify(source, `Vous avez ~g~récupéré~s~ une caisse.`);
+            this.notifier.notify(source, `Bạn đã ~g~lấy~s~ một thùng hàng.`);
         } else {
-            this.notifier.notify(source, `Impossible de ~r~récupérer~s~ une caisse.`, 'error');
+            this.notifier.notify(source, `Không thể ~r~lấy~s~ thùng hàng.`, 'error');
         }
     }
 
@@ -146,14 +146,14 @@ export class StonkDeliveryProvider {
         const currentLocation = this.getLiveryLocation();
 
         if (location.name !== currentLocation.name) {
-            this.notifier.notify(source, `Vous n'êtes pas au bon endroit.`, 'error');
+            this.notifier.notify(source, `Bạn đang không ở đúng địa điểm giao hàng.`, 'error');
             return false;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'stonk_delivery',
-            'Vous déposez une caisse...',
+            'Đang giao thùng hàng...',
             StonkConfig.delivery.duration,
             {
                 dictionary: 'anim@mp_radio@garage@low',
@@ -174,7 +174,7 @@ export class StonkDeliveryProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (inventory.remove(StonkConfig.delivery.item, 1, false)) {
-            this.notifier.notify(source, `Vous avez ~g~déposé~s~ une caisse.`);
+            this.notifier.notify(source, `Bạn đã ~g~giao~s~ một thùng hàng.`);
 
             const transfer = await this.bankService.transferFarmMoney(
                 source,
@@ -192,7 +192,7 @@ export class StonkDeliveryProvider {
                 );
             }
         } else {
-            this.notifier.notify(source, `Impossible de ~r~déposer~s~ une caisse.`, 'error');
+            this.notifier.notify(source, `Không thể ~r~giao~s~ thùng hàng.`, 'error');
         }
     }
 }

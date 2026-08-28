@@ -197,7 +197,7 @@ export class ItemNutritionProvider {
         );
 
         if (!canSwap) {
-            this.notifier.error(source, "L'inventaire n'a plus de place !");
+            this.notifier.error(source, "Túi đồ không còn đủ chỗ chứa!");
             return;
         }
 
@@ -215,7 +215,7 @@ export class ItemNutritionProvider {
             notificationLunchboxLabel = item.label + ' "' + itemInv.metadata.label + '"';
         }
 
-        this.notifier.notify(source, 'Vous avez ouvert votre ~g~' + notificationLunchboxLabel + '~s~ !', 'success');
+        this.notifier.notify(source, 'Bạn đã mở ~g~' + notificationLunchboxLabel + '~s~ !', 'success');
     }
 
     @Once()

@@ -122,7 +122,7 @@ export class VehicleOrderProvider {
     public async onCancelOrder(source: number, uuid: string, mode: VehicleOrderMode) {
         const order = this.ordersInProgress.get(uuid);
         if (!order) {
-            this.notifier.notify(source, `Cette commande n'existe pas.`);
+            this.notifier.notify(source, `Đơn đặt hàng này không tồn tại.`);
             return this.getOrders(source, mode);
         }
 
@@ -136,7 +136,7 @@ export class VehicleOrderProvider {
         const vehDef = await this.vehicleRepository.findByModel(order.model);
         this.notifier.notify(
             source,
-            `${order.gang ? "L'importation" : 'La commande'} du véhicule ~b~${vehDef.name}~s~ a bien été ~r~annulé~s~.`
+            `${order.gang ? "Việc nhập khẩu" : 'Đơn đặt hàng'} phương tiện ~b~${vehDef.name}~s~ đã được ~r~hủy bỏ~s~ thành công.`
         );
 
         return this.getOrders(source, mode);
@@ -151,7 +151,7 @@ export class VehicleOrderProvider {
 
         const vehicle = await this.vehicleRepository.findByModel(model);
         if (!vehicle || vehicle.price === 0) {
-            this.notifier.notify(source, `Ce modèle de véhicule n'est pas disponible.`);
+            this.notifier.notify(source, `Mẫu phương tiện này hiện không có sẵn.`);
             return this.getOrders(source, mode);
         }
 
@@ -173,25 +173,25 @@ export class VehicleOrderProvider {
             if (!transferred) {
                 this.notifier.notify(
                     source,
-                    `Il faut ~r~${vehiclePrice.toLocaleString()}$~s~ sur le compte de l'entreprise.`
+                    `Cần có ~r~$${vehiclePrice.toLocaleString('vi-VN')}~s~ trong tài khoản doanh nghiệp.`
                 );
                 return this.getOrders(source, mode);
             } else {
-                this.notifier.notify(source, `Virement de ~g~${vehiclePrice.toLocaleString()}$~s~ effectué.`);
+                this.notifier.notify(source, `Đã chuyển khoản ~g~$${vehiclePrice.toLocaleString('vi-VN')}~s~ thành công.`);
             }
             waitTime = config.waitingTime;
             garage = Configs[player.job.id].garage;
         } else if ([VehicleOrderMode.Crimi, VehicleOrderMode.Cartel].includes(mode)) {
             playerDst = this.playerService.getPlayerByPhone(phone);
             if (!playerDst) {
-                this.notifier.notify(source, `Le numéro n'est pas actif.`, 'error');
+                this.notifier.notify(source, `Số điện thoại không hoạt động hoặc không tồn tại.`, 'error');
                 return this.getOrders(source, mode);
             }
 
             if (!this.playerMoneyService.remove(source, vehiclePrice, 'marked_money')) {
                 this.notifier.notify(
                     source,
-                    `Vous n'avez ~r~pas assez d'argent sale~s~ sur vous pour importer ce véhicule. Reviens lorsque tu auras la somme requise !`,
+                    `Bạn ~r~không có đủ tiền bẩn~s~ trên người để nhập khẩu phương tiện này. Hãy quay lại khi có đủ số tiền yêu cầu!`,
                     'error'
                 );
                 return this.getOrders(source, mode);
@@ -225,7 +225,7 @@ export class VehicleOrderProvider {
         const duration = formatDuration(Date.now() - order.deliverDate);
         this.notifier.notify(
             source,
-            `${order.gang ? "L'importation" : 'La commande'} du véhicule ~b~${vehicle.name}~s~ a bien été ~g~réalisé~s~. Elle sera livrée dans ~b~${duration}~s~.`
+            `${order.gang ? "Việc nhập khẩu" : 'Đơn đặt hàng'} phương tiện ~b~${vehicle.name}~s~ đã được ~g~thực hiện~s~ thành công. Phương tiện sẽ được giao sau ~b~${duration}~s~.`
         );
 
         await this.prismaService.vehicle_order.create({

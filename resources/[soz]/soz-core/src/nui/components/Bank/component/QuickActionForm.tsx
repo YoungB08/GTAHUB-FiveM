@@ -58,7 +58,7 @@ export const QuickActionForm: FunctionComponent<QuickActionFormProps> = ({
 
     return (
         <Card className="space-y-2.5">
-            <Title size="xsmall">Actions rapides</Title>
+            <Title size="xsmall">Giao dịch nhanh</Title>
 
             <Tabs
                 selected={quickAction}
@@ -66,7 +66,7 @@ export const QuickActionForm: FunctionComponent<QuickActionFormProps> = ({
                     setQuickAction(index);
                     reset();
                 }}
-                tabs={['Retirer', 'Déposer']}
+                tabs={['Rút tiền', 'Nạp tiền']}
             />
 
             <form onSubmit={handleSubmit(submitForm)}>
@@ -88,7 +88,7 @@ export const QuickActionForm: FunctionComponent<QuickActionFormProps> = ({
                     }
                 />
 
-                <Button disabled={isSubmitting}>{quickAction === 0 ? 'Retirer' : 'Déposer'}</Button>
+                <Button disabled={isSubmitting}>{quickAction === 0 ? 'Rút tiền' : 'Nạp tiền'}</Button>
             </form>
         </Card>
     );

@@ -38,11 +38,11 @@ export class DoorProvider {
 
         await this.doorRepository.set(door.id, door);
         if (lock === true) {
-            this.notifier.notify(source, 'La porte est ~r~verrouillée~s~.');
+            this.notifier.notify(source, 'Cửa đã được ~r~khóa~s~.');
         } else if (lock === false) {
-            this.notifier.notify(source, 'La porte est ~g~déverrouillée~s~.');
+            this.notifier.notify(source, 'Cửa đã được ~g~mở khóa~s~.');
         } else {
-            this.notifier.notify(source, 'Porte créée/modifiée');
+            this.notifier.notify(source, 'Đã tạo/chỉnh sửa cửa');
         }
     }
 
@@ -54,6 +54,6 @@ export class DoorProvider {
                 id: doorId,
             },
         });
-        this.notifier.notify(source, 'Porte supprimée');
+        this.notifier.notify(source, 'Đã xóa cửa');
     }
 }

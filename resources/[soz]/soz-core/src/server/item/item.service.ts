@@ -80,7 +80,7 @@ export class ItemService {
 
         if (cb) {
             if (this.usingItems.has(source)) {
-                this.notifier.error(source, "Un objet est déjà en cours d'utilisation.");
+                this.notifier.error(source, "Một vật phẩm đã đang được sử dụng.");
 
                 return false;
             }
@@ -99,7 +99,7 @@ export class ItemService {
     ) {
         this.useCallbacks.set(itemId, (player: number, item: T, inventoryItem: InventoryItem, inventory: Inventory) => {
             if (!BypassExpirationCheckType.includes(item.type) && isInventoryItemExpired(inventoryItem)) {
-                this.notifier.notify(player, `${item.label} est périmé(e).`, 'error');
+                this.notifier.notify(player, `${item.label} đã hết hạn sử dụng.`, 'error');
 
                 return;
             }

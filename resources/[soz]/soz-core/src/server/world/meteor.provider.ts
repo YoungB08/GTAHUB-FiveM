@@ -130,7 +130,7 @@ export class MeteorProvider {
         }
 
         TriggerClientEvent(ClientEvent.METEOR_START, -1);
-        this.notifier.notify(source, 'Lancement météorite...');
+        this.notifier.notify(source, 'Đang phóng thiên thạch...');
         this.musics[Music.Siren] = 0;
         this.musics[Music.Ambiance] = 0;
     }

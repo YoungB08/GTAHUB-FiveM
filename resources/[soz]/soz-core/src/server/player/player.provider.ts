@@ -272,6 +272,6 @@ export class PlayerProvider {
         }
         this.QBCore.logout(target);
 
-        this.notifier.notify(source, `Id force logout:` + target);
+        this.notifier.notify(source, `Bắt buộc đăng xuất ID: ` + target);
     }
 }

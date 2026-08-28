@@ -45,67 +45,67 @@ export type TeamColorChoicesItem = {
 
 export const TeamColorChoices: Record<LaserGameColorEnum, TeamColorChoicesItem> = {
     [LaserGameColorEnum.YELLOW]: {
-        label: 'Jaune',
+        label: 'Vàng',
         color: [251, 226, 18],
     },
     [LaserGameColorEnum.BLUE]: {
-        label: 'Bleu',
+        label: 'Xanh dương',
         color: [11, 156, 241],
     },
     [LaserGameColorEnum.ORANGE]: {
-        label: 'Orange',
+        label: 'Cam',
         color: [255, 128, 0],
     },
     [LaserGameColorEnum.PINK]: {
-        label: 'Rose',
+        label: 'Hồng',
         color: [253, 214, 205],
     },
     [LaserGameColorEnum.RED]: {
-        label: 'Rouge',
+        label: 'Đỏ',
         color: [188, 25, 23],
     },
     [LaserGameColorEnum.GREEN]: {
-        label: 'Vert',
+        label: 'Xanh lá',
         color: [152, 210, 35],
     },
     [LaserGameColorEnum.WHITE]: {
-        label: 'Blanc',
+        label: 'Trắng',
         color: [255, 255, 255],
     },
     [LaserGameColorEnum.PURPLE]: {
-        label: 'Violet',
+        label: 'Tím',
         color: [107, 31, 123],
     },
     [LaserGameColorEnum.CREAM]: {
-        label: 'Crème',
+        label: 'Kem',
         color: [188, 172, 143],
     },
     [LaserGameColorEnum.GREY]: {
-        label: 'Gris',
+        label: 'Xám',
         color: [152, 159, 175],
     },
 };
 
 export const LaserGameType: Record<LaserGameTypeEnum, { name: string; descrption: string }> = {
     [LaserGameTypeEnum.FFA]: {
-        name: 'Match à mort',
-        descrption: 'Chacun pour soi, entre 2 et 20 joueurs',
+        name: 'Đấu đơn (Deathmatch)',
+        descrption: 'Tự do sinh tồn, từ 2 đến 20 người chơi',
     },
     [LaserGameTypeEnum.TEAM2]: {
-        name: '2v2',
-        descrption: 'Match en équipe à 4 joueurs',
+        name: 'Đấu đội 2v2',
+        descrption: 'Đấu đội 4 người chơi',
     },
     [LaserGameTypeEnum.TEAM3]: {
-        name: '3v3',
-        descrption: 'Match en équipe à 6 joueurs',
+        name: 'Đấu đội 3v3',
+        descrption: 'Đấu đội 6 người chơi',
     },
     [LaserGameTypeEnum.TEAM5]: {
-        name: '5v5',
-        descrption: 'Match en équipe à 10 joueurs',
+        name: 'Đấu đội 5v5',
+        descrption: 'Đấu đội 10 người chơi',
     },
     [LaserGameTypeEnum.TEAM10]: {
-        name: '10v10',
-        descrption: 'Match en équipe à 20 joueurs',
+        name: 'Đấu đội 10v10',
+        descrption: 'Đấu đội 20 người chơi',
     },
 };
 

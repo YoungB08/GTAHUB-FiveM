@@ -41,16 +41,16 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
         <>
             <SubMenu id="event">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Évènements HC">
+                <MenuContent subtitle="Sự kiện Thế giới (World Events)">
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.AdminMenuEventCreate)}>
-                        📅 Ajouter un nouveau évènement
+                        📅 Thêm sự kiện mới
                     </MenuItemButton>
                     {currentEvent && currentScene && (
                         <MenuItemButton
                             description={
                                 <div>
-                                    <div>Évènement: {currentEvent.name}</div>
-                                    <div>Scène: {currentScene.name}</div>
+                                    <div>Sự kiện: {currentEvent.name}</div>
+                                    <div>Phân cảnh: {currentScene.name}</div>
                                 </div>
                             }
                             onConfirm={() => {
@@ -64,7 +64,7 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                                 });
                             }}
                         >
-                            🔴 Arreter évènement en cours
+                            🔴 Dừng sự kiện đang chạy
                         </MenuItemButton>
                     )}
                     {Object.values(events).map(event => (
@@ -78,14 +78,14 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                 <Fragment key={event.id}>
                     <SubMenu id={`event-${event.id}`}>
                         <MenuTitle title={permission} />
-                        <MenuContent subtitle={`Évènement ${event.name}`}>
+                        <MenuContent subtitle={`Sự kiện: ${event.name}`}>
                             <MenuItemButton
                                 onConfirm={() => fetchNui(NuiEvent.AdminMenuEventAddReward, { eventId: event.id })}
                             >
-                                ➕ Ajouter une récompense
+                                ➕ Thêm phần thưởng
                             </MenuItemButton>
                             <MenuItemButton onConfirm={() => fetchNui(NuiEvent.SceneCreate, { eventId: event.id })}>
-                                ➕ Ajouter une scène
+                                ➕ Thêm phân cảnh (Scene)
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={() =>
@@ -95,7 +95,7 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                                     })
                                 }
                             >
-                                ➕ Son de début d'évenement
+                                ➕ Âm thanh mở đầu sự kiện
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={async () => {
@@ -108,16 +108,16 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                                     }
                                 }}
                             >
-                                🟢 Lancer l'évenement
+                                🟢 Bắt đầu sự kiện
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={() => {
                                     fetchNui(NuiEvent.AdminMenuEventDelete, { eventId: event.id });
                                 }}
                             >
-                                ❌ Supprimer
+                                ❌ Xóa sự kiện
                             </MenuItemButton>
-                            <MenuSubTitle>Récompenses</MenuSubTitle>
+                            <MenuSubTitle>Phần thưởng sự kiện</MenuSubTitle>
                             {[
                                 ...new Set(
                                     event.reward.map(reward => items.find(item => item.name === reward.item).type)
@@ -146,9 +146,9 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                                                 key={reward.item + index}
                                                 description={
                                                     <div>
-                                                        <div>Chance: {reward.chance}%</div>
-                                                        <div>Min: {reward.min}</div>
-                                                        <div>Max: {reward.max}</div>
+                                                        <div>Tỷ lệ: {reward.chance}%</div>
+                                                        <div>Tối thiểu (Min): {reward.min}</div>
+                                                        <div>Tối đa (Max): {reward.max}</div>
                                                     </div>
                                                 }
                                                 onConfirm={(i, value) => {
@@ -181,15 +181,15 @@ export const EventSubMenu: FunctionComponent<EventSubMenuProps> = ({ permission,
                                                     }
                                                 }}
                                             >
-                                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
-                                                <MenuItemSelectOption value="chance">Déf. Chance</MenuItemSelectOption>
-                                                <MenuItemSelectOption value="min">Déf. Min</MenuItemSelectOption>
-                                                <MenuItemSelectOption value="max">Déf. Max</MenuItemSelectOption>
+                                                <MenuItemSelectOption value="delete">Xóa</MenuItemSelectOption>
+                                                <MenuItemSelectOption value="chance">Chỉnh Tỷ lệ</MenuItemSelectOption>
+                                                <MenuItemSelectOption value="min">Chỉnh Tối thiểu (Min)</MenuItemSelectOption>
+                                                <MenuItemSelectOption value="max">Chỉnh Tối đa (Max)</MenuItemSelectOption>
                                             </MenuItemSelect>
                                         ))}
                                 </div>
                             ))}
-                            <MenuSubTitle>Scènes</MenuSubTitle>
+                            <MenuSubTitle>Danh sách Phân cảnh (Scenes)</MenuSubTitle>
                             {Object.values(scenes)
                                 .filter(scene => scene.worldEventId === event.id)
                                 .map(scene => (

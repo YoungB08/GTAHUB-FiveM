@@ -43,7 +43,7 @@ const ClanCard: FunctionComponent<{ id: WhatIfGuild; title: string }> = ({ id, t
                     onClick={handleOnClick}
                     className="absolute bottom-5 z-10 w-[90%] text-2xl uppercase font-semibold border-4 py-4 border-white text-white hover:bg-white/30 transition-colors ease-in-out duration-300"
                 >
-                    Rejoindre
+                    Gia nhập phe
                 </button>
             </div>
 

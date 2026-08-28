@@ -21,7 +21,7 @@ export class ItemNewsProvider {
     @Once()
     public onStartNewsItem() {
         this.item.setItemUseCallback('newspaper', source => {
-            this.notifier.notify(source, "La vente de journaux n'est plus possible ...", 'error');
+            this.notifier.notify(source, "Hiện không thể bán báo...", 'error');
             return;
             const player = this.playerService.getPlayer(source);
 

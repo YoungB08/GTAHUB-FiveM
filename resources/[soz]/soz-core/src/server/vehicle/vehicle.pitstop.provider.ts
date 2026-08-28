@@ -114,7 +114,7 @@ export class VehiclePitStopProvider {
 
         this.notifier.notify(
             source,
-            `Le prix du Pit Stop pour les ${VehicleCategory[category]} est maintenant de ~g~${price}~s~`
+            `Giá dịch vụ Pit Stop cho phân khúc ${VehicleCategory[category]} hiện là ~g~$${price}~s~`
         );
 
         this.monitor.traceEvent('vehicle_pitstop_price_update', {
@@ -132,7 +132,7 @@ export class VehiclePitStopProvider {
         const price = await this.getPrice(vehicleNetworkId);
 
         if (!(await this.playerMoneyService.buy(source, price, TaxType.SERVICE))) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+            this.notifier.notify(source, "Bạn không có đủ tiền", 'error');
             return;
         }
 
@@ -151,7 +151,7 @@ export class VehiclePitStopProvider {
 
         await this.bankService.addAccountMoney('safe_' + JobType.Bennys, Math.round(price / 2));
 
-        this.notifier.notify(source, 'Le véhicule a été réparé', 'success');
+        this.notifier.notify(source, 'Phương tiện đã được sửa chữa', 'success');
 
         const state = this.vehicleStateService.getVehicleState(vehicleNetworkId);
         this.monitor.traceEvent('vehicle_pitstop', {

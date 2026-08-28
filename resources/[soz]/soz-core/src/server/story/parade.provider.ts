@@ -33,9 +33,9 @@ export class ParadeProvider {
 
         if (!start) {
             if (this.running) {
-                this.notifier.notify(source, "Parade en cours d'arrêt");
+                this.notifier.notify(source, "Đang dừng lễ diễu hành");
             } else {
-                this.notifier.notify(source, 'Arrêt de la parade');
+                this.notifier.notify(source, 'Đã dừng lễ diễu hành');
             }
             this.stopped = true;
             TriggerClientEvent(ClientEvent.PARADE_DELETE, -1);
@@ -45,7 +45,7 @@ export class ParadeProvider {
         }
 
         if (this.running) {
-            this.notifier.error(source, 'Une parade est déjà en cours');
+            this.notifier.error(source, 'Một lễ diễu hành đã đang diễn ra');
             return;
         }
 
@@ -62,7 +62,7 @@ export class ParadeProvider {
             if (Parade.blocks[i].delay) {
                 await wait(Parade.blocks[i].delay);
                 if (this.stopped) {
-                    this.notifier.notify(source, 'Arrêt de la parade');
+                    this.notifier.notify(source, 'Đã dừng lễ diễu hành');
                     this.running = false;
                     this.stopped = false;
                     return;

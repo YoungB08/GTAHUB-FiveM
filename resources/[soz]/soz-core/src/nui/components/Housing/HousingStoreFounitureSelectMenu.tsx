@@ -18,7 +18,7 @@ export const HousingStoreFounitureSelectMenu: FunctionComponent<HousingStoreFoun
     return (
         <Menu type={MenuType.HousingStoreFounitureSelectMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

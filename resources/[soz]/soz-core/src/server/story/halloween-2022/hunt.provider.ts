@@ -78,14 +78,14 @@ export class HuntProvider {
         });
 
         if (pumpkin.length > 0) {
-            this.notifier.notify(source, 'Vous avez déjà trouvé cette coupe', 'info');
+            this.notifier.notify(source, 'Bạn đã tìm thấy chiếc cúp này rồi', 'info');
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'halloween2022_hunt',
-            'Vous fouillez...',
+            'Đang tìm kiếm...',
             2000,
             {
                 dictionary: 'Rcm_epsilonism4',
@@ -122,7 +122,7 @@ export class HuntProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.canCarryItems(itemsToAdd)) {
-            this.notifier.notify(source, "Vous n'avez pas assez de place dans votre inventaire", 'error');
+            this.notifier.notify(source, "Bạn không có đủ chỗ trống trong túi đồ", 'error');
             return;
         }
 
@@ -138,12 +138,12 @@ export class HuntProvider {
 
         if (loot.type === 'item') {
             inventory.add(loot.value as string, 1);
-            this.notifier.notify(source, 'Vous avez trouvé une coupe avec un objet', 'success');
+            this.notifier.notify(source, 'Bạn đã tìm thấy một chiếc cúp chứa vật phẩm', 'success');
         } else if (loot.type === 'money') {
             this.playerMoneyService.add(source, loot.value as number);
-            this.notifier.notify(source, "Vous avez trouvé une coupe avec de l'argent", 'success');
+            this.notifier.notify(source, "Bạn đã tìm thấy một chiếc cúp chứa tiền", 'success');
         }
-        this.notifier.notify(source, `Vous avez trouvé ~b~${pumpkinFound + 1}~s~ coupe(s)`, 'success');
+        this.notifier.notify(source, `Bạn đã tìm thấy ~b~${pumpkinFound + 1}~s~ chiếc cúp`, 'success');
     }
 
     @Exportable('isHalloween')

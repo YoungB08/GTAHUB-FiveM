@@ -44,7 +44,7 @@ export const emitRpcCache = async <R>(name: RpcServerEvent, id: number): Promise
         RpcCache.set(name, cacheForEvent);
     }
 
-    const value = await emitRpcTimeout<R>(name, 3000, id);
+    const value = await emitRpcTimeout<R>(name, 10000, id);
     cacheForEvent.set(id, {
         last: Date.now(),
         value: value,
@@ -54,7 +54,7 @@ export const emitRpcCache = async <R>(name: RpcServerEvent, id: number): Promise
 };
 
 export const emitRpc = async <R>(name: RpcServerEvent, ...args: any[]): Promise<R> => {
-    return emitRpcTimeout(name, 3000, ...args);
+    return emitRpcTimeout(name, 10000, ...args);
 };
 
 export const emitClientRpcConfig = async <R>(

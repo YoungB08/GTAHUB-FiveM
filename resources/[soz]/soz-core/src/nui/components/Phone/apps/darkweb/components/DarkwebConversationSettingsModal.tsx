@@ -210,7 +210,7 @@ export const DarkWebConversationSettingsModal = memo(
                                         }}
                                     />
                                     <SettingButton
-                                        title={'Supprimer'}
+                                        title={'Xóa'}
                                         icon={<ExclamationIcon width={'45px'} height={'45px'} />}
                                         type="DELETE"
                                         onClick={() => {
@@ -343,7 +343,7 @@ export const DarkWebConversationSettingsModal = memo(
                                             setIsOpenAdminManagementNew(true);
                                         }}
                                     >
-                                        Ajouter
+                                        Thêm
                                     </button>
                                 </div>
                             </div>
@@ -416,7 +416,7 @@ export const DarkWebConversationSettingsModal = memo(
                             >
                                 <ChevronLeftIcon width={'2vh'} height={'2vh'} />
                             </span>
-                            <p className="text-2xl font-bold text-teal-500 uppercase">Supprimer</p>
+                            <p className="text-2xl font-bold text-teal-500 uppercase">Xóa</p>
                             <span
                                 className="text-teal-500 absolute right-[1vh] rounded-2xl cursor-pointer hover:bg-teal-900"
                                 onClick={handleClose}

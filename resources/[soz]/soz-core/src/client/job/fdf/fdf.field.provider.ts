@@ -40,9 +40,9 @@ const GRAIN_TRAILER = GetHashKey('graintrailer');
 const TRACTOR2 = GetHashKey('tractor2');
 
 const CheckPointMessages: Record<number, string> = {
-    2: 'Excellent travail, continuez ainsi et le champ sera achevé rapidement.',
-    5: 'Vous avez ~g~labouré~s~ la moitié du champ, continuez comme ça !',
-    8: 'Nous y sommes presque, assurez-vous de bien couvrir tous les coins.',
+    2: 'Làm rất tốt, hãy tiếp tục duy trì tiến độ để sớm hoàn thành cánh đồng.',
+    5: 'Bạn đã ~g~cày xới~s~ được nửa cánh đồng, cố lên nào!',
+    8: 'Sắp xong rồi, hãy đảm bảo cày kỹ từng góc ruộng nhé.',
 };
 
 @Provider()
@@ -210,7 +210,7 @@ export class FDFFieldProvider {
 
                         const { completed } = await this.progressService.progress(
                             'drugs_water',
-                            'Vérification en cours ...',
+                            'Đang kiểm tra tình trạng cây trồng...',
                             4000,
                             {
                                 dictionary: 'anim@amb@business@weed@weed_inspecting_lo_med_hi@',
@@ -241,7 +241,7 @@ export class FDFFieldProvider {
         this.targetFactory.createForModel(RAKE_TRAILER, [
             {
                 icon: 'fdf/plow',
-                label: 'Labourer',
+                label: 'Cày đất (Máy kéo)',
                 blackoutJob: JobType.FDF,
                 blackoutGlobal: true,
                 job: JobType.FDF,
@@ -265,7 +265,7 @@ export class FDFFieldProvider {
         this.targetFactory.createForModel(GRAIN_TRAILER, [
             {
                 icon: 'fdf/tractor',
-                label: 'Récolter',
+                label: 'Thu hoạch (Máy kéo)',
                 blackoutJob: JobType.FDF,
                 blackoutGlobal: true,
                 job: JobType.FDF,
@@ -289,7 +289,7 @@ export class FDFFieldProvider {
         this.targetFactory.createForModel('a_c_cow', [
             {
                 icon: 'fdf/milking',
-                label: 'Traire',
+                label: 'Vắt sữa bò',
                 blackoutJob: JobType.FDF,
                 job: JobType.FDF,
                 category: 'society',
@@ -317,7 +317,7 @@ export class FDFFieldProvider {
         const env = GetConvar('soz_core_environment', 'development');
         const { completed } = await this.progressService.progress(
             'fdf_crop_destroy',
-            'Traite en cours ...',
+            'Đang vắt sữa bò...',
             env === 'production' ? MILK_TIME : MILK_TIME / 10,
             {
                 dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
@@ -334,7 +334,7 @@ export class FDFFieldProvider {
 
         this.resourceLoader.unloadAnimationDictionary('creatures@cow@move');
         if (!completed) {
-            this.notifier.notify(`Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+            this.notifier.notify(`Bạn đã ~r~dừng~s~ vắt sữa.`, 'error');
             return false;
         }
 
@@ -351,7 +351,7 @@ export class FDFFieldProvider {
             field
         );
 
-        this.notifier.notify('Retourne à ton tracteur pour entamer la récolte.');
+        this.notifier.notify('Hãy trở lại máy kéo để bắt đầu thu hoạch vụ mùa.');
 
         for (let k = 0; k < 100; k++) {
             await wait(100);
@@ -361,7 +361,7 @@ export class FDFFieldProvider {
             }
         }
 
-        this.notifier.notify("Allez, c'est parti.");
+        this.notifier.notify('Bắt đầu thu hoạch nào!');
 
         let harvesting = true;
         while (Object.values(cropsToHarvest).length > 0 && harvesting) {
@@ -369,7 +369,7 @@ export class FDFFieldProvider {
             const coords = GetEntityCoords(ped) as Vector3;
             if (!veh || GetEntityModel(veh) != TRACTOR2) {
                 this.notifier.notify(
-                    "Il faut être dans un tracteur pour récolter, y a plus qu'à ~r~recommencer~s~ ...",
+                    'Bạn phải ngồi trong máy kéo để thu hoạch, phải ~r~bắt đầu lại~s~ ...',
                     'error'
                 );
                 break;
@@ -378,20 +378,20 @@ export class FDFFieldProvider {
             let outWarnDate;
             const [attached, attachedVed] = GetVehicleTrailerVehicle(veh);
             if (!attached || attachedVed != trailer) {
-                this.notifier.notify("Elle est où la remorque ?, y a plus qu'à ~r~recommencer~s~ ...", 'error');
+                this.notifier.notify("Rơ-moóc thùng chứa ở đâu rồi?, phải ~r~bắt đầu lại~s~ ...", 'error');
                 break;
             }
 
             if (!FDFFields[field].isPointInside(coords)) {
                 if (outWarnDate == 0) {
                     this.notifier.notify(
-                        'Restez dans le champ, sinon il faudra ~r~recommencer~s~ tout le travail.',
+                        'Hãy ở trong phạm vi cánh đồng, nếu không bạn sẽ phải ~r~làm lại từ đầu~s~.',
                         'error'
                     );
                     outWarnDate = Date.now();
                 } else if (Date.now() - outWarnDate > 10000) {
                     this.notifier.notify(
-                        "Il faut être dans un champs pour récolter, y a plus qu'à ~r~recommencer~s~ ...",
+                        'Bạn phải ở trong cánh đồng để thu hoạch, phải ~r~bắt đầu lại~s~ ...',
                         'error'
                     );
                     break;
@@ -402,7 +402,7 @@ export class FDFFieldProvider {
 
             if (GetEntitySpeed(ped) * 3.6 > 20) {
                 this.notifier.notify(
-                    'Tu roule trop vite, tu as gâché tout le travail. Il va falloir tout refaire maintenant.',
+                    'Bạn lái xe quá nhanh làm hỏng nông sản! Phải làm lại từ đầu.',
                     'error'
                 );
                 break;
@@ -423,7 +423,7 @@ export class FDFFieldProvider {
                     if (cropped === FDFHarvestStatus.SUCCESS) {
                         delete cropsToHarvest[cropId];
                     } else if (cropped === FDFHarvestStatus.INVENTORY_FULL) {
-                        this.notifier.notify('La remorque est pleine, décharge la.', 'error');
+                        this.notifier.notify('Thùng chứa rơ-moóc đã đầy, hãy đi dỡ hàng.', 'error');
                         await wait(2000);
                         harvesting = false;
                         break;
@@ -443,11 +443,11 @@ export class FDFFieldProvider {
         const plowStatus = await emitRpc<FDFPlowStatus>(RpcServerEvent.FDF_PLOW_STATUS, field);
 
         if (plowStatus === FDFPlowStatus.WAITING) {
-            this.notifier.notify("Le champ doit reposer au moins une heure avant d'être à nouveau labouré.", 'error');
+            this.notifier.notify('Đất ruộng cần nghỉ ngơi ít nhất 1 giờ trước khi có thể cày xới tiếp.', 'error');
             return;
         }
 
-        this.notifier.notify('Retourne à ton tracteur pour entamer le labour.');
+        this.notifier.notify('Hãy trở lại máy kéo để bắt đầu cày đất.');
 
         for (let k = 0; k < 100; k++) {
             await wait(100);
@@ -479,7 +479,7 @@ export class FDFFieldProvider {
             const coords = GetEntityCoords(ped) as Vector3;
             if (!veh || GetEntityModel(veh) != TRACTOR2) {
                 this.notifier.notify(
-                    "Il faut être dans un tracteur pour labourer, y a plus qu'à ~r~recommencer~s~ ...",
+                    'Bạn phải ngồi trong máy kéo để cày đất, phải ~r~bắt đầu lại~s~ ...',
                     'error'
                 );
                 break;
@@ -487,20 +487,20 @@ export class FDFFieldProvider {
 
             const [attached, attachedVed] = GetVehicleTrailerVehicle(veh);
             if (!attached || attachedVed != trailer) {
-                this.notifier.notify("Elle est où la charrue?, y a plus qu'à ~r~recommencer~s~ ...", 'error');
+                this.notifier.notify("Lưỡi cày ở đâu rồi?, phải ~r~bắt đầu lại~s~ ...", 'error');
                 break;
             }
 
             if (!FDFFields[field].isPointInside(coords)) {
                 if (outWarnDate == 0) {
                     this.notifier.notify(
-                        'Restez dans le champ, sinon il faudra ~r~recommencer~s~ tout le travail.',
+                        'Hãy ở trong phạm vi cánh đồng, nếu không bạn sẽ phải ~r~làm lại từ đầu~s~.',
                         'error'
                     );
                     outWarnDate = Date.now();
                 } else if (Date.now() - outWarnDate > 10000) {
                     this.notifier.notify(
-                        "Il faut être dans un champs pour labourer, y a plus qu'à ~r~recommencer~s~ ...",
+                        'Bạn phải ở trong cánh đồng để cày đất, phải ~r~bắt đầu lại~s~ ...',
                         'error'
                     );
                     break;
@@ -511,7 +511,7 @@ export class FDFFieldProvider {
 
             if (GetEntitySpeed(ped) * 3.6 > 20) {
                 this.notifier.notify(
-                    'Tu roule trop vite, tu as gâché tout le travail. Il va falloir tout refaire maintenant.',
+                    'Bạn lái máy cày quá nhanh làm hỏng đất! Phải làm lại từ đầu.',
                     'error'
                 );
                 break;
@@ -546,7 +546,7 @@ export class FDFFieldProvider {
                 const item = this.itemService.getItem(type);
                 return {
                     icon: `fdf/${type}`,
-                    label: 'Planter ' + item.label,
+                    label: 'Gieo hạt giống ' + item.label,
                     blackoutJob: JobType.FDF,
                     blackoutGlobal: true,
                     job: JobType.FDF,
@@ -564,7 +564,7 @@ export class FDFFieldProvider {
         if (withPlow) {
             targets.push({
                 icon: 'fdf/plow',
-                label: 'Labourer',
+                label: 'Xới đất thủ công',
                 blackoutJob: JobType.FDF,
                 blackoutGlobal: true,
                 job: JobType.FDF,
@@ -575,7 +575,7 @@ export class FDFFieldProvider {
                 action: async () => {
                     const { completed } = await this.progressService.progress(
                         'fdf_crop_harvest',
-                        'Labours en cours...',
+                        'Đang xới đất...',
                         60000,
                         {
                             dictionary: 'anim@amb@drug_field_workers@rake@male_a@base',
@@ -638,12 +638,12 @@ export class FDFFieldProvider {
         const resultPosition: Vector3[] = [];
 
         if (IsPedInAnyVehicle(playerPed, true)) {
-            this.notifier.notify("Impossible d'utiliser cela dans un vehicule", 'error');
+            this.notifier.notify('Không thể thực hiện khi đang ở trong phương tiện', 'error');
             return [true, resultPosition];
         }
 
         if (IsEntityInWater(playerPed)) {
-            this.notifier.notify("Impossible d'utiliser cela dans l'eau", 'error');
+            this.notifier.notify('Không thể thực hiện dưới nước', 'error');
             return [true, resultPosition];
         }
 
@@ -696,7 +696,7 @@ export class FDFFieldProvider {
         }
 
         if (!resultPosition.length) {
-            this.notifier.notify('Impossible de planter ici.', 'error');
+            this.notifier.notify('Không thể gieo trồng tại vị trí này.', 'error');
             return [true, resultPosition];
         }
 

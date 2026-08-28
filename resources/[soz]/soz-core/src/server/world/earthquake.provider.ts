@@ -31,9 +31,9 @@ export class EarthquakeProvider {
         }
         this.earthQuake = value;
         if (value) {
-            this.notifier.notify(source, 'Lancement du temblement de terre...');
+            this.notifier.notify(source, 'Đang kích hoạt động đất...');
         } else {
-            this.notifier.notify(source, 'Arret du temblement de terre...');
+            this.notifier.notify(source, 'Đang dừng động đất...');
         }
         this.weaponProvider.setDisableExplosionAlert(this.earthQuake);
 

@@ -86,23 +86,23 @@ export type MergeError =
     | 'no_plates_allowed';
 
 export const ADD_ERROR_MESSAGE: Record<AddError, string> = {
-    item_not_found: "L'objet n'a pas été trouvé !",
-    not_enough_space: "L'inventaire n'a plus de place !",
-    already_exists: 'Vous avez déjà un tel object sur vous !',
-    invalid_slot: "La place indiquée n'est pas valide",
-    invalid_amount: 'La quantité à transférer est invalide !',
-    not_allowed: 'Vous ne pouvez pas stocker cet objet ici !',
+    item_not_found: "Không tìm thấy vật phẩm!",
+    not_enough_space: "Túi đồ không còn đủ chỗ chứa!",
+    already_exists: 'Bạn đã có một vật phẩm tương tự trên người!',
+    invalid_slot: "Vị trí được chỉ định không hợp lệ",
+    invalid_amount: 'Số lượng cần chuyển không hợp lệ!',
+    not_allowed: 'Bạn không thể cất giữ vật phẩm này ở đây!',
 };
 
 export const MERGE_ERROR_MESSAGE: Record<MergeError, string> = {
-    item_not_found: "L'objet n'a pas été trouvé !",
-    not_enough_space: "L'inventaire n'a plus de place !",
-    no_item_to_merge: 'Aucun objet à fusionner !',
-    cannot_merge: 'Vous ne pouvez pas fusionner ces objets !',
-    scientist_photo_expired: "Cette preuve est périmée, elle n'est plus utilisable.",
-    max_plates_reached: "Impossible d'attacher plus de ~b~plaques balistiques~s~ à ce ~b~gilet~s~.",
-    add_plates_on_stack: "Impossible d'attacher une ~b~plaque balistique~s~ à une ~b~pile de gilets.~s~",
-    no_plates_allowed: "Il n'est pas possible d'attacher une ~b~plaque balistique~s~ sans porter le gilet.",
+    item_not_found: "Không tìm thấy vật phẩm!",
+    not_enough_space: "Túi đồ không còn đủ chỗ chứa!",
+    no_item_to_merge: 'Không có vật phẩm nào để gộp!',
+    cannot_merge: 'Bạn không thể gộp các vật phẩm này lại với nhau!',
+    scientist_photo_expired: "Bằng chứng này đã hết hạn, không còn sử dụng được nữa.",
+    max_plates_reached: "Không thể gắn thêm ~b~tấm lót chống đạn~s~ vào chiếc ~b~áo giáp~s~ này.",
+    add_plates_on_stack: "Không thể gắn ~b~tấm lót chống đạn~s~ vào một ~b~chồng áo giáp~s~.",
+    no_plates_allowed: "Không thể gắn ~b~tấm lót chống đạn~s~ khi không mặc áo giáp.",
 };
 
 export type InventoryConfiguration = {

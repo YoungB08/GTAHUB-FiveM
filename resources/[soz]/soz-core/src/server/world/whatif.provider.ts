@@ -237,7 +237,7 @@ export class WhatIfProvider {
         if (inventory.remove('zombie_serum', 1, false)) {
             TriggerClientEvent(ClientEvent.WHAT_IF_USE_ZOMBIE_SERUM, source);
         } else {
-            this.notifier.notify(source, "Vous n'avez plus de sérum...");
+            this.notifier.notify(source, "Bạn không còn huyết thanh...");
         }
     }
 
@@ -320,7 +320,7 @@ export class WhatIfProvider {
         }
 
         TriggerClientEvent(ClientEvent.WHAT_IF_USE_ZOMBIE_SERUM, target);
-        this.notifier.notify(source, 'Infection réinitialisée', 'success');
+        this.notifier.notify(source, 'Đã đặt lại tình trạng nhiễm trùng', 'success');
     }
 
     @OnEvent(ServerEvent.WHAT_IF_TELEPORT_PVE)
@@ -523,7 +523,7 @@ export class WhatIfProvider {
         }
 
         if (Object.values(WhatIfSafeZones).some(zone => zone.isPointInside(position.slice(0, 3) as Point3D))) {
-            this.notifier.error(source, `Vous ne pouvez pas poser un objet ici.`);
+            this.notifier.error(source, `Bạn không thể đặt vật phẩm ở đây.`);
             return;
         }
 
@@ -533,7 +533,7 @@ export class WhatIfProvider {
         const cost = WHAT_IF_PROP_SPECIAL_COST[model] ?? WhatIf2HammerZoneConfig.price;
 
         if (!inventory.remove(WhatIf2HammerZoneConfig.item, cost)) {
-            this.notifier.error(source, `Vous n'avez plus assez de ressources.`);
+            this.notifier.error(source, `Bạn không có đủ tài nguyên.`);
             return;
         }
 
@@ -556,7 +556,7 @@ export class WhatIfProvider {
             position: position,
         });
 
-        this.notifier.notify(source, `Vous avez posé un objet.`, 'success');
+        this.notifier.notify(source, `Bạn đã đặt một vật phẩm.`, 'success');
         return await this.getHammerPlayerProps(player);
     }
 
@@ -590,7 +590,7 @@ export class WhatIfProvider {
             noCollision,
         });
 
-        this.notifier.notify(source, `Vous avez déplacé un objet.`, 'success');
+        this.notifier.notify(source, `Bạn đã di chuyển một vật phẩm.`, 'success');
     }
 
     @Rpc(RpcServerEvent.WHAT_IF_HAMMER_DELETE)
@@ -606,7 +606,7 @@ export class WhatIfProvider {
             const playerCoords = this.playerPositionProvider.getPlayerPosition(source);
             const position = JSON.parse(existing.position);
             if (getDistance(playerCoords, position) >= 100) {
-                this.notifier.error(source, '~r~Le modèle est trop loin !');
+                this.notifier.error(source, '~r~Vật phẩm ở quá xa !');
                 return;
             }
         }
@@ -615,7 +615,7 @@ export class WhatIfProvider {
 
         this.objectProvider.deleteObject(id);
 
-        this.notifier.notify(source, `Vous avez supprimé un objet.`, 'success');
+        this.notifier.notify(source, `Bạn đã xóa một vật phẩm.`, 'success');
         return await this.getHammerPlayerProps(player);
     }
 
@@ -917,14 +917,14 @@ export class WhatIfProvider {
                 'snikkel_candy',
             ].includes(item.name)
         ) {
-            this.notifier.notify(source, `~r~Impossible~s~ de recycler cet objet`);
+            this.notifier.notify(source, `~r~Không thể~s~ tái chế vật phẩm này`);
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'whatif_salvage',
-            `Recyclage de "${itemDef.label}"`,
+            `Đang tái chế "${itemDef.label}"...`,
             5_000,
             {
                 dictionary: 'mp_fm_intro_cut',
@@ -949,7 +949,7 @@ export class WhatIfProvider {
 
         this.notifier.notify(
             source,
-            `Le recyclage vous a permis de récupérer ~g~${item.amount}~s~ ~b~${rewardItemDef.label}~s~`
+            `Tái chế thành công, bạn nhận được ~g~${item.amount}~s~ ~b~${rewardItemDef.label}~s~`
         );
     }
 

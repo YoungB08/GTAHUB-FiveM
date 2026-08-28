@@ -48,7 +48,7 @@ export class BennysFlatbedProvider {
         );
 
         this.soundService.playAround(source, 'seatbelt/unbuckle', 5, 0.2);
-        this.notifier.notify(source, 'Le véhicule a été détaché du flatbed.');
+        this.notifier.notify(source, 'Phương tiện đã được tháo khỏi xe cứu hộ flatbed.');
     }
 
     @OnEvent(ServerEvent.BENNYS_FLATBED_ASK_DETACH_VEHICLE)

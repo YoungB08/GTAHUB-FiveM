@@ -55,7 +55,7 @@ export class Halloween2022Scenario1Provider {
                         inventory.add('bloody_knife', 1);
                         this.notifier.notify(
                             source,
-                            `Du sang frais recouvre cette poubelle… Oh, un couteau ensanglanté. Cela doit être l’arme du crime. Retournons voir la dame.`,
+                            `Máu tươi bao phủ thùng rác này… Ồ, một con dao dính máu. Đây chắc hẳn là hung khí gây án. Hãy quay lại gặp người phụ nữ.`,
                             'success'
                         );
                         this.playerService.setPlayerMetadata(source, 'halloween2022', {
@@ -72,7 +72,7 @@ export class Halloween2022Scenario1Provider {
                 } else {
                     this.notifier.notify(
                         source,
-                        `Cette poubelle est encore fraîche. Son odeur indique que l’auteur du crime n’y a rien déposé…`,
+                        `Thùng rác này vẫn còn mới. Mùi cho thấy hung thủ không giấu bất cứ thứ gì ở đây…`,
                         'info'
                     );
                 }
@@ -119,7 +119,7 @@ export class Halloween2022Scenario1Provider {
                         inventory.add('bag_kibble', 1);
                         this.notifier.notify(
                             source,
-                            `Oh bordel... Cette niche est dégueulasse ! Pourquoi il a déposé son sac de croquettes directement dans la niche ?!`,
+                            `Ôi trời... Chuồng chó này bẩn thỉu quá! Tại sao hắn lại để túi thức ăn hạt ngay trong chuồng chó chứ?!`,
                             'success'
                         );
                         this.playerService.setPlayerMetadata(source, 'halloween2022', {

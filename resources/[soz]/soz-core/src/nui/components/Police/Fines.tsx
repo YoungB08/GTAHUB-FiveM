@@ -26,7 +26,7 @@ export const FinesMenu: FunctionComponent<FinesStateProps> = ({ data }) => {
         <Menu type={MenuType.PoliceJobFines}>
             <MainMenu>
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="L'ordre et la justice !">
+                <MenuContent subtitle="Xử phạt vi phạm hành chính & Trật tự">
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.PolicePreCustomFine, {
@@ -34,12 +34,12 @@ export const FinesMenu: FunctionComponent<FinesStateProps> = ({ data }) => {
                             });
                         }}
                     >
-                        Amende personnalisée
+                        Mức phạt tùy chỉnh
                     </MenuItemButton>
-                    <MenuItemSubMenuLink id="fine_1">Catégorie 1</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_2">Catégorie 2</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_3">Catégorie 3</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="fine_4">Catégorie 4</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_1">Nhóm vi phạm 1 (Nhẹ)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_2">Nhóm vi phạm 2 (Trung bình)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_3">Nhóm vi phạm 3 (Nghiêm trọng)</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="fine_4">Nhóm vi phạm 4 (Đặc biệt nghiêm trọng)</MenuItemSubMenuLink>
                 </MenuContent>
             </MainMenu>
             <FineSubMenu category={1} playerServerId={data.playerServerId} />
@@ -62,7 +62,7 @@ const FineSubMenu: FunctionComponent<FineSubMenuProps> = ({ category, playerServ
     return (
         <SubMenu id={`fine_${category}`}>
             <MenuTitle title={JobLabel.gouv} />
-            <MenuContent subtitle={`Amendes catégorie ${category}`}>
+            <MenuContent subtitle={`Bảng phạt vi phạm nhóm ${category}`}>
                 {finesForCategory.map(fine => (
                     <MenuItemButton
                         onConfirm={async () => {

@@ -81,7 +81,7 @@ export class DrivingSchoolProvider {
     private getTargetOptions(position: Vector3): TargetOption[] {
         const targetOptions: TargetOption[] = [
             {
-                label: `Carte grise`,
+                label: `Đăng ký xe`,
                 icon: 'driving-school/voiture',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -117,7 +117,7 @@ export class DrivingSchoolProvider {
 
             targetOptions.push({
                 label: `${license.label}`,
-                subLabel: `$${price} ou 1 Bon pour des leçons de conduite`,
+                subLabel: `$${price} hoặc 1 Phiếu học lái xe`,
                 icon: license.icon,
                 blackoutGlobal: true,
                 category: 'citizen',
@@ -125,7 +125,7 @@ export class DrivingSchoolProvider {
                     const lData: DrivingSchoolLicense = DrivingSchoolConfig.licenses[license.licenseType];
 
                     if (!lData) {
-                        this.notifier.notify("Impossible de démarrer l'examen", 'error');
+                        this.notifier.notify("Không thể bắt đầu kỳ thi", 'error');
                         return;
                     }
 
@@ -133,7 +133,7 @@ export class DrivingSchoolProvider {
 
                     if (!spawnPoint) {
                         this.notifier.notify(
-                            "Parking encombré, l'instructeur ne peut pas garer le véhicule d'examen.",
+                            "Bãi đỗ xe bị kẹt/chiếm chỗ, người hướng dẫn không thể đưa xe thi ra.",
                             'error'
                         );
                         return;

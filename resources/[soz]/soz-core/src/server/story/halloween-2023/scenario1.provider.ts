@@ -64,7 +64,7 @@ export class Halloween2023Scenario1Provider {
                 inventory.add('halloween_prehistoric_blood_analysis', 1);
                 this.notifier.notify(
                     source,
-                    `Cette baleine a l'air là depuis très longtemps… Cette échantillon devrait apporter des informations. Retournons voir la scientifique avec les poissons.`,
+                    `Con cá voi này dường như đã ở đây từ rất lâu… Mẫu vật này sẽ cung cấp nhiều thông tin. Hãy quay lại gặp nhà khoa học cùng với số cá.`,
                     'success'
                 );
                 this.playerService.setPlayerMetadata(source, 'halloween2023', {

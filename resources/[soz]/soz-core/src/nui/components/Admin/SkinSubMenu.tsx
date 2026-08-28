@@ -44,32 +44,32 @@ export interface NuiAdminSkinSubMenuMethodMap {
 }
 
 const SKIN_OPTIONS = [
-    { key: 'skin_dog', label: 'Chien', value: 'a_c_shepherd' },
-    { key: 'skin_cat', label: 'Chat', value: 'a_c_cat_01' },
-    { key: 'civilian_female', label: 'Civil Femme', value: 'u_f_y_mistress' },
-    { key: 'civilian_male', label: 'Civil Homme', value: 'a_m_y_latino_01' },
-    { key: 'player_female', label: 'Joueur Femme', value: 'mp_f_freemode_01' },
-    { key: 'player_male', label: 'Joueur Homme', value: 'mp_m_freemode_01' },
+    { key: 'skin_dog', label: 'Chó (Dog)', value: 'a_c_shepherd' },
+    { key: 'skin_cat', label: 'Mèo (Cat)', value: 'a_c_cat_01' },
+    { key: 'civilian_female', label: 'NPC Nữ thường dân', value: 'u_f_y_mistress' },
+    { key: 'civilian_male', label: 'NPC Nam thường dân', value: 'a_m_y_latino_01' },
+    { key: 'player_female', label: 'Người chơi Nữ (Freemode)', value: 'mp_f_freemode_01' },
+    { key: 'player_male', label: 'Người chơi Nam (Freemode)', value: 'mp_m_freemode_01' },
 ];
 
 const TRANSLATED_INDEXES: Record<string, string> = {
-    Head: 'Tête',
-    Mask: 'Masque',
-    Hair: 'Coupe de cheveux',
-    Torso: 'Torse',
-    Legs: 'Jambes',
-    Bag: 'Sac',
-    Shoes: 'Chaussures',
-    Accessories: 'Accessoires',
-    Undershirt: 'Undershirt',
-    BodyArmor: 'Armure',
-    Decals: 'Décalques',
-    Tops: 'Hauts',
-    Hat: 'Chapeau',
-    Glasses: 'Lunettes',
-    Ear: 'Accessoires oreilles',
-    LeftHand: 'Bras gauche',
-    RightHand: 'Bras droit',
+    Head: 'Đầu / Khuôn mặt',
+    Mask: 'Mặt nạ',
+    Hair: 'Kiểu tóc',
+    Torso: 'Thân / Găng tay',
+    Legs: 'Quần',
+    Bag: 'Túi / Balo',
+    Shoes: 'Giày / Dép',
+    Accessories: 'Phụ kiện / Cà vạt',
+    Undershirt: 'Áo lót / Áo trong',
+    BodyArmor: 'Áo giáp',
+    Decals: 'Huy hiệu / Decal',
+    Tops: 'Áo khoác / Áo ngoài',
+    Hat: 'Mũ / Nón',
+    Glasses: 'Kính mắt',
+    Ear: 'Khuyên tai / Tai nghe',
+    LeftHand: 'Tay trái / Đồng hồ',
+    RightHand: 'Tay phải / Vòng tay',
 };
 
 export const SkinSubMenu: FunctionComponent<SkinSubMenuProps> = ({ permission, state }) => {
@@ -160,16 +160,16 @@ export const SkinSubMenu: FunctionComponent<SkinSubMenuProps> = ({ permission, s
         <>
             <SubMenu id="skin">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Chien, Chat, Président...">
+                <MenuContent subtitle="Chỉnh sửa diện mạo & Trang phục">
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuSkinChangeAppearance);
                         }}
                     >
-                        Changer l'apparence du personnage
+                        Thay đổi diện mạo nhân vật
                     </MenuItemButton>
                     <MenuItemSelect
-                        title={`Liste d'apparences prédéfinies`}
+                        title={`Danh sách diện mạo có sẵn`}
                         onConfirm={async selectedIndex => {
                             const value = SKIN_OPTIONS[selectedIndex].value;
                             await fetchNui(NuiEvent.AdminMenuSkinChangeAppearance, value);
@@ -179,37 +179,37 @@ export const SkinSubMenu: FunctionComponent<SkinSubMenuProps> = ({ permission, s
                             <MenuItemSelectOption key={option.key}>{option.label}</MenuItemSelectOption>
                         ))}
                     </MenuItemSelect>
-                    <MenuItemSubMenuLink id={'player_style2'}>Modifier les éléments par DLC</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id={'player_style'}>Modifier les éléments du personnage</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id={'player_style2'}>Chỉnh sửa trang phục theo DLC</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id={'player_style'}>Chỉnh sửa chi tiết trang phục</MenuItemSubMenuLink>
                 </MenuContent>
             </SubMenu>
             <SubMenu id={'player_style'}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Modifier les éléments du personnage">
+                <MenuContent subtitle="Chỉnh sửa chi tiết trang phục">
                     <MenuItemSubMenuLink id={'player_style_components'}>
-                        👕 Composants du personnage
+                        👕 Bộ phận trang phục
                     </MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id={'player_style_props'}>🎩 Accessoires du personnage</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id={'player_style_props'}>🎩 Phụ kiện trang phục</MenuItemSubMenuLink>
 
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuSkinCopy);
                         }}
                     >
-                        📋 Copier la tenue dans le presse papier
+                        📋 Sao chép bộ trang phục vào Clipboard
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuSkinSave);
                         }}
                     >
-                        Sauvegarder cette tenue
+                        Lưu bộ trang phục này
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>
             <SubMenu id={'player_style_components'}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Éléments du personnage">
+                <MenuContent subtitle="Bộ phận trang phục">
                     {Object.keys(state.clothConfig.Components).map(componentIndex => (
                         <MenuItemSubMenuLink id={`player_style_component_${componentIndex}`} key={componentIndex}>
                             {`[${componentIndex}] - ${TRANSLATED_INDEXES[Component[componentIndex]]}`}
@@ -219,7 +219,7 @@ export const SkinSubMenu: FunctionComponent<SkinSubMenuProps> = ({ permission, s
             </SubMenu>
             <SubMenu id={'player_style_props'}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Accessoires du personnage">
+                <MenuContent subtitle="Phụ kiện trang phục">
                     {Object.keys(state.clothConfig.Props).map(propIndex => (
                         <MenuItemSubMenuLink id={`player_style_prop_${propIndex}`} key={propIndex}>
                             {`[${propIndex}] - ${TRANSLATED_INDEXES[Prop[propIndex]]}`}

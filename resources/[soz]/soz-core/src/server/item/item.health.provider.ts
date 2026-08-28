@@ -61,9 +61,9 @@ export class ItemHealthProvider {
         );
 
         if (isErr(result)) {
-            this.notifier.notify(source, 'Impossible de remplir la fiole: ' + result.err, 'error');
+            this.notifier.notify(source, 'Không thể làm đầy lọ: ' + (ADD_ERROR_MESSAGE[result.err] || result.err), 'error');
         } else {
-            this.notifier.notify(source, "Fiole remplie jusqu'à la dernière goutte", 'success');
+            this.notifier.notify(source, "Lọ đã được đổ đầy đến giọt cuối cùng", 'success');
         }
     }
 
@@ -80,7 +80,7 @@ export class ItemHealthProvider {
         }
 
         if (this.usedAntiDepressant.has(player.citizenid)) {
-            this.notifier.notify(source, 'Vous avez déjà pris un antidépresseur.', 'error');
+            this.notifier.notify(source, 'Bạn đã dùng thuốc chống trầm cảm rồi.', 'error');
 
             return;
         }
@@ -94,7 +94,7 @@ export class ItemHealthProvider {
 
         this.notifier.notify(
             source,
-            "Voila vous êtes parfaitement détendu. Détendu. Vous êtes détendu. Oh oui je suis détendu. Qui est détendu ? C'est moi.",
+            "Bạn cảm thấy hoàn toàn thư giãn. Tinh thần thật sảng khoái và thoải mái.",
             'success'
         );
     }
@@ -110,7 +110,7 @@ export class ItemHealthProvider {
         const { completed } = await this.progressService.progress(
             source,
             'take_blood',
-            'Vous faites une prise de sang...',
+            'Đang lấy mẫu máu...',
             5000,
             {
                 task: 'CODE_HUMAN_MEDIC_TEND_TO_DEAD',
@@ -131,9 +131,9 @@ export class ItemHealthProvider {
         );
 
         if (isErr(result)) {
-            this.notifier.notify(source, 'Impossible de remplir la fiole: ' + result.err, 'error');
+            this.notifier.notify(source, 'Không thể làm đầy lọ: ' + (ADD_ERROR_MESSAGE[result.err] || result.err), 'error');
         } else {
-            this.notifier.notify(source, "Fiole remplie jusqu'à la dernière goutte", 'success');
+            this.notifier.notify(source, "Lọ đã được đổ đầy đến giọt cuối cùng", 'success');
         }
     }
 
@@ -150,11 +150,11 @@ export class ItemHealthProvider {
 
         if (player.metadata.disease === 'dyspepsie') {
             this.diseaseService.setPlayerDisease(source, false);
-            this.notifier.notify(source, 'Vous vous sentez moins ballonné.', 'success');
+            this.notifier.notify(source, 'Bạn cảm thấy bớt đầy hơi, dễ chịu hơn.', 'success');
         } else {
             this.notifier.notify(
                 source,
-                "Vous vous demandez encore pourquoi vous venez d'avaler ce médicament ?",
+                "Bạn vẫn tự hỏi tại sao mình vừa uống loại thuốc này?",
                 'error'
             );
         }

@@ -74,14 +74,14 @@ const GunSmithWeaponSubMenu: FunctionComponent<{
 
     return (
         <SubMenu id={`gunsmith_${submenu_id}`}>
-            <MenuTitle title="Armurier" />
-            <MenuContent subtitle={`Modifier l'arme ${configuration.label ? `(${configuration.label})` : ''}`}>
+            <MenuTitle title="Thợ sửa súng (Gunsmith)" />
+            <MenuContent subtitle={`Tùy chỉnh vũ khí ${configuration.label ? `(${configuration.label})` : ''}`}>
                 <MenuItemCheckbox
                     onChange={label => {
                         setConfiguration(s => ({ ...s, label }));
                     }}
                 >
-                    Renommer l'arme
+                    Đổi tên vũ khí
                 </MenuItemCheckbox>
 
                 <MenuItemCheckbox
@@ -89,11 +89,11 @@ const GunSmithWeaponSubMenu: FunctionComponent<{
                         setConfiguration(s => ({ ...s, repair }));
                     }}
                 >
-                    Réparer l'arme ({((weapon.metadata.health / weapon.metadata.maxHealth) * 100 || 0).toFixed(0)}%)
+                    Sửa chữa độ bền vũ khí ({((weapon.metadata.health / weapon.metadata.maxHealth) * 100 || 0).toFixed(0)}%)
                 </MenuItemCheckbox>
 
                 <MenuItemSelect
-                    title="Tint"
+                    title="Màu sơn súng"
                     distance={5}
                     onChange={async (_, tint) => {
                         setConfiguration(s => ({ ...s, tint: Number(tint) }));
@@ -107,49 +107,49 @@ const GunSmithWeaponSubMenu: FunctionComponent<{
                 </MenuItemSelect>
 
                 <MenuWeaponComponentSelect
-                    label="Chargeur"
+                    label="Băng đạn"
                     type={WeaponComponentType.Clip}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Torche"
+                    label="Đèn pin"
                     type={WeaponComponentType.Flashlight}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Silencieux"
+                    label="Ống giảm thanh"
                     type={WeaponComponentType.Suppressor}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Viseur"
+                    label="Ống ngắm"
                     type={WeaponComponentType.Scope}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Poignée"
+                    label="Tay cầm"
                     type={WeaponComponentType.Grip}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Apparence Principale"
+                    label="Skin chính"
                     type={WeaponComponentType.PrimarySkin}
                     weapon={weapon}
                     attachments={attachments}
                     onUpdate={setConfiguration}
                 />
                 <MenuWeaponComponentSelect
-                    label="Apparence Secondaire"
+                    label="Skin phụ"
                     type={WeaponComponentType.SecondarySkin}
                     weapon={weapon}
                     attachments={attachments}
@@ -167,8 +167,8 @@ const GunSmithWeaponSubMenu: FunctionComponent<{
                     }}
                 >
                     <div className="flex w-full justify-between items-center">
-                        <span>✅ Confirmer les changements</span>
-                        {!admin && <span>${getPrice(price, TaxType.WEAPON).toLocaleString('fr-FR')}</span>}
+                        <span>✅ Xác nhận nâng cấp</span>
+                        {!admin && <span>${getPrice(price, TaxType.WEAPON).toLocaleString('vi-VN')}</span>}
                     </div>
                 </MenuItemButton>
             </MenuContent>
@@ -203,7 +203,7 @@ const MenuWeaponComponentSelect: FunctionComponent<{
                 (type === WeaponComponentType.Suppressor && player.role !== 'admin' && player.role !== 'staff')
             }
         >
-            <MenuItemSelectOption value={null}>Défaut</MenuItemSelectOption>
+            <MenuItemSelectOption value={null}>Mặc định</MenuItemSelectOption>
 
             {options.map((attachment, index) => (
                 <MenuItemSelectOption key={index} value={attachment.component}>
@@ -222,7 +222,7 @@ export const MenuGunSmith: FunctionComponent<MenuGunSmithStateProps> = ({
     return (
         <Menu type={MenuType.GunSmith}>
             <MainMenu>
-                <MenuTitle title="Armurier" />
+                <MenuTitle title="Thợ sửa súng (Gunsmith)" />
                 <MenuContent>
                     {weapons.map((weapon, id) => {
                         const item = items.find(i => i.name === weapon.name);

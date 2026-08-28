@@ -36,7 +36,7 @@ export const VehicleOrderMenu: FunctionComponent<VehicleOrderMenuProps> = ({ dat
 
     let menuTitle = JobLabel[player.job.id];
     if (data.mode == VehicleOrderMode.Crimi || data.mode == VehicleOrderMode.Cartel) {
-        menuTitle = 'Importation';
+        menuTitle = 'Nhập khẩu xe';
     }
 
     useState(() => {
@@ -55,8 +55,8 @@ export const VehicleOrderMenu: FunctionComponent<VehicleOrderMenuProps> = ({ dat
         <Menu type={MenuType.VehicleOrderMenu}>
             <MainMenu>
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Gestion des commandes">
-                    <MenuItemSubMenuLink id="order">➕ Commander un véhicule</MenuItemSubMenuLink>
+                <MenuContent subtitle="Quản lý đơn đặt hàng xe">
+                    <MenuItemSubMenuLink id="order">➕ Đặt mua phương tiện mới</MenuItemSubMenuLink>
                     {orders
                         .sort((a, b) => a.deliverDate - b.deliverDate)
                         .map(order => {
@@ -79,7 +79,7 @@ export const VehicleOrderMenu: FunctionComponent<VehicleOrderMenuProps> = ({ dat
             </MainMenu>
             <SubMenu id="order">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Catalogue des véhicules">
+                <MenuContent subtitle="Danh mục phương tiện">
                     {sortedCategories.map((category, index) => {
                         return (
                             <MenuItemSubMenuLink id={`category_${index}`} key={index}>
@@ -112,7 +112,7 @@ export const VehicleOrderMenu: FunctionComponent<VehicleOrderMenuProps> = ({ dat
                                                 💸{' '}
                                                 {Math.ceil(
                                                     vehicle.price * VehicleOrderCostMuliplier[data.mode]
-                                                ).toLocaleString('fr-FR')}{' '}
+                                                ).toLocaleString('vi-VN')}{' '}
                                                 $
                                             </span>
                                         </div>

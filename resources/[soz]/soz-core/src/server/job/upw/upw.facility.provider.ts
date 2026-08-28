@@ -222,7 +222,7 @@ export class UpwFacilityProvider {
 
         this.notifier.notify(
             source,
-            `État d'énergie : ${Math.floor((facility.capacity / facility.maxCapacity) * 100)}%`,
+            `Mức năng lượng : ${Math.floor((facility.capacity / facility.maxCapacity) * 100)}%`,
             'info'
         );
     }
@@ -398,7 +398,7 @@ export class UpwFacilityProvider {
             }
 
             if (type === UpwFacilityType.jobTerminal && !job) {
-                this.notifier.notify(source, "Pas d'entreprise sélectionnée", 'error');
+                this.notifier.notify(source, 'Chưa chọn doanh nghiệp', 'error');
                 return;
             }
 
@@ -439,14 +439,14 @@ export class UpwFacilityProvider {
                 },
             });
 
-            this.notifier.notify(source, 'Objet UPW créé', 'success');
+            this.notifier.notify(source, 'Đã tạo vật thể UPW', 'success');
 
             TriggerClientEvent(ClientEvent.UPW_ADD_FACILITY, -1, facility);
 
             return;
         }
 
-        this.notifier.notify(source, 'Invalid prop : ' + model, 'error');
+        this.notifier.notify(source, 'Mẫu vật thể không hợp lệ : ' + model, 'error');
     }
 
     @Tick(TickInterval.EVERY_HOUR)
@@ -501,12 +501,12 @@ export class UpwFacilityProvider {
     async onHarvestWaste(source: number, id: string) {
         const facility = this.facilities[id];
         if (!facility) {
-            this.notifier.notify(source, `Cible ~r~inconnue~s~.`, 'error');
+            this.notifier.notify(source, `Mục tiêu ~r~không tồn tại~s~.`, 'error');
             return;
         }
 
         if (facility.waste < UpwConfig.Production.WastePerHarvest) {
-            this.notifier.notify(source, 'Pas de déchets à collecter', 'error');
+            this.notifier.notify(source, 'Không có chất thải để thu gom', 'error');
             return;
         }
 
@@ -517,7 +517,7 @@ export class UpwFacilityProvider {
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à récolter', 'info');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu thập', 'info');
 
         do {
             if (!inv.canCarryItem(facility.wasteItem, count)) {
@@ -528,7 +528,7 @@ export class UpwFacilityProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'upw_waste_harvest',
-                'Vous récoltez...',
+                'Đang thu gom chất thải...',
                 5000,
                 {
                     name: 'action_a',
@@ -538,12 +538,12 @@ export class UpwFacilityProvider {
             );
 
             if (!completed) {
-                this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+                this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu thập.`, 'error');
                 return;
             }
 
             if (facility.waste < UpwConfig.Production.WastePerHarvest) {
-                this.notifier.notify(source, 'Pas de déchets à collecter', 'error');
+                this.notifier.notify(source, 'Không có chất thải để thu gom', 'error');
                 return;
             }
 
@@ -556,7 +556,7 @@ export class UpwFacilityProvider {
             facility.waste -= UpwConfig.Production.WastePerHarvest;
 
             const itemDef = this.itemService.getItem(facility.wasteItem);
-            this.notifier.notify(source, `Vous avez récolté ~b~${count}~s~ ~g~${itemDef.label}~s~`, 'success');
+            this.notifier.notify(source, `Bạn đã thu gom ~b~${count}~s~ ~g~${itemDef.label}~s~`, 'success');
 
             this.displayWaste(source, facility);
 
@@ -569,19 +569,19 @@ export class UpwFacilityProvider {
                 facility_job: facility.job,
             });
         } while (facility.waste >= UpwConfig.Production.WastePerHarvest);
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récolter.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ thu thập.', 'success');
     }
 
     @OnEvent(ServerEvent.UPW_HARVEST_ENERGY)
     async onHarvestEnergy(source: number, id: string) {
         const facility = this.facilities[id];
         if (!facility) {
-            this.notifier.notify(source, `Cible ~r~inconnue~s~.`, 'error');
+            this.notifier.notify(source, `Mục tiêu ~r~không tồn tại~s~.`, 'error');
             return;
         }
 
         if (facility.capacity < UpwConfig.Production.EnergyPerCell[facility.item]) {
-            this.notifier.notify(source, "Pénurie d'énergie", 'error');
+            this.notifier.notify(source, 'Thiếu hụt năng lượng', 'error');
             return;
         }
 
@@ -592,7 +592,7 @@ export class UpwFacilityProvider {
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à récolter', 'info');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu thập', 'info');
 
         do {
             if (!inv.canCarryItem(facility.item, count)) {
@@ -603,7 +603,7 @@ export class UpwFacilityProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'upw_energy_harvest',
-                'Vous récoltez...',
+                'Đang thu thập năng lượng...',
                 5000,
                 {
                     name: 'action_a',
@@ -613,12 +613,12 @@ export class UpwFacilityProvider {
             );
 
             if (!completed) {
-                this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+                this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu thập.`, 'error');
                 return;
             }
 
             if (facility.capacity < UpwConfig.Production.EnergyPerCell[facility.item]) {
-                this.notifier.notify(source, "Pénurie d'énergie", 'error');
+                this.notifier.notify(source, 'Thiếu hụt năng lượng', 'error');
                 return;
             }
 
@@ -631,7 +631,7 @@ export class UpwFacilityProvider {
             facility.capacity -= UpwConfig.Production.EnergyPerCell[facility.item];
 
             const itemDef = this.itemService.getItem(facility.item);
-            this.notifier.notify(source, `Vous avez récolté ~b~${count}~s~ ~g~${itemDef.label}~s~`, 'success');
+            this.notifier.notify(source, `Bạn đã thu thập ~b~${count}~s~ ~g~${itemDef.label}~s~`, 'success');
 
             this.monitor.traceEvent('job_upw_energy_collect', {
                 player_source: source,
@@ -643,40 +643,40 @@ export class UpwFacilityProvider {
             });
         } while (facility.capacity >= UpwConfig.Production.EnergyPerCell[facility.item]);
 
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récolter.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ thu thập.', 'success');
     }
 
     @OnEvent(ServerEvent.UPW_REFILL_ENERGY)
     async onRefillEnergy(source: number, id: string) {
         const facility = this.facilities[id];
         if (!facility) {
-            this.notifier.notify(source, `Cible ~r~inconnue~s~.`, 'error');
+            this.notifier.notify(source, `Mục tiêu ~r~không tồn tại~s~.`, 'error');
             return;
         }
 
         if (facility.capacity >= facility.maxCapacity) {
-            this.notifier.notify(source, 'Borne pleine', 'error');
+            this.notifier.notify(source, 'Trụ sạc / thiết bị đã đầy điện', 'error');
             return;
         }
 
         const inv = await this.inventoryFactory.getPlayerInventory(source);
         if (!Object.values(inv.items()).some(elem => elem.type == 'energy' && !isInventoryItemExpired(elem))) {
-            this.notifier.notify(source, "Vous n'avez pas l'item requis", 'error');
+            this.notifier.notify(source, 'Bạn không có vật phẩm cần thiết', 'error');
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à déposer', 'info');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ nạp năng lượng', 'info');
 
         do {
             if (!Object.values(inv.items()).some(elem => elem.type == 'energy' && !isInventoryItemExpired(elem))) {
-                this.notifier.notify(source, "Vous n'avez pas l'item requis", 'error');
+                this.notifier.notify(source, 'Bạn không có vật phẩm cần thiết', 'error');
                 return;
             }
 
             const { completed } = await this.progressService.progress(
                 source,
                 'upw_energy_harvest',
-                'Vous déposez...',
+                'Đang nạp năng lượng...',
                 5000,
                 {
                     name: 'action_a',
@@ -686,12 +686,12 @@ export class UpwFacilityProvider {
             );
 
             if (!completed) {
-                this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de déposer.`, 'error');
+                this.notifier.notify(source, `Bạn đã ~r~dừng~s~ nạp năng lượng.`, 'error');
                 return;
             }
 
             if (facility.capacity >= facility.maxCapacity) {
-                this.notifier.notify(source, 'Borne pleine', 'error');
+                this.notifier.notify(source, 'Trụ sạc / thiết bị đã đầy điện', 'error');
                 return;
             }
 
@@ -699,13 +699,13 @@ export class UpwFacilityProvider {
                 elem => elem.type == 'energy' && !isInventoryItemExpired(elem)
             );
             if (!item) {
-                this.notifier.notify(source, "Vous n'avez pas l'item requis", 'error');
+                this.notifier.notify(source, 'Bạn không có vật phẩm cần thiết', 'error');
                 return;
             }
 
             const ret = inv.removeAtSlot(item.slot, 1);
             if (!ret) {
-                this.notifier.notify(source, "Erreur d'inventaire", 'error');
+                this.notifier.notify(source, 'Lỗi túi đồ', 'error');
                 return;
             }
 
@@ -714,7 +714,7 @@ export class UpwFacilityProvider {
                 facility.maxCapacity
             );
             const itemDef = this.itemService.getItem(item.name);
-            this.notifier.notify(source, `Vous avez déposé ~b~1~s~ ~g~${itemDef.label}~s~`, 'success');
+            this.notifier.notify(source, `Bạn đã nạp ~b~1~s~ ~g~${itemDef.label}~s~`, 'success');
 
             if (facility.type === UpwFacilityType.terminal) {
                 // Add payment from San Andreas State on default terminals only
@@ -738,7 +738,7 @@ export class UpwFacilityProvider {
             });
         } while (facility.capacity < facility.maxCapacity);
 
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de déposer.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ nạp năng lượng.', 'success');
     }
 
     private displayWaste(source: number, facility: UpwFacility) {

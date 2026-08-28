@@ -414,13 +414,13 @@ export class LSMCDeathProvider {
             const status =
                 (playerMetadata.rp_death && !killData.hungerThristDeath && !killData.frozenDeath) ||
                 injuries >= this.playerTalentService.getMaxInjuries()
-                    ? 'de ton décès'
-                    : 'du coma';
+                    ? 'tử vong'
+                    : 'hôn mê / bất tỉnh';
 
             if (!this.featureProvider.isFeatureEnabled(Feature.WhatIfSecondEpisode)) {
                 this.inputService
                     .askInput({
-                        title: `Explique la raison ${status}, celle-ci sera lue par les médecins lorsqu'ils te prendront en charge :`,
+                        title: `Giải thích nguyên nhân ${status}, thông tin này sẽ được bác sĩ LSMC đọc khi tiếp nhận:`,
                         maxCharacters: 200,
                     })
                     .then(reason => TriggerServerEvent(ServerEvent.LSMC_SET_DEATH_REASON, reason));
@@ -499,7 +499,7 @@ export class LSMCDeathProvider {
         if (rpDeath) {
             this.IsDead = true;
         } else {
-            this.notifier.notify('Vous êtes réanimé!');
+            this.notifier.notify('Bạn đã được hồi sức cấp cứu thành công!');
             this.voipService.mutePlayer(false);
         }
 

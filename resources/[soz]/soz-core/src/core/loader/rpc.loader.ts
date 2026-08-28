@@ -32,14 +32,23 @@ export class RpcLoader {
 
             if (SOZ_CORE_IS_SERVER) {
                 rpcMethod = async (source: number, responseEventName: string, ...args: any[]): Promise<void> => {
-                    const result = await method(source, ...args);
-                    // allow max 512 kbps here
-                    TriggerLatentClientEvent(responseEventName, source, 524288, result);
+                    try {
+                        const result = await method(source, ...args);
+                        TriggerClientEvent(responseEventName, source, result);
+                    } catch (e) {
+                        this.logger.error(`RPC error for ${rpcName}: ${e}\n${e.stack}`);
+                        TriggerClientEvent(responseEventName, source, null);
+                    }
                 };
             } else {
                 rpcMethod = async (responseEventName: string, ...args: any[]): Promise<void> => {
-                    const result = await method(...args);
-                    TriggerServerEvent(responseEventName, result);
+                    try {
+                        const result = await method(...args);
+                        TriggerServerEvent(responseEventName, result);
+                    } catch (e) {
+                        this.logger.error(`Client RPC error for ${rpcName}: ${e}\n${e.stack}`);
+                        TriggerServerEvent(responseEventName, null);
+                    }
                 };
             }
 

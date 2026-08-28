@@ -63,7 +63,7 @@ export class LSMCPharmacyProvider {
             await this.bankService.addAccountMoney('safe_' + JobType.LSMC, Math.round(price / 2));
             if (player.metadata.disease == 'grippe') {
                 this.playerService.setPlayerDisease(player.source, false);
-                this.notifier.notify(player.source, 'Vous êtes guéri!');
+                this.notifier.notify(player.source, 'Bạn đã được chữa khỏi bệnh!');
             }
 
             TriggerClientEvent(ClientEvent.LSMC_HEAL, source, 100);
@@ -75,7 +75,7 @@ export class LSMCPharmacyProvider {
         } else {
             this.notifier.notify(
                 source,
-                `T'as cru que je faisais ça par passion ? Il faut payer ~r~$${await this.priceService.getPrice(
+                `Bạn không có đủ tiền chữa trị. Chi phí là ~r~$${await this.priceService.getPrice(
                     price,
                     TaxType.SERVICE
                 )}~s~.`,
@@ -91,17 +91,17 @@ export class LSMCPharmacyProvider {
 
         if (price) {
             if (this.playerMoneyService.remove(source, price)) {
-                this.notifier.notify(source, `Merci pour ton achat !`);
+                this.notifier.notify(source, `Cảm ơn bạn đã mua hàng!`);
                 inventory.add(item, 1);
             } else {
                 this.notifier.notify(
                     source,
-                    `T'as cru que je faisais ça par passion ? Il faut payer ~r~$${price}~s~.`,
+                    `Bạn không có đủ tiền. Chi phí là ~r~$${price}~s~.`,
                     'error'
                 );
             }
         } else {
-            this.notifier.notify(source, `Je ne peux pas te vendre ça !`, 'error');
+            this.notifier.notify(source, `Tôi không thể bán vật phẩm này cho bạn!`, 'error');
         }
     }
 }

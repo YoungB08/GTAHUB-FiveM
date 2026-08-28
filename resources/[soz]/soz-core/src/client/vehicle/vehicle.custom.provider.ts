@@ -115,7 +115,7 @@ export class VehicleCustomProvider {
 
         if (input.mode != LSCustomMode.Admin && (!vehicle || !vehicle.price)) {
             this.notifier.notify(
-                "Ce véhicule n'est pas enregistré auprès des autorités et ne peut donc pas être modifié, veuillez prendre contact avec les autorités.",
+                "Phương tiện này chưa được đăng ký với cơ quan chức năng nên không thể độ/sửa đổi, vui lòng liên hệ cơ quan chức năng.",
                 'error'
             );
 
@@ -180,7 +180,7 @@ export class VehicleCustomProvider {
 
         if (!vehicle || !vehicle.price) {
             this.notifier.notify(
-                "Ce véhicule n'est pas enregistré auprès des autorités et ne peut donc pas être modifié, veuillez prendre contact avec les autorités.",
+                "Phương tiện này chưa được đăng ký với cơ quan chức năng nên không thể độ/sửa đổi, vui lòng liên hệ cơ quan chức năng.",
                 'error'
             );
 
@@ -190,7 +190,7 @@ export class VehicleCustomProvider {
         if (mode === LSCustomMode.LsCustom) {
             const volatile = await this.vehicleStateService.getVehicleState(vehicleEntityId);
             if (volatile.isCrimiImport) {
-                this.notifier.notify("Ce véhicule ne vient pas d'un ~r~concessionnaire agréé~s~.", 'error');
+                this.notifier.notify("Phương tiện này không đến từ một ~r~đại lý được ủy quyền~s~.", 'error');
                 return;
             }
         }
@@ -199,7 +199,7 @@ export class VehicleCustomProvider {
 
         if (this.vehicleService.isInBadCondition(vehicleEntityId, vehicleCondition)) {
             this.notifier.notify(
-                'Ce véhicule est trop endommagé pour être modifié, veuillez le réparer avant de le modifier.',
+                'Phương tiện này bị hư hỏng quá nặng để có thể độ, vui lòng sửa chữa trước khi độ xe.',
                 'error'
             );
 
@@ -208,7 +208,7 @@ export class VehicleCustomProvider {
 
         if (vehicleCondition.dirtLevel > 5.0) {
             this.notifier.notify(
-                'Ce véhicule est trop sale pour être modifié, veuillez le laver avant de le modifier.',
+                'Phương tiện này quá bẩn để có thể độ, vui lòng rửa xe trước khi độ.',
                 'error'
             );
 

@@ -18,7 +18,7 @@ export const HousingRemoveTenantMenu: FunctionComponent<HousingRemoveTenantMenuP
     return (
         <Menu type={MenuType.HousingRemoveTenantMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

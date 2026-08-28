@@ -45,7 +45,7 @@ export class PolicePlayerProvider {
                     position: GetEntityCoords(GetPlayerPed(player.source)) as Vector3,
                 });
             } else {
-                TriggerClientEvent(ClientEvent.NOTIFICATION_DRAW, source, "Vous n'avez pas de ~r~menottes", 'error');
+                TriggerClientEvent(ClientEvent.NOTIFICATION_DRAW, source, "Bạn không có ~r~còng tay~s~", 'error');
             }
         }
     }
@@ -75,7 +75,7 @@ export class PolicePlayerProvider {
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     source,
-                    "Vous n'avez pas de ~r~clé de menottes",
+                    "Bạn không có ~r~chìa khóa còng tay~s~",
                     'error'
                 );
             }

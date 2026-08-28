@@ -74,7 +74,7 @@ export class VehicleCustomProvider {
             : VehicleBusinessCustomPrice;
 
         if (mode == LSCustomMode.LsCustom && taxedPrice && this.playerMoneyService.get(source) < taxedPrice) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền', 'error');
 
             return originalConfiguration;
         }
@@ -84,7 +84,7 @@ export class VehicleCustomProvider {
             !inventory.hasEnoughItem('veh_strip_piece_std', Math.ceil(price / crimiCustomPrice), true)
         ) {
             const item = this.itemService.getItem('veh_strip_piece_std');
-            this.notifier.notify(source, `Vous n'avez pas assez de  ~r~${item.label}.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ linh kiện ~r~${item.label}.`, 'error');
 
             return originalConfiguration;
         }
@@ -101,9 +101,9 @@ export class VehicleCustomProvider {
             if (message.length > 0) {
                 this.notifier.notify(
                     source,
-                    'Vous ne possédez pas les:~n~' +
+                    'Bạn không có đủ các vật phẩm sau trên người:~n~' +
                         message +
-                        ' sur vous pour effectuer cette modification de performance.',
+                        'để thực hiện nâng cấp hiệu năng này.',
                     'error'
                 );
                 return originalConfiguration;
@@ -118,7 +118,7 @@ export class VehicleCustomProvider {
                 if (upgradedParts > 0 && !lsCustomInventory.remove('ls_custom_upgrade_part', upgradedParts)) {
                     this.notifier.notify(
                         source,
-                        `Le stock du LS Custom n'est pas suffisant. Impossible d'améliorer votre véhicule !`,
+                        `Kho linh kiện của LS Custom không đủ. Không thể nâng cấp phương tiện của bạn!`,
                         'error'
                     );
 
@@ -127,7 +127,7 @@ export class VehicleCustomProvider {
             }
 
             if (!(await this.playerMoneyService.buy(source, price, TaxType.VEHICLE))) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+                this.notifier.notify(source, 'Bạn không có đủ tiền', 'error');
                 return originalConfiguration;
             }
         } else if (price && mode == LSCustomMode.CrimiCusto) {
@@ -150,9 +150,9 @@ export class VehicleCustomProvider {
         }
 
         if (taxedPrice && mode == LSCustomMode.LsCustom) {
-            this.notifier.notify(source, `Vous avez payé $${taxedPrice.toFixed(0)} pour modifier votre véhicule.`);
+            this.notifier.notify(source, `Bạn đã thanh toán $${taxedPrice.toFixed(0)} để độ xe.`);
         } else if (notify) {
-            this.notifier.notify(source, 'Le véhicule a été modifié');
+            this.notifier.notify(source, 'Phương tiện đã được độ thành công');
         }
 
         this.vehicleStateService.updateVehicleConfiguration(vehicleNetworkId, mods);

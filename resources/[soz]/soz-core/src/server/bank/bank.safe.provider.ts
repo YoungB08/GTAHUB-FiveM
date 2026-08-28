@@ -40,7 +40,7 @@ export class BankSafeProvider {
         }
 
         if (!(await this.bankAccountRepository.hasAccessToAccount(player, account))) {
-            this.notifier.error(source, "Vous n'avez pas accès à ce coffre.");
+            this.notifier.error(source, "Bạn không có quyền truy cập vào két sắt này.");
             return;
         }
 
@@ -66,7 +66,7 @@ export class BankSafeProvider {
                 (player.job?.id !== JobType.CashTransfer || !player.job?.onduty) &&
                 type === 'withdraw')
         ) {
-            this.notifier.error(source, "Vous n'avez pas accès à ce coffre.");
+            this.notifier.error(source, "Bạn không có quyền truy cập vào két sắt này.");
             return;
         }
 

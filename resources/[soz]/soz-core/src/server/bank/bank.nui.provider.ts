@@ -24,7 +24,7 @@ export class BankNuiProvider {
 
     @Rpc(RpcServerEvent.BANK_CREATE_OFFSHORE_ACCOUNT)
     public async createOffshoreAccount(source: number): Promise<boolean> {
-        this.notifier.notify(source, 'Bien essayé !', 'warning');
+        this.notifier.notify(source, 'Thử hay lắm!', 'warning');
 
         // Disable this feature for now
         return true;

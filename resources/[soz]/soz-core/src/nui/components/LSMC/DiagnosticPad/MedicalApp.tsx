@@ -71,7 +71,7 @@ export const ConstantMedicalApp: FunctionComponent<ConstantMedicalProps> = ({ me
     return (
         <div className="[box-shadow:_0_1px_10px_rgb(39_169_151)] mt-10 [text-shadow:_0_2px_12px_rgb(39_169_151)] text-[#53e2cf] rounded-lg border-2 border-[#27a997] h-full">
             <h1 className="neuropol mb-2 text-xl text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)] px-2 py-2 rounded-t bg-[#27a99842]">
-                Constantes
+                Chỉ số sinh tồn
             </h1>
 
             <div className="flex flex-row items-center">
@@ -80,7 +80,7 @@ export const ConstantMedicalApp: FunctionComponent<ConstantMedicalProps> = ({ me
                 </div>
                 <div className="flex-col w-[80%]">
                     <div className="uppercase flex flex-row">
-                        <div className="flex flex-col">Rythme cardiaque</div>
+                        <div className="flex flex-col">Nhịp tim</div>
                         <div className="flex flex-col w-[5%] text-center">:</div>
                         <div className="flex flex-col text-white">{heartRate} BPM</div>
                     </div>
@@ -92,7 +92,7 @@ export const ConstantMedicalApp: FunctionComponent<ConstantMedicalProps> = ({ me
                 </div>
                 <div className="flex-col w-[80%]">
                     <div className="uppercase flex flex-row">
-                        <div className="flex flex-col">niveau d'oxygène</div>
+                        <div className="flex flex-col">Nồng độ Oxy (SpO2)</div>
                         <div className="flex flex-col w-[5%] text-center">:</div>
                         <div className="flex flex-col text-white">{oxygenRate} %</div>
                     </div>
@@ -147,13 +147,13 @@ export const MedicalApp: FunctionComponent = () => {
         let state = '';
         const allowed = true;
         if (metadata.injuries_count >= 7) {
-            state = 'graves';
+            state = 'Nghiêm trọng';
         } else if (metadata.injuries_count >= 4) {
-            state = 'moyennes';
+            state = 'Trung bình';
         } else if (metadata.injuries_count >= 1) {
-            state = 'légères';
+            state = 'Nhẹ';
         } else {
-            state = 'aucunes';
+            state = 'Không có';
         }
         return [allowed, state];
     };
@@ -181,13 +181,13 @@ export const MedicalApp: FunctionComponent = () => {
         const hours = time / 1000 / 60 / 60;
 
         if (hours < 1) {
-            return "Moins d'une heure";
+            return "Dưới 1 giờ trước";
         } else if (hours < 3) {
-            return "Plus d'une heure";
+            return "Hơn 1 giờ trước";
         } else if (hours < 12) {
-            return 'Entre 3 et 12 heures';
+            return 'Từ 3 đến 12 giờ trước';
         } else {
-            return 'Plus de 12 heures';
+            return 'Hơn 12 giờ trước';
         }
     }
 
@@ -411,12 +411,12 @@ export const MedicalApp: FunctionComponent = () => {
                     <div className="flex flex-row">
                         <div className="flex flex-col uppercase  w-[75%] justify-center items-start pe-[1rem]">
                             <p className="text-xs mb-[1rem]">
-                                Analyse : #
+                                Hồ sơ phân tích : #
                                 {(Math.random() * 10000).toFixed(0) + '-' + patient.charinfo.lastname.toUpperCase()}
                             </p>
                             <p className="text-lg neuropol">
                                 {DamagesTypes[damage.damageType]?.label}
-                                {count > 1 && ' Multiple'}
+                                {count > 1 && ' (Nhiều vết)'}
                             </p>
                             <div
                                 className={`h-[2]  w-full opacity-30 pt-[1px] my-2`}
@@ -439,7 +439,7 @@ export const MedicalApp: FunctionComponent = () => {
                             {damage.isFatal && (
                                 <span className="flex flex-row justify-center items-center">
                                     <p className="text-m neuropol mt-1 mr-4">
-                                        Cette blessure a entraînée une perte de conscience.
+                                        Chấn thương này đã dẫn đến mất ý thức / Bất tỉnh.
                                     </p>
                                     <img
                                         className="p-1 w-[3vh] h-[3vh] opacity-80"
@@ -579,7 +579,7 @@ export const MedicalApp: FunctionComponent = () => {
             <>
                 <div className="[box-shadow:_0_1px_10px_rgb(39_169_151)] [text-shadow:_0_1px_15px_rgb(39_169_151)] rounded-lg border-2 uppercase text-[#53e2cf] border-[#27a997] h-full">
                     <h1 className="neuropol mb-2 text-xl text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)] px-2 py-2 rounded-t bg-[#27a99842]">
-                        informations
+                        Hồ sơ bệnh nhân
                     </h1>
 
                     <div className="flex flex-row items-center">
@@ -591,12 +591,12 @@ export const MedicalApp: FunctionComponent = () => {
                         </div>
                         <div className="flex flex-col w-[80%]">
                             <div className=" flex flex-row">
-                                <div className="flex flex-col uppercase">Nom</div>
+                                <div className="flex flex-col uppercase">Họ</div>
                                 <div className="flex flex-col w-[5%] text-center">:</div>
                                 <div className="flex flex-col text-white capitalize">{patient.charinfo.lastname}</div>
                             </div>
                             <div className=" flex flex-row">
-                                <div className="flex flex-col uppercase">Prénom</div>
+                                <div className="flex flex-col uppercase">Tên</div>
                                 <div className="flex flex-col w-[5%] text-center">:</div>
                                 <div className="flex flex-col text-white capitalize">{patient.charinfo.firstname}</div>
                             </div>
@@ -611,7 +611,7 @@ export const MedicalApp: FunctionComponent = () => {
                         </div>
                         <div className="flex flex-col w-[80%]">
                             <div className="uppercase flex flex-row">
-                                <div className="flex flex-col">Date</div>
+                                <div className="flex flex-col">Thời gian</div>
                                 <div className="flex flex-col w-[5%] text-center">:</div>
                                 <div className="flex flex-col text-white">
                                     {format(medicalDatas.date, 'yyyy-MM-dd HH:mm:ss')}
@@ -625,7 +625,7 @@ export const MedicalApp: FunctionComponent = () => {
 
                 <div className="[box-shadow:_0_1px_10px_rgb(39_169_151)] mt-10 [text-shadow:_0_2px_12px_rgb(39_169_151)] text-[#53e2cf]  rounded-lg border-2 border-[#27a997] h-full">
                     <h1 className="neuropol text-xl text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)] px-2 py-2 rounded-t bg-[#27a99842]">
-                        Santé Générale
+                        Tình trạng sức khỏe tổng quát
                     </h1>
                     <div className="flex flex-col py-[1vh]">
                         <div className="flex flex-row">
@@ -638,11 +638,11 @@ export const MedicalApp: FunctionComponent = () => {
                             <div className="flex-col w-[80%]">
                                 <div className="flex flex-row items-center pb-2">
                                     <h2 className="mb-2 font-semibold text-2xl uppercase text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)]">
-                                        Nutrition
+                                        Chỉ số Dinh dưỡng
                                     </h2>
                                 </div>
                                 <div className="uppercase flex flex-row">
-                                    <div className="flex flex-col">Glucides</div>
+                                    <div className="flex flex-col">Đường (Glucid)</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div
                                         className="flex flex-col"
@@ -655,7 +655,7 @@ export const MedicalApp: FunctionComponent = () => {
                                     </div>
                                 </div>
                                 <div className="uppercase flex flex-row">
-                                    <div className="flex flex-col">Lipides</div>
+                                    <div className="flex flex-col">Chất béo (Lipid)</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div
                                         className="flex flex-col"
@@ -668,7 +668,7 @@ export const MedicalApp: FunctionComponent = () => {
                                     </div>
                                 </div>
                                 <div className="uppercase flex flex-row">
-                                    <div className="flex flex-col">Protéïnes</div>
+                                    <div className="flex flex-col">Chất đạm (Protein)</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div
                                         className="flex flex-col"
@@ -681,7 +681,7 @@ export const MedicalApp: FunctionComponent = () => {
                                     </div>
                                 </div>
                                 <div className="uppercase flex flex-row">
-                                    <div className="flex flex-col">Fibres</div>
+                                    <div className="flex flex-col">Chất xơ (Fiber)</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div
                                         className="flex flex-col"
@@ -705,26 +705,26 @@ export const MedicalApp: FunctionComponent = () => {
                             <div className="flex-col w-[80%]">
                                 <div className="flex flex-row items-center pb-2">
                                     <h2 className="mb-2 font-semibold  text-2xl uppercase text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)]">
-                                        Condition Physique
+                                        Thể trạng & Sức khỏe
                                     </h2>
                                 </div>
                                 <div className="flex flex-row">
-                                    <div className="flex flex-col uppercase">Santé</div>
+                                    <div className="flex flex-col uppercase">Máu (HP)</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div className="flex flex-col text-white capitalize">{healthStateLabel}</div>
                                 </div>
                                 <div className="flex flex-row">
-                                    <div className="flex flex-col uppercase">Force</div>
+                                    <div className="flex flex-col uppercase">Sức mạnh</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div className="flex flex-col text-white capitalize">{strengthLevelLabel}</div>
                                 </div>
                                 <div className="flex flex-row">
-                                    <div className="flex flex-col uppercase">Stress</div>
+                                    <div className="flex flex-col uppercase">Căng thẳng</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div className="flex flex-col text-white capitalize">{stressLevelLabel}</div>
                                 </div>
                                 <div className="flex flex-row">
-                                    <div className="flex flex-col uppercase">Endurance</div>
+                                    <div className="flex flex-col uppercase">Thể lực</div>
                                     <div className="flex flex-col w-[5%] text-center">:</div>
                                     <div className="flex flex-col text-white capitalize">{maxStaminaLevelLabel}</div>
                                 </div>
@@ -742,12 +742,12 @@ export const MedicalApp: FunctionComponent = () => {
                                     <>
                                         <div className="flex flex-row items-center pb-2">
                                             <h2 className="mb-2 font-semibold text-2xl uppercase text-[#53e2cf] [text-shadow:_0_2px_12px_rgb(39_169_151)]">
-                                                Blessures
+                                                Tổn thương cơ thể
                                             </h2>
                                         </div>
                                         <div>
                                             <p>
-                                                ÉTAT DES BLESSURES :{' '}
+                                                MỨC ĐỘ CHẤN THƯƠNG :{' '}
                                                 <span className="text-white capitalize">{injuriesLabel}</span>
                                             </p>
                                         </div>

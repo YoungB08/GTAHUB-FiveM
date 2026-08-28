@@ -119,7 +119,7 @@ export class AnimalProvider {
         if (!player) return;
 
         if (!FDO.includes(player.job.id)) {
-            this.notifier.error(player.source, "Vous n'êtes pas habilité à utiliser cet objet");
+            this.notifier.error(player.source, "Bạn không có thẩm quyền để sử dụng vật phẩm này");
             return false;
         }
 

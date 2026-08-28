@@ -150,7 +150,7 @@ export class JewelryShopProvider {
         }
 
         this.notifier.notify(
-            "Bienvenue ! Si tu veux graver un objet, tu es au bon endroit. Fait attention, un objet ne peut être graver qu'une seule fois, ne fait pas d'erreur."
+            'Chào mừng! Bạn có thể khắc tên/chữ lên trang sức tại đây. Lưu ý: Mỗi món đồ chỉ có thể khắc một lần duy nhất, hãy cân nhắc kỹ.'
         );
         this.nuiMenu.openMenu(
             MenuType.JewelryEngraveShop,
@@ -169,7 +169,7 @@ export class JewelryShopProvider {
         this.nuiMenu.closeMenu();
         const engraveText = await this.inputService.askInput(
             {
-                title: 'Que voulez vous gravez ?',
+                title: 'Bạn muốn khắc chữ gì lên vật phẩm?',
             },
             NotEmptyStringValidator
         );
@@ -179,11 +179,16 @@ export class JewelryShopProvider {
 
         const confirm = await this.inputService.askInput(
             {
-                title: `Vous avez choisi de graver '${engraveText.trim()}', êtes vous sur ? (oui/non)`,
+                title: `Nội dung khắc: '${engraveText.trim()}'. Xác nhận? (co/khong)`,
             },
             NotEmptyStringValidator
         );
-        if (!confirm || confirm.toLowerCase().trim() !== 'oui') {
+        if (
+            !confirm ||
+            (confirm.toLowerCase().trim() !== 'co' &&
+                confirm.toLowerCase().trim() !== 'oui' &&
+                confirm.toLowerCase().trim() !== 'yes')
+        ) {
             return;
         }
 

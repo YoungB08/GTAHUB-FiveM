@@ -36,7 +36,7 @@ export class AdminMenuHalloweenProvider {
     async updateGameDuration(): Promise<void> {
         const amount = await this.inputService.askInput(
             {
-                title: 'Durée maximale du jeu en minutes',
+                title: 'Thời lượng tối đa của trò chơi (phút)',
             },
             PositiveNumberValidator
         );
@@ -66,7 +66,7 @@ export class AdminMenuHalloweenProvider {
     async updateRole(role: string): Promise<void> {
         const amount = await this.inputService.askInput(
             {
-                title: 'Nombre maximum de joueurs',
+                title: 'Số lượng người chơi tối đa',
             },
             PositiveNumberValidator
         );
@@ -79,7 +79,7 @@ export class AdminMenuHalloweenProvider {
     async updateMortalCollection(collection: string): Promise<void> {
         const amount = await this.inputService.askInput(
             {
-                title: 'Nombre maximum de props',
+                title: 'Số lượng props/vật thể tối đa',
             },
             PositiveNumberValidator
         );
@@ -92,7 +92,7 @@ export class AdminMenuHalloweenProvider {
     async updateObjectivePart2(objective: string): Promise<void> {
         const amount = await this.inputService.askInput(
             {
-                title: 'Nombre de joueurs requis',
+                title: 'Số lượng người chơi yêu cầu',
             },
             PositiveNumberValidator
         );
@@ -105,7 +105,7 @@ export class AdminMenuHalloweenProvider {
     async updateObjectivePart3(): Promise<void> {
         const amount = await this.inputService.askInput(
             {
-                title: 'Durée maximale de la partie 3 en minutes',
+                title: 'Thời lượng tối đa của phần 3 (phút)',
             },
             PositiveNumberValidator
         );

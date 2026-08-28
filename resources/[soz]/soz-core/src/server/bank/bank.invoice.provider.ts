@@ -63,7 +63,7 @@ export class BankInvoiceProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(target)) as Vector3;
 
         if (getDistance(sourcePosition, targetPosition) > 5) {
-            this.notifier.error(source, "Personne n'est à proximité.");
+            this.notifier.error(source, "Không có ai ở gần.");
             return false;
         }
 
@@ -74,14 +74,14 @@ export class BankInvoiceProvider {
         }
 
         if (!inventory.remove('paper', 1)) {
-            this.notifier.error(source, "Vous n'avez pas de papier sur vous.");
+            this.notifier.error(source, "Bạn không có giấy viết.");
             return false;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'invoice-create',
-            kind === 'fine' ? "Rédaction de l'amende" : 'Rédaction de la facture',
+            kind === 'fine' ? "Đang viết phiếu phạt..." : 'Đang viết hóa đơn...',
             5000,
             {
                 dictionary: 'missheistdockssetup1clipboard@base',
@@ -148,9 +148,9 @@ export class BankInvoiceProvider {
         });
 
         if (type === 'society') {
-            this.notifier.notify(source, `Votre facture ~g~Société~s~ a bien été émise.`);
+            this.notifier.notify(source, `Bạn đã xuất hóa đơn ~g~Công ty~s~ thành công.`);
         } else {
-            this.notifier.notify(source, `Votre facture a bien été émise.`);
+            this.notifier.notify(source, `Bạn đã xuất hóa đơn thành công.`);
         }
 
         return true;

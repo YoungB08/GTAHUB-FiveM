@@ -18,7 +18,7 @@ export const HousingAddTenantMenu: FunctionComponent<HousingAddTenantMenuProps> 
     return (
         <Menu type={MenuType.HousingAddTenantMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

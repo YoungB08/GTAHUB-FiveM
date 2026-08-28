@@ -315,7 +315,7 @@ export class SceneProvider {
     async onNuiCreateScene({ eventId }: { eventId?: string }) {
         const name = await this.inputService.askInput(
             {
-                title: 'Nom de la scène',
+                title: 'Tên phân cảnh (Scene)',
                 defaultValue: '',
                 maxCharacters: 50,
             },
@@ -331,7 +331,7 @@ export class SceneProvider {
 
     @OnNuiEvent(NuiEvent.SceneDelete)
     async onNuiDeleteScene({ sceneId }: { sceneId: string }) {
-        const confirm = await this.inputService.askConfirm('Veuillez confimer la suppression de la scène (OUI)');
+        const confirm = await this.inputService.askConfirm('Vui lòng xác nhận xóa phân cảnh này (CO)');
         if (!confirm) {
             return;
         }
@@ -354,7 +354,7 @@ export class SceneProvider {
         if (!model) {
             model = await this.inputService.askInput<string>(
                 {
-                    title: "Modèle de l'objet",
+                    title: "Mô hình (model) của vật thể",
                     defaultValue: '',
                     maxCharacters: 50,
                 },
@@ -367,7 +367,7 @@ export class SceneProvider {
                     const modelHash = GetHashKey(model);
 
                     if (!IsModelInCdimage(modelHash) || !IsModelValid(modelHash)) {
-                        return Err("Ce modèle n'existe pas");
+                        return Err("Mô hình này không tồn tại");
                     }
 
                     return Ok(model);
@@ -455,7 +455,7 @@ export class SceneProvider {
     async onNuiAddScenePed({ sceneId }: { sceneId: string }) {
         const model = await this.inputService.askInput<string>(
             {
-                title: 'Modèle du ped',
+                title: 'Mô hình (model) của NPC/Ped',
                 defaultValue: '',
                 maxCharacters: 50,
             },
@@ -468,7 +468,7 @@ export class SceneProvider {
                 const modelHash = GetHashKey(model);
 
                 if (!IsModelInCdimage(modelHash) || !IsModelValid(modelHash) || !IsModelAPed(modelHash)) {
-                    return Err("Ce modèle n'existe pas");
+                    return Err("Mô hình này không tồn tại");
                 }
 
                 return Ok(model);
@@ -550,7 +550,7 @@ export class SceneProvider {
     @OnNuiEvent(NuiEvent.SceneAddMarker)
     async onNuiAddSceneMarker({ sceneId }: { sceneId: string }) {
         const userId = await this.inputService.askInput({
-            title: 'Identifiant du marqueur',
+            title: 'Mã định danh của điểm đánh dấu (Marker)',
             defaultValue: '',
             maxCharacters: 50,
         });
@@ -675,7 +675,7 @@ export class SceneProvider {
 
         const weapon = await this.inputService.askInput(
             {
-                title: 'Arme du pnj',
+                title: 'Vũ khí của NPC/Ped',
                 defaultValue: ped.weapon,
             },
             input => {
@@ -689,7 +689,7 @@ export class SceneProvider {
                     }
                 }
 
-                return Err("Cette arme n'existe pas");
+                return Err("Vũ khí này không tồn tại");
             }
         );
 
@@ -720,7 +720,7 @@ export class SceneProvider {
 
         const behavior = await this.inputService.askInput(
             {
-                title: 'Comportement du pnj',
+                title: 'Hành vi của NPC/Ped',
                 defaultValue: ped.behavior,
             },
             input => {
@@ -734,7 +734,7 @@ export class SceneProvider {
                     }
                 }
 
-                return Err(`Comportement inconnu, valeurs possibles: ${Object.values(ScenePedBehavior).join(',')}`);
+                return Err(`Hành vi không xác định, các giá trị hợp lệ: ${Object.values(ScenePedBehavior).join(',')}`);
             }
         );
 
@@ -764,7 +764,7 @@ export class SceneProvider {
 
         const name = await this.inputService.askInput(
             {
-                title: 'Nom de la scène',
+                title: 'Tên phân cảnh (Scene)',
                 defaultValue: scene.name,
                 maxCharacters: 50,
             },
@@ -816,7 +816,7 @@ export class SceneProvider {
 
         const { completed } = await this.progressService.progress(
             'prop_toggle_load',
-            'Chargement de la collection...',
+            'Đang tải bộ sưu tập...',
             5000
         );
 
@@ -833,7 +833,7 @@ export class SceneProvider {
 
         const { completed } = await this.progressService.progress(
             'prop_toggle_load',
-            'Déchargement de la collection...',
+            'Đang hủy tải bộ sưu tập...',
             5000
         );
 
@@ -874,7 +874,7 @@ export class SceneProvider {
 
         const inventoryId = await this.inputService.askInput(
             {
-                title: "ID de l'inventaire",
+                title: "ID kho đồ (Inventory)",
                 maxCharacters: 50,
                 defaultValue: entity.inventoryId || uuidv4(),
             },
@@ -1536,7 +1536,7 @@ export class SceneProvider {
     async doAskUserId(scene: Scene, existingUserId?: string): Promise<string | null> {
         return await this.inputService.askInput(
             {
-                title: "Identifiant de l'entité",
+                title: "Mã định danh của thực thể",
                 defaultValue: existingUserId || '',
                 maxCharacters: 50,
             },
@@ -1548,7 +1548,7 @@ export class SceneProvider {
                 const existingUserId = Object.values(scene.entities).find(entity => entity.userId === input);
 
                 if (existingUserId) {
-                    return Err('Cet identifiant est déjà utilisé par une autre entité de la collection.');
+                    return Err('Mã định danh này đã được sử dụng bởi một thực thể khác trong bộ sưu tập.');
                 }
 
                 return Ok(input);

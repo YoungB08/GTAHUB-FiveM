@@ -45,12 +45,12 @@ export class VehicleKeysProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(target)) as Vector3;
 
         if (getDistance(sourcePosition, targetPosition) > 4.0) {
-            this.notifier.notify(source, 'Vous êtes trop loin, rapprochez-vous.', 'error');
+            this.notifier.notify(source, 'Bạn đang ở quá xa người nhận, hãy lại gần hơn.', 'error');
             return;
         }
 
         if (!this.vehicleStateService.hasVehicleKey(plate, sourcePlayer.citizenid)) {
-            this.notifier.notify(source, "Vous n'avez pas la clé de ce véhicule.", 'error');
+            this.notifier.notify(source, 'Bạn không có chìa khóa của phương tiện này.', 'error');
             return;
         }
 
@@ -59,7 +59,7 @@ export class VehicleKeysProvider {
         TriggerClientEvent(ClientEvent.ANIMATION_GIVE, source);
         TriggerClientEvent(ClientEvent.ANIMATION_GIVE, target);
 
-        this.notifier.notify(source, `Vous avez donné la clé du véhicule ${plate}.`, 'success');
-        this.notifier.notify(target, `Vous avez reçu la clé du véhicule ${plate}.`, 'success');
+        this.notifier.notify(source, `Bạn đã trao chìa khóa xe biển số ${plate}.`, 'success');
+        this.notifier.notify(target, `Bạn đã nhận được chìa khóa xe biển số ${plate}.`, 'success');
     }
 }

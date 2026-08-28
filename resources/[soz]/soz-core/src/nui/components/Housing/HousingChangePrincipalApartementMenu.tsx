@@ -20,7 +20,7 @@ export const HousingChangePrincipalApartementMenu: FunctionComponent<HousingChan
     return (
         <Menu type={MenuType.HousingChangePrincipalApartementMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

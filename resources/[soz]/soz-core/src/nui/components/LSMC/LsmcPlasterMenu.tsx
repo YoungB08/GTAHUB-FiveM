@@ -16,7 +16,7 @@ export const LsmcPlasterMenu: FunctionComponent<LSMCPlasterMenuProps> = ({ data 
         <Menu type={MenuType.LsmcPlaster}>
             <MainMenu>
                 <MenuTitle title={JobLabel.lsmc} />
-                <MenuContent subtitle="Plâtre">
+                <MenuContent subtitle="Bó bột y tế">
                     {Object.values(PlasterLocation).map(loc => {
                         return (
                             <MenuItemButton

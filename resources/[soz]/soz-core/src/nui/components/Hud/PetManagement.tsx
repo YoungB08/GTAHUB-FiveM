@@ -189,7 +189,7 @@ export const PetManagement: React.FC = () => {
                 >
                     <div className="flex flex-col">
                         <span className="truncate" style={{ color: color }}>
-                            État de l'animal
+                            Trạng thái thú cưng
                         </span>
                     </div>
                 </GlassMorphismContainer>

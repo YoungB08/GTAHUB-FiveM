@@ -107,16 +107,16 @@ export const SettingsHome = () => {
 
     const resetPhoneSettings = () => {
         sendAlert(
-            'Réinitialisation les paramètres',
-            'Êtes-vous sûr de vouloir réinitialiser les paramètres de votre téléphone ?',
+            'Đặt lại cài đặt',
+            'Bạn có chắc muốn đặt lại cài đặt điện thoại không?',
             resetSettings
         );
     };
 
     const resetPhoneStorage = () => {
         sendAlert(
-            'Réinitialisation de votre ZPhone',
-            "Souhaitez-vous vraiment réinitialiser les valeurs d'usines de votre ZPhone ? Attention, cette action est irréversible et supprimera votre avatar, vos notes, contacts et photos.",
+            'Khôi phục ZPhone',
+            'Bạn có chắc muốn khôi phục ZPhone về cài đặt gốc không? Thao tác này không thể hoàn tác và sẽ xóa ảnh đại diện, ghi chú, danh bạ cùng hình ảnh của bạn.',
             resetPhone
         );
     };

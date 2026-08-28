@@ -33,7 +33,7 @@ export const JobPetsSubMenu: FunctionComponent<JobPetSubMenuProps> = ({ job }) =
         return (
             <SubMenu id={`pet-management-${job}`}>
                 <MenuTitle title={job} />
-                <MenuContent subtitle={`Animal d'entreprise`}>
+                <MenuContent subtitle={`Thú cưng doanh nghiệp / ngành nghề`}>
                     <MenuItemText
                         onSelected={() => {
                             fetchNui<string, Result<Array<ServerJobPet>, never>>(NuiEvent.AdminGetJobPets, job).then(
@@ -49,7 +49,7 @@ export const JobPetsSubMenu: FunctionComponent<JobPetSubMenuProps> = ({ job }) =
                             );
                         }}
                     >
-                        Chargement ...
+                        Đang tải dữ liệu...
                     </MenuItemText>
                 </MenuContent>
             </SubMenu>
@@ -60,13 +60,13 @@ export const JobPetsSubMenu: FunctionComponent<JobPetSubMenuProps> = ({ job }) =
         <>
             <SubMenu id={`pet-management-${job}`}>
                 <MenuTitle title={job} />
-                <MenuContent subtitle={`Animal d'entreprise`}>
-                    {!pets.length && <MenuItemText>Aucun animal de disponible</MenuItemText>}
+                <MenuContent subtitle={`Thú cưng doanh nghiệp / ngành nghề`}>
+                    {!pets.length && <MenuItemText>Không có thú cưng nào</MenuItemText>}
                     {pets.length &&
                         pets.map(pet => (
                             <>
                                 <MenuItemSubMenuLink id={`pet-management-${job}-${pet.id}`}>
-                                    {pet.name || `Animal sans nom`}
+                                    {pet.name || `Thú cưng chưa đặt tên`}
                                 </MenuItemSubMenuLink>
                             </>
                         ))}
@@ -86,11 +86,11 @@ export const SingleJobPetSubMenu: FunctionComponent<SingleJobPetSubMenuProps> = 
         <>
             <SubMenu id={`pet-management-${pet.job}-${pet.id}`}>
                 <MenuTitle title={pet.job} />
-                <MenuContent subtitle={`Animal d'entreprise - ${pet.name || `Animal sans nom`}`}>
+                <MenuContent subtitle={`Thú cưng ngành nghề - ${pet.name || `Thú cưng chưa đặt tên`}`}>
                     {
                         <>
                             <MenuItemSelect
-                                title={`État de l'animal : ${pet.dead ? `Mort` : `En vie`}`}
+                                title={`Trạng thái : ${pet.dead ? `Chết` : `Còn sống`}`}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminSetJobPetSeath, {
                                         id: pet.id,
@@ -99,32 +99,32 @@ export const SingleJobPetSubMenu: FunctionComponent<SingleJobPetSubMenuProps> = 
                                 }}
                             >
                                 <MenuItemSelectOption key={'revive'} value={false}>
-                                    Soigner
+                                    Hồi sinh / Chữa trị
                                 </MenuItemSelectOption>
                                 <MenuItemSelectOption key={'kill'} value={true}>
-                                    Tuer
+                                    Tiêu diệt
                                 </MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>A tenter de s'enfuire</span>
-                                    <span>{pet.perDays.escape ? 'Oui' : 'Non'}</span>
+                                    <span>Đã từng thử bỏ trốn</span>
+                                    <span>{pet.perDays.escape ? 'Có' : 'Không'}</span>
                                 </div>
                             </MenuItemText>
-                            <MenuSubTitle>Personnalité</MenuSubTitle>
+                            <MenuSubTitle>Đặc tính</MenuSubTitle>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>Bonus</span>
+                                    <span>Tích cực</span>
                                     <span>{pet.trait_up}</span>
                                 </div>
                             </MenuItemText>
                             <MenuItemText>
                                 <div className="pr-2 flex items-center justify-between">
-                                    <span>Malus</span>
+                                    <span>Tiêu cực</span>
                                     <span>{pet.trait_down}</span>
                                 </div>
                             </MenuItemText>
-                            <MenuSubTitle>Statistique</MenuSubTitle>
+                            <MenuSubTitle>Chỉ số thú cưng</MenuSubTitle>
                             {[...increamentalPetMeta].map(meta => (
                                 <MenuItemButton
                                     key={meta.toString()}
@@ -141,13 +141,13 @@ export const SingleJobPetSubMenu: FunctionComponent<SingleJobPetSubMenuProps> = 
                                     </div>
                                 </MenuItemButton>
                             ))}
-                            <MenuSubTitle>Limitation par jour</MenuSubTitle>
+                            <MenuSubTitle>Giới hạn mỗi ngày</MenuSubTitle>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminResetJobPetResetMeta, pet.id);
                                 }}
                             >
-                                Reset des limitations par jours
+                                Đặt lại giới hạn mỗi ngày
                             </MenuItemButton>
                             {[...incrementalPetResetMetadata].map(resetMeta => (
                                 <MenuItemButton

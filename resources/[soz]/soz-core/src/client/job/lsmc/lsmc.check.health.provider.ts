@@ -47,7 +47,7 @@ export class LSMCCheckHealthProvider {
         const target = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity));
         const { completed } = await this.progressService.progress(
             'lsmc_health_check',
-            "Vous étudiez l'état de santé du patient...",
+            "Đang khám tình trạng sức khỏe của bệnh nhân...",
             5000,
             {
                 task: 'CODE_HUMAN_MEDIC_TEND_TO_DEAD',
@@ -65,13 +65,13 @@ export class LSMCCheckHealthProvider {
     async setPlayerHealthBookField({ source, field }: { source: number; field: keyof PlayerHealthBook }) {
         const value = await this.inputService.askInput<number>(
             {
-                title: `Carte de santé: ${HealthBookLabel[field]}`,
+                title: `Sổ sức khỏe: ${HealthBookLabel[field]}`,
                 maxCharacters: 3,
             },
             value => {
                 const number = Number(value);
                 if (isNaN(number)) {
-                    return Err('Valeur incorrecte');
+                    return Err('Giá trị không hợp lệ');
                 }
 
                 if (
@@ -79,10 +79,10 @@ export class LSMCCheckHealthProvider {
                     (number < HealthBookMinMax[field].min || number > HealthBookMinMax[field].max)
                 ) {
                     return Err(
-                        `Valeur incorrecte, doit être entre ${HealthBookMinMax[field].min} et ${HealthBookMinMax[field].max}`
+                        `Giá trị không hợp lệ, phải nằm trong khoảng ${HealthBookMinMax[field].min} đến ${HealthBookMinMax[field].max}`
                     );
                 } else if (!HealthBookMinMax[field].max && number < HealthBookMinMax[field].min) {
-                    return Err(`Valeur incorrecte, doit être supérieure à ${HealthBookMinMax[field].min}`);
+                    return Err(`Giá trị không hợp lệ, phải lớn hơn ${HealthBookMinMax[field].min}`);
                 }
 
                 return Ok(number);
@@ -106,7 +106,7 @@ export class LSMCCheckHealthProvider {
 
         this.targetFactory.createForAllPlayer([
             {
-                label: 'Prise de sang pour test',
+                label: 'Lấy mẫu máu xét nghiệm',
                 icon: 'ems/take_blood',
                 job: 'lsmc',
                 category: 'society',
@@ -114,14 +114,14 @@ export class LSMCCheckHealthProvider {
                 item: 'flask_blood_empty',
             },
             {
-                label: 'Etat de santé',
+                label: 'Khám tình trạng sức khỏe',
                 icon: 'ems/health_state',
                 job: 'lsmc',
                 category: 'society',
                 action: this.doHealthCheck.bind(this),
             },
             {
-                label: 'Modifier la carte de santé',
+                label: 'Chỉnh sửa sổ sức khỏe',
                 icon: 'ems/health_card',
                 job: 'lsmc',
                 category: 'society',
@@ -153,7 +153,7 @@ export class LSMCCheckHealthProvider {
         ].forEach((zone, index) =>
             this.targetFactory.createForBoxZone('lsmc_analyze_' + index, zone, [
                 {
-                    label: 'Analyse urinaire',
+                    label: 'Xét nghiệm nước tiểu',
                     icon: 'ems/urine_test',
                     job: 'lsmc',
                     category: 'society',
@@ -163,7 +163,7 @@ export class LSMCCheckHealthProvider {
                     item: 'flask_pee_full',
                 },
                 {
-                    label: 'Analyse de sang',
+                    label: 'Xét nghiệm máu',
                     icon: 'ems/blood_test',
                     job: 'lsmc',
                     category: 'society',

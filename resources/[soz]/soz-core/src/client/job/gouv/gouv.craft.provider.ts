@@ -47,7 +47,7 @@ export class GouvCraftProvider {
             [
                 {
                     icon: 'pawl/craft-paper',
-                    label: 'Ecrire un mandat de perquisition',
+                    label: 'Soạn thảo lệnh khám xét',
                     job: JobType.Gouv,
                     blackoutGlobal: true,
                     blackoutJob: JobType.Gouv,
@@ -62,7 +62,7 @@ export class GouvCraftProvider {
                             !this.inventoryManager.hasEnoughItem('paper')
                         ) {
                             this.notifier.notify(
-                                "Vous avez besoin d'une ~b~feuille de papier~s~ et de ~b~$500 000~s~ pour écrire un mandat de perquisition.",
+                                'Bạn cần một ~b~tờ giấy~s~ và ~b~$500.000~s~ để soạn thảo lệnh khám xét.',
                                 'error'
                             );
                             return;
@@ -73,7 +73,7 @@ export class GouvCraftProvider {
 
                         const { completed } = await this.progressService.progress(
                             'write_search_warrant',
-                            'Ecriture du mandat de perquisition...',
+                            'Đang soạn thảo lệnh khám xét...',
                             90000,
                             {
                                 dictionary: 'missheistdockssetup1clipboard@base',

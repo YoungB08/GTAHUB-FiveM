@@ -107,7 +107,7 @@ export class LSMCDeathProvider {
             this.notifier.notify(source, player.metadata.mort, 'success', 30000);
         }
         if (player.metadata.drug >= 100) {
-            this.notifier.notify(source, 'Cette personne a subit une overdose de drogue.', 'success', 30000);
+            this.notifier.notify(source, 'Người này đã bị sốc thuốc do sử dụng quá liều chất kích thích.', 'success', 30000);
         }
 
         const isRPdeath = await this.playerInjuryProvider.handleInjuryRevive(source, targetid);

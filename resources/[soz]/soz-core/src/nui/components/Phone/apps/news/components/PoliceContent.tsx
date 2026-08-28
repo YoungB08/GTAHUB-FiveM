@@ -7,16 +7,16 @@ export const PoliceContent: FunctionComponent<NewsMessage> = ({ type, message })
     if (!isActivePoliceMessage(type)) {
         return (
             <>
-                Les forces de l'ordre ne sont plus à la recherche de <strong>{message}</strong>.
+                Lực lượng chức năng đã ngừng truy tìm <strong>{message}</strong>.
             </>
         );
     }
 
     return (
         <>
-            Les forces de l'ordre sont à la recherche de <strong>{message}</strong>.
+            Lực lượng chức năng đang truy tìm <strong>{message}</strong>.
             <br />
-            Si vous avez des informations sur cette personne, veuillez les communiquer au{' '}
+            Nếu có thông tin về người này, vui lòng liên hệ{' '}
             <strong className="uppercase">555-{type}</strong>.
         </>
     );

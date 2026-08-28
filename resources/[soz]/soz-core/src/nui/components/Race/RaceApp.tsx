@@ -43,7 +43,7 @@ export const RaceApp: FunctionComponent = () => {
                     if (index > lastDisplay || index < firstDisplay) {
                         return null;
                     }
-                    const cp = index + 1 >= splits.length ? 'Fin' : 'CP' + (index + 1);
+                    const cp = index + 1 >= splits.length ? 'ĐÍCH' : 'CP' + (index + 1);
                     return <Split split={time} checkpoint={cp} />;
                 })}
                 <Timer />

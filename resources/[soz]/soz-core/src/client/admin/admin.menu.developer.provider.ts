@@ -247,7 +247,7 @@ export class AdminMenuDeveloperProvider {
                 this.clipboard.copy(`[${x}, ${y}, ${z}, ${heading}]`);
                 break;
         }
-        this.notifier.notify('Coordonnées copiées dans le presse-papier');
+        this.notifier.notify('Tọa độ đã được sao chép vào clipboard');
     }
 
     @OnNuiEvent(NuiEvent.AdminChangePlayer)

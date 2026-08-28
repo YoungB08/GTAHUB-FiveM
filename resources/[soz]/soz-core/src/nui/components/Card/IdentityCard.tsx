@@ -33,37 +33,37 @@ export const IdentityCard: FunctionComponent<IdentityCardProps> = ({ player }) =
                 </div>
                 <div className="flex flex-col pt-[14%] pb-[9%] justify-between">
                     <div>
-                        <h3 className="text-xs leading-none">Nom</h3>
+                        <h3 className="text-xs leading-none">Họ</h3>
                         <p className="uppercase leading-none">{player.charinfo.lastname}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs leading-none">Prénom(s)</h3>
+                        <h3 className="text-xs leading-none">Tên</h3>
                         <p className="uppercase leading-none">{player.charinfo.firstname}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs leading-none">Sexe</h3>
+                        <h3 className="text-xs leading-none">Giới tính</h3>
                         <p className="uppercase leading-none">
-                            {player.skin?.Model?.Hash === -1667301416 ? 'Feminin' : 'Masculin'}
+                            {player.skin?.Model?.Hash === -1667301416 ? 'Nữ' : 'Nam'}
                         </p>
                     </div>
                     <div>
-                        <h3 className="text-xs leading-none">Profession</h3>
+                        <h3 className="text-xs leading-none">Nghề nghiệp</h3>
                         <p className="uppercase leading-none">{JobLabel[player.job.id]}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs leading-none">Domicile - Adresse</h3>
+                        <h3 className="text-xs leading-none">Địa chỉ thường trú</h3>
                         <p className="uppercase leading-none">{player.address ? player.address : '-'}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs leading-none">Numéro de téléphone</h3>
+                        <h3 className="text-xs leading-none">Số điện thoại</h3>
                         <p className="uppercase leading-none">{player.charinfo.phone}</p>
                     </div>
                     {!player.is_validated && (
                         <div>
-                            <h3 className="text-xs leading-none">Date d'expiration</h3>
+                            <h3 className="text-xs leading-none">Ngày hết hạn</h3>
                             <p className="uppercase leading-none">
                                 {new Date(player.created_at + expirationVisaDuration).toLocaleDateString(
-                                    'fr-FR',
+                                    'vi-VN',
                                     FORMAT_LOCALIZED
                                 )}
                             </p>

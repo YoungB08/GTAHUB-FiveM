@@ -46,7 +46,7 @@ export class FDFTreeProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez ~g~taillé~s~ cet arbre, ses fruits seront prêts à être récoltés d'ici à deux heures.`
+            `Bạn đã ~g~tỉa cành~s~ cho cây này, quả sẽ sẵn sàng thu hoạch sau khoảng 2 giờ nữa.`
         );
 
         this.monitor.traceEvent('job_fdf_cut_tree', {
@@ -69,7 +69,7 @@ export class FDFTreeProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez ~g~arrosé~s~ cet arbre, ses fruits seront prêts à être récoltés un peu plus tôt.`
+            `Bạn đã ~g~tưới nước~s~ cho cây này, quả sẽ chín sớm hơn một chút.`
         );
 
         this.monitor.traceEvent('job_fdf_water_tree', {
@@ -84,7 +84,7 @@ export class FDFTreeProvider {
     public async onHarvestTree(source: number, id: number): Promise<number> {
         const tree = this.treeStatus.get(id);
         if (!canTreeBeHarvest(tree)) {
-            this.notifier.notify(source, `Il n'y a plus de fruit mûr sur l'arbre.`);
+            this.notifier.notify(source, `Không còn quả chín nào trên cây.`);
             return 0;
         }
 
@@ -97,7 +97,7 @@ export class FDFTreeProvider {
         if (!inventory.canCarryItem(tree.item, nbItem)) {
             this.notifier.notify(
                 source,
-                `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`,
+                `Túi đồ của bạn không có đủ chỗ trống để thu hoạch.`,
                 'error'
             );
             return 0;
@@ -107,13 +107,13 @@ export class FDFTreeProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez récolté ~y~${nbItem}~s~ ~g~${this.itemService.getItem(tree.item).label}~s~.`
+            `Bạn đã thu hoạch ~y~${nbItem}~s~ ~g~${this.itemService.getItem(tree.item).label}~s~.`
         );
 
         tree.objectRemaining -= nbItem;
 
         if (tree.objectRemaining == 0) {
-            this.notifier.notify(source, `Il n'y a plus de fruit mûr sur l'arbre.`);
+            this.notifier.notify(source, `Không còn quả chín nào trên cây.`);
             this.treeStatus.delete(id);
         }
 
@@ -144,13 +144,13 @@ export class FDFTreeProvider {
 
         this.notifier.notify(
             source,
-            `<span style="text-decoration: underline;">État de l'arbre fruitier.</span>~n~` +
+            `<span style="text-decoration: underline;">Tình trạng cây ăn quả.</span>~n~` +
                 (diff > 0
-                    ? `<strong>Temps avant récolte :</strong> ${formatDuration(diff)}~n~`
-                    : `<strong>Prêt à être récolté :</strong> ${tree.objectRemaining} ${
+                    ? `<strong>Thời gian đến khi thu hoạch :</strong> ${formatDuration(diff)}~n~`
+                    : `<strong>Sẵn sàng thu hoạch :</strong> ${tree.objectRemaining} ${
                           this.itemService.getItem(tree.item).label
                       }~n~`) +
-                `<strong>Arrosage :</strong> ${tree.nbWater}`,
+                `<strong>Số lần tưới nước :</strong> ${tree.nbWater}`,
             'success'
         );
     }

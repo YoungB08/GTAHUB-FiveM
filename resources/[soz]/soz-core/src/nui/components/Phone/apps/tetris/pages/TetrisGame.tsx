@@ -78,17 +78,16 @@ export const TetrisGame: FunctionComponent = () => {
                                 <div className="fixed inset-0 flex items-center justify-around m-4">
                                     <div className="bg-black/70 p-4 w-full rounded-lg">
                                         <div className="text-red-400 text-4xl text-center py-4 font-bold">
-                                            Vous avez perdu !
+                                            Bạn đã thua!
                                         </div>
                                         <p className="text-white py-4">
-                                            Vous avez fait {points} points et vous avez atteint le niveau {level} avec{' '}
-                                            {linesCleared} lignes complétées.
+                                            Bạn đạt {points} điểm, cấp {level} và hoàn thành {linesCleared} hàng.
                                         </p>
                                         <p className="text-white pt-4 pb-8">
-                                            Votre meilleur score est de{' '}
+                                            Điểm cao nhất của bạn là{' '}
                                             {points > bestPlayerScore ? points : bestPlayerScore} points.
                                         </p>
-                                        <ActionButton onClick={controller.restart}>Recommencer</ActionButton>
+                                        <ActionButton onClick={controller.restart}>Chơi lại</ActionButton>
                                     </div>
                                 </div>
                             )}

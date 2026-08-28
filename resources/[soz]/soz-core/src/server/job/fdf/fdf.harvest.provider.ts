@@ -51,12 +51,12 @@ export class FDFHarvestProvider {
 
     @OnEvent(ServerEvent.FDF_GARLIC_HARVEST)
     async onHarvest(source: number) {
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à récolter');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu hoạch');
 
-        while (await this.doHarvest(source, "Vous récoltez de l'ail.")) {
+        while (await this.doHarvest(source, 'Đang thu hoạch tỏi...')) {
             /* empty */
         }
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récolter.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ thu hoạch.', 'success');
     }
 
     async doHarvest(source: number, label: string) {
@@ -67,12 +67,12 @@ export class FDFHarvestProvider {
         });
 
         if (!completed) {
-            this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+            this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu hoạch.`, 'error');
             return false;
         }
 
         if (!(await this.fieldService.harvestField(GARLIC_FIELD, 1))) {
-            this.notifier.notify(source, `Le champs est épuisé.`);
+            this.notifier.notify(source, `Cánh đồng đã cạn kiệt sản lượng.`);
             return false;
         }
 
@@ -91,7 +91,7 @@ export class FDFHarvestProvider {
         if (!inventory.canCarryItem(item, 1)) {
             this.notifier.notify(
                 source,
-                `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`
+                `Túi đồ của bạn không có đủ chỗ trống để thu hoạch.`
             );
             return false;
         }
@@ -99,12 +99,12 @@ export class FDFHarvestProvider {
         const result = inventory.add(item, 1);
 
         if (isOk(result)) {
-            this.notifier.notify(source, `Vous avez récolté une ~b~${this.itemService.getItem(item).label}.`);
+            this.notifier.notify(source, `Bạn đã thu hoạch được 1 ~b~${this.itemService.getItem(item).label}.`);
         } else if (result.err == 'not_enough_space') {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
             return false;
         } else {
-            this.notifier.notify(source, `Il y a eu une erreur: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
+            this.notifier.notify(source, `Đã xảy ra lỗi: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
             return false;
         }
         return true;

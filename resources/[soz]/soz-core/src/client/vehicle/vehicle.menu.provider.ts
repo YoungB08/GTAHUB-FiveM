@@ -86,7 +86,7 @@ export class VehicleMenuProvider {
     }
 
     @Command('vehiclelimitersetter', {
-        description: 'Activer / Désactiver le limiteur',
+        description: 'Bật / Tắt giới hạn tốc độ',
         keys: [{ mapper: 'keyboard', key: 'slash' }],
     })
     async setSpeedLimit() {
@@ -113,9 +113,9 @@ export class VehicleMenuProvider {
         this.vehicleStateService.updateVehicleState(vehicle, { speedLimit }, false);
 
         if (speedLimit == 0 || speedLimit == null) {
-            this.notifier.notify('Limiteur de vitesse ~r~désactivé~s~.');
+            this.notifier.notify('Đã ~r~tắt~s~ giới hạn tốc độ.');
         } else {
-            this.notifier.notify(`Limiteur de vitesse ~g~activé~s~ à ${speedLimit} km/h.`);
+            this.notifier.notify(`Đã ~g~bật~s~ giới hạn tốc độ: ${speedLimit} km/h.`);
         }
     }
 
@@ -139,14 +139,14 @@ export class VehicleMenuProvider {
         else if (speedLimit === -2) {
             speedLimit = await this.inputService.askInput(
                 {
-                    title: 'Limiter la vitesse à :',
+                    title: 'Đặt giới hạn tốc độ (km/h):',
                     maxCharacters: 4,
                 },
                 (input: string) => {
                     const value = parseInt(input);
 
                     if (isNaN(value) || (!isTrain && value < 0)) {
-                        return Err('Veuillez entrer un nombre supérieur à 0');
+                        return Err('Vui lòng nhập một số lớn hơn 0');
                     }
 
                     return Ok(value);
@@ -160,16 +160,16 @@ export class VehicleMenuProvider {
 
         if (isTrain) {
             SetTrainCruiseSpeed(vehicle, speedLimit / 3.6);
-            this.notifier.notify(`Vitesse de croisière: ${speedLimit} km/h.`);
+            this.notifier.notify(`Tốc độ chạy tàu: ${speedLimit} km/h.`);
             return;
         }
 
         this.vehicleStateService.updateVehicleState(vehicle, { speedLimit }, false);
 
         if (speedLimit == 0 || speedLimit == null) {
-            this.notifier.notify('Limiteur de vitesse ~r~désactivé~s~.');
+            this.notifier.notify('Đã ~r~tắt~s~ giới hạn tốc độ.');
         } else {
-            this.notifier.notify(`Limiteur de vitesse ~g~activé~s~ à ${speedLimit} km/h.`);
+            this.notifier.notify(`Đã ~g~bật~s~ giới hạn tốc độ: ${speedLimit} km/h.`);
         }
 
         return true;
@@ -255,9 +255,9 @@ export class VehicleMenuProvider {
         SetBoatFrozenWhenAnchored(vehicle, status);
 
         if (status) {
-            this.notifier.notify("Vous avez ~g~baissé~s~ l'ancre.");
+            this.notifier.notify('Bạn đã ~g~thả~s~ mỏ neo thuyền.');
         } else {
-            this.notifier.notify("Vous avez ~r~relevé~s~ l'ancre.");
+            this.notifier.notify('Bạn đã ~r~kéo~s~ mỏ neo thuyền lên.');
         }
 
         return true;
@@ -294,7 +294,7 @@ export class VehicleMenuProvider {
     }
 
     @Command('soz_vehicle_toggle_menu', {
-        description: 'Ouvrir le menu du véhicule.',
+        description: 'Mở menu điều khiển phương tiện.',
         keys: [
             {
                 mapper: 'keyboard',

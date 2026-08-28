@@ -34,7 +34,7 @@ export class BennysResellProvider {
         const plate = GetVehicleNumberPlateText(entity).trim();
 
         if (plate.includes('ESSAI') || plate.includes('LUXE')) {
-            this.notifier.notify(source, 'Vous ne pouvez pas vendre un véhicule de test.', 'error');
+            this.notifier.notify(source, 'Bạn không thể bán phương tiện lái thử.', 'error');
             return;
         }
 
@@ -45,7 +45,7 @@ export class BennysResellProvider {
         });
 
         if (!vehicle) {
-            this.notifier.notify(source, `~r~Je peux pas vendre ce véhicule.`);
+            this.notifier.notify(source, `~r~Tôi không thể thu mua phương tiện này.`);
             return;
         }
 
@@ -55,14 +55,14 @@ export class BennysResellProvider {
             },
         });
         if (!playerVehicle) {
-            this.notifier.notify(source, `Désolé je reprends pas les véhicules volés.`, 'error');
+            this.notifier.notify(source, `Xin lỗi, tôi không thu mua xe trộm cắp.`, 'error');
             return;
         }
 
         if (playerVehicle.crimiImport) {
             this.notifier.notify(
                 source,
-                `Désolé je reprends pas les véhicules ne venant pas de ~r~concessionnaires agréés~s~.`,
+                `Xin lỗi, tôi không thu mua xe không có nguồn gốc từ ~r~đại lý ủy quyền~s~.`,
                 'error'
             );
             return;
@@ -93,7 +93,7 @@ export class BennysResellProvider {
         );
 
         if (cashTransferResult && bennysGain) {
-            this.notifier.notify(source, `Vous avez vendu ce véhicule pour ~g~$${sellPrice.toLocaleString()}~s~.`);
+            this.notifier.notify(source, `Bạn đã bán phương tiện này với giá ~g~$${sellPrice.toLocaleString()}~s~.`);
             DeleteEntity(entity);
             await this.prismaService.playerVehicle.delete({
                 where: {
@@ -130,7 +130,7 @@ export class BennysResellProvider {
         } else {
             this.notifier.notify(
                 source,
-                `Désolé mais je ne peux pas reprendre le véhicule pour le moment. Réessaye plus tard`,
+                `Xin lỗi nhưng hiện tại tôi chưa thể thu mua phương tiện này. Hãy thử lại sau`,
                 'error'
             );
         }

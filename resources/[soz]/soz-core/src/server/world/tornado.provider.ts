@@ -35,7 +35,7 @@ export class TornadoProvider {
 
         if (value) {
             if (this.state) {
-                this.notifier.error(source, 'Une tornade est déjà en cours...');
+                this.notifier.error(source, 'Một cơn lốc xoáy đã đang diễn ra...');
                 return;
             }
 
@@ -44,7 +44,7 @@ export class TornadoProvider {
                 startPosition: coords,
                 endPosition: coords,
             };
-            this.notifier.notify(source, 'Lancement de la tornade...');
+            this.notifier.notify(source, 'Đang khởi động lốc xoáy...');
             TriggerLatentClientEvent(
                 ClientEvent.TORNADO,
                 -1,
@@ -55,10 +55,10 @@ export class TornadoProvider {
             );
             this.weaponProvider.setDisableExplosionAlert(true);
         } else {
-            this.notifier.notify(source, 'Arrêt de la tornade en cours...');
+            this.notifier.notify(source, 'Đang dừng lốc xoáy...');
             TriggerLatentClientEvent(ClientEvent.TORNADO, -1, 1024);
             await wait(20_000);
-            this.notifier.notify(source, 'Arrêt de la tornade');
+            this.notifier.notify(source, 'Đã dừng lốc xoáy');
             this.weaponProvider.setDisableExplosionAlert(false);
             this.state = null;
         }
@@ -71,7 +71,7 @@ export class TornadoProvider {
         }
 
         if (!this.state) {
-            this.notifier.error(source, 'Pas de tornade en cours...');
+            this.notifier.error(source, 'Không có lốc xoáy nào đang diễn ra...');
             return;
         }
 

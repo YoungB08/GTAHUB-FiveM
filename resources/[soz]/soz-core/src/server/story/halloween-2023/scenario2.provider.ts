@@ -92,7 +92,7 @@ export class Halloween2023Scenario2Provider {
                     return;
                 }
                 inventory.add('halloween_alien_artifact', 1);
-                this.notifier.notify(source, `Vous avez récupéré un étrange artéfact.`, 'success');
+                this.notifier.notify(source, `Bạn đã nhận được một cổ vật kỳ lạ.`, 'success');
 
                 this.playerService.setPlayerMetadata(source, 'halloween2023', {
                     ...player.metadata.halloween2023,

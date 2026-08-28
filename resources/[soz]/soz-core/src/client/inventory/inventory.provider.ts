@@ -164,7 +164,7 @@ export class InventoryProvider {
         inventoryId: string;
     }) {
         if (this.itemService.isExpired(inventoryItem)) {
-            this.notifier.error("Cet objet est périmée, il n'est plus utilisable.");
+            this.notifier.error("Vật phẩm này đã hết hạn, không thể sử dụng được nữa.");
             return;
         }
 
@@ -177,7 +177,7 @@ export class InventoryProvider {
             return;
         }
 
-        this.notifier.error("Personne n'est à portée de vous.");
+        this.notifier.error("Không có ai ở gần bạn.");
     }
 
     @OnNuiEvent(NuiEvent.InventoryActionGive)
@@ -201,7 +201,7 @@ export class InventoryProvider {
             return;
         }
 
-        this.notifier.error("Personne n'est à portée de vous");
+        this.notifier.error("Không có ai ở gần bạn.");
     }
 
     @OnNuiEvent(NuiEvent.InventoryActionItemOnScreen)
@@ -238,7 +238,7 @@ export class InventoryProvider {
             if (ped !== null && ped.dropItemCallback) {
                 const amount = await this.inputService.askInput(
                     {
-                        title: 'Quantité :',
+                        title: 'Số lượng:',
                         defaultValue: inventoryItem.amount.toString(),
                         maxCharacters: 5,
                     },
@@ -267,7 +267,7 @@ export class InventoryProvider {
             return;
         }
 
-        this.notifier.error('Aucune intéraction possible.');
+        this.notifier.error('Không thể tương tác.');
     }
 
     private async giveItemToPlayer(
@@ -281,7 +281,7 @@ export class InventoryProvider {
             !item?.unique && inventoryItem.amount > 1
                 ? await this.inputService.askInput(
                       {
-                          title: 'Quantité :',
+                          title: 'Số lượng:',
                           defaultValue: inventoryItem.amount.toString(),
                           maxCharacters: 5,
                       },
@@ -296,7 +296,7 @@ export class InventoryProvider {
         }
 
         if (state.isInHub) {
-            this.notifier.error("Pas d'échange dans le Hub.");
+            this.notifier.error("Không thể giao dịch trong Hub.");
         }
 
         TriggerServerEvent(ServerEvent.INVENTORY_GIVE_ITEM, playerId, inventoryId, inventoryItem.slot, amount);
@@ -315,7 +315,7 @@ export class InventoryProvider {
         item: Item | null;
     }) {
         const label = await this.inputService.askInput({
-            title: 'Étiquette',
+            title: 'Nhãn dán',
             maxCharacters: 40,
             defaultValue: inventoryItem.metadata.label || item?.label,
         });
@@ -328,7 +328,7 @@ export class InventoryProvider {
         const player = this.playerService.getState();
 
         if (player.isInHub) {
-            this.notifier.error("Pas d'échange dans le Hub.");
+            this.notifier.error("Không thể giao dịch trong Hub.");
         }
 
         const [targetId, , distance] = await this.getPlayerFromMode(mode);
@@ -337,7 +337,7 @@ export class InventoryProvider {
         if (targetId && targetId !== selfPlayerId && distance < DEFAULT_MAX_INVENTORY_DISTANCE) {
             const amount = await this.inputService.askInput<number>(
                 {
-                    title: 'Montant :',
+                    title: 'Số tiền:',
                     defaultValue: '',
                     maxCharacters: 10,
                 },
@@ -345,11 +345,11 @@ export class InventoryProvider {
                     const inputNumber = Number(input);
 
                     if (isNaN(inputNumber) || inputNumber <= 0) {
-                        return Err('Veuillez entrer un nombre positif');
+                        return Err('Vui lòng nhập một số dương');
                     }
 
                     if (Math.round(inputNumber) !== inputNumber) {
-                        return Err('Veuillez entrer un nombre entier');
+                        return Err('Vui lòng nhập một số nguyên');
                     }
 
                     return Ok(inputNumber);
@@ -369,7 +369,7 @@ export class InventoryProvider {
             return;
         }
 
-        this.notifier.error("Personne n'est à portée de vous.");
+        this.notifier.error("Không có ai ở gần bạn.");
     }
 
     @OnNuiEvent(NuiEvent.InventoryActionTransferMoney)
@@ -383,12 +383,12 @@ export class InventoryProvider {
         const player = this.playerService.getState();
 
         if (player.isInHub) {
-            this.notifier.error("Pas d'échange dans le Hub.");
+            this.notifier.error("Không thể giao dịch trong Hub.");
         }
 
         const amount = await this.inputService.askInput<number>(
             {
-                title: 'Montant :',
+                title: 'Số tiền:',
                 defaultValue: '',
                 maxCharacters: 10,
             },
@@ -396,11 +396,11 @@ export class InventoryProvider {
                 const inputNumber = Number(input);
 
                 if (isNaN(inputNumber) || inputNumber <= 0) {
-                    return Err('Veuillez entrer un nombre positif');
+                    return Err('Vui lòng nhập một số dương');
                 }
 
                 if (Math.round(inputNumber) !== inputNumber) {
-                    return Err('Veuillez entrer un nombre entier');
+                    return Err('Vui lòng nhập một số nguyên');
                 }
 
                 return Ok(inputNumber);

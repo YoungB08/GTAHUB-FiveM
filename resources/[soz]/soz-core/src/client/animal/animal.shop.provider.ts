@@ -119,7 +119,7 @@ export class AnimalShopProvider {
     @OnEvent(ClientEvent.PET_SHOP_ABANDON_ANIMAL)
     public async onAbandonAnimal(): Promise<void> {
         const confirm = await this.inputService.askConfirm(
-            'Êtes vous sur de vouloir abandon votre animal de compagnie ? Entrez OUI pour confirmer'
+            'Bạn có chắc chắn muốn bỏ rơi thú cưng của mình không? Nhập CO để xác nhận'
         );
 
         if (!confirm) {
@@ -133,32 +133,32 @@ export class AnimalShopProvider {
         const pet = this.animalProvider.getCurrentPet();
         if (!pet) {
             this.notifier.notify(
-                "~b~Montre moi~s~ l'animal que tu veux nommer ! Je ne vais pas deviner tout seul.",
+                "~b~Hãy dẫn thú cưng ra~s~ để tôi xem! Tôi không thể tự đoán được đâu.",
                 'info'
             );
             return;
         } else if (!this.animalProvider.isNamed(pet)) {
             this.notifier.notify(
-                "Tu veux ~b~nommer~s~ ton animal ? Je suis sur qu'il en sera ~g~très content~s~.",
+                "Bạn muốn ~b~đặt tên~s~ cho thú cưng? Tôi chắc rằng nó sẽ ~g~rất vui~s~ đấy.",
                 'info'
             );
         } else {
             this.notifier.notify(
-                "Tu veux ~b~re-nommer~s~ ton animal ? Il risque de prendre ~y~un peu de temps~s~ avant de s'habituer à son nouveau nom.",
+                "Bạn muốn ~b~đổi tên~s~ cho thú cưng? Sẽ cần ~y~một chút thời gian~s~ để nó quen với tên mới đấy.",
                 'info'
             );
         }
 
         const input = await this.inputService.askInput(
             {
-                title: `Nom de l'animal`,
+                title: `Tên thú cưng`,
                 maxCharacters: 32,
             },
             name => {
                 if (!name || (name.length >= 2 && name.length <= 32)) {
                     return Ok(name);
                 }
-                return Err(`Le nom n'est pas valide.`);
+                return Err(`Tên không hợp lệ.`);
             }
         );
         if (!input) return;
@@ -247,7 +247,7 @@ export class AnimalShopProvider {
             TriggerServerEvent(ServerEvent.PET_KENNEL_REMOVE, pet.id);
         } else if (action === 'abandon') {
             const confirm = await this.inputService.askConfirm(
-                `Êtes vous sur de vouloir abandon ${pet.name ? pet.name : `cet animal`} ? Entrez OUI pour confirmer`
+                `Bạn có chắc chắn muốn bỏ rơi ${pet.name ? pet.name : `con thú này`} không? Nhập CO để xác nhận`
             );
 
             if (!confirm) {

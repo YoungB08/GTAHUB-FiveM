@@ -97,7 +97,7 @@ export class InventoryManager {
             }
         }
 
-        this.notifier.error("Vous êtes trop loin de l'inventaire");
+        this.notifier.error("Bạn ở quá xa túi đồ");
         this.unsubscribeInventory();
         this.nuiDispatch.dispatch('inventory', 'CloseInventory');
     }

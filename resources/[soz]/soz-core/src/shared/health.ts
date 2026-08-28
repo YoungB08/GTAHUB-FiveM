@@ -12,18 +12,18 @@ export const stressLevelToLabel = (level: number | null): string => {
     }
 
     if (level < 40) {
-        return 'Bon';
+        return 'Bình thường';
     }
 
     if (level <= 60) {
-        return 'Moyen';
+        return 'Trung bình';
     }
 
     if (level <= 80) {
-        return 'Élevé';
+        return 'Cao';
     }
 
-    return 'Très élevé';
+    return 'Rất cao';
 };
 
 export const healthLevelToLabel = (
@@ -33,7 +33,7 @@ export const healthLevelToLabel = (
     strategy = LabelStrategy.MinMax
 ): string => {
     if (!level && level !== 0) {
-        return 'Inconnu';
+        return 'Không rõ';
     }
 
     const base0Level = level - min;
@@ -46,53 +46,53 @@ export const healthLevelToLabel = (
 
     if (strategy === LabelStrategy.MinMaxAverage) {
         if (percentLevel < 0 || percentLevel > 100) {
-            return 'Exécrable';
+            return 'Rất tệ';
         }
 
         if (percentLevel < 15 || percentLevel > 85) {
-            return 'Mauvais';
+            return 'Kém';
         }
 
         if (percentLevel < 30 || percentLevel > 70) {
-            return 'Moyen';
+            return 'Trung bình';
         }
 
         if (percentLevel < 45 || percentLevel > 55) {
-            return 'Bon';
+            return 'Tốt';
         }
 
-        return 'Excellent';
+        return 'Xuất sắc';
     }
 
     if (percentLevel < 20) {
-        return 'Exécrable';
+        return 'Rất tệ';
     }
 
     if (percentLevel < 40) {
-        return 'Mauvais';
+        return 'Kém';
     }
 
     if (percentLevel < 60) {
-        return 'Moyen';
+        return 'Trung bình';
     }
 
     if (percentLevel < 80) {
-        return 'Bon';
+        return 'Tốt';
     }
 
-    return 'Excellent';
+    return 'Xuất sắc';
 };
 
 export const injuriesLevelToLabel = (targetPlayer: PlayerData): string => {
-    let state = 'aucunes';
+    let state = 'Không có';
     if (targetPlayer.metadata.injuries_count >= 7) {
-        state = 'graves';
+        state = 'Nghiêm trọng';
     } else if (targetPlayer.metadata.injuries_count >= 4) {
-        state = 'moyennes';
+        state = 'Trung bình';
     } else if (targetPlayer.metadata.injuries_count >= 1) {
-        state = 'légères';
+        state = 'Nhẹ';
     } else {
-        state = 'aucunes';
+        state = 'Không có';
     }
     return state;
 };

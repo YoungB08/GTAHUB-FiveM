@@ -86,7 +86,7 @@ export class OilTankerProvider {
             [
                 {
                     icon: 'fuel/pistolet',
-                    label: 'Connecter le Tanker',
+                    label: 'Nối ống xe bồn',
                     job: JobType.Oil,
                     blackoutGlobal: true,
                     blackoutJob: JobType.Oil,
@@ -96,7 +96,7 @@ export class OilTankerProvider {
                 },
                 {
                     icon: 'fuel/pistolet',
-                    label: 'Déconnecter le Tanker',
+                    label: 'Tháo ống xe bồn',
                     category: 'society',
                     canInteract: () => {
                         const player = this.playerService.getPlayer();
@@ -126,7 +126,7 @@ export class OilTankerProvider {
             [
                 {
                     icon: 'fuel/remplir',
-                    label: 'Relier le Tanker',
+                    label: 'Kết nối xe bồn',
                     category: 'society',
                     job: JobType.Oil,
                     blackoutGlobal: true,
@@ -141,7 +141,7 @@ export class OilTankerProvider {
             this.targetFactory.createForBoxZone(`mtp_fuel_refinery_${zone.center[0]}`, zone, [
                 {
                     icon: 'fuel/remplir',
-                    label: 'Relier le Tanker',
+                    label: 'Kết nối xe bồn',
                     category: 'society',
                     job: JobType.Oil,
                     blackoutGlobal: true,
@@ -157,7 +157,7 @@ export class OilTankerProvider {
             [
                 {
                     icon: 'fuel/remplir',
-                    label: 'Relier le Tanker',
+                    label: 'Kết nối xe bồn',
                     category: 'society',
                     job: JobType.Oil,
                     blackoutGlobal: true,
@@ -187,12 +187,12 @@ export class OilTankerProvider {
         const isLocked = await emitRpc<boolean>(RpcServerEvent.OIL_LOCK_TANKER, vehicleNetId);
 
         if (!isLocked) {
-            this.notifier.error("Le tanker est déjà utilisé par quelqu'un d'autre");
+            this.notifier.error("Xe bồn chở dầu (tanker) này đã được người khác sử dụng");
 
             return;
         }
 
-        this.notifier.notify('Vous cherchez à ~r~connecter~s~ le Tanker.', 'info');
+        this.notifier.notify('Bạn đang chuẩn bị ~r~kết nối ống~s~ với xe bồn.', 'info');
 
         TaskTurnPedToFaceEntity(PlayerPedId(), vehicle, 1000);
         await wait(500);

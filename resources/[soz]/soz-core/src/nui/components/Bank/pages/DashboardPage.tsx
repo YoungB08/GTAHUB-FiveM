@@ -55,7 +55,7 @@ export const DashboardPage: FunctionComponent<DashboardProps> = ({
             <div className="flex flex-col gap-2.5 w-4/6">
                 <div className="flex flex-none gap-2.5">
                     <Card className="w-1/2">
-                        <Title size="small">Solde bancaire</Title>
+                        <Title size="small">Số dư tài khoản</Title>
 
                         <div className="flex flex-col justify-center items-center py-2.5">
                             <Title size="xlarge">
@@ -65,7 +65,7 @@ export const DashboardPage: FunctionComponent<DashboardProps> = ({
                     </Card>
 
                     <Card className="w-1/2">
-                        <Title size="small">Portefeuille</Title>
+                        <Title size="small">Ví tiền mặt</Title>
 
                         <div className="flex flex-col justify-center items-center py-2.5">
                             <Title size="xlarge">
@@ -76,7 +76,7 @@ export const DashboardPage: FunctionComponent<DashboardProps> = ({
                 </div>
 
                 <Card className="flex flex-col grow gap-5 min-h-0">
-                    <Title size="xsmall">Transactions récentes</Title>
+                    <Title size="xsmall">Giao dịch gần đây</Title>
 
                     <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-black/20">
                         <HistoryTable account={account} history={history.slice(0, 10)} contacts={contacts} />
@@ -105,19 +105,18 @@ export const DashboardPage: FunctionComponent<DashboardProps> = ({
 
                 {showCreateOffshoreAccount && (
                     <Card>
-                        <h2 className="uppercase text-sm font-light text-gray-300">Compte offshore</h2>
+                        <h2 className="uppercase text-sm font-light text-gray-300">Tài khoản Offshore</h2>
                         <p className="text-sm mt-2">
-                            Créez un compte offshore pour sécuriser vos actifs et bénéficier d'une fiscalité
-                            avantageuse.
+                            Mở tài khoản hải ngoại để bảo mật tài sản và quản lý tài chính an toàn.
                         </p>
-                        <Button onClick={createOffshoreAccount}>Créer un compte</Button>
+                        <Button onClick={createOffshoreAccount}>Mở tài khoản</Button>
                     </Card>
                 )}
 
                 {showIban && (
                     <Card className="relative flex justify-center -z-10">
                         <TextWithCopy text={account?.id} className="font-semibold">
-                            IBAN : {account?.id}
+                            Số tài khoản (IBAN) : {account?.id}
                         </TextWithCopy>
                     </Card>
                 )}

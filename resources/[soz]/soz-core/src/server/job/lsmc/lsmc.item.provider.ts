@@ -60,10 +60,10 @@ export class LSMCItemProvider {
 
         if (inventory.removeAtSlot(inventoryItem.slot, 1)) {
             if (player.metadata.disease == 'rhume') {
-                this.notifier.notify(source, 'Vous utilisez un mouchoir et vous vous sentez mieux !');
+                this.notifier.notify(source, 'Bạn dùng khăn giấy và cảm thấy dễ chịu hơn!');
                 this.playerService.setPlayerDisease(source, false);
             } else {
-                this.notifier.notify(source, 'Vous utilisez un mouchoir, mais rien ne sort !');
+                this.notifier.notify(source, 'Bạn dùng khăn giấy, nhưng không có gì xảy ra!');
             }
         }
     }
@@ -73,10 +73,10 @@ export class LSMCItemProvider {
 
         if (inventory.removeAtSlot(inventoryItem.slot, 1)) {
             if (player.metadata.disease == 'intoxication') {
-                this.notifier.notify(source, 'Vous utilisez un antibiotique et vous vous sentez mieux !');
+                this.notifier.notify(source, 'Bạn dùng thuốc kháng sinh và cảm thấy dễ chịu hơn!');
                 this.playerService.setPlayerDisease(source, false);
             } else {
-                this.notifier.notify(source, 'Vous utilisez un antibiotique, mais rien ne change !');
+                this.notifier.notify(source, 'Bạn dùng thuốc kháng sinh, nhưng tình trạng không thay đổi!');
             }
         }
     }
@@ -86,10 +86,10 @@ export class LSMCItemProvider {
 
         if (inventory.removeAtSlot(inventoryItem.slot, 1)) {
             if (player.metadata.disease == 'backpain') {
-                this.notifier.notify(source, 'Vous utilisez un anti-douleur et vous vous sentez mieux !');
+                this.notifier.notify(source, 'Bạn dùng thuốc giảm đau và cảm thấy dễ chịu hơn!');
                 this.playerService.setPlayerDisease(source, false);
             } else {
-                this.notifier.notify(source, 'Vous utilisez un anti-douleur, mais rien ne change !');
+                this.notifier.notify(source, 'Bạn dùng thuốc giảm đau, nhưng không đỡ hơn!');
             }
         }
     }
@@ -113,7 +113,7 @@ export class LSMCItemProvider {
         const { completed } = await this.progressService.progress(
             source,
             'use_stretcher',
-            'Vous dépliez le brancard...',
+            'Đang mở cáng cứu thương...',
             3000,
             {
                 dictionary: 'mp_common',
@@ -154,7 +154,7 @@ export class LSMCItemProvider {
         DeleteEntity(entity);
         inventory.add('stretcher', 1);
 
-        this.notifier.notify(source, 'Tu as ramassé un brancard');
+        this.notifier.notify(source, 'Bạn đã nhặt lại cáng cứu thương');
     }
 
     @OnEvent(ServerEvent.LSMC_STRETCHER_PUT_ON)
@@ -272,7 +272,7 @@ export class LSMCItemProvider {
         DeleteEntity(entity);
         inventory.add('wheelchair', 1);
 
-        this.notifier.notify(source, 'Tu as ramassé une chaise roulante');
+        this.notifier.notify(source, 'Bạn đã nhặt lại xe lăn');
     }
 
     public async useNaloxone(
@@ -290,7 +290,7 @@ export class LSMCItemProvider {
         const progress = await this.progressService.progress(
             source,
             'use_naloxone',
-            'Injection de Naloxone...',
+            'Đang tiêm Naloxone...',
             10000,
             {
                 name: 'miranda_shooting_up',
@@ -319,7 +319,7 @@ export class LSMCItemProvider {
 
         this.notifier.notify(
             source,
-            'Vous vous êtes injecté une dose de ~g~Naloxone~s~, vous êtes désormais désintoxiqué.'
+            'Bạn đã tự tiêm một liều ~g~Naloxone~s~, cơn nghiện đã được giải trừ.'
         );
     }
 
@@ -328,7 +328,7 @@ export class LSMCItemProvider {
         const { completed } = await this.progressService.progress(
             source,
             'use_naloxone',
-            'Injection de Naloxone...',
+            'Đang tiêm Naloxone...',
             10000,
             {
                 name: 'miranda_shooting_up',
@@ -361,8 +361,8 @@ export class LSMCItemProvider {
         const targetPlayer = this.playerService.getPlayer(target);
         this.playerService.setPlayerMetadata(target, 'drug', Math.max(0, targetPlayer.metadata.drug - 50));
 
-        this.notifier.notify(source, 'Vous avez injecté une dose de ~g~Naloxone~s~.');
-        this.notifier.notify(target, 'Vous recu une dose de ~g~Naloxone~s~, vous êtes désormais désintoxiqué.');
+        this.notifier.notify(source, 'Bạn đã tiêm một liều ~g~Naloxone~s~ cho bệnh nhân.');
+        this.notifier.notify(target, 'Bạn đã nhận một liều ~g~Naloxone~s~, cơn nghiện đã được giải trừ.');
     }
 
     public async useMorphine(
@@ -397,7 +397,7 @@ export class LSMCItemProvider {
         const { completed } = await this.progressService.progress(
             source,
             'use_naloxone',
-            'Injection de Morphine...',
+            'Đang tiêm Morphine...',
             10000,
             {
                 name: 'miranda_shooting_up',
@@ -432,17 +432,17 @@ export class LSMCItemProvider {
         this.playerService.incrementMetadata(target, 'drug', 10, 0, 110);
 
         if (this.usedMorphine.has(player.citizenid)) {
-            this.notifier.notify(source, 'Vous avez déjà pris de la morphine.', 'error');
+            this.notifier.notify(source, 'Bạn đã sử dụng morphine trước đó rồi.', 'error');
         } else {
             this.playerService.incrementMetadata(target, 'stress_level', -20, 0, 100);
             this.usedMorphine.add(player.citizenid);
         }
 
         if (target != source) {
-            this.notifier.notify(source, 'Vous avez injecté une dose de ~g~Morphine~s~.');
-            this.notifier.notify(target, 'Vous recu une dose de ~g~Morphine~s~');
+            this.notifier.notify(source, 'Bạn đã tiêm một liều ~g~Morphine~s~ cho bệnh nhân.');
+            this.notifier.notify(target, 'Bạn đã nhận một liều ~g~Morphine~s~.');
         } else {
-            this.notifier.notify(source, 'Vous vous êtes injecté une dose de ~g~Morphine~s~.');
+            this.notifier.notify(source, 'Bạn đã tự tiêm một liều ~g~Morphine~s~.');
         }
     }
 }

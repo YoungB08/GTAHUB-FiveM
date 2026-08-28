@@ -100,10 +100,10 @@ export class HousingProvider {
 
         this.playerTemporaryAccess.get(target.citizenid).add(apartment.id);
 
-        this.notifier.notify(target.source, `Vous avez reçu un accès temporaire à une habitation.`, 'success');
+        this.notifier.notify(target.source, `Bạn đã nhận được quyền truy cập tạm thời vào một ngôi nhà.`, 'success');
         this.notifier.notify(
             source,
-            `Vous avez donné un accès temporaire à l'habitation ${apartment.label}.`,
+            `Bạn đã cấp quyền truy cập tạm thời vào ngôi nhà ${apartment.label}.`,
             'success'
         );
 
@@ -115,7 +115,7 @@ export class HousingProvider {
         const target = this.playerService.getPlayer(targetSource);
 
         if (!target) {
-            this.notifier.notify(source, 'Pas de joueur avec cet id');
+            this.notifier.notify(source, 'Không tìm thấy người chơi với ID này');
             return;
         }
 
@@ -134,7 +134,7 @@ export class HousingProvider {
         const target = this.playerService.getPlayer(targetSource);
 
         if (!target) {
-            this.notifier.notify(source, 'Aucun joueur avec cet id.');
+            this.notifier.notify(source, 'Không tìm thấy người chơi với ID này.');
             return;
         }
 
@@ -150,12 +150,12 @@ export class HousingProvider {
             const diffInHours = differenceInHours(nextChange, now);
             this.notifier.notify(
                 source,
-                `${target.charinfo.lastname} ${target.charinfo.firstname} peut changer de résidence principale dans ${diffInHours < 24 ? `${diffInHours} heure(s).` : `${differenceInCalendarDays(nextChange, now)} jour(s).`}`
+                `${target.charinfo.lastname} ${target.charinfo.firstname} có thể đổi nơi ở chính sau ${diffInHours < 24 ? `${diffInHours} giờ.` : `${differenceInCalendarDays(nextChange, now)} ngày.`}`
             );
         } else {
             this.notifier.notify(
                 source,
-                `${target.charinfo.lastname} ${target.charinfo.firstname} peut changer de résidence principale.`
+                `${target.charinfo.lastname} ${target.charinfo.firstname} có thể đổi nơi ở chính.`
             );
         }
     }
@@ -185,7 +185,7 @@ export class HousingProvider {
             apartment.roommate !== player.citizenid &&
             (apartment.senatePartyId === null || apartment.senatePartyId !== player.partyMember?.partyId)
         ) {
-            this.notifier.error(player.source, 'Vous ne pouvez pas donner les clés de cette habitation.');
+            this.notifier.error(player.source, 'Bạn không thể trao chìa khóa của ngôi nhà này.');
 
             return;
         }
@@ -241,7 +241,7 @@ export class HousingProvider {
                     const diffInHours = differenceInHours(canChangeAt, now);
                     this.notifier.error(
                         player.source,
-                        `Vous ne pouvez pas changer de résidence principale pour le moment. Attendez encore ${diffInHours < 24 ? `${diffInHours} heure(s).` : `${differenceInCalendarDays(canChangeAt, now)} jour(s).`}`
+                        `Hiện tại bạn chưa thể đổi nơi ở chính. Vui lòng chờ thêm ${diffInHours < 24 ? `${diffInHours} giờ.` : `${differenceInCalendarDays(canChangeAt, now)} ngày.`}`
                     );
 
                     return;
@@ -251,7 +251,7 @@ export class HousingProvider {
             if (currentApartment.owner !== player.citizenid) {
                 this.notifier.error(
                     player.source,
-                    'Vous devez quitter votre habitation actuelle avant de changer de résidence principale.'
+                    'Bạn phải rời khỏi nơi ở hiện tại trước khi đổi nơi ở chính.'
                 );
 
                 return;
@@ -259,25 +259,25 @@ export class HousingProvider {
         }
 
         if (apartment.owner !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.tenant !== null) {
-            this.notifier.error(player.source, 'Cette habitation a un locataire.');
+            this.notifier.error(player.source, 'Ngôi nhà này hiện đang có người thuê.');
 
             return;
         }
 
         if (apartment.roommate !== null) {
-            this.notifier.error(player.source, 'Cette habitation a un co-locataire.');
+            this.notifier.error(player.source, 'Ngôi nhà này hiện đang có người ở ghép/ở cùng.');
 
             return;
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cette habitation est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Ngôi nhà này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -294,7 +294,7 @@ export class HousingProvider {
         this.playerService.setPlayerMetadata(player.source, 'main_residence_last_change', Date.now());
         this.housingFournitureProvider.clearPlateCheck(apartment.id);
 
-        this.notifier.notify(player.source, "Vous avez changé d'habitation principale.", 'success');
+        this.notifier.notify(player.source, "Bạn đã đổi nơi ở chính thành công.", 'success');
     }
 
     @OnEvent(ServerEvent.HOUSING_ADD_TENANT)
@@ -319,31 +319,31 @@ export class HousingProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(target.source)) as Vector3;
 
         if (getDistance(playerPosition, targetPosition) > 2) {
-            this.notifier.error(player.source, "Personne n'est à portée de vous.");
+            this.notifier.error(player.source, "Không có ai ở gần bạn.");
 
             return;
         }
 
         if (await this.housingRepository.hasApartment(target.citizenid)) {
-            this.notifier.error(player.source, 'Cette personne a déjà une maison.');
+            this.notifier.error(player.source, 'Người này đã có một ngôi nhà.');
 
             return;
         }
 
         if (apartment.owner !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.tenant !== null) {
-            this.notifier.error(player.source, 'Cette habitation a déjà un locataire.');
+            this.notifier.error(player.source, 'Ngôi nhà này đã có người thuê.');
 
             return;
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cette habitation est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Ngôi nhà này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -353,8 +353,8 @@ export class HousingProvider {
         this.playerService.setPlayerApartment(target.source, apartment, property);
         this.housingFournitureProvider.clearPlateCheck(apartment.id);
 
-        this.notifier.notify(target.source, 'Vous avez été ajouté en tant que locataire.', 'success');
-        this.notifier.notify(player.source, 'Vous avez ajouté un locataire à votre maison.', 'success');
+        this.notifier.notify(target.source, 'Bạn đã được thêm vào danh sách người thuê nhà.', 'success');
+        this.notifier.notify(player.source, 'Bạn đã thêm một người thuê vào nhà của bạn.', 'success');
     }
 
     @OnEvent(ServerEvent.HOUSING_ADD_ROOMMATE)
@@ -381,31 +381,31 @@ export class HousingProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(target.source)) as Vector3;
 
         if (getDistance(playerPosition, targetPosition) > 2) {
-            this.notifier.error(player.source, "Personne n'est à portée de vous.");
+            this.notifier.error(player.source, "Không có ai ở gần bạn.");
 
             return;
         }
 
         if (await this.housingRepository.hasApartment(target.citizenid)) {
-            this.notifier.error(player.source, 'Cette personne a déjà une maison.');
+            this.notifier.error(player.source, 'Người này đã có một ngôi nhà.');
 
             return;
         }
 
         if (apartment.owner !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.roommate !== null) {
-            this.notifier.error(player.source, 'Cette habitation a déjà un colocataire.');
+            this.notifier.error(player.source, 'Ngôi nhà này đã có người ở ghép.');
 
             return;
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cette habitation est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Ngôi nhà này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -415,8 +415,8 @@ export class HousingProvider {
         this.playerService.setPlayerApartment(target.source, apartment, property);
         this.housingFournitureProvider.clearPlateCheck(apartment.id);
 
-        this.notifier.notify(target.source, 'Vous avez été ajouté en tant que colocataire.', 'success');
-        this.notifier.notify(player.source, 'Vous avez ajouté un colocataire à votre maison.', 'success');
+        this.notifier.notify(target.source, 'Bạn đã được thêm vào danh sách người ở ghép.', 'success');
+        this.notifier.notify(player.source, 'Bạn đã thêm một người ở ghép vào nhà của bạn.', 'success');
     }
 
     @OnEvent(ServerEvent.HOUSING_BELL_APARTMENT)
@@ -433,12 +433,12 @@ export class HousingProvider {
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cet appartement est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Căn hộ này dành riêng cho đảng chính trị.');
 
             return;
         }
 
-        this.notifier.notify(player.source, `Vous avez sonné à la porte du ${apartment.label}.`, 'info');
+        this.notifier.notify(player.source, `Bạn đã bấm chuông cửa ${apartment.label}.`, 'info');
 
         const targets: number[] = [];
 
@@ -491,13 +491,13 @@ export class HousingProvider {
         }
 
         if (apartment.owner !== null) {
-            this.notifier.error(player.source, 'Cette habitation est déjà possédé.');
+            this.notifier.error(player.source, 'Ngôi nhà này đã có chủ sở hữu.');
 
             return;
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cet appartement est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Căn hộ này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -506,14 +506,14 @@ export class HousingProvider {
         if (hasPlayerAnotherApartment && isMotel(apartment)) {
             this.notifier.error(
                 player.source,
-                "Il n'est pas possible d'acheter cette habitation en tant que résidence secondaire."
+                "Không thể mua ngôi nhà này làm nơi ở phụ."
             );
 
             return;
         }
 
         if (!(await this.playerMoneyService.buy(player.source, apartment.price, TaxType.HOUSING))) {
-            this.notifier.error(player.source, "Vous n'avez pas assez d'argent.");
+            this.notifier.error(player.source, "Bạn không có đủ tiền.");
 
             return;
         }
@@ -538,7 +538,7 @@ export class HousingProvider {
         const taxedPrice = await this.priceService.getPrice(apartment.price, TaxType.HOUSING);
         this.notifier.notify(
             player.source,
-            `Vous venez ~g~d'acquérir~s~ une maison pour ~b~$${taxedPrice.toLocaleString('FR-fr')}.${isApartmentExcludeFromHousing(apartment) ? `` : `~s~<br><br>Entrez dans votre logement et consultez les plans d'aménagement de vos meubles à l'aide du Menu ~g~H~s~ !`}`,
+            `Bạn vừa ~g~mua~s~ một ngôi nhà với giá ~b~$${taxedPrice.toLocaleString('vi-VN')}.${isApartmentExcludeFromHousing(apartment) ? `` : `~s~<br><br>Hãy bước vào nhà và tùy chỉnh nội thất bằng phím ~g~H~s~ !`}`,
             'success',
             30_000
         );
@@ -589,7 +589,7 @@ export class HousingProvider {
         const { completed } = await this.progressService.progress(
             player.source,
             'housing_action',
-            'Vous sortez...',
+            'Bạn đang đi ra...',
             1000,
             {
                 dictionary: 'mp_doorbell',
@@ -630,19 +630,19 @@ export class HousingProvider {
         }
 
         if (apartment.owner !== player.citizenid && apartment.tenant !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.owner === apartment.tenant) {
-            this.notifier.error(player.source, 'Vous habitez cette habitation.');
+            this.notifier.error(player.source, 'Bạn đang sống tại ngôi nhà này.');
 
             return;
         }
 
         if (apartment.tenant === null) {
-            this.notifier.error(player.source, "Cette habitation n'a pas de colocataire.");
+            this.notifier.error(player.source, "Ngôi nhà này không có người thuê.");
 
             return;
         }
@@ -655,14 +655,14 @@ export class HousingProvider {
             this.playerService.setPlayerApartment(tenant.source, null, null);
 
             if (tenant.citizenid === player.citizenid) {
-                this.notifier.notify(tenant.source, 'Vous avez quitté votre location.', 'error');
+                this.notifier.notify(tenant.source, 'Bạn đã rời khỏi phòng thuê.', 'error');
             } else {
-                this.notifier.notify(tenant.source, 'Vous avez été retiré de votre location.', 'error');
+                this.notifier.notify(tenant.source, 'Bạn đã bị xóa khỏi danh sách thuê nhà.', 'error');
             }
         }
 
         if (apartment.owner === player.citizenid) {
-            this.notifier.notify(player.source, 'Vous avez retiré votre locataire de votre maison.', 'success');
+            this.notifier.notify(player.source, 'Bạn đã xóa người thuê khỏi nhà của bạn.', 'success');
         }
 
         await this.housingRepository.setApartmentTenant(null, apartment.id);
@@ -685,13 +685,13 @@ export class HousingProvider {
         }
 
         if (apartment.owner !== player.citizenid && apartment.roommate !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.roommate === null) {
-            this.notifier.error(player.source, "Cette habitation n'a pas de colocataire.");
+            this.notifier.error(player.source, "Ngôi nhà này không có người ở ghép.");
 
             return;
         }
@@ -704,14 +704,14 @@ export class HousingProvider {
         if (roommate) {
             this.playerService.setPlayerApartment(roommate.source, null, null);
             if (roommate.citizenid === player.citizenid) {
-                this.notifier.notify(roommate.source, 'Vous avez quitté votre colocation.', 'error');
+                this.notifier.notify(roommate.source, 'Bạn đã rời khỏi phòng ở ghép.', 'error');
             } else {
-                this.notifier.notify(roommate.source, 'Vous avez été retiré de votre colocation.', 'error');
+                this.notifier.notify(roommate.source, 'Bạn đã bị xóa khỏi danh sách ở ghép.', 'error');
             }
         }
 
         if (apartment.owner === player.citizenid) {
-            this.notifier.notify(player.source, 'Vous avez retiré votre colocataire de votre maison.', 'success');
+            this.notifier.notify(player.source, 'Bạn đã xóa người ở ghép khỏi nhà của bạn.', 'success');
         }
 
         await this.housingRepository.setApartmentRoommate(null, apartment.id);
@@ -750,7 +750,7 @@ export class HousingProvider {
                 this.playerService.setPlayerApartment(tenant.source, null, null);
 
                 if (notify && apartment.owner !== apartment.tenant) {
-                    this.notifier.notify(tenant.source, `Votre propriétaire vient de vendre votre habitation.`, 'info');
+                    this.notifier.notify(tenant.source, `Chủ nhà vừa bán ngôi nhà bạn đang thuê.`, 'info');
                 }
             }
         }
@@ -767,7 +767,7 @@ export class HousingProvider {
                 if (notify) {
                     this.notifier.notify(
                         roommate.source,
-                        `Votre propriétaire vient de vendre votre habitation.`,
+                        `Chủ nhà vừa bán ngôi nhà bạn đang ở ghép.`,
                         'info'
                     );
                 }
@@ -807,13 +807,13 @@ export class HousingProvider {
         }
 
         if (apartment.owner !== player.citizenid) {
-            this.notifier.error(player.source, 'Vous ne possédez pas cette habitation.');
+            this.notifier.error(player.source, 'Bạn không sở hữu ngôi nhà này.');
 
             return;
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cet appartement est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Căn hộ này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -834,7 +834,7 @@ export class HousingProvider {
 
         this.notifier.notify(
             player.source,
-            `Vous venez de ~r~céder~s~ votre maison pour ~b~$${resellPrice.toLocaleString('FR-fr')}.`,
+            `Bạn vừa ~r~bán lại~s~ ngôi nhà của mình với giá ~b~$${resellPrice.toLocaleString('vi-VN')}.`,
             'success'
         );
     }
@@ -854,7 +854,7 @@ export class HousingProvider {
         }
 
         if (apartment.senatePartyId !== null) {
-            this.notifier.error(player.source, 'Cet appartement est réservé à un parti politique.');
+            this.notifier.error(player.source, 'Căn hộ này dành riêng cho đảng chính trị.');
 
             return;
         }
@@ -877,12 +877,12 @@ export class HousingProvider {
 
         const [property, apartment] = await this.housingRepository.getApartment(propertyId, apartmentId);
         if (!property || !apartment) {
-            this.notifier.error(player.source, "Vous ne possédez pas cette d'habitation.");
+            this.notifier.error(player.source, "Bạn không sở hữu ngôi nhà này.");
             return;
         }
 
         if (isMotel(apartment)) {
-            this.notifier.error(player.source, "Vous ne pouvez pas améliorer cette d'habitation.");
+            this.notifier.error(player.source, "Bạn không thể nâng cấp ngôi nhà này.");
             return;
         }
 
@@ -912,13 +912,13 @@ export class HousingProvider {
         );
 
         if (inventory.getItemCount('cabinet_zkea') < zkeaAmount) {
-            this.notifier.error(player.source, "Amélioration de palier impossible car Zkea n'a pas assez de stock.");
+            this.notifier.error(player.source, "Không thể nâng cấp vì Zkea không có đủ hàng trong kho.");
 
             return;
         }
 
         if (!(await this.playerMoneyService.buy(player.source, price, TaxType.HOUSING))) {
-            this.notifier.error(player.source, "Vous n'avez pas assez d'argent.");
+            this.notifier.error(player.source, "Bạn không có đủ tiền.");
 
             return;
         }
@@ -944,10 +944,10 @@ export class HousingProvider {
         const priceWithTaxes = await this.priceService.getPrice(price, TaxType.HOUSING);
         this.notifier.notify(
             player.source,
-            `Vous venez ~g~d'améliorer~s~ votre habitation pour ~b~$${priceWithTaxes.toLocaleString('FR-fr')}~s~:<br>- ${Object.keys(
+            `Bạn vừa ~g~nâng cấp~s~ nơi ở của mình với giá ~b~$${priceWithTaxes.toLocaleString('vi-VN')}~s~:<br>- ${Object.keys(
                 apartmentTier
             )
-                .map(tier => `${TYPE_LABEL[tier]} au palier ~g~${apartmentTier[tier] + 1}~s~`)
+                .map(tier => `${TYPE_LABEL[tier]} lên bậc ~g~${apartmentTier[tier] + 1}~s~`)
                 .join('<br>- ')}`,
             'success'
         );
@@ -978,7 +978,7 @@ export class HousingProvider {
 
         const [property, apartment] = await this.housingRepository.getApartment(propertyId, apartmentId);
         if (!property || !apartment) {
-            this.notifier.error(player.source, "Vous ne possédez pas cette d'habitation.");
+            this.notifier.error(player.source, "Bạn không sở hữu ngôi nhà này.");
             return;
         }
 
@@ -989,7 +989,7 @@ export class HousingProvider {
         const price = hasParking ? apartment.price * 0.5 : 0;
 
         if (!(await this.playerMoneyService.buy(player.source, price, TaxType.HOUSING))) {
-            this.notifier.error(player.source, "Vous n'avez pas assez d'argent.");
+            this.notifier.error(player.source, "Bạn không có đủ tiền.");
 
             return;
         }
@@ -1001,7 +1001,7 @@ export class HousingProvider {
         const taxedPrice = await this.priceService.getPrice(price, TaxType.HOUSING);
         this.notifier.notify(
             player.source,
-            `Vous venez ~g~d'ajouter~s~ une place de parking à votre caravane pour ~b~$${taxedPrice.toLocaleString('FR-fr')}~s~.`,
+            `Bạn vừa ~g~thêm~s~ một chỗ đỗ xe cho nhà xe lưu động với giá ~b~$${taxedPrice.toLocaleString('vi-VN')}~s~.`,
             'success'
         );
     }
@@ -1072,7 +1072,7 @@ export class HousingProvider {
 
     private async doEnterApartment(player: PlayerData, property: Property, apartment: Apartment) {
         if (this.playerCriminalService.isCriminal(player.citizenid)) {
-            this.notifier.error(player.source, 'Vous devez attendre après avoir réalisé une action criminelle.');
+            this.notifier.error(player.source, 'Bạn phải chờ sau khi thực hiện hành vi tội phạm mới có thể vào nhà.');
 
             return;
         }
@@ -1081,7 +1081,7 @@ export class HousingProvider {
         const vehicle = GetVehiclePedIsIn(ped, false);
 
         if (vehicle) {
-            this.notifier.error(player.source, "Vous devez d'abord descendre de votre véhicule.");
+            this.notifier.error(player.source, "Bạn phải xuống xe trước khi vào nhà.");
 
             return;
         }
@@ -1092,7 +1092,7 @@ export class HousingProvider {
         const { completed } = await this.progressService.progress(
             player.source,
             'housing_action',
-            'Vous entrez...',
+            'Bạn đang đi vào...',
             1000,
             {
                 dictionary: 'mp_doorbell',

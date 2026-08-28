@@ -23,10 +23,10 @@ export type MeteorSubMenuProps = {
 };
 
 const MOON_OPTIONS = [
-    { label: 'Désactivé', value: 'off' },
-    { label: 'Clear', value: 'clear' },
-    { label: 'Light', value: 'light' },
-    { label: 'Full', value: 'full' },
+    { label: 'Tắt', value: 'off' },
+    { label: 'Trời quang', value: 'clear' },
+    { label: 'Ánh sáng nhẹ', value: 'light' },
+    { label: 'Trăng tròn rực rỡ', value: 'full' },
 ];
 
 export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission, state }) => {
@@ -37,10 +37,10 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
         <>
             <SubMenu id="halloween">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Bouh !!!">
+                <MenuContent subtitle="Sự kiện Halloween">
                     <MenuItemSelect
                         disabled={!isAdminOrStaff}
-                        title="🌑 Lune de sang"
+                        title="🌑 Trăng máu (Blood Moon)"
                         onConfirm={async (index, value) => {
                             await fetchNui(NuiEvent.AdminMenuHalloweenUpdateMoon, value);
                         }}
@@ -53,22 +53,22 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                     </MenuItemSelect>
 
                     <MenuItemSubMenuLink disabled={!isAdminOrStaff} id="halloween-vampire-game">
-                        Vampire Game
+                        Trò chơi Ma cà rồng (Vampire Game)
                     </MenuItemSubMenuLink>
                 </MenuContent>
             </SubMenu>
 
             <SubMenu id="halloween-vampire-game-excluded-players">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Suce un cul...">
+                <MenuContent subtitle="Danh sách người chơi bị loại trừ">
                     <MenuItemSubMenuLink disabled={!isAdminOrStaff} id="players">
-                        Afficher la liste des joueurs
+                        Xem danh sách người chơi
                     </MenuItemSubMenuLink>
 
                     {state.excludedPlayers.map(player => (
                         <MenuItemButton
                             key={player.citizenId}
-                            description="Supprimer l'exclusion du joueur"
+                            description="Hủy bỏ loại trừ người chơi"
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.AdminMenuHalloweenUpdateGamePlayerExclusion, {
                                     citizenId: player.citizenId,
@@ -79,20 +79,20 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                             {player.name}
                         </MenuItemButton>
                     ))}
-                    {state.excludedPlayers.length === 0 && <MenuItemText>Aucun joueur exclu</MenuItemText>}
+                    {state.excludedPlayers.length === 0 && <MenuItemText>Không có người chơi nào bị loại</MenuItemText>}
                 </MenuContent>
             </SubMenu>
 
             <SubMenu id="halloween-vampire-game">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Suce un cul...">
+                <MenuContent subtitle="Thiết lập Vampire Game">
                     <MenuItemButton
                         disabled={state.started}
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuHalloweenLaunchGame);
                         }}
                     >
-                        Lancement du jeu
+                        Bắt đầu trò chơi
                     </MenuItemButton>
                     <MenuItemButton
                         disabled={!state.started}
@@ -100,12 +100,12 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                             await fetchNui(NuiEvent.AdminMenuHalloweenStopGame);
                         }}
                     >
-                        Arrêt du jeu
+                        Dừng trò chơi
                     </MenuItemButton>
 
                     <MenuItemSelect
-                        title="Forcer son rôle"
-                        description={`Remplace le rôle de l'utilisateur par le rôle sélectionné`}
+                        title="Ép vai trò (Role)"
+                        description={`Thay đổi vai trò của người chơi thành vai trò đã chọn`}
                         onConfirm={async (_, value) => {
                             await fetchNui(NuiEvent.AdminMenuHalloweenForceTransformPlayer, value);
                         }}
@@ -117,28 +117,28 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                         ))}
                     </MenuItemSelect>
 
-                    <MenuSubTitle>Paramètres</MenuSubTitle>
+                    <MenuSubTitle>Cài đặt trò chơi</MenuSubTitle>
                     <MenuItemButton
-                        description="Durée du jeu en minutes"
+                        description="Thời lượng trò chơi (phút)"
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuHalloweenUpdateGameDuration);
                         }}
                     >
                         <div className="pr-2 flex items-center justify-between">
-                            <span>Durée maximum de la partie</span>
-                            <span>{state.gameDuration} minutes</span>
+                            <span>Thời lượng tối đa ván chơi</span>
+                            <span>{state.gameDuration} phút</span>
                         </div>
                     </MenuItemButton>
 
                     <MenuItemSubMenuLink disabled={!isAdminOrStaff} id="halloween-vampire-game-excluded-players">
-                        Exclure des joueurs
+                        Loại trừ người chơi
                     </MenuItemSubMenuLink>
 
-                    <MenuSubTitle>Rôles</MenuSubTitle>
+                    <MenuSubTitle>Tỷ lệ phân bổ vai trò</MenuSubTitle>
                     {Object.entries(state.roleMaxNumber).map(([role, amount]) => (
                         <MenuItemButton
                             key={role}
-                            description={`Chance de drop en ${role}`}
+                            description={`Tỷ lệ trúng vai trò ${role}`}
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.AdminMenuHalloweenUpdateRole, role);
                             }}
@@ -150,11 +150,11 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                         </MenuItemButton>
                     ))}
 
-                    <MenuSubTitle>Objectif des mortels - Part I</MenuSubTitle>
+                    <MenuSubTitle>Mục tiêu Con người - Phần 1</MenuSubTitle>
                     {Object.entries(state.mortalObjectivePart1).map(([collection, amount]) => (
                         <MenuItemButton
                             key={collection}
-                            description={`Props pour l'action: ${VampireGameLabel(collection as VampireGameCollection)}`}
+                            description={`Props cho hành động: ${VampireGameLabel(collection as VampireGameCollection)}`}
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.AdminMenuHalloweenUpdateMortalCollection, collection);
                             }}
@@ -166,11 +166,11 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                         </MenuItemButton>
                     ))}
 
-                    <MenuSubTitle>Objectif des mortels - Part II</MenuSubTitle>
+                    <MenuSubTitle>Mục tiêu Con người - Phần 2</MenuSubTitle>
                     {Object.entries(state.mortalObjectivePart2).map(([objective, amount]) => (
                         <MenuItemButton
                             key={objective}
-                            description={`Nombre de joueurs pour l'action: ${VampireGameLabel(objective as VampireGameObjectiveTypePart2)}`}
+                            description={`Số người chơi cho hành động: ${VampireGameLabel(objective as VampireGameObjectiveTypePart2)}`}
                             onConfirm={async () => {
                                 await fetchNui(NuiEvent.AdminMenuHalloweenUpdateObjectivePart2, objective);
                             }}
@@ -182,16 +182,16 @@ export const HalloweenSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permis
                         </MenuItemButton>
                     ))}
 
-                    <MenuSubTitle>Objectif des mortels - Part III</MenuSubTitle>
+                    <MenuSubTitle>Mục tiêu Con người - Phần 3</MenuSubTitle>
                     <MenuItemButton
-                        description="Durée de la phase en minutes"
+                        description="Thời lượng giai đoạn (phút)"
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuHalloweenUpdateObjectivePart3);
                         }}
                     >
                         <div className="pr-2 flex items-center justify-between">
-                            <span>Durée maximum de la phase</span>
-                            <span>{state.mortalObjectivePart3} minutes</span>
+                            <span>Thời lượng tối đa của giai đoạn</span>
+                            <span>{state.mortalObjectivePart3} phút</span>
                         </div>
                     </MenuItemButton>
                 </MenuContent>

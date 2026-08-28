@@ -220,7 +220,7 @@ export const SnakeGame: FunctionComponent = () => {
         for (let i = 1; i < newSnake.length; i++) {
             // defeat if the head is on a body cell
             if (newSnake[0].x == newSnake[i].x && newSnake[0].y == newSnake[i].y) {
-                handleDefeat((newSnake.length - 3) * 100, 'Vous vous êtes mordu ...');
+                handleDefeat((newSnake.length - 3) * 100, 'Bạn đã tự cắn vào thân mình...');
 
                 return;
             }
@@ -233,7 +233,7 @@ export const SnakeGame: FunctionComponent = () => {
             newSnake[0].y == verticalSize - 1
         ) {
             // defeat if next move put snake on wall
-            handleDefeat((newSnake.length - 3) * 100, 'Vous vous êtes pris le mur !');
+            handleDefeat((newSnake.length - 3) * 100, 'Bạn đã đâm vào tường!');
 
             return;
         }
@@ -365,18 +365,18 @@ export const SnakeGame: FunctionComponent = () => {
                                 <div className="text-red-400 text-4xl text-center py-4 font-bold">Game Over</div>
                                 <div className="text-white text-2xl text-center py-1 font-bold">{lostReason}</div>
                                 <p className="text-white py-4">
-                                    Vous avez atteint le score de{' '}
+                                    Điểm của bạn là{' '}
                                     <strong>{(snakePositionRef.current.length - 3) * 100} !</strong>
                                 </p>
                                 <p className="text-white pb-8">
-                                    Votre meilleur score est de{' '}
+                                    Điểm cao nhất của bạn là{' '}
                                     <strong>
                                         {(snakePositionRef.current.length - 3) * 100 > bestPlayerScore
                                             ? ((snakePositionRef.current.length - 3) * 100).toLocaleString('fr-FR')
                                             : bestPlayerScore.toLocaleString('fr-FR')}
                                     </strong>
                                 </p>
-                                <ActionButton onClick={resetGameState}>Recommencer</ActionButton>
+                                <ActionButton onClick={resetGameState}>Chơi lại</ActionButton>
                             </div>
                         </div>
                     )}

@@ -46,7 +46,7 @@ export const LocationDescription: FunctionComponent<{ id: string; description?: 
                             className="relative flex w-full h-full justify-center items-center text-white bg-[#46EA18] cursor-pointer z-[2] hover:bg-[#3FD215]"
                             onClick={handleClick}
                         >
-                            Choisir ce point de démarrage
+                            Chọn điểm xuất phát này
                         </div>
                     </div>
                 </section>

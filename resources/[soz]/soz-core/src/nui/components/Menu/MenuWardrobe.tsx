@@ -119,7 +119,7 @@ export const MenuWardrobe: FunctionComponent<MenuWardrobeProps> = ({ wardrobe })
                         );
                     })}
                     <MenuItemButton key="submit" onConfirm={async () => await fetchNui(NuiEvent.WardrobeCustomSave)}>
-                        Valider
+                        Xác nhận lưu
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>

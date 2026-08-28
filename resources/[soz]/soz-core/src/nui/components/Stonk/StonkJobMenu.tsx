@@ -44,7 +44,7 @@ export const StonkJobMenu: FunctionComponent<FightForStyleStateProps> = ({ data 
                 <MainMenu>
                     <MenuTitle title={JobLabel['cash-transfer']} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -60,31 +60,31 @@ export const StonkJobMenu: FunctionComponent<FightForStyleStateProps> = ({ data 
                         checked={blips['displaySecureContainerTake']}
                         onChange={value => displayBlip('displaySecureContainerTake', value)}
                     >
-                        Afficher "Secure Unit"
+                        Hiển thị Điểm nhận Container bảo mật
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips['displayResellJewelbagBlip']}
                         onChange={value => displayBlip('displayResellJewelbagBlip', value)}
                     >
-                        Afficher la revente de sacs de bijoux
+                        Hiển thị Điểm bán túi trang sức
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips['displayResellBigBagBlip']}
                         onChange={value => displayBlip('displayResellBigBagBlip', value)}
                     >
-                        Afficher la revente de grands sacs d'argent
+                        Hiển thị Điểm bán túi tiền lớn
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips['displayResellMediumBagBlip']}
                         onChange={value => displayBlip('displayResellMediumBagBlip', value)}
                     >
-                        Afficher la revente de moyens sacs d'argent
+                        Hiển thị Điểm bán túi tiền vừa
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={blips['displayResellSmallBagBlip']}
                         onChange={value => displayBlip('displayResellSmallBagBlip', value)}
                     >
-                        Afficher la revente de petits sacs d'argent
+                        Hiển thị Điểm bán túi tiền nhỏ
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

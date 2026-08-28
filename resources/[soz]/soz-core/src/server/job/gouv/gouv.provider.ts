@@ -53,7 +53,7 @@ export class GouvProvider {
         const jobTaxTier = await this.configurationRepository.getValue('JobTaxTier');
 
         if (tier === 'Tier1' && value > jobTaxTier.Tier2) {
-            this.notifier.notify(source, `Le palier ~g~"Tier 1"~s~ doit être inférieur au palier ~g~"Tier 2"~s~`);
+            this.notifier.notify(source, `Mức ~g~"Bậc 1"~s~ phải thấp hơn mức ~g~"Bậc 2"~s~`);
 
             return;
         }
@@ -61,7 +61,7 @@ export class GouvProvider {
         if (tier === 'Tier2' && (value < jobTaxTier.Tier1 || value > jobTaxTier.Tier3)) {
             this.notifier.notify(
                 source,
-                `Le palier ~g~"Tier 2"~s~ doit être compris entre ~g~"Tier 1"~s~ et ~g~"Tier 3"~s~`
+                `Mức ~g~"Bậc 2"~s~ phải nằm trong khoảng từ ~g~"Bậc 1"~s~ đến ~g~"Bậc 3"~s~`
             );
 
             return;
@@ -70,14 +70,14 @@ export class GouvProvider {
         if (tier === 'Tier3' && (value < jobTaxTier.Tier2 || value > jobTaxTier.Tier4)) {
             this.notifier.notify(
                 source,
-                `Le palier ~g~"Tier 3"~s~ doit être compris entre ~g~"Tier 2"~s~ et ~g~"Tier 4"~s~`
+                `Mức ~g~"Bậc 3"~s~ phải nằm trong khoảng từ ~g~"Bậc 2"~s~ đến ~g~"Bậc 4"~s~`
             );
 
             return;
         }
 
         if (tier === 'Tier4' && value < jobTaxTier.Tier3) {
-            this.notifier.notify(source, `Le palier ~g~"Tier 4"~s~ doit être supérieur au palier ~g~"Tier 3"~s~`);
+            this.notifier.notify(source, `Mức ~g~"Bậc 4"~s~ phải cao hơn mức ~g~"Bậc 3"~s~`);
 
             return;
         }
@@ -86,7 +86,7 @@ export class GouvProvider {
 
         await this.configurationRepository.update('JobTaxTier', jobTaxTier);
 
-        this.notifier.notify(source, `Vous avez mis à jour le palier ~g~"${tier}"~s~ à ~g~${value}~s~$`);
+        this.notifier.notify(source, `Bạn đã cập nhật mức ~g~"${tier}"~s~ thành ~g~$${value}~s~`);
     }
 
     @OnEvent(ServerEvent.GOUV_UPDATE_JOB_TIER_TAX_PERCENTAGE)
@@ -106,7 +106,7 @@ export class GouvProvider {
 
         await this.configurationRepository.update('JobTaxTier', jobTaxTier);
 
-        this.notifier.notify(source, `Vous avez mis à jour le pourcentage à ~g~${value}~s~%`);
+        this.notifier.notify(source, `Bạn đã cập nhật tỷ lệ phần trăm thành ~g~${value}~s~%`);
     }
 
     @OnEvent(ServerEvent.GOUV_UPDATE_TAX)
@@ -118,7 +118,7 @@ export class GouvProvider {
         }
 
         if ((value < 16 || 30 < value) && !this.permissionService.isStaff(source)) {
-            this.notifier.error(source, `La valeur de taxe est en ~r~dehors~s~ des normes présidentielles.`);
+            this.notifier.error(source, `Giá trị thuế nằm ~r~ngoài~s~ quy định của phủ tổng thống.`);
             return;
         }
 
@@ -136,7 +136,7 @@ export class GouvProvider {
 
         const label = TaxLabel[taxType];
 
-        this.notifier.notify(source, `Vous avez mis à jour la taxe ~g~"${label}"~s~ à ~g~${value}~s~`);
+        this.notifier.notify(source, `Bạn đã cập nhật mức thuế ~g~"${label}"~s~ thành ~g~${value}~s~`);
     }
 
     @OnEvent(ServerEvent.GOUV_VALIDATE_IDENTITY)
@@ -151,17 +151,17 @@ export class GouvProvider {
         if (targetPlayer.created_at + expirationVisaDuration > Date.now()) {
             this.notifier.error(
                 source,
-                `Impossible ~g~valider~s~ l'identité avant l'expiration du Visa temporaire (${new Date(
+                `Không thể ~g~xác thực~s~ danh tính trước khi Visa tạm trú hết hạn (${new Date(
                     targetPlayer.created_at + expirationVisaDuration
-                ).toLocaleString('fr-FR')}).`
+                ).toLocaleString('vi-VN')}).`
             );
             return;
         }
 
         this.playerService.setPlayerValidated(target, true);
 
-        this.notifier.notify(target, `Votre identité a été ~g~validée~s~.`);
-        this.notifier.notify(source, `Vous avez ~g~validé~s~ l'identité.`);
+        this.notifier.notify(target, `Danh tính của bạn đã được ~g~xác thực~s~.`);
+        this.notifier.notify(source, `Bạn đã ~g~xác thực~s~ danh tính công dân thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_SENAT_SALARY)
@@ -180,6 +180,6 @@ export class GouvProvider {
             SenatSalary: value,
         });
 
-        this.notifier.notify(source, `Vous avez mis à jour le salaire des sénateurs ~g~${value}$~s~.`);
+        this.notifier.notify(source, `Bạn đã cập nhật lương thượng nghị sĩ thành ~g~$${value}~s~.`);
     }
 }

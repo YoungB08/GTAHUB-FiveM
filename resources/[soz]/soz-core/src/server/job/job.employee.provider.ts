@@ -58,7 +58,7 @@ export class JobEmployeeProvider {
         }
 
         if (targetPlayer.job.id !== JobType.Unemployed) {
-            this.notifier.error(source, "Le joueur n'est pas au chômage");
+            this.notifier.error(source, 'Người chơi này hiện không thất nghiệp');
 
             return;
         }
@@ -67,8 +67,8 @@ export class JobEmployeeProvider {
 
         this.playerService.setJob(target, player.job.id, defaultGrade.id);
 
-        this.notifier.notify(source, 'Le joueur fait maintenant partie de vos effectifs !');
-        this.notifier.notify(target, 'Vous avez été ~g~embauché~s~ !');
+        this.notifier.notify(source, 'Người chơi đã được tuyển dụng vào công ty của bạn!');
+        this.notifier.notify(target, 'Bạn đã được ~g~tuyển dụng~s~!');
     }
 
     @OnEvent(ServerEvent.JOB_FIRE)
@@ -95,7 +95,7 @@ export class JobEmployeeProvider {
         }
 
         if (targetPlayer.job.id !== player.job.id) {
-            this.notifier.error(source, 'Le joueur ne peut pas être viré !');
+            this.notifier.error(source, 'Không thể sa thải người chơi này!');
 
             return;
         }
@@ -108,7 +108,7 @@ export class JobEmployeeProvider {
         }
 
         if (playerGrade.weight < targetGrade.weight) {
-            this.notifier.error(source, 'Le joueur ne peut pas être viré !');
+            this.notifier.error(source, 'Không thể sa thải người chơi này!');
 
             return;
         }
@@ -120,8 +120,8 @@ export class JobEmployeeProvider {
         const defaultGrade = await this.jobGradeRepository.getDefaultGrade(JobType.Unemployed);
         this.playerService.setJob(target, JobType.Unemployed, defaultGrade ? defaultGrade.id : 0);
 
-        this.notifier.notify(source, 'Le joueur ne fait plus partie de vos effectifs !');
-        this.notifier.notify(target, 'Vous avez été ~r~viré~s~ !');
+        this.notifier.notify(source, 'Người chơi đã bị đuổi khỏi công ty!');
+        this.notifier.notify(target, 'Bạn đã bị ~r~sa thải~s~!');
     }
 
     @OnEvent(ServerEvent.JOB_PROMOTE)
@@ -139,7 +139,7 @@ export class JobEmployeeProvider {
         }
 
         if (targetPlayer.job.id !== player.job.id) {
-            this.notifier.error(source, 'Le joueur ne peut pas être promu !');
+            this.notifier.error(source, 'Không thể thăng chức cho người chơi này!');
 
             return;
         }
@@ -162,14 +162,14 @@ export class JobEmployeeProvider {
         }
 
         if (playerGrade.weight < targetGrade.weight || playerGrade.weight < wantedGrade.weight) {
-            this.notifier.error(source, 'Le joueur ne peut pas être promu !');
+            this.notifier.error(source, 'Không thể thăng chức cho người chơi này!');
 
             return;
         }
 
         this.playerService.setJob(target, targetPlayer.job.id, wantedGrade.id);
 
-        this.notifier.notify(source, `Le joueur a été promu ~b~${wantedGrade.name}~s~ !`);
-        this.notifier.notify(target, `Vous avez été promu ~b~${wantedGrade.name}~s~ !`);
+        this.notifier.notify(source, `Người chơi đã được thăng cấp lên ~b~${wantedGrade.name}~s~!`);
+        this.notifier.notify(target, `Bạn đã được thăng cấp lên ~b~${wantedGrade.name}~s~!`);
     }
 }

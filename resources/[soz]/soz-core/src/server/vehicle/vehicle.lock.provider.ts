@@ -102,7 +102,7 @@ export class VehicleLockProvider {
     ): Promise<void> {
         const closestVehicle = await this.vehicleSpawner.getClosestVehicle(source);
         if (null === closestVehicle || closestVehicle.distance > 3) {
-            this.notifier.notify(source, 'Aucun véhicule à proximité', 'error');
+            this.notifier.notify(source, 'Không có phương tiện nào ở gần', 'error');
 
             return;
         }
@@ -136,7 +136,7 @@ export class VehicleLockProvider {
         const model = GetEntityModel(vehicleEntityId);
         if (inventoryItem.name === 'lockpick' && inventoryItem.metadata?.type) {
             if (GetHashKey(inventoryItem.metadata?.model) !== model) {
-                this.notifier.notify(source, 'Ce lockpick ne peux pas crocheter ce véhicule', 'error');
+                this.notifier.notify(source, 'Bộ dụng cụ bẻ khóa này không thể mở khóa phương tiện này', 'error');
 
                 return;
             }
@@ -146,7 +146,7 @@ export class VehicleLockProvider {
             vehicleType !== 'bike' &&
             vehicleType !== 'trailer'
         ) {
-            this.notifier.notify(source, 'Ce lockpick ne peux pas crocheter ce véhicule', 'error');
+            this.notifier.notify(source, 'Bộ dụng cụ bẻ khóa này không thể mở khóa phương tiện này', 'error');
 
             return;
         } else if (
@@ -157,13 +157,13 @@ export class VehicleLockProvider {
             vehicleType !== 'boat' &&
             vehicleType !== 'heli'
         ) {
-            this.notifier.notify(source, 'Ce lockpick ne peux pas crocheter ce véhicule', 'error');
+            this.notifier.notify(source, 'Bộ dụng cụ bẻ khóa này không thể mở khóa phương tiện này', 'error');
 
             return;
         }
 
         if (!inventory.removeAtSlot(inventoryItem.slot, 1)) {
-            this.notifier.notify(source, 'Aucun lockpick', 'error');
+            this.notifier.notify(source, 'Không có bộ dụng cụ bẻ khóa', 'error');
 
             return;
         }
@@ -175,7 +175,7 @@ export class VehicleLockProvider {
             lockPickDuration
         ).then(isTooFar => {
             if (isTooFar) {
-                this.notifier.notify(source, 'Le véhicule est trop loin pour être crocheté', 'error');
+                this.notifier.notify(source, 'Phương tiện ở quá xa để bẻ khóa', 'error');
                 this.progressService.stopProgress(source);
             }
         });
@@ -187,7 +187,7 @@ export class VehicleLockProvider {
         const { completed } = await this.progressService.progress(
             source,
             'Lockpick',
-            'Crochetage du véhicule',
+            'Đang bẻ khóa phương tiện...',
             lockPickDuration,
             {
                 dictionary: 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
@@ -207,7 +207,7 @@ export class VehicleLockProvider {
             random > percentages[inventoryItem.name] ||
             (vehicleState.volatile.isPlayerVehicle && inventoryItem.name != 'lockpick_high')
         ) {
-            this.notifier.notify(source, "Vous n'avez pas réussi à crocheter le véhicule", 'error');
+            this.notifier.notify(source, "Bạn đã bẻ khóa phương tiện thất bại", 'error');
 
             return;
         }
@@ -216,13 +216,13 @@ export class VehicleLockProvider {
             if (vehicleState.volatile.job) {
                 this.notifier.notify(
                     source,
-                    '~r~Le véhicule déverrouillé appartient visiblement à une entreprise en ville',
+                    '~r~Phương tiện vừa mở khóa dường như thuộc về một doanh nghiệp trong thành phố',
                     'warning'
                 );
             } else {
                 this.notifier.notify(
                     source,
-                    "~r~Le véhicule déverrouillé appartient visiblement à quelqu'un en ville",
+                    "~r~Phương tiện vừa mở khóa dường như thuộc sở hữu của một ai đó trong thành phố",
                     'warning'
                 );
             }
@@ -242,7 +242,7 @@ export class VehicleLockProvider {
 
         this.vehicleStateService.handleVehicleOpenChange(vehicleNetworkId);
 
-        this.notifier.notify(source, 'Le véhicule a été forcé.', 'success');
+        this.notifier.notify(source, 'Phương tiện đã bị bẻ khóa thành công.', 'success');
     }
 
     @OnEvent(ServerEvent.VEHICLE_TAKE_OWNER)

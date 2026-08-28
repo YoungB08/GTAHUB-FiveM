@@ -47,7 +47,7 @@ export const PetShopMenu: FunctionComponent<JobPetShopMenuProps> = ({ data }) =>
     return (
         <Menu type={MenuType.PetShop}>
             <MainMenu>
-                <MenuTitle title="Animalerie" />
+                <MenuTitle title="Cửa hàng Thú cưng" />
                 <MenuContent>
                     {data.pets.map(pet => (
                         <MenuItemSubMenuLink id={pet.model} key={pet.model} onSelected={() => setCurrentPet(pet)}>
@@ -76,8 +76,8 @@ export const PetShopMenu: FunctionComponent<JobPetShopMenuProps> = ({ data }) =>
                                 ))}
                             </MenuItemSelect>
                         ))}
-                        <MenuItemButton onConfirm={() => onConfirm(pet)}>Acheter</MenuItemButton>
-                        <MenuItemText>{`💸 Prix : $${getPrice(pet.price, PUBLIC_SERVICES.includes(data.job) ? null : TaxType.SERVICE)}`}</MenuItemText>
+                        <MenuItemButton onConfirm={() => onConfirm(pet)}>Mua thú cưng</MenuItemButton>
+                        <MenuItemText>{`💸 Giá : $${getPrice(pet.price, PUBLIC_SERVICES.includes(data.job) ? null : TaxType.SERVICE)}`}</MenuItemText>
                     </MenuContent>
                 </SubMenu>
             ))}

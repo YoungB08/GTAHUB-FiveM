@@ -58,7 +58,7 @@ export class StonkCollectProvider {
                 JobPermission.CashTransfer_CollectBags
             ))
         ) {
-            this.notifier.notify(source, `Vous n'avez pas les accréditations nécessaires.`, 'error');
+            this.notifier.notify(source, `Bạn không có quyền hạn cần thiết.`, 'error');
             return;
         }
 
@@ -73,16 +73,16 @@ export class StonkCollectProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.canCarryItem(item, StonkConfig.resell.amount)) {
-            this.notifier.notify(source, `Vous n'avez pas ~r~assez~s~ de place dans vos poches.`);
+            this.notifier.notify(source, `Túi đồ của bạn không có ~r~đủ~s~ chỗ trống.`);
             return;
         }
 
         if (!this.canCollect(player.citizenid, brand, shop, item)) {
-            this.notifier.notify(source, `Ce magasin n'a plus de sacs actuellement !`, 'error');
+            this.notifier.notify(source, `Cửa hàng này hiện không còn túi tiền nào để thu gom!`, 'error');
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à collecter.', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu gom túi tiền.', 'success');
 
         const outputItemLabel = this.itemService.getItem(item).label;
         const hasCollected = await this.doCollect(source, inventory, shop, item);
@@ -96,9 +96,9 @@ export class StonkCollectProvider {
                 position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
             });
 
-            this.notifier.notify(source, `Vous avez collecté ${StonkConfig.resell.amount} ~g~${outputItemLabel}~s~.`);
+            this.notifier.notify(source, `Bạn đã thu gom ${StonkConfig.resell.amount} ~g~${outputItemLabel}~s~.`);
         } else {
-            this.notifier.notify(source, 'Vous avez ~r~arrêté~s~ de collecter.');
+            this.notifier.notify(source, 'Bạn đã ~r~dừng~s~ thu gom túi tiền.');
             return;
         }
     }
@@ -125,7 +125,7 @@ export class StonkCollectProvider {
         const { completed } = await this.progressService.progress(
             source,
             'stonk_collect',
-            'Vous collectez...',
+            'Đang thu gom túi tiền...',
             StonkConfig.resell.collectionDuration,
             {
                 dictionary: 'anim@mp_radio@garage@low',

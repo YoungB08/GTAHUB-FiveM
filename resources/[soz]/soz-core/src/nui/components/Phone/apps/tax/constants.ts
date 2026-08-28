@@ -8,52 +8,52 @@ type TaxDescription = {
 
 export const TaxesDescription: Record<TaxType, TaxDescription> = {
     [TaxType.WEAPON]: {
-        title: 'Taxe sur les armes',
+        title: 'Thuế vũ khí',
         description:
-            "La taxe sur les armes est une imposition qui s'applique spécifiquement sur l'achat d'équipements et d'améliorations en armurerie. Ces équipements regroupent, entre autres, les armes, leurs accessoires ou bien les équipements sportifs.",
-        whoModifies: 'Le gouvernement',
+            'Thuế vũ khí áp dụng cho việc mua trang bị và nâng cấp tại cửa hàng vũ khí, bao gồm vũ khí, phụ kiện và dụng cụ thể thao.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.VEHICLE]: {
-        title: 'Taxe sur les véhicules',
+        title: 'Thuế phương tiện',
         description:
-            "La taxe sur les véhicules est une imposition qui s'applique sur les véhicules achetés auprès des concessionnaires (classique, maritime, aérien, luxe, deux-roues motorisés et entreprise). Elle s'applique également aux améliorations de performances de tous les véhicules auprès des LS Custom, l'utilisation des lavomatiques ainsi qu'aux passages des permis de conduire.",
-        whoModifies: 'Le gouvernement',
+            'Thuế phương tiện áp dụng khi mua xe tại các đại lý đường bộ, đường thủy, hàng không, xe sang, xe hai bánh và xe doanh nghiệp. Thuế cũng áp dụng cho nâng cấp hiệu suất tại LS Custom, dịch vụ rửa xe và thi bằng lái.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.HOUSING]: {
-        title: 'Taxe sur les habitations',
+        title: 'Thuế nhà ở',
         description:
-            "La taxe sur les habitations est une imposition qui s'applique sur l'achat d'habitation ainsi que sur ses différentes améliorations. Elle s'applique également à l'achat de meubles au Zkea.",
-        whoModifies: 'Le gouvernement',
+            'Thuế nhà ở áp dụng khi mua và nâng cấp nhà ở, đồng thời áp dụng cho đồ nội thất mua tại Zkea.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.SERVICE]: {
-        title: 'Taxe sur les services',
+        title: 'Thuế dịch vụ',
         description:
-            "La taxe sur les services est une imposition qui s'applique aux services d'urgences, comme le médecin de garde du LSMC, le Pit stop LS Custom, ainsi qu'à l'achat d'un abonnement sportif à Muscle Peach.",
-        whoModifies: 'Le gouvernement',
+            'Thuế dịch vụ áp dụng cho các dịch vụ khẩn cấp như bác sĩ trực LSMC, Pit Stop LS Custom và gói tập luyện tại Muscle Peach.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.SUPPLY]: {
-        title: 'Taxe sur les fournitures',
+        title: 'Thuế hàng hóa',
         description:
-            "La taxe sur les fournitures est une imposition qui s'applique à tous les achats effectués chez un coiffeur, un tatoueur, une boutique de vêtements, à la bijouterie ou une boutique de souvenir.",
-        whoModifies: 'Le gouvernement',
+            'Thuế hàng hóa áp dụng cho các giao dịch tại tiệm tóc, tiệm xăm, cửa hàng quần áo, cửa hàng trang sức và cửa hàng lưu niệm.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.TRAVEL]: {
-        title: 'Taxe sur les voyages',
+        title: 'Thuế di chuyển',
         description:
-            "La taxe sur les voyages est une imposition qui s'applique à tout déplacement de véhicule entre San Andreas et Cayo Perico.",
-        whoModifies: 'Le gouvernement',
+            'Thuế di chuyển áp dụng cho mọi lượt vận chuyển phương tiện giữa San Andreas và Cayo Perico.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.FOOD]: {
-        title: 'Taxe sur les aliments',
+        title: 'Thuế thực phẩm',
         description:
-            "La taxe sur les aliments est une imposition qui s'applique à tout achat effectué dans une superette, que cet achat soit alimentaire ou non.",
-        whoModifies: 'Le gouvernement',
+            'Thuế thực phẩm áp dụng cho mọi giao dịch tại cửa hàng tiện lợi, kể cả sản phẩm không phải thực phẩm.',
+        whoModifies: 'Chính phủ',
     },
     [TaxType.GREEN]: {
-        title: 'Taxe verte',
+        title: 'Thuế xanh',
         description:
-            "La taxe verte est une imposition qui s'applique à l'achat de véhicule en concessionnaire électrique.",
-        whoModifies: 'Le gouvernement',
+            'Thuế xanh áp dụng khi mua phương tiện tại đại lý xe điện.',
+        whoModifies: 'Chính phủ',
     },
 };
 

@@ -38,29 +38,29 @@ export class PoliceVehicleProvider {
             },
         });
 
-        let msg = `Propriétaire: ~b~inconnu`;
+        let msg = `Chủ sở hữu: ~b~Không rõ`;
         if (data) {
             if (data.job) {
-                msg = `Propriétaire: ~b~${JobRegistry[data.job as JobType].label}`;
+                msg = `Chủ sở hữu: ~b~${JobRegistry[data.job as JobType].label}`;
             } else {
                 const charInfo = JSON.parse(data.player.charinfo);
-                msg = `Propriétaire: ~b~${charInfo.firstname + ' ' + charInfo.lastname}~s~`;
+                msg = `Chủ sở hữu: ~b~${charInfo.firstname + ' ' + charInfo.lastname}~s~`;
 
                 if (data.crimiImport) {
                     const plateUpdate = data.plateUpdateTime || data.boughttime;
                     const deltaInDays = Math.floor((Date.now() / 1000 - plateUpdate) / (24 * 3_600_000));
                     if (Math.random() < deltaInDays * 0.1) {
-                        msg += '~n~Voiture importée de ~r~contrebande~s~';
+                        msg += '~n~Xe nhập khẩu ~r~buôn lậu~s~';
                     }
                 }
             }
         } else {
             const state = this.vehicleStateService.getVehicleState(netId);
             if (state && state.volatile.exportBiz) {
-                msg = 'Voiture importée de contrebande';
+                msg = 'Xe nhập khẩu buôn lậu';
             }
         }
 
-        this.notifier.advancedNotify(source, 'San Andreas', 'Vérification de plaque', msg, 'CHAR_DAVE', 'info');
+        this.notifier.advancedNotify(source, 'San Andreas', 'Tra cứu biển số xe', msg, 'CHAR_DAVE', 'info');
     }
 }

@@ -36,13 +36,13 @@ export class VehiclePitStopProvider {
 
         const player = this.playerService.getPlayer();
         if (player.money.money < price) {
-            this.notifier.notify("Vous n'avez pas assez d'argent", 'error');
+            this.notifier.notify("Bạn không có đủ tiền", 'error');
             return;
         }
 
         this.nuiMenu.closeAll();
 
-        const { completed } = await this.progressService.progress('pitstop', 'Pit Stop en cours ...', 120000, null, {
+        const { completed } = await this.progressService.progress('pitstop', 'Đang tiến hành bảo dưỡng Pit Stop...', 120000, null, {
             disableCarMovement: true,
             disableMovement: true,
         });
@@ -68,7 +68,7 @@ export class VehiclePitStopProvider {
     async setPiStopPrice({ category, price }: { category: string; price: number }) {
         const newPrice = await this.inputService.askInput(
             {
-                title: `Prix du Pit Stop pour les ${VehicleCategory[category]}`,
+                title: `Giá Pit Stop cho phân khúc ${VehicleCategory[category]}`,
                 maxCharacters: 10,
                 defaultValue: price.toString(),
             },

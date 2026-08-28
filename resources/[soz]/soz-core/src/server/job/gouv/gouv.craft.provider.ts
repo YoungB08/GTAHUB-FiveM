@@ -22,26 +22,26 @@ export class GouvCraftProvider {
     public async craftSearchWarrant(source: number) {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
         if (!inventory.canCarryItem('search_warrant')) {
-            this.notifier.notify(source, 'Vous ne pouvez pas porter cette quantité...', 'error');
+            this.notifier.notify(source, 'Bạn không thể mang thêm số lượng này...', 'error');
             return;
         }
 
         if (!inventory.remove('paper')) {
-            this.notifier.error(source, `Vous n'avez pas de feuille de papier.`);
+            this.notifier.error(source, `Bạn không có tờ giấy nào.`);
             return;
         }
 
         if (!(await this.playerMoneyService.buy(source, SEARCH_WARRANT_PRICE, null))) {
-            this.notifier.notify(source, `Vous n'avez pas assez d'argent.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền.`, 'error');
             return;
         }
 
         TriggerClientEvent(ClientEvent.ANIMATION_GIVE, source);
         inventory.add('search_warrant', 1);
-        this.notifier.notify(source, `Vous avez écrit ~g~1~s~ ~b~mandat de perquisition~s~.`, 'success');
+        this.notifier.notify(source, `Bạn đã soạn ~g~1~s~ ~b~lệnh khám xét~s~.`, 'success');
         this.notifier.notify(
             source,
-            `Un mandat de perquisition donne accès à une habitation pour les services des forces de l'ordre, ainsi que Mandatory pendant ~g~2~s~ heures.`,
+            `Lệnh khám xét cho phép lực lượng thực thi pháp luật và Mandatory quyền tiếp cận nơi ở trong vòng ~g~2~s~ giờ.`,
             'success'
         );
     }

@@ -52,17 +52,17 @@ export class FightForStyleHarvestProvider {
         if (!inventory.canCarryItem(SewingRawMaterial.COTTON_BALE, 1)) {
             this.notifier.notify(
                 source,
-                `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`
+                `Túi đồ của bạn không có đủ chỗ trống để thu hoạch.`
             );
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à récolter');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu hoạch');
 
         while (inventory.canCarryItem(SewingRawMaterial.COTTON_BALE, 1, {})) {
-            const hasHarvested = await this.doHarvest(source, inventory, 'Vous récoltez une balle de coton.');
+            const hasHarvested = await this.doHarvest(source, inventory, 'Đang thu hoạch kiện bông gòn...');
             if (!hasHarvested) {
-                this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+                this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu hoạch.`, 'error');
                 return;
             }
 
@@ -73,8 +73,8 @@ export class FightForStyleHarvestProvider {
                 position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
             });
 
-            this.notifier.notify(source, `Vous avez récolté une balle de coton.`);
+            this.notifier.notify(source, `Bạn đã thu hoạch được 1 kiện bông gòn.`);
         }
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récolter.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ thu hoạch.', 'success');
     }
 }

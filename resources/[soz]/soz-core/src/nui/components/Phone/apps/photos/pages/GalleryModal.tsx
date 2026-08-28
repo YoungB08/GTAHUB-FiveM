@@ -35,7 +35,7 @@ export const GalleryModal = () => {
     const meta: PhotoItem = useMemo(() => ({ id: parseInt(query.id), image: query.image as string }), [query]);
 
     const handleDeletePhoto = () => {
-        sendAlert('Supprimer la photo ?', 'Cette action est irréversible.', () => {
+        sendAlert('Xóa ảnh?', 'Thao tác này không thể hoàn tác.', () => {
             fetchNui(NuiEvent.PhoneAppPhotosDelete, meta.id)
                 .catch(() => {
                     addNotification({ app: 'photos', title: t('CAMERA.FAILED_TO_DELETE') });

@@ -83,7 +83,7 @@ export class BankInvoiceService {
                     const markedMoney = player.money.marked_money;
 
                     if (money + markedMoney < invoice.amount) {
-                        this.notifier.error(source, "Vous n'avez pas assez d'argent.");
+                        this.notifier.error(source, "Bạn không có đủ tiền.");
                         return false;
                     }
 
@@ -108,7 +108,7 @@ export class BankInvoiceService {
                             true
                         );
                         if (!moneyTransaction) {
-                            this.notifier.error(source, "Le coffre de destination n'a pas de place pour cette somme.");
+                            this.notifier.error(source, "Két sắt đích không còn đủ chỗ cho số tiền này.");
                             return false;
                         }
                     }
@@ -124,7 +124,7 @@ export class BankInvoiceService {
                             true
                         );
                         if (!markedMoneyTransaction) {
-                            this.notifier.error(source, "Le coffre de destination n'a pas de place pour cette somme.");
+                            this.notifier.error(source, "Két sắt đích không còn đủ chỗ cho số tiền này.");
                             await this.bankService.transferCashMoney(
                                 source,
                                 invoice.emitterSafe,
@@ -148,7 +148,7 @@ export class BankInvoiceService {
                         true
                     );
                     if (!transaction) {
-                        this.notifier.error(source, 'Transaction impossible.');
+                        this.notifier.error(source, 'Giao dịch không thể thực hiện.');
                         return false;
                     }
 
@@ -156,17 +156,17 @@ export class BankInvoiceService {
                         invoice.targetAccount,
                         invoice.emitterSafe,
                         invoice.amount,
-                        `Paiement de facture: ${invoice.label}`
+                        `Thanh toán hóa đơn: ${invoice.label}`
                     );
                 }
 
                 if (!(await this.bankInvoiceRepository.setPayed(invoiceId))) return false;
 
-                this.notifier.notify(source, 'Vous avez ~g~payé~s~ votre facture.', 'success');
+                this.notifier.notify(source, 'Bạn đã ~g~thanh toán~s~ hóa đơn của mình.', 'success');
                 if (emitter) {
                     this.notifier.notify(
                         emitter.source,
-                        `Votre facture ~b~${invoice.label}~s~ a été ~g~payée.`,
+                        `Hóa đơn ~b~${invoice.label}~s~ của bạn đã được ~g~thanh toán.`,
                         'success'
                     );
                 }
@@ -177,20 +177,20 @@ export class BankInvoiceService {
                     'money',
                     invoice.amount,
                     false,
-                    `Paiement de facture: ${invoice.label}`
+                    `Thanh toán hóa đơn: ${invoice.label}`
                 );
                 if (!transaction) {
-                    this.notifier.error(source, '~r~Echec~s~ du paiement la facture de la société.');
+                    this.notifier.error(source, '~r~Thất bại~s~ khi thanh toán hóa đơn công ty.');
                     return false;
                 }
 
                 if (!(await this.bankInvoiceRepository.setPayed(invoiceId))) return false;
 
-                this.notifier.notify(source, 'Vous avez ~g~payé~s~ la facture de la société.', 'success');
+                this.notifier.notify(source, 'Bạn đã ~g~thanh toán~s~ hóa đơn công ty.', 'success');
                 if (emitter) {
                     this.notifier.notify(
                         emitter.source,
-                        `Votre facture ~b~${invoice.label}~s~ a été ~g~payée.`,
+                        `Hóa đơn ~b~${invoice.label}~s~ của bạn đã được ~g~thanh toán.`,
                         'success'
                     );
                 }
@@ -230,14 +230,14 @@ export class BankInvoiceService {
             const emitter = this.playerService.getPlayerByCitizenId(invoice.emitter);
 
             if (player.charinfo.account === invoice.targetAccount) {
-                this.notifier.error(player.source, 'Vous avez ~r~refusé~s~ votre facture.');
+                this.notifier.error(player.source, 'Bạn đã ~r~từ chối~s~ hóa đơn.');
                 if (emitter) {
-                    this.notifier.error(emitter.source, `Votre facture ~b~${invoice.label}~s~ a été ~r~refusée.`);
+                    this.notifier.error(emitter.source, `Hóa đơn ~b~${invoice.label}~s~ của bạn đã bị ~r~từ chối.`);
                 }
             } else {
-                this.notifier.error(player.source, 'Vous avez ~r~refusé~s~ la facture de la société.');
+                this.notifier.error(player.source, 'Bạn đã ~r~từ chối~s~ hóa đơn của công ty.');
                 if (emitter) {
-                    this.notifier.error(emitter.source, `Votre facture ~b~${invoice.label}~s~ a été ~r~refusée.`);
+                    this.notifier.error(emitter.source, `Hóa đơn ~b~${invoice.label}~s~ của bạn đã bị ~r~từ chối.`);
                 }
             }
 

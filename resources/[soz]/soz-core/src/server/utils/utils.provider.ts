@@ -54,9 +54,9 @@ export class UtilsProvider {
             inventory.add(item, quantity);
 
             const itemFull = this.itemService.getItem(item);
-            this.notifier.notify(source, `Vous avez acheté ~g~${quantity}~s~ ~b~${itemFull.label}~s~.`, 'success');
+            this.notifier.notify(source, `Bạn đã mua ~g~${quantity}~s~ ~b~${itemFull.label}~s~.`, 'success');
         } else {
-            this.notifier.notify(source, `Vous n'avez pas assez d'argent.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền.`, 'error');
         }
     }
 

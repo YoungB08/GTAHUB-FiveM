@@ -24,7 +24,7 @@ export const HistoryRow: FunctionComponent<HistoryRowProps> = ({ account, contac
 
     const isSource = history.source_accountid === account.id;
 
-    const title = isSource ? 'Paiement à' : 'Virement de';
+    const title = isSource ? 'Thanh toán đến' : 'Nhận tiền từ';
     const targetAccount = isSource ? history.target_accountid : history.source_accountid;
     const targetLabel = isSource ? history.target_label : history.source_label;
     const targetImage = (isSource ? history.target_accountid : history.source_accountid).replace('offshore_', '');
@@ -47,7 +47,7 @@ export const HistoryRow: FunctionComponent<HistoryRowProps> = ({ account, contac
             <FileIcon className="size-5" />
             <div className="flex flex-col min-w-0 grow">
                 {history.source_accountid === '' || history.target_accountid === '' ? (
-                    <span>Action effectuée sur votre compte</span>
+                    <span>Giao dịch trực tiếp tại tài khoản</span>
                 ) : (
                     <span className="flex items-center gap-1.5">
                         {title}

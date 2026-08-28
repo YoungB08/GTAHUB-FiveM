@@ -96,7 +96,7 @@ export class ItemHalloweenProvider {
     }
 
     private async useBloodCup(source: number) {
-        this.notifier.notify(source, "~r~Tu as vraiment cru que c'était la vraie ?~s~", 'error');
+        this.notifier.notify(source, "~r~Bạn thực sự nghĩ đây là hàng thật sao?~s~", 'error');
     }
 
     @Once()

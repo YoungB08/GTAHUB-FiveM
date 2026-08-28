@@ -269,8 +269,8 @@ export class AdminMenuMapperProvider {
         await this.housingRepository.setApartmentTier(apartment.id, apartementTier);
         this.notifier.notify(
             source,
-            `Vous venez ~g~d'améliorer~s~ l'habitation ~b~${apartment.identifier}~s~:<br>- ${Object.keys(apartementTier)
-                .map(tier => `${TYPE_LABEL[tier]} au palier ~g~${apartementTier[tier] + 1}~s~`)
+            `Bạn vừa ~g~nâng cấp~s~ bất động sản ~b~${apartment.identifier}~s~:<br>- ${Object.keys(apartementTier)
+                .map(tier => `${TYPE_LABEL[tier]} lên cấp ~g~${apartementTier[tier] + 1}~s~`)
                 .join('<br>- ')}`,
             'success'
         );
@@ -295,7 +295,7 @@ export class AdminMenuMapperProvider {
 
         this.notifier.notify(
             source,
-            `Taxe ${shouldTaxe ? `activée` : `désactivée`} pour ${apartment.label}`,
+            `Thuế ${shouldTaxe ? `đã bật` : `đã tắt`} cho ${apartment.label}`,
             'success'
         );
 

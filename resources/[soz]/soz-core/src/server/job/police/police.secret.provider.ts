@@ -20,7 +20,7 @@ export class PoliceSecretProvider {
     @Rpc(RpcServerEvent.POLICE_SECRET_CHECK)
     public secretCheck(source: number) {
         if (this.done) {
-            this.notifier.error(source, "le PC est vérouillé jusqu'à demain");
+            this.notifier.error(source, 'Máy tính này đã bị khóa cho đến ngày mai');
         }
         return !this.done;
     }
@@ -35,13 +35,13 @@ export class PoliceSecretProvider {
         if (success) {
             this.notifier.notify(
                 source,
-                "Le dossier contenant les photos nue de O'reilly est atrocement torride, remettant en question votre orientation sexuelle.",
+                "Tập tin chứa những bức ảnh nhạy cảm của O'reilly cực kỳ nóng bỏng, khiến bạn phải suy ngẫm lại về xu hướng của mình.",
                 'success'
             );
         } else {
             this.notifier.notify(
                 source,
-                "Vous n'avez pas réussit à trouver le mot de passe, le PC s'est vérouillé jusqu'à demain.",
+                "Bạn đã không tìm đúng mật khẩu, máy tính đã bị khóa cho đến ngày mai.",
                 'error'
             );
         }

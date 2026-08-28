@@ -31,16 +31,16 @@ export const HealthCard: FunctionComponent<HealthCardProps> = ({ player }) => {
                 <div className="grid grid-cols-2">
                     <ul className="list-inside list-disc text-lime-700 font-medium">
                         <li>
-                            <span className="text-black">Glucides</span>
+                            <span className="text-black">Đường (Glucid)</span>
                         </li>
                         <li>
-                            <span className="text-black">Fibres</span>
+                            <span className="text-black">Chất xơ (Fiber)</span>
                         </li>
                         <li>
-                            <span className="text-black">Lipides</span>
+                            <span className="text-black">Chất béo (Lipid)</span>
                         </li>
                         <li>
-                            <span className="text-black">Proteines</span>
+                            <span className="text-black">Chất đạm (Protein)</span>
                         </li>
                     </ul>
                     <ul className="text-lime-700 ml-2 italic capitalize">
@@ -53,13 +53,13 @@ export const HealthCard: FunctionComponent<HealthCardProps> = ({ player }) => {
                 <div className="grid grid-cols-2">
                     <ul className="list-inside list-disc text-lime-700 font-medium">
                         <li>
-                            <span className="text-black">Endurance</span>
+                            <span className="text-black">Thể lực</span>
                         </li>
                         <li>
-                            <span className="text-black">Force</span>
+                            <span className="text-black">Sức mạnh</span>
                         </li>
                         <li>
-                            <span className="text-black">Stress</span>
+                            <span className="text-black">Căng thẳng</span>
                         </li>
                     </ul>
                     <ul className="text-lime-700 ml-2 italic capitalize">
@@ -70,11 +70,11 @@ export const HealthCard: FunctionComponent<HealthCardProps> = ({ player }) => {
                 </div>
             </div>
             <div className="flex justify-items-start w-full mt-2 pl-8 pr-8">
-                Mis à jour le
+                Cập nhật ngày:
                 <span className="text-lime-700 ml-2 italic capitalize">
                     {player.metadata.health_book_update_date
                         ? format(player.metadata.health_book_update_date, 'eeee dd MMMMMM yyyy', { locale: fr })
-                        : 'Inconnu'}
+                        : 'Không rõ'}
                 </span>
             </div>
         </div>

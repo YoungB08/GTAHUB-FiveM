@@ -41,7 +41,7 @@ export class AdminMenuEventProvider {
     public async createEvent(): Promise<void> {
         const name = await this.input.askInput(
             {
-                title: "Nom de l'event",
+                title: "Tên sự kiện",
             },
             NotEmptyStringValidator
         );
@@ -55,7 +55,7 @@ export class AdminMenuEventProvider {
 
     @OnNuiEvent(NuiEvent.AdminMenuEventDelete)
     public async deleteEvent({ eventId }: { eventId: string }): Promise<void> {
-        const confirm = await this.inputService.askConfirm("Veuillez confimer la suppression de l'event (OUI)");
+        const confirm = await this.inputService.askConfirm("Vui lòng xác nhận xóa sự kiện (CO)");
         if (!confirm) {
             return;
         }
@@ -69,17 +69,17 @@ export class AdminMenuEventProvider {
     public async addEventReward({ eventId }: { eventId: string }): Promise<void> {
         const item = await this.input.askInput<Item>(
             {
-                title: 'Identifiant (chaine) de la récompense',
+                title: 'Mã định danh (ID) phần thưởng',
             },
             value => {
                 if (value === '') {
-                    return Err('Vous devez entrer un identifiant');
+                    return Err('Bạn phải nhập mã định danh');
                 }
 
                 const item = this.itemService.getItem(value);
 
                 if (!item) {
-                    return Err("Cet objet n'existe pas");
+                    return Err("Vật phẩm này không tồn tại");
                 }
 
                 return Ok(item);
@@ -92,7 +92,7 @@ export class AdminMenuEventProvider {
 
         const chance = await this.input.askInput<number>(
             {
-                title: 'Pourcentage de chance de drop',
+                title: 'Tỷ lệ phần trăm rơi (Drop rate %)',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(0, 100)
@@ -104,7 +104,7 @@ export class AdminMenuEventProvider {
 
         const min = await this.input.askInput<number>(
             {
-                title: 'Quantité minimum',
+                title: 'Số lượng tối thiểu',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(1)
@@ -116,7 +116,7 @@ export class AdminMenuEventProvider {
 
         const max = await this.input.askInput<number>(
             {
-                title: 'Quantité maximum',
+                title: 'Số lượng tối đa',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(min)
@@ -138,7 +138,7 @@ export class AdminMenuEventProvider {
     public async setRewardChance({ index, eventId }: { index: number; eventId: string }): Promise<void> {
         const chance = await this.input.askInput<number>(
             {
-                title: 'Pourcentage de chance de drop',
+                title: 'Tỷ lệ phần trăm rơi (Drop rate %)',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(0, 100)
@@ -155,7 +155,7 @@ export class AdminMenuEventProvider {
     public async setRewardMin({ index, eventId }: { index: number; eventId: string }): Promise<void> {
         const min = await this.input.askInput<number>(
             {
-                title: 'Quantité minimum',
+                title: 'Số lượng tối thiểu',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(1)
@@ -172,7 +172,7 @@ export class AdminMenuEventProvider {
     public async setRewardMax({ index, eventId }: { index: number; eventId: string }): Promise<void> {
         const max = await this.input.askInput<number>(
             {
-                title: 'Quantité maximum',
+                title: 'Số lượng tối đa',
                 maxCharacters: 10,
             },
             NumberValidatorFactory(1)
@@ -188,7 +188,7 @@ export class AdminMenuEventProvider {
     @OnNuiEvent(NuiEvent.AdminMenuEventSetStartSound)
     public async setStartSound({ eventId, sound }: { eventId: string; sound: string | null }): Promise<void> {
         const startSound = await this.input.askInput<string>({
-            title: 'Son de début',
+            title: 'Âm thanh bắt đầu',
             maxCharacters: 255,
             defaultValue: sound,
         });

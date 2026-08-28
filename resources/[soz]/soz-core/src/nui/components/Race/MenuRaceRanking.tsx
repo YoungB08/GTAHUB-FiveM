@@ -36,7 +36,7 @@ export const MenuRaceRank: FunctionComponent<MenuRaceRankingProps> = ({ data }) 
     return (
         <Menu type={MenuType.RaceRank}>
             <MainMenu>
-                <MenuTitle title="Course" />
+                <MenuTitle title="Bảng xếp hạng Đường đua" />
                 <MenuContent subtitle={data.name}>
                     {ranks.ranks.map((rank, indexRank) => {
                         return (

@@ -23,7 +23,7 @@ export class ItemHudProvider {
         });
 
         this.item.setItemUseCallback('compass', source => {
-            this.notifier.notify(source, "PTDR, tu crois que t'es Jack Sparrow ou quoi ?", 'info');
+            this.notifier.notify(source, "Haha, bạn tưởng mình là Jack Sparrow à?", 'info');
         });
     }
 }

@@ -38,14 +38,14 @@ export class UpwVehicleProvider {
         }
 
         if (!isVehicleModelElectric(GetEntityModel(vehicleEntity))) {
-            this.notifier.notify(source, "Ce véhicule n'a pas de batterie Lithium-ion", 'error');
+            this.notifier.notify(source, "Phương tiện này không sử dụng pin Lithium-ion", 'error');
             return;
         }
 
         const { completed } = await this.progressService.progress(
             source,
             'battery_change',
-            'Changement de la batterie...',
+            'Đang thay pin xe điện...',
             10000,
             {
                 name: 'car_bomb_mechanic',
@@ -75,13 +75,13 @@ export class UpwVehicleProvider {
                 [{ name: 'empty_lithium_battery', amount: 1 }]
             )
         ) {
-            this.notifier.notify(source, 'Impossible de ~r~changer~s~ la batterie.', 'error');
+            this.notifier.notify(source, 'Không thể ~r~thay~s~ pin.', 'error');
 
             return;
         }
 
         if (!inventory.remove('lithium_battery', 1, false)) {
-            this.notifier.notify(source, "~r~Vous n'avez pas de batterie Lithium-ion.~s~", 'error');
+            this.notifier.notify(source, "~r~Bạn không có pin Lithium-ion.~s~", 'error');
 
             return;
         }
@@ -92,6 +92,6 @@ export class UpwVehicleProvider {
             oilLevel: 100.0,
         });
 
-        this.notifier.notify(source, 'Vous avez ~g~changé~s~ la batterie du véhicule.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~g~thay~s~ pin cho phương tiện thành công.', 'success');
     }
 }

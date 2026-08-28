@@ -42,9 +42,9 @@ export const TattooShopMenu: FunctionComponent<MenuTattooShopStateProps> = ({ da
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.TattooShopResetTattos);
                         }}
-                        description="Suite à une encre de mauvaise qualité, vous pouvez retirer tous vos tatouages."
+                        description="Do chất lượng mực xăm kém, bạn có thể chọn xóa toàn bộ hình xăm trên người."
                     >
-                        ⚠️ Se faire retirer les tatouages
+                        ⚠️ Xóa toàn bộ hình xăm
                     </MenuItemButton>
                     {Object.keys(data.categories).map(category => (
                         <MenuItemSubMenuLink
@@ -73,7 +73,7 @@ export const TattooShopMenu: FunctionComponent<MenuTattooShopStateProps> = ({ da
                                     onSelected={async () => {
                                         await fetchNui(NuiEvent.TattoShopPreview, product);
                                     }}
-                                    description="Utilisez Shift pour changer la caméra."
+                                    description="Nhấn Shift để đổi góc nhìn camera."
                                 >
                                     <div className="flex justify-between items-center">
                                         <span>{product.Name}</span>

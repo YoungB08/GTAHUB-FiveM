@@ -27,7 +27,7 @@ export class FirestormProvider {
 
         const tornado = this.tornadoProvider.getState();
         if (!tornado) {
-            this.notifier.error(source, 'Pas de tornade active');
+            this.notifier.error(source, 'Không có lốc xoáy nào đang hoạt động');
             return;
         }
 

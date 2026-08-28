@@ -39,14 +39,14 @@ export const JewelryShopMenu: FunctionComponent<MenuJewelryShopStateProps> = ({ 
     return (
         <Menu type={MenuType.JewelryShop}>
             <MainMenu>
-                <MenuTitle title="Bijoutier" />
+                <MenuTitle title="Cửa hàng Trang sức & Phụ kiện" />
                 <MenuContent>
                     <MenuItemCheckbox
                         onChange={check => {
                             fetchNui(NuiEvent.JewelryShopToggleCamera, check);
                         }}
                     >
-                        Libérer la caméra
+                        Tự do xoay camera
                     </MenuItemCheckbox>
                     {Object.entries(catalog.shop_content).map(([catName, cat]) => (
                         <MenuItemSubMenuLink id={String(cat.categoryId)}>{catName}</MenuItemSubMenuLink>
@@ -55,7 +55,7 @@ export const JewelryShopMenu: FunctionComponent<MenuJewelryShopStateProps> = ({ 
             </MainMenu>
             {Object.entries(catalog.shop_content).map(([catName, cat]) => (
                 <SubMenu key={cat.categoryId} id={String(cat.categoryId)}>
-                    <MenuTitle title="Bijoutier" />
+                    <MenuTitle title="Cửa hàng Trang sức & Phụ kiện" />
                     <MenuContent subtitle={catName}>
                         {Object.keys(cat.items).map(subCatName => (
                             <MenuItemSubMenuLink id={(String(cat.categoryId) + String(subCatName)).replace(/\s/g, '')}>
@@ -68,7 +68,7 @@ export const JewelryShopMenu: FunctionComponent<MenuJewelryShopStateProps> = ({ 
             {Object.values(catalog.shop_content).map(cat =>
                 Object.entries(cat.items).map(([subCatName, subCat]) => (
                     <SubMenu id={(String(cat.categoryId) + String(subCatName)).replace(/\s/g, '')}>
-                        <MenuTitle title="Bijoutier" />
+                        <MenuTitle title="Cửa hàng Trang sức & Phụ kiện" />
                         <MenuContent subtitle={subCatName}>
                             {Object.entries(subCat).map(([drawable, next]) => (
                                 <MenuItemSelect
@@ -84,7 +84,7 @@ export const JewelryShopMenu: FunctionComponent<MenuJewelryShopStateProps> = ({ 
                                             componentId: cat.componentId,
                                         });
                                     }}
-                                    description={`💸 Prix : $${getPrice(cat.price, TaxType.SUPPLY)}`}
+                                    description={`💸 Giá : $${getPrice(cat.price, TaxType.SUPPLY)}`}
                                     onConfirm={async (_, value) => {
                                         fetchNui(NuiEvent.JewelryShopBuy, {
                                             label: next[value].Localized,

@@ -67,24 +67,24 @@ export class FoodHarvestProvider {
         });
 
         if (!inventoryFishes || !inventoryFishes[0] || !inventoryFishes[0].amount || inventoryFishes[0].amount < 1) {
-            this.notifier.notify(source, `Vous n'avez pas de poisson.`);
+            this.notifier.notify(source, `Bạn không có cá.`);
             return false;
         }
 
         this.notifier.notify(
             source,
-            `Vous commencez à préparer des ~b~${this.itemService.getItem('fish_preparation').label}.`
+            `Bạn bắt đầu sơ chế ~b~${this.itemService.getItem('fish_preparation').label}.`
         );
 
         while (
-            await this.doPrepareFish(source, `Vous préparez des ${this.itemService.getItem('fish_preparation').label}.`)
+            await this.doPrepareFish(source, `Đang sơ chế ${this.itemService.getItem('fish_preparation').label}...`)
         ) {
             /* Empty*/
         }
 
         this.notifier.notify(
             source,
-            `Vous avez terminé de préparer des ~b~${this.itemService.getItem('fish_preparation').label}.`,
+            `Bạn đã sơ chế xong ~b~${this.itemService.getItem('fish_preparation').label}.`,
             'success'
         );
     }
@@ -110,7 +110,7 @@ export class FoodHarvestProvider {
         });
 
         if (!inventoryFishes || !inventoryFishes[0] || !inventoryFishes[0].amount) {
-            this.notifier.notify(source, `Vous n'avez pas de poisson.`);
+            this.notifier.notify(source, `Bạn không có cá.`);
             return false;
         }
 
@@ -119,15 +119,15 @@ export class FoodHarvestProvider {
             inventory.removeAtSlot(inventoryFishes[0].slot, 1);
             this.notifier.notify(
                 source,
-                `Vous avez préparé un ~b~${this.itemService.getItem('fish_preparation').label}~s~.`
+                `Bạn đã sơ chế được ~b~${this.itemService.getItem('fish_preparation').label}~s~.`
             );
         } else if (result.err == 'not_enough_space') {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
             return false;
         } else {
             this.notifier.notify(
                 source,
-                `Il y a eu une erreur: ${'fish_preparation'} ${ADD_ERROR_MESSAGE[result.err]}`,
+                `Đã xảy ra lỗi: ${'fish_preparation'} ${ADD_ERROR_MESSAGE[result.err]}`,
                 'error'
             );
             return false;
@@ -137,12 +137,12 @@ export class FoodHarvestProvider {
 
     @OnEvent(ServerEvent.FOOD_EASTER_HARVEST)
     async onHarvest(source: number) {
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à récolter');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu thập');
 
-        while (await this.doHarvest(source, 'Vous récoltez des oeufs.')) {
+        while (await this.doHarvest(source, 'Đang thu thập trứng...')) {
             /* empty */
         }
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récolter.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ thu thập.', 'success');
     }
 
     async doHarvest(source: number, label: string) {
@@ -153,12 +153,12 @@ export class FoodHarvestProvider {
         });
 
         if (!completed) {
-            this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récolter.`, 'error');
+            this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu thập.`, 'error');
             return false;
         }
 
         if (!(await this.fieldService.harvestField(EASTER_FIELD, 1))) {
-            this.notifier.notify(source, `Le champs est épuisé.`);
+            this.notifier.notify(source, `Cánh đồng đã cạn kiệt vật phẩm.`);
             return false;
         }
 
@@ -180,19 +180,19 @@ export class FoodHarvestProvider {
         if (!inventory.canCarryItem(item, 1)) {
             this.notifier.notify(
                 source,
-                `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`
+                `Túi đồ của bạn không có đủ chỗ trống để thu thập.`
             );
             return false;
         }
 
         const result = inventory.add(item, 1);
         if (isOk(result)) {
-            this.notifier.notify(source, `Vous avez récolté un ~b~${this.itemService.getItem(item).label}.`);
+            this.notifier.notify(source, `Bạn đã thu thập được 1 ~b~${this.itemService.getItem(item).label}.`);
         } else if (result.err == 'not_enough_space') {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
             return false;
         } else {
-            this.notifier.notify(source, `Il y a eu une erreur: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
+            this.notifier.notify(source, `Đã xảy ra lỗi: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
             return false;
         }
         return true;

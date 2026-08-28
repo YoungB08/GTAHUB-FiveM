@@ -212,7 +212,7 @@ export class VehicleDealershipProvider {
         }
 
         if (this.IsAuctionDisable()) {
-            this.notifier.notify(source, 'Les enchères sont déjà terminées.', 'error');
+            this.notifier.notify(source, 'Phiên đấu giá đã kết thúc.', 'error');
 
             return;
         }
@@ -220,7 +220,7 @@ export class VehicleDealershipProvider {
         const auction = this.auctions[name];
 
         if (!auction) {
-            this.notifier.notify(source, "Ce véhicule n'est pas proposé à la mise aux enchères.", 'error');
+            this.notifier.notify(source, 'Phương tiện này không nằm trong danh sách đấu giá.', 'error');
 
             return;
         }
@@ -234,7 +234,7 @@ export class VehicleDealershipProvider {
             (!player.metadata.licences[auction.vehicle.requiredLicence] ||
                 player.metadata.licences[auction.vehicle.requiredLicence] <= 0)
         ) {
-            this.notifier.notify(source, "Vous n'avez pas le permis nécessaire !", 'error');
+            this.notifier.notify(source, 'Bạn không có bằng lái xe phù hợp!', 'error');
 
             return false;
         }
@@ -243,7 +243,7 @@ export class VehicleDealershipProvider {
             `auction_${name}`,
             async () => {
                 if (auction.nextMinBid > price) {
-                    this.notifier.notify(source, "Votre enchère est inférieure à l'enchère minimum.", 'error');
+                    this.notifier.notify(source, 'Mức giá bạn đặt thấp hơn mức giá tối thiểu.', 'error');
 
                     return false;
                 }
@@ -258,7 +258,7 @@ export class VehicleDealershipProvider {
                         true
                     ))
                 ) {
-                    this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+                    this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
 
                     return false;
                 }
@@ -272,7 +272,7 @@ export class VehicleDealershipProvider {
                         auction.bestBid.price
                     ))
                 ) {
-                    this.notifier.notify(source, 'Erreur avec la banque. Merci de contacter un responsable.', 'error');
+                    this.notifier.notify(source, 'Lỗi giao dịch ngân hàng. Vui lòng liên hệ ban quản lý.', 'error');
 
                     return false;
                 }
@@ -287,13 +287,13 @@ export class VehicleDealershipProvider {
                 };
                 this.auctions[name].nextMinBid = this.nextMinBid(this.auctions[name].vehicle.price, price);
 
-                this.notifier.notify(source, `Vous avez émis une enchère d'une valeur de $${price}.`, 'success');
+                this.notifier.notify(source, `Bạn đã đặt mức giá đấu $${price}.`, 'success');
 
                 if (previousCitizenId) {
                     const player = this.playerService.getPlayerByCitizenId(previousCitizenId);
 
                     if (player) {
-                        this.notifier.notify(player.source, `Votre enchère a été dépassée.`, 'error');
+                        this.notifier.notify(player.source, `Mức giá đấu của bạn đã bị người khác vượt qua.`, 'error');
                     }
                 }
 
@@ -430,8 +430,8 @@ export class VehicleDealershipProvider {
         }
 
         if (playerVehicleCount >= player.metadata.vehiclelimit) {
-            let errorMsg = `Limite de véhicule atteinte (${playerVehicleCount}/${player.metadata.vehiclelimit})`;
-            if (player.metadata.vehiclelimit < 10) errorMsg += ". Améliorez votre carte grise à l'auto-école.";
+            let errorMsg = `Đã đạt giới hạn sở hữu phương tiện (${playerVehicleCount}/${player.metadata.vehiclelimit})`;
+            if (player.metadata.vehiclelimit < 10) errorMsg += ". Hãy nâng cấp thêm số lượng xe tại trường dạy lái xe.";
 
             this.notifier.notify(player.source, errorMsg, 'error');
 
@@ -471,7 +471,7 @@ export class VehicleDealershipProvider {
             (!player.metadata.licences[vehicle.requiredLicence] ||
                 player.metadata.licences[vehicle.requiredLicence] <= 0)
         ) {
-            this.notifier.notify(source, "Vous n'avez pas le permis nécessaire !", 'error');
+            this.notifier.notify(source, 'Bạn không có bằng lái xe phù hợp!', 'error');
 
             return false;
         }
@@ -496,7 +496,7 @@ export class VehicleDealershipProvider {
                 const delta = nextPurchaseDate.getTime() - Date.now();
                 if (delta > 0) {
                     const delay = formatDuration(delta);
-                    this.notifier.notify(source, `Tu dois attendre ${delay} avant ton prochain achat.`, 'error');
+                    this.notifier.notify(source, `Bạn phải đợi ${delay} trước lần mua phương tiện tiếp theo.`, 'error');
 
                     return false;
                 }
@@ -520,7 +520,7 @@ export class VehicleDealershipProvider {
                         ![DealershipType.WhatIf, DealershipType.Casino].includes(dealershipId) &&
                         refreshedVehicle.stock <= 0
                     ) {
-                        this.notifier.notify(source, "Ce véhicule n'est plus disponible.", 'error');
+                        this.notifier.notify(source, 'Phương tiện này hiện đã hết hàng.', 'error');
 
                         return false;
                     }
@@ -533,12 +533,12 @@ export class VehicleDealershipProvider {
                     if (!inventory) return;
 
                     if (!inventory.remove('whatif_parts', vehicle.price)) {
-                        this.notifier.error(source, `Tu n'as pas de quoi payer...`);
+                        this.notifier.error(source, `Bạn không đủ linh kiện / tiền để thanh toán...`);
                         return false;
                     }
                 } else {
                     if (!(await this.playerMoneyService.buy(source, vehicle.price, taxType))) {
-                        this.notifier.notify(source, `Tu n'as pas assez d'argent.`, 'error');
+                        this.notifier.notify(source, `Bạn không có đủ tiền.`, 'error');
 
                         return false;
                     }
@@ -647,13 +647,13 @@ export class VehicleDealershipProvider {
                         parkingPlace.heading || 0,
                     ] as Vector4);
 
-                    this.notifier.notify(source, `Merci pour votre achat !`, 'success');
+                    this.notifier.notify(source, `Cảm ơn bạn đã mua hàng!`, 'success');
                 } else {
                     const garageConfig = GarageList[garage];
 
                     this.notifier.notify(
                         source,
-                        `Merci pour votre achat ! Le véhicule a été envoyé au garage '${garageConfig.name}'`,
+                        `Cảm ơn bạn đã mua hàng! Phương tiện đã được chuyển về garage '${garageConfig.name}'`,
                         'success'
                     );
                 }

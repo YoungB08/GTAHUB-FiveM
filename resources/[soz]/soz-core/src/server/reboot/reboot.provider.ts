@@ -97,7 +97,7 @@ export class RebootProvider {
         const players = this.qbCore.getPlayersSources();
 
         for (const source of players) {
-            DropPlayer(source.toString(), 'Le serveur redémarre...');
+            DropPlayer(source.toString(), 'Máy chủ đang khởi động lại...');
         }
 
         await this.prismaService.playerVehicle.updateMany({
@@ -227,8 +227,8 @@ export class RebootProvider {
 
         await this.phoneNewsProvider.createNews(null, {
             type: `reboot_${minutes}`,
-            message: `Un ouragan arrive à toute allure ! Il devrait frapper le coeur de San Andreas d'ici ${minutes} minutes. Veuillez ranger vos véhicules et vous abriter ! Votre sécurité est primordiale.`,
-            reporter: 'San Andreas Météo',
+            message: `Một cơn bão lớn đang ập đến với tốc độ chóng mặt! Dự kiến bão sẽ đổ bộ vào trung tâm San Andreas trong vòng ${minutes} phút nữa. Vui lòng cất giữ phương tiện và tìm nơi trú ẩn an toàn! An toàn của bạn là trên hết.`,
+            reporter: 'Trung tâm Dự báo Thời tiết San Andreas',
         });
     }
 }

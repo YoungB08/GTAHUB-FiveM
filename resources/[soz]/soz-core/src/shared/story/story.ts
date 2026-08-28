@@ -71,18 +71,18 @@ export const SCENE_COLORS: Record<SceneColor, RGBColor> = {
 };
 
 export const SCENE_COLORS_LABELS: Record<SceneColor, string> = {
-    [SceneColor.Black]: 'Noir',
-    [SceneColor.Blue]: 'Bleu',
-    [SceneColor.Brown]: 'Marron',
-    [SceneColor.Cyan]: 'Cyan',
-    [SceneColor.Green]: 'Vert',
-    [SceneColor.Lime]: 'Citron',
-    [SceneColor.Orange]: 'Orange',
-    [SceneColor.Red]: 'Rouge',
-    [SceneColor.Rose]: 'Rose',
-    [SceneColor.Violet]: 'Violet',
-    [SceneColor.White]: 'Blanc',
-    [SceneColor.Yellow]: 'Jaune',
+    [SceneColor.Black]: 'Đen',
+    [SceneColor.Blue]: 'Xanh dương',
+    [SceneColor.Brown]: 'Nâu',
+    [SceneColor.Cyan]: 'Xanh lơ (Cyan)',
+    [SceneColor.Green]: 'Xanh lá',
+    [SceneColor.Lime]: 'Xanh chanh',
+    [SceneColor.Orange]: 'Cam',
+    [SceneColor.Red]: 'Đỏ',
+    [SceneColor.Rose]: 'Hồng',
+    [SceneColor.Violet]: 'Tím',
+    [SceneColor.White]: 'Trắng',
+    [SceneColor.Yellow]: 'Vàng',
 };
 
 export const SPOT_COLORS: Record<SpotColor, RGBColor> = {
@@ -93,10 +93,10 @@ export const SPOT_COLORS: Record<SpotColor, RGBColor> = {
 };
 
 export const SPOT_COLORS_LABELS: Record<SpotColor, string> = {
-    [SpotColor.Blue]: 'Bleu',
-    [SpotColor.Red]: 'Rouge',
-    [SpotColor.Yellow]: 'Jaune',
-    [SpotColor.White]: 'Blanc',
+    [SpotColor.Blue]: 'Xanh dương',
+    [SpotColor.Red]: 'Đỏ',
+    [SpotColor.Yellow]: 'Vàng',
+    [SpotColor.White]: 'Trắng',
 };
 
 export const SCENE_COLOR_TEXTURE_NAMES: Record<SceneColor, string> = {

@@ -26,14 +26,14 @@ export const InteractiveSubMenu: FunctionComponent<InteractiveSubMenuProps> = ({
     return (
         <SubMenu id="interactive">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="Des options à la carte">
+            <MenuContent subtitle="Tùy chọn hiển thị tương tác">
                 <MenuItemCheckbox
                     checked={state.displayOwners}
                     onChange={async value => {
                         await fetchNui(NuiEvent.AdminToggleDisplayOwners, value);
                     }}
                 >
-                    Afficher les propriétaires de véhicules
+                    Hiển thị chủ sở hữu phương tiện
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.displayDebugSurface}
@@ -41,10 +41,10 @@ export const InteractiveSubMenu: FunctionComponent<InteractiveSubMenuProps> = ({
                         await fetchNui(NuiEvent.AdminToggleDisplaySurfaceDebug, value);
                     }}
                 >
-                    Afficher les propriétés de surface
+                    Hiển thị thuộc tính bề mặt (Surface Debug)
                 </MenuItemCheckbox>
                 <MenuItemSelect
-                    title={'Afficher les noms des joueurs'}
+                    title={'Hiển thị tên người chơi'}
                     onConfirm={async value => {
                         await fetchNui(NuiEvent.AdminToggleDisplayPlayerNames, {
                             value: !state.displayPlayerNames,
@@ -53,8 +53,8 @@ export const InteractiveSubMenu: FunctionComponent<InteractiveSubMenuProps> = ({
                         state.displayPlayerNames = !state.displayPlayerNames;
                     }}
                 >
-                    <MenuItemSelectOption>Sans détails</MenuItemSelectOption>
-                    <MenuItemSelectOption>Avec détails</MenuItemSelectOption>
+                    <MenuItemSelectOption>Không kèm chi tiết</MenuItemSelectOption>
+                    <MenuItemSelectOption>Kèm thông tin chi tiết</MenuItemSelectOption>
                 </MenuItemSelect>
                 <MenuItemCheckbox
                     checked={state.displayPlayersOnMap}
@@ -62,7 +62,7 @@ export const InteractiveSubMenu: FunctionComponent<InteractiveSubMenuProps> = ({
                         await fetchNui(NuiEvent.AdminToggleDisplayPlayersOnMap, value);
                     }}
                 >
-                    Afficher les joueurs sur la carte
+                    Hiển thị tất cả người chơi trên bản đồ
                 </MenuItemCheckbox>
             </MenuContent>
         </SubMenu>

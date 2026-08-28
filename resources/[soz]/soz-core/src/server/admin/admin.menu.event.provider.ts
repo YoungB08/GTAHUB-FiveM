@@ -29,7 +29,7 @@ export class AdminMenuEventProvider {
 
         const event = await this.worldEventRepository.addEvent(name);
 
-        this.notifier.notify(source, `Evenement ${event.name} crée`);
+        this.notifier.notify(source, `Đã tạo sự kiện ${event.name}`);
     }
 
     @OnEvent(ServerEvent.ADMIN_EVENT_DELETE)
@@ -40,7 +40,7 @@ export class AdminMenuEventProvider {
 
         const event = await this.worldEventRepository.remove(eventId);
 
-        this.notifier.notify(source, `Evenement ${event.name} supprimée`);
+        this.notifier.notify(source, `Đã xóa sự kiện ${event.name}`);
     }
 
     @OnEvent(ServerEvent.ADMIN_EVENT_ADD_REWARD)
@@ -59,7 +59,7 @@ export class AdminMenuEventProvider {
         const item = this.itemService.getItem(itemId);
 
         if (!item) {
-            this.notifier.notify(source, `L'item ${itemId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Vật phẩm ${itemId} không tồn tại`, 'error');
 
             return;
         }
@@ -67,7 +67,7 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
@@ -79,7 +79,7 @@ export class AdminMenuEventProvider {
             max,
         });
 
-        this.notifier.notify(source, `Récompense ${item.label} ajouter à l'evenement ${event.name}`);
+        this.notifier.notify(source, `Đã thêm phần thưởng ${item.label} vào sự kiện ${event.name}`);
     }
 
     @OnEvent(ServerEvent.ADMIN_EVENT_REMOVE_REWARD)
@@ -91,14 +91,14 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
 
         const itemId = await this.worldEventRepository.removeReward(eventId, index);
 
-        this.notifier.notify(source, `Récompense ${itemId} supprimée de l'evenement ${existingEvent.name}`);
+        this.notifier.notify(source, `Đã xóa phần thưởng ${itemId} khỏi sự kiện ${existingEvent.name}`);
     }
 
     @OnEvent(ServerEvent.ADMIN_EVENT_SET_REWARD_CHANCE)
@@ -110,7 +110,7 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
@@ -119,7 +119,7 @@ export class AdminMenuEventProvider {
 
         this.notifier.notify(
             source,
-            `Récompense ${itemId} de l'evenement ${existingEvent.name} a maintenant ${chance}% de chance de drop`
+            `Phần thưởng ${itemId} của sự kiện ${existingEvent.name} hiện có tỷ lệ rơi là ${chance}%`
         );
     }
 
@@ -132,7 +132,7 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
@@ -141,7 +141,7 @@ export class AdminMenuEventProvider {
 
         this.notifier.notify(
             source,
-            `Récompense ${itemId} de l'evenement ${existingEvent.name} a maintenant un minimum de ${min}`
+            `Phần thưởng ${itemId} của sự kiện ${existingEvent.name} hiện có số lượng tối thiểu là ${min}`
         );
     }
 
@@ -154,7 +154,7 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
@@ -163,7 +163,7 @@ export class AdminMenuEventProvider {
 
         this.notifier.notify(
             source,
-            `Récompense ${itemId} de l'evenement ${existingEvent.name} a maintenant un maximum de ${max}`
+            `Phần thưởng ${itemId} của sự kiện ${existingEvent.name} hiện có số lượng tối đa là ${max}`
         );
     }
 
@@ -176,7 +176,7 @@ export class AdminMenuEventProvider {
         const existingEvent = await this.worldEventRepository.getEvent(eventId);
 
         if (!existingEvent) {
-            this.notifier.notify(source, `L'evenement ${eventId} n'existe pas`, 'error');
+            this.notifier.notify(source, `Sự kiện ${eventId} không tồn tại`, 'error');
 
             return;
         }
@@ -186,10 +186,10 @@ export class AdminMenuEventProvider {
         if (startSound) {
             this.notifier.notify(
                 source,
-                `Evenement ${existingEvent.name} a maintenant un son de départ: ${startSound}`
+                `Sự kiện ${existingEvent.name} hiện có âm thanh bắt đầu: ${startSound}`
             );
         } else {
-            this.notifier.notify(source, `Evenement ${existingEvent.name} n'a maintenant plus de son de départ`);
+            this.notifier.notify(source, `Sự kiện ${existingEvent.name} hiện không còn âm thanh bắt đầu`);
         }
     }
 }

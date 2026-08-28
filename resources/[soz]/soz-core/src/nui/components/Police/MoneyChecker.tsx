@@ -15,10 +15,10 @@ export const MoneyChecker: FunctionComponent<MoneycheckerStateProps> = ({ data }
         <Menu type={MenuType.PoliceJobLicences}>
             <MainMenu>
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="L'ordre et la justice !">
+                <MenuContent subtitle="Thi hành Công lý và Trật tự!">
                     <MenuItemText>
                         <div className="flex justify-between">
-                            <div>Argent marqué</div>
+                            <div>Tiền bẩn (Đã đánh dấu)</div>
                             <div>${data.amount}</div>
                         </div>
                     </MenuItemText>
@@ -28,7 +28,7 @@ export const MoneyChecker: FunctionComponent<MoneycheckerStateProps> = ({ data }
                                 await fetchNui(NuiEvent.PoliceGatherMoneyMarked, data.playerServerId);
                             }}
                         >
-                            Confisquer l'argent marqué
+                            Tịch thu tiền bẩn
                         </MenuItemButton>
                     )}
                 </MenuContent>

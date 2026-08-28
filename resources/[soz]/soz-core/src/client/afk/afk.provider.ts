@@ -86,7 +86,7 @@ export class AfkProvider {
             }
 
             const word = await this.inputService.askInput({
-                title: `Anti-AFK - Taper le mot suivant: ${afkWord}`,
+                title: `Chống treo máy (Anti-AFK) - Vui lòng nhập: ${afkWord}`,
                 maxCharacters: 50,
             });
 
@@ -98,12 +98,12 @@ export class AfkProvider {
                     this.phoneService.setPhoneFocus(true);
                 }
 
-                this.notifier.notify("Vous n'êtes plus AFK", 'info');
+                this.notifier.notify('Bạn đã xác nhận hoạt động (Hết AFK)', 'info');
                 break;
             }
 
             this.notifier.notify(
-                `Mot invalide, vous avez ${AFK_RETRY_ATTEMPTS - this.afkAttempts} essais restants`,
+                `Từ nhập không chính xác, bạn còn ${AFK_RETRY_ATTEMPTS - this.afkAttempts} lần thử`,
                 'error'
             );
             this.afkAttempts++;

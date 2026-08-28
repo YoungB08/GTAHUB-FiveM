@@ -42,9 +42,9 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
     return (
         <SubMenu id="meteor">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="Juste un rond ...">
+            <MenuContent subtitle="Sự kiện Thiên thạch & Thiên tai">
                 <MenuItemSelect
-                    title={`Sirène`}
+                    title={`Còi báo động`}
                     value={state.musics[Music.Siren]}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminMenuMeteorMusic, { music: Music.Siren, value: index });
@@ -59,7 +59,7 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         ))}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title={`Chonos`}
+                    title={`Nhạc Chronos`}
                     value={state.musics[Music.Chronos]}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminMenuMeteorMusic, { music: Music.Chronos, value: index });
@@ -74,7 +74,7 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         ))}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title={`Ambiance`}
+                    title={`Âm thanh môi trường`}
                     value={state.musics[Music.Ambiance]}
                     onConfirm={async index => {
                         await fetchNui(NuiEvent.AdminMenuMeteorMusic, { music: Music.Ambiance, value: index });
@@ -93,14 +93,14 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         await fetchNui(NuiEvent.AdminMenuMeteorActivate);
                     }}
                 >
-                    Lancement du Météore
+                    Kích hoạt Thiên thạch rơi
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuMeteorKickPlayers);
                     }}
                 >
-                    Expulser les joueurs
+                    Kick toàn bộ người chơi
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.disableNpc}
@@ -108,24 +108,24 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         await fetchNui(NuiEvent.AdminMenuMeteorDisableNpc, value);
                     }}
                 >
-                    Désactiver le spawn de PNJ
+                    Tắt spawn NPC
                 </MenuItemCheckbox>
                 <MenuSubTitle>
-                    Niveau de l'eau {waterLevel[0].toFixed(3)}/{waterLevel[1]}
+                    Mực nước biển {waterLevel[0].toFixed(3)}/{waterLevel[1]}
                 </MenuSubTitle>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuOceanSetWaterLevel, false);
                     }}
                 >
-                    Changer niveau de l'eau progressivement
+                    Thay đổi mực nước biển từ từ
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuOceanSetWaterLevel, true);
                     }}
                 >
-                    Changer niveau de l'eau instantanément
+                    Thay đổi mực nước biển ngay lập tức
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.highWave}
@@ -133,19 +133,19 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         await fetchNui(NuiEvent.AdminMenuOceanSetHighWave, value);
                     }}
                 >
-                    Grosses vagues
+                    Sóng thần / Sóng lớn
                 </MenuItemCheckbox>
-                <MenuSubTitle>Tremblement de terre</MenuSubTitle>
+                <MenuSubTitle>Động đất</MenuSubTitle>
                 <MenuItemCheckbox
                     checked={state.earthQuake}
                     onChange={async value => {
                         await fetchNui(NuiEvent.AdminMenuEarthquake, value);
                     }}
                 >
-                    Tremblement de terre
+                    Kích hoạt động đất
                 </MenuItemCheckbox>
                 <MenuItemSelect
-                    title={`Tempête de Sable`}
+                    title={`Bão cát`}
                     value={state.musics[Music.SandStorm]}
                     titleWidth={50}
                     onConfirm={async index => {
@@ -160,28 +160,28 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                             </MenuItemSelectOption>
                         ))}
                 </MenuItemSelect>
-                <MenuSubTitle>FireStorm</MenuSubTitle>
+                <MenuSubTitle>Bão lửa (FireStorm)</MenuSubTitle>
                 <MenuItemCheckbox
                     checked={state.tornado}
                     onChange={async value => {
                         await fetchNui(NuiEvent.AdminMenuTornado, value);
                     }}
                 >
-                    Tornade
+                    Lốc xoáy / Vòi rồng
                 </MenuItemCheckbox>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuTornadoMove);
                     }}
                 >
-                    Déplacer la tornade
+                    Di chuyển lốc xoáy
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuFireStorm);
                     }}
                 >
-                    Cinematique
+                    Phim cắt cảnh Bão lửa
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.firePropagation}
@@ -189,10 +189,10 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         await fetchNui(NuiEvent.AdminMenuFirePropagation, value);
                     }}
                 >
-                    Propagation du feu
+                    Lây lan đám cháy
                 </MenuItemCheckbox>
                 <MenuItemSelect
-                    title="Incendie"
+                    title="Đám cháy"
                     initialValue={null}
                     onChange={async (_index, value) => {
                         await fetchNui(NuiEvent.AdminMenuPreviewFire, String(value));
@@ -209,25 +209,25 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                 </MenuItemSelect>
                 <MenuItemButton
                     onConfirm={() => fetchNui(NuiEvent.AdminMenuStopFire)}
-                    description="Réduit petit à petit le volume de l'incendie jusqu'à extinction"
+                    description="Giảm dần bán kính đám cháy cho đến khi tắt hẳn"
                 >
-                    Étouffer les incendies
+                    Dập tắt dần các đám cháy
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={() => fetchNui(NuiEvent.AdminMenuStopFire, true)}
-                    description="Supprime tous les feux instantanément"
+                    description="Xóa toàn bộ ngọn lửa ngay lập tức"
                 >
-                    Stopper les incendies
+                    Dập tắt ngay mọi đám cháy
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={() => fetchNui(NuiEvent.AdminMenuFireRemoveModelSwap)}
-                    description="Enlever les remplacements de modèles d'arbre"
+                    description="Khôi phục lại mô hình cây cối ban đầu"
                 >
-                    Enlever les remplacements de modèles d'arbre
+                    Khôi phục mô hình cây cối
                 </MenuItemButton>
 
                 <MenuItemSelect
-                    title={`Music - Impact`}
+                    title={`Nhạc - Impact`}
                     value={state.musics[Music.Impact]}
                     titleWidth={50}
                     onConfirm={async index => {
@@ -243,7 +243,7 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         ))}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title={`Music - Dies Irae`}
+                    title={`Nhạc - Dies Irae`}
                     value={state.musics[Music.DiesIrae]}
                     titleWidth={50}
                     onConfirm={async index => {
@@ -259,7 +259,7 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         ))}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title={`Music - Cinis`}
+                    title={`Nhạc - Cinis`}
                     value={state.musics[Music.Cinis]}
                     titleWidth={50}
                     onConfirm={async index => {
@@ -275,51 +275,51 @@ export const MeteorSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permissio
                         ))}
                 </MenuItemSelect>
 
-                <MenuSubTitle>Annonces</MenuSubTitle>
+                <MenuSubTitle>Thông báo khẩn cấp toàn thành phố</MenuSubTitle>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuEarthquakeFlash);
                     }}
                 >
-                    Tremblement de terre
+                    Cảnh báo Động đất
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuSandstormFlash);
                     }}
                 >
-                    Tempête de sable
+                    Cảnh báo Bão cát
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuFloodFlash);
                     }}
                 >
-                    Inondation
+                    Cảnh báo Lũ lụt
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuFireFlash, false);
                     }}
                 >
-                    Incendie
+                    Cảnh báo Hỏa hoạn
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuTornadoFlash);
                     }}
                 >
-                    Tornade
+                    Cảnh báo Lốc xoáy
                 </MenuItemButton>
 
-                <MenuSubTitle>What if</MenuSubTitle>
+                <MenuSubTitle>Sự kiện What if</MenuSubTitle>
 
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminMenuWhatIfCinematic);
                     }}
                 >
-                    Cinématique
+                    Phim cắt cảnh (Cinematic)
                 </MenuItemButton>
             </MenuContent>
         </SubMenu>

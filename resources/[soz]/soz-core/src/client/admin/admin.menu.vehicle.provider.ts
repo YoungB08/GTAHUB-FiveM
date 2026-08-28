@@ -54,14 +54,14 @@ export class AdminMenuVehicleProvider {
             model ||
             (await this.inputService.askInput(
                 {
-                    title: 'Modèle du véhicule',
+                    title: 'Mô hình phương tiện (Model)',
                     maxCharacters: 32,
                 },
                 model => {
                     if (!model || IsModelInCdimage(model) || IsModelValid(model)) {
                         return Ok(model);
                     }
-                    return Err('Le modèle du véhicule est invalide');
+                    return Err('Mô hình phương tiện không hợp lệ');
                 }
             ));
         if (input !== null) {
@@ -171,7 +171,7 @@ export class AdminMenuVehicleProvider {
     public async onAdminMenuVehicleChangeCarPrice(vehicleModel: string) {
         const newPrice = await this.inputService.askInput(
             {
-                title: 'Nouveau prix',
+                title: 'Giá mới',
                 maxCharacters: 10,
                 defaultValue: '',
             },

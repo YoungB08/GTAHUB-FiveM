@@ -20,14 +20,14 @@ export const CasinoCard: FunctionComponent<HealthCardProps> = ({ type, expiratio
         >
             <p className="flex justify-between px-[3.3vh] pt-[55%] uppercase italic font-semibold text-white/70 font-kreditback">
                 <span>
-                    {new Date(expiration).toLocaleDateString('fr-FR', {
+                    {new Date(expiration).toLocaleDateString('vi-VN', {
                         day: 'numeric',
                         month: 'numeric',
                         year: 'numeric',
                     })}
                 </span>
                 <span>
-                    {point} point{point > 1 && 's'}
+                    {point} điểm
                 </span>
             </p>
         </div>

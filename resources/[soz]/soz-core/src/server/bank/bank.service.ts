@@ -65,7 +65,7 @@ export class BankService {
         const playerMoney = player.Functions.GetMoney(moneyType);
         if (type === 'deposit' && Number(playerMoney) < amount) {
             if (!skipNotify) {
-                this.bankNotify(source, bankAccount, `Dépot: ~r~$${amount}`, 'Fond insuffisant.', 'error');
+                this.bankNotify(source, bankAccount, `Nạp tiền: ~r~$${amount}`, 'Số dư không đủ.', 'error');
             }
             return false;
         }
@@ -73,7 +73,7 @@ export class BankService {
         if (type === 'deposit') {
             if (!player.Functions.RemoveMoney(moneyType, amount)) {
                 if (!skipNotify) {
-                    this.bankNotify(source, bankAccount, `Dépot: ~r~$${amount}`, 'Fond insuffisant.', 'error');
+                    this.bankNotify(source, bankAccount, `Nạp tiền: ~r~$${amount}`, 'Số dư không đủ.', 'error');
                 }
                 return false;
             }
@@ -81,18 +81,18 @@ export class BankService {
             if (!(await this.bankAccountRepository.addMoney(bankAccount.id, amount, moneyType, allowOverflow))) {
                 player.Functions.AddMoney(moneyType, amount);
                 if (!skipNotify) {
-                    this.bankNotify(source, bankAccount, `Dépôt: ~r~$${amount}`, 'Le coffre est plein.', 'error');
+                    this.bankNotify(source, bankAccount, `Nạp tiền: ~r~$${amount}`, 'Két sắt đã đầy.', 'error');
                 }
                 return false;
             }
 
             if (!skipNotify) {
-                this.bankNotify(source, bankAccount, `Dépot: ~g~$${amount}`, "Vous avez déposé de l'argent.");
+                this.bankNotify(source, bankAccount, `Nạp tiền: ~g~$${amount}`, "Bạn đã gửi tiền vào tài khoản.");
             }
         } else {
             if (!(await this.bankAccountRepository.removeMoney(bankAccount.id, amount, moneyType, allowOverflow))) {
                 if (!skipNotify) {
-                    this.bankNotify(source, bankAccount, `Retrait: ~r~$${amount}`, 'Fond insuffisant.', 'error');
+                    this.bankNotify(source, bankAccount, `Rút tiền: ~r~$${amount}`, 'Số dư không đủ.', 'error');
                 }
                 return false;
             }
@@ -102,7 +102,7 @@ export class BankService {
             }
 
             if (!skipNotify) {
-                this.bankNotify(source, bankAccount, `Retrait: ~r~$${amount}`, "Vous avez retiré de l'argent.");
+                this.bankNotify(source, bankAccount, `Rút tiền: ~r~$${amount}`, "Bạn đã rút tiền.");
             }
         }
 
@@ -120,7 +120,7 @@ export class BankService {
                 type === 'withdraw' ? bankAccount.id : '',
                 type === 'deposit' ? bankAccount.id : '',
                 amount,
-                type === 'deposit' ? "Dépôt d'argent" : "Retrait d'argent"
+                type === 'deposit' ? "Nạp tiền" : "Rút tiền"
             );
         }
 
@@ -374,6 +374,6 @@ export class BankService {
             return;
         }
 
-        this.notifier.advancedNotify(source, 'Fleeca Banque', title, message, 'CHAR_BANK_MAZE', type);
+        this.notifier.advancedNotify(source, 'Ngân hàng Fleeca', title, message, 'CHAR_BANK_MAZE', type);
     }
 }

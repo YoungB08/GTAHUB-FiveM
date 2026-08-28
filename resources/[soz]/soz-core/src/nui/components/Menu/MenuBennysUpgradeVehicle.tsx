@@ -106,7 +106,7 @@ export const MenuItemVehicleModification: FunctionComponent<MenuItemVehicleModif
                     return (
                         <MenuItemSelectOption key={index} value={choice.value} helper={choice.label}>
                             {choice.label}
-                            {choice.value === initialValue && ' (installé)'}
+                            {choice.value === initialValue && ' (đã lắp)'}
                             {price !== null && ` (${getPrice(price, TaxType.VEHICLE).toFixed(0)} $)`}
                         </MenuItemSelectOption>
                     );
@@ -135,7 +135,7 @@ export const MenuItemVehicleModification: FunctionComponent<MenuItemVehicleModif
                 }
             >
                 {option.label}
-                {config.modification[modKey] === initialValue && ' (installé)'}
+                {config.modification[modKey] === initialValue && ' (đã lắp)'}
                 {price !== null && ` (${getPrice(price, TaxType.VEHICLE).toFixed(0)} $)`}
             </MenuItemCheckbox>
         );
@@ -200,7 +200,7 @@ export const MenuItemSelectVehicleColor: FunctionComponent<
                         <MenuItemSelectOptionColor
                             key={index}
                             color={option.color}
-                            label={firstIsNone && value === 0 ? 'Aucun' : option.label}
+                            label={firstIsNone && value === 0 ? 'Không' : option.label}
                             value={value}
                         />
                     );
@@ -223,14 +223,14 @@ export const MenuItemSelectVehicleColor: FunctionComponent<
                 }}
                 value={category}
                 initialValue={initialCategory}
-                title={`Type ${title.toLowerCase()}`}
+                title={`Kiểu ${title.toLowerCase()}`}
             >
-                <MenuItemSelectOption value={VehicleColorCategory.Metallic}>Métallisé</MenuItemSelectOption>
-                <MenuItemSelectOption value={VehicleColorCategory.Classic}>Délavé</MenuItemSelectOption>
-                <MenuItemSelectOption value={VehicleColorCategory.Matte}>Mat</MenuItemSelectOption>
-                <MenuItemSelectOption value={VehicleColorCategory.Pearly}>Brillante</MenuItemSelectOption>
-                <MenuItemSelectOption value={VehicleColorCategory.Metal}>Métal & Chrome</MenuItemSelectOption>
-                <MenuItemSelectOption value={VehicleColorCategory.Cameleon}>Cameleon</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Metallic}>Sơn kim loại (Metallic)</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Classic}>Sơn cổ điển (Classic)</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Matte}>Sơn mờ (Matte)</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Pearly}>Sơn bóng (Pearly)</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Metal}>Kim loại & Chrome</MenuItemSelectOption>
+                <MenuItemSelectOption value={VehicleColorCategory.Cameleon}>Đổi màu (Chameleon)</MenuItemSelectOption>
             </MenuItemSelect>
             <MenuItemSelect
                 distance={3}
@@ -335,7 +335,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
     const [options, setOptions] = useState<VehicleUpgradeOptions | null>(null);
     const item = useItem('veh_strip_piece_std');
     const crimi = ![LSCustomMode.Admin, LSCustomMode.LsCustom, LSCustomMode.NewGahray].includes(data.mode);
-    const menuTitle = crimi ? 'Customisations' : JobLabel.bennys;
+    const menuTitle = crimi ? 'Độ ngoại thất xe' : JobLabel.bennys;
     const whatIf = useSelector((state: RootState) => state.features.WhatIfFirstEpisode);
 
     useEffect(() => {
@@ -401,12 +401,12 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             <MainMenu>
                 <MenuTitle title={menuTitle} />
                 <MenuContent
-                    subtitle={crimi ? 'Customisations' : 'Couleur et aspects'}
+                    subtitle={crimi ? 'Độ ngoại thất xe' : 'Màu sắc & Ngoại hình'}
                     helpPanel={
                         data.mode == LSCustomMode.CrimiCusto && (
                             <>
                                 <MenuItemText>
-                                    <span className="underline">Coût totaux : </span>
+                                    <span className="underline">Tổng chi phí vật tư: </span>
                                 </MenuItemText>
                                 <MenuItemText>
                                     •{' '}
@@ -419,29 +419,29 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                         )
                     }
                 >
-                    <MenuItemSubMenuLink id="colors">Couleur et aspects</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="body">Carrosserie</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="wheel">Roues</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="interior">Intérieur</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="exterior">Exterieur</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="light">Lumières</MenuItemSubMenuLink>
-                    {data.options.extra.length > 0 && <MenuItemSubMenuLink id="extra">Extras</MenuItemSubMenuLink>}
+                    <MenuItemSubMenuLink id="colors">Màu sắc & Ngoại hình</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="body">Thân vỏ xe</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="wheel">Bánh xe & Vành xe</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="interior">Nội thất</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="exterior">Ngoại thất & Phụ kiện</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="light">Hệ thống Đèn</MenuItemSubMenuLink>
+                    {data.options.extra.length > 0 && <MenuItemSubMenuLink id="extra">Trang bị bổ sung (Extras)</MenuItemSubMenuLink>}
                     <MenuItemCheckbox onChange={createOnDoorChange(4)} checked={false}>
-                        Ouvrir capot
+                        Mở nắp ca-pô
                     </MenuItemCheckbox>
                     <MenuItemCheckbox onChange={createOnDoorChange(5)} checked={false}>
-                        Ouvrir coffre
+                        Mở cốp sau
                     </MenuItemCheckbox>
                     <MenuItemButton onConfirm={() => onConfirm()}>
                         <div className="flex w-full justify-between items-center">
-                            <span>✅ Confirmer les changements</span>
+                            <span>✅ Xác nhận thay đổi</span>
                         </div>
                     </MenuItemButton>
                 </MenuContent>
             </MainMenu>
             <SubMenu id="colors">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Couleur et aspects">
+                <MenuContent subtitle="Màu sắc & Ngoại hình">
                     {options?.livery && (
                         <MenuItemSelect
                             onChange={(index, value) => {
@@ -450,7 +450,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                                     livery: value,
                                 });
                             }}
-                            title="Sticker"
+                            title="Decal / Tem xe"
                             value={config?.livery}
                         >
                             {options.livery.items.map((livery, index) => (
@@ -462,7 +462,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     )}
                     <MenuItemSelectVehicleColor
                         value={config?.color?.primary as VehicleColor}
-                        title="Couleur principale"
+                        title="Màu sơn chính"
                         useCategory={true}
                         initialValue={data.originalConfiguration?.color?.primary as VehicleColor}
                         onChange={color => {
@@ -474,7 +474,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     />
                     <MenuItemSelectVehicleColor
                         value={config?.color?.secondary as VehicleColor}
-                        title="Couleur secondaire"
+                        title="Màu sơn phụ"
                         useCategory={true}
                         initialValue={data.originalConfiguration?.color?.secondary as VehicleColor}
                         onChange={color => {
@@ -486,7 +486,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     />
                     <MenuItemSelectVehicleColor
                         value={config?.color?.pearlescent as VehicleColor}
-                        title="Nacre"
+                        title="Ánh xà cừ (Pearlescent)"
                         firstIsNone={true}
                         initialValue={data.originalConfiguration?.color?.pearlescent as VehicleColor}
                         onChange={color => {
@@ -522,7 +522,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="body">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Carrosserie">
+                <MenuContent subtitle="Thân vỏ xe">
                     <MenuItemVehicleModification
                         initialConfig={data?.originalConfiguration}
                         modKey="spoiler"
@@ -647,10 +647,10 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="wheel">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Roues">
+                <MenuContent subtitle="Bánh xe & Vành xe">
                     {Object.keys(options.wheelType).length > 1 && (
                         <MenuItemSelect
-                            title="Type de roues"
+                            title="Loại vành bánh xe"
                             value={config?.wheelType}
                             initialValue={data.originalConfiguration?.wheelType}
                             onChange={(index, value) => {
@@ -688,11 +688,11 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        Pneu custom
+                        Lốp xe tùy chỉnh (Custom)
                     </MenuItemCheckbox>
                     <MenuItemSelectVehicleColor
                         value={config?.color?.rim as VehicleColor}
-                        title="Couleur des jantes"
+                        title="Màu sơn vành xe"
                         initialValue={data.originalConfiguration?.color?.rim as VehicleColor}
                         onChange={color => {
                             setConfig({
@@ -709,7 +709,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                         set={setConfig}
                     />
                     <MenuItemSelectVehicleRGBColor
-                        title="Couleur de fumée des roues"
+                        title="Màu khói lốp xe"
                         value={config?.tyreSmokeColor}
                         initialValue={data.originalConfiguration?.tyreSmokeColor}
                         onChange={color => {
@@ -724,9 +724,9 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="exterior">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Exterieur">
+                <MenuContent subtitle="Ngoại thất & Phụ kiện">
                     <MenuItemSelect
-                        title="Style plaque d'immatriculation"
+                        title="Kiểu biển số xe"
                         value={config?.plateStyle}
                         initialValue={data.originalConfiguration?.plateStyle}
                         onChange={(index, value) => {
@@ -736,11 +736,11 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        <MenuItemSelectOption value={0}>Bleu sur blanc</MenuItemSelectOption>
-                        <MenuItemSelectOption value={1}>Jaune sur noir</MenuItemSelectOption>
-                        <MenuItemSelectOption value={2}>Jaune sur bleu</MenuItemSelectOption>
-                        <MenuItemSelectOption value={3}>Bleu sur blanc 2</MenuItemSelectOption>
-                        <MenuItemSelectOption value={4}>Bleu sur blanc 3</MenuItemSelectOption>
+                        <MenuItemSelectOption value={0}>Chữ xanh nền trắng</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1}>Chữ vàng nền đen</MenuItemSelectOption>
+                        <MenuItemSelectOption value={2}>Chữ vàng nền xanh</MenuItemSelectOption>
+                        <MenuItemSelectOption value={3}>Chữ xanh nền trắng 2</MenuItemSelectOption>
+                        <MenuItemSelectOption value={4}>Chữ xanh nền trắng 3</MenuItemSelectOption>
                         <MenuItemSelectOption value={5}>Yankton</MenuItemSelectOption>
                         <MenuItemSelectOption value={6}>eCola</MenuItemSelectOption>
                         <MenuItemSelectOption value={7}>Las Venturas</MenuItemSelectOption>
@@ -751,7 +751,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                         <MenuItemSelectOption value={12}>Sprunk</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title="Teinte vitre"
+                        title="Màu dán kính (Tint)"
                         value={config?.windowTint}
                         initialValue={data.originalConfiguration?.windowTint}
                         onChange={(index, value) => {
@@ -761,12 +761,12 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        <MenuItemSelectOption value={0}>Pas de teinte</MenuItemSelectOption>
-                        <MenuItemSelectOption value={1}>Teinte noire</MenuItemSelectOption>
-                        <MenuItemSelectOption value={2}>Teinte noire fumée</MenuItemSelectOption>
-                        <MenuItemSelectOption value={3}>Teinte légère</MenuItemSelectOption>
-                        <MenuItemSelectOption value={4}>Teinte stock</MenuItemSelectOption>
-                        <MenuItemSelectOption value={5}>Teinte verte</MenuItemSelectOption>
+                        <MenuItemSelectOption value={0}>Kính trong suốt (Không dán)</MenuItemSelectOption>
+                        <MenuItemSelectOption value={1}>Dán kính đen tuyền (Limo)</MenuItemSelectOption>
+                        <MenuItemSelectOption value={2}>Dán kính khói tối (Dark Smoke)</MenuItemSelectOption>
+                        <MenuItemSelectOption value={3}>Dán kính khói nhạt (Light Smoke)</MenuItemSelectOption>
+                        <MenuItemSelectOption value={4}>Kính nguyên bản (Stock)</MenuItemSelectOption>
+                        <MenuItemSelectOption value={5}>Dán kính xanh lục</MenuItemSelectOption>
                     </MenuItemSelect>
                     <MenuItemVehicleModification
                         modKey="plateHolder"
@@ -822,7 +822,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="interior">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Intérieur">
+                <MenuContent subtitle="Nội thất">
                     <MenuItemVehicleModification
                         initialConfig={data?.originalConfiguration}
                         modKey="horn"
@@ -874,7 +874,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     />
                     <MenuItemSelectVehicleColor
                         value={config?.interiorColor as VehicleColor}
-                        title="Couleur intérieur"
+                        title="Màu da nội thất"
                         initialValue={data.originalConfiguration?.interiorColor as VehicleColor}
                         onChange={color => {
                             setConfig({
@@ -885,7 +885,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     />
                     <MenuItemSelectVehicleColor
                         value={config?.dashboardColor as VehicleColor}
-                        title="Couleur du tableau de bord"
+                        title="Màu táp-lô"
                         initialValue={data.originalConfiguration?.dashboardColor as VehicleColor}
                         onChange={color => {
                             setConfig({
@@ -899,7 +899,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="light">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Lumières">
+                <MenuContent subtitle="Hệ thống Đèn">
                     <MenuItemCheckbox
                         checked={config?.neon?.light[VehicleNeonLight.Front]}
                         onChange={value => {
@@ -915,7 +915,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        Néon avant
+                        Đèn Neon gầm trước
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={config?.neon?.light[VehicleNeonLight.Back]}
@@ -932,7 +932,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        Néon arrière
+                        Đèn Neon gầm sau
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={config?.neon?.light[VehicleNeonLight.Right]}
@@ -949,7 +949,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        Néon droit
+                        Đèn Neon gầm phải
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={config?.neon?.light[VehicleNeonLight.Left]}
@@ -966,10 +966,10 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                             });
                         }}
                     >
-                        Néon gauche
+                        Đèn Neon gầm trái
                     </MenuItemCheckbox>
                     <MenuItemSelectVehicleRGBColor
-                        title="Couleur des néons"
+                        title="Màu sắc đèn Neon"
                         value={config?.neon?.color}
                         initialValue={data.originalConfiguration?.neon?.color}
                         onChange={color => {
@@ -997,7 +997,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                     />
                     <MenuItemSelectVehicleColor
                         value={config?.xenonColor as VehicleXenonColor}
-                        title="Couleur xénons"
+                        title="Màu sắc đèn Pha Xenon"
                         initialValue={data.originalConfiguration?.xenonColor as VehicleXenonColor}
                         onChange={color => {
                             setConfig({
@@ -1012,7 +1012,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
             </SubMenu>
             <SubMenu id="extra">
                 <MenuTitle title={menuTitle} />
-                <MenuContent subtitle="Extras">
+                <MenuContent subtitle="Trang bị bổ sung (Extras)">
                     {options.extra?.map((extra, index) => (
                         <MenuItemCheckbox
                             key={index}
@@ -1027,7 +1027,7 @@ export const MenuBennysUpgradeVehicle: FunctionComponent<MenuBennysUpgradeVehicl
                                 });
                             }}
                         >
-                            Extra {extra}
+                            Trang bị thêm {extra}
                         </MenuItemCheckbox>
                     ))}
                     <MenuItemGoBack />

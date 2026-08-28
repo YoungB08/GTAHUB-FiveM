@@ -29,23 +29,23 @@ export class PoliceJobMenuProvider {
     @OnEvent(ClientEvent.POLICE_PLACE_SPEED_ZONE)
     public async onNuiPlaceSpeedZone() {
         const distances = Math.floor(
-            await this.inputService.askInput({ title: 'Distances (entre 1 et 5 mètre)' }, PositiveNumberValidator)
+            await this.inputService.askInput({ title: 'Khoảng cách (từ 1 đến 5 mét)' }, PositiveNumberValidator)
         );
 
         if (!distances || distances < 1 || distances > 5) {
-            this.notifier.notify(`La distance doit être entre 1 et 5.`, 'error');
+            this.notifier.notify(`Khoảng cách phải từ 1 đến 5 mét.`, 'error');
             return;
         }
 
         const speed = await this.inputService.askInput(
             {
-                title: 'Vitesse',
+                title: 'Tốc độ giới hạn (km/h)',
             },
             PositiveNumberValidator
         );
 
         if (speed !== 0 && !speed) {
-            this.notifier.notify(`La vitesse n'est pas valide.`, 'error');
+            this.notifier.notify(`Tốc độ nhập vào không hợp lệ.`, 'error');
             return;
         }
         TriggerServerEvent(ServerEvent.POLICE_PLACE_SPEEDZONE, distances, speed);
@@ -61,13 +61,13 @@ export class PoliceJobMenuProvider {
 
         let name = GetStreetNameFromHashKey(street);
         if (street2) {
-            name += ' et ' + GetStreetNameFromHashKey(street2);
+            name += ' và ' + GetStreetNameFromHashKey(street2);
         }
 
         this.policeAnimationProvider.redCall(
             '555-POLICE',
-            `Code Rouge !!! Un agent a besoin d'aide vers ${name}`,
-            `Code Rouge !!! Un agent a besoin d'aide vers <span {class}>${name}</span>`,
+            `BÁO ĐỘNG ĐỎ !!! Một sĩ quan đang cần hỗ trợ khẩn cấp tại ${name}`,
+            `BÁO ĐỘNG ĐỎ !!! Một sĩ quan đang cần hỗ trợ khẩn cấp tại <span {class}>${name}</span>`,
             injector
         );
 
@@ -121,7 +121,7 @@ export class PoliceJobMenuProvider {
                 const vehicleNetworkId = NetworkGetNetworkIdFromEntity(vehicle);
 
                 TriggerServerEvent(ServerEvent.VEHICLE_TAKE_OWNER, vehicleNetworkId);
-                this.notifier.notify('Vous venez de réquisitionner ce véhicule');
+                this.notifier.notify('Bạn đã trưng dụng phương tiện này cho công vụ');
             }
         }
         await anim;
@@ -160,7 +160,7 @@ export class PoliceJobMenuProvider {
     public async deleteWantedPlayer({ id, message }: { id: number; message: string }): Promise<void> {
         const deletion: boolean = await emitRpc(RpcServerEvent.POLICE_DELETE_WANTED_PLAYER, id);
         if (deletion) {
-            this.notifier.notify(`Vous avez retiré ${message} de la liste des personnes recherchées`);
+            this.notifier.notify(`Bạn đã gỡ ${message} khỏi danh sách truy nã`);
         }
     }
 }

@@ -63,7 +63,7 @@ export class WeaponGunsmithProvider {
         const coords = GetEntityCoords(PlayerPedId(), true);
 
         if (weapons.length === 0) {
-            this.notifier.notify("Vous n'avez pas d'arme sur vous", 'info');
+            this.notifier.notify('Bạn không mang theo vũ khí nào trên người', 'info');
             return;
         }
 
@@ -187,13 +187,13 @@ export class WeaponGunsmithProvider {
         if (label) {
             const weaponLabel = await this.inputService.askInput(
                 {
-                    title: `Nom de l'arme`,
+                    title: `Đặt tên cho vũ khí`,
                     maxCharacters: 30,
                     defaultValue: weapon.metadata?.label ?? item.label,
                 },
                 value => {
                     if (value.length < 2) {
-                        return Err('Le nom doit faire au moins 2 caractères');
+                        return Err('Tên phải có độ dài ít nhất 2 ký tự');
                     }
                     return Ok(value);
                 }
@@ -201,7 +201,7 @@ export class WeaponGunsmithProvider {
 
             const applied = await emitRpc<boolean>(RpcServerEvent.WEAPON_SET_LABEL, weapon.slot, weaponLabel, admin);
             if (applied) {
-                this.notifier.notify(`Vous avez renommé votre arme en ~b~${weaponLabel}`);
+                this.notifier.notify(`Bạn đã đổi tên vũ khí thành ~b~${weaponLabel}`);
             } else {
                 customValidated = false;
             }
@@ -210,7 +210,7 @@ export class WeaponGunsmithProvider {
         if (repair) {
             const applied = await emitRpc<boolean>(RpcServerEvent.WEAPON_REPAIR, weapon.slot, admin);
             if (applied) {
-                this.notifier.notify(`Vous avez réparé votre arme (~b~${item.label}~s~)`);
+                this.notifier.notify(`Bạn đã sửa chữa độ bền vũ khí (~b~${item.label}~s~)`);
             } else {
                 customValidated = false;
             }
@@ -220,7 +220,7 @@ export class WeaponGunsmithProvider {
             const applied = await emitRpc<boolean>(RpcServerEvent.WEAPON_SET_TINT, weapon.slot, tint, admin);
             if (applied) {
                 this.notifier.notify(
-                    `Vous avez changé la couleur de votre arme en ~b~${
+                    `Bạn đã đổi màu sơn vũ khí thành ~b~${
                         (weapon.name.includes('mk2') ? WeaponMk2TintColorChoices : WeaponTintColorChoices)[tint].label
                     }`
                 );
@@ -247,10 +247,10 @@ export class WeaponGunsmithProvider {
         }
 
         if (customValidated) {
-            this.notifier.notify('Vos modifications ont été appliquées');
+            this.notifier.notify('Các tùy chỉnh nâng cấp đã được áp dụng thành công');
         } else {
             this.notifier.notify(
-                "Une ou plusieurs modifications n'ont pas pu être appliquées par manque d'argent.",
+                'Một số nâng cấp không thể áp dụng do bạn không đủ tiền.',
                 'error'
             );
         }

@@ -51,13 +51,13 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
         <>
             <SubMenu id="christmas">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Vive le vent !">
-                    <MenuSubTitle>Scène</MenuSubTitle>
+                <MenuContent subtitle="Thiết lập Sân khấu">
+                    <MenuSubTitle>Sân khấu</MenuSubTitle>
                     <MenuItemButton
-                        description={temporaryState.video_url || 'Aucune vidéo'}
+                        description={temporaryState.video_url || 'Không có video'}
                         onConfirm={async () => {
                             const newVideoUrl = await fetchNui<AskInput, string>(NuiEvent.AskInput, {
-                                title: 'Url de la vidéo',
+                                title: 'URL của video',
                                 defaultValue: temporaryState.video_url || '',
                                 maxCharacters: 255,
                             });
@@ -68,10 +68,10 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                             });
                         }}
                     >
-                        Url de la vidéo
+                        URL của video
                     </MenuItemButton>
                     <MenuItemSelect
-                        title="Scene bas"
+                        title="Đèn sân khấu dưới"
                         value={temporaryState.scene_bottom_color}
                         onChange={(index, color) => {
                             setTemporaryState({
@@ -87,7 +87,7 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                         ))}
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title="Scene milieu"
+                        title="Đèn sân khấu giữa"
                         value={temporaryState.scene_middle_color}
                         onChange={(index, color) => {
                             setTemporaryState({
@@ -103,7 +103,7 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                         ))}
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title="Scene haut"
+                        title="Đèn sân khấu trên"
                         value={temporaryState.scene_top_color}
                         onChange={(index, color) => {
                             setTemporaryState({
@@ -120,8 +120,7 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                     </MenuItemSelect>
                     <MenuItemCheckbox
                         checked={temporaryState.track_player}
-                        description="Active/Désactive le tracking du joueur par les spots, le tracking est fait sur le
-                        joueur le plus proche du centre de l'étoile"
+                        description="Bật/Tắt theo dõi người chơi bằng đèn chiếu, theo dõi người chơi gần nhất với tâm sân khấu"
                         onChange={checked => {
                             setTemporaryState({
                                 ...temporaryState,
@@ -129,10 +128,10 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                             });
                         }}
                     >
-                        Tracking joueur
+                        Theo dõi người chơi
                     </MenuItemCheckbox>
                     <MenuItemSelect
-                        title="Toutes les lumieres"
+                        title="Tất cả ánh sáng"
                         onChange={(_index, color) => {
                             const spotState = {
                                 enabled: color !== null,
@@ -154,7 +153,7 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                             });
                         }}
                     >
-                        <MenuItemSelectOption value={null}>Eteint</MenuItemSelectOption>
+                        <MenuItemSelectOption value={null}>Tắt</MenuItemSelectOption>
                         {Object.keys(SPOT_COLORS).map((colorId, index) => (
                             <MenuItemSelectOption value={colorId} key={index}>
                                 {SPOT_COLORS_LABELS[colorId]}
@@ -165,33 +164,33 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                         setTemporaryState={setTemporaryState}
                         temporaryState={temporaryState}
                         spots={SPOT_GROUP_BOTTOM}
-                        suffix="bas de scène"
+                        suffix="dưới sân khấu"
                     />
                     <MenuLightGroup
                         setTemporaryState={setTemporaryState}
                         temporaryState={temporaryState}
                         spots={SPOT_GROUP_FIRST_ROW}
-                        suffix="première rangée"
+                        suffix="hàng đầu tiên"
                     />
                     <MenuLightGroup
                         setTemporaryState={setTemporaryState}
                         temporaryState={temporaryState}
                         spots={SPOT_GROUP_SECOND_ROW}
-                        suffix="deuxième rangée"
+                        suffix="hàng thứ hai"
                     />
-                    <MenuSubTitle>Etat</MenuSubTitle>
+                    <MenuSubTitle>Trạng thái</MenuSubTitle>
                     <MenuItemButton
                         onConfirm={() => {
                             copyToClipboard(JSON.stringify(temporaryState));
                         }}
-                        description="Sauvegarde l'état actuel de la scène dans votre presse papier"
+                        description="Lưu cấu hình hiện tại của sân khấu vào Clipboard"
                     >
-                        Sauvegarder
+                        Lưu vào Clipboard
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             const newVideoUrl = await fetchNui<AskInput, string>(NuiEvent.AskInput, {
-                                title: 'Etat à importer',
+                                title: 'Nhập mã cấu hình',
                                 defaultValue: temporaryState.video_url || '',
                                 maxCharacters: 16 * 1024 * 1024,
                             });
@@ -206,14 +205,14 @@ export const SceneSubMenu: FunctionComponent<MeteorSubMenuProps> = ({ permission
                             }
                         }}
                     >
-                        Importer
+                        Nhập cấu hình (Import)
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={() => {
                             fetchNui(NuiEvent.AdminMenuXmasSetState, temporaryState);
                         }}
                     >
-                        Appliquer
+                        Áp dụng thay đổi
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>
@@ -236,9 +235,9 @@ export const MenuLightGroup: FunctionComponent<MenuLightGroupProps> = ({
 }) => {
     return (
         <>
-            <MenuSubTitle>Lumières {suffix}</MenuSubTitle>
+            <MenuSubTitle>Đèn {suffix}</MenuSubTitle>
             <MenuItemSelect
-                title={`Toutes les lumieres ${suffix}`}
+                title={`Tất cả đèn ${suffix}`}
                 onChange={(_index, color) => {
                     const spotState = {
                         enabled: color !== null,
@@ -260,7 +259,7 @@ export const MenuLightGroup: FunctionComponent<MenuLightGroupProps> = ({
                     });
                 }}
             >
-                <MenuItemSelectOption value={null}>Eteint</MenuItemSelectOption>
+                <MenuItemSelectOption value={null}>Tắt</MenuItemSelectOption>
                 {Object.keys(SPOT_COLORS).map((colorId, index) => (
                     <MenuItemSelectOption value={colorId} key={index}>
                         {SPOT_COLORS_LABELS[colorId]}
@@ -291,7 +290,7 @@ export const MenuLightGroup: FunctionComponent<MenuLightGroupProps> = ({
                                 });
                             }}
                         >
-                            <MenuItemSelectOption value={null}>Eteint</MenuItemSelectOption>
+                            <MenuItemSelectOption value={null}>Tắt</MenuItemSelectOption>
                             {Object.keys(SPOT_COLORS).map((colorId, index) => (
                                 <MenuItemSelectOption value={colorId} key={index}>
                                     {SPOT_COLORS_LABELS[colorId]}

@@ -28,17 +28,17 @@ export class PoliceSearchWarrantProvider {
         }
 
         if (apartment.search_warrant_access > Date.now()) {
-            this.notifier.error(source, 'Cette habitation est déjà forcée.');
+            this.notifier.error(source, 'Căn hộ này đã bị phá khóa khám xét.');
             return;
         }
 
         if (!inventory.remove('search_warrant', 1, false)) {
-            this.notifier.error(source, "Vous n'avez pas de mandat de perquisition valable.");
+            this.notifier.error(source, 'Bạn không có lệnh khám xét hợp lệ.');
             return;
         }
 
         await this.housingRepository.setApartmentWarrantAccess(apartmentId);
-        this.notifier.notify(source, `Le ${apartment.label} a été forcé.`, 'success');
+        this.notifier.notify(source, `${apartment.label} đã bị phá khóa khám xét.`, 'success');
     }
 
     @OnEvent(ServerEvent.FDO_CLOSE_SEARCH_WARRANT)
@@ -49,12 +49,12 @@ export class PoliceSearchWarrantProvider {
         }
 
         if (apartment.search_warrant_access <= Date.now()) {
-            this.notifier.error(source, "Cette habitation n'est pas forcée.");
+            this.notifier.error(source, 'Căn hộ này hiện không trong tình trạng bị phá khóa.');
             return;
         }
 
         await this.housingRepository.setApartmentWarrantAccess(apartmentId, 0);
-        this.notifier.notify(source, `Le ${apartment.label} a été fermé.`, 'success');
+        this.notifier.notify(source, `${apartment.label} đã được khóa lại.`, 'success');
     }
 
     @Command('set-warrant-access', {
@@ -68,11 +68,11 @@ export class PoliceSearchWarrantProvider {
         const apartment = await this.housingRepository.getApartmentByIdentifier(apartmentIdentifier);
 
         if (!apartmentIdentifier) {
-            this.notifier.error(source, "Cette habitation n'existe pas.");
+            this.notifier.error(source, 'Căn hộ này không tồn tại.');
             return;
         }
 
         await this.housingRepository.setApartmentWarrantAccess(apartment.id, minutes);
-        this.notifier.notify(source, `Habitation forcée pour ${minutes} minutes.`);
+        this.notifier.notify(source, `Căn hộ đã được cấp quyền phá khóa khám xét trong ${minutes} phút.`);
     }
 }

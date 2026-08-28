@@ -39,10 +39,10 @@ export const DoorGangSubMenu: FunctionComponent<DoorMenuStateProps> = ({ data })
 
     return (
         <SubMenu id="gang">
-            <MenuTitle title="Porte" />
-            <MenuContent subtitle="Gestion des gangs">
+            <MenuTitle title="Cửa" />
+            <MenuContent subtitle="Quản lý Băng đảng">
                 <MenuItemSelect
-                    title="Ajouter"
+                    title="Thêm Băng đảng"
                     onConfirm={async (index, gangId) => {
                         door.gangs.push(gangId);
                         fetchNui(NuiEvent.AdminDoorSetState, door);
@@ -67,7 +67,7 @@ export const DoorGangSubMenu: FunctionComponent<DoorMenuStateProps> = ({ data })
                                 }}
                                 key={'DoorGangSubMenu' + index}
                             >
-                                Supprimer {gang?.name || gangId}
+                                Xóa {gang?.name || gangId}
                             </MenuItemButton>
                         );
                     })}
@@ -87,10 +87,10 @@ export const DoorJobSubMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) 
 
     return (
         <SubMenu id="job">
-            <MenuTitle title="Porte" />
-            <MenuContent subtitle="Gestion des métiers">
+            <MenuTitle title="Cửa" />
+            <MenuContent subtitle="Quản lý Nghề nghiệp">
                 <MenuItemSelect
-                    title="Ajouter"
+                    title="Thêm Nghề nghiệp"
                     onConfirm={async (index, jobId) => {
                         door.jobs.push(jobId);
                         fetchNui(NuiEvent.AdminDoorSetState, door);
@@ -116,7 +116,7 @@ export const DoorJobSubMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) 
                                 }}
                                 key={'DoorJobSubMenu' + index}
                             >
-                                Supprimer {JobRegistry[job].label}
+                                Xóa {JobRegistry[job]?.label || job}
                             </MenuItemButton>
                         );
                     })}
@@ -135,12 +135,12 @@ export const DoorKeySubMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) 
 
     return (
         <SubMenu id="key">
-            <MenuTitle title="Porte" />
-            <MenuContent subtitle="Gestion des clefs">
+            <MenuTitle title="Cửa" />
+            <MenuContent subtitle="Quản lý Chìa khóa">
                 <MenuItemButton
                     onConfirm={async () => {
                         const inputData: AskInput = {
-                            title: 'Valeur de clef',
+                            title: 'Mã chìa khóa',
                         };
                         fetchNui<any, string>(NuiEvent.AskInput, inputData).then(async input => {
                             door.keyMetadata.push(input);
@@ -148,7 +148,7 @@ export const DoorKeySubMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) 
                         });
                     }}
                 >
-                    Ajouter une valeur de clef
+                    Thêm mã chìa khóa
                 </MenuItemButton>
                 {door.keyMetadata &&
                     door.keyMetadata.map((key, index) => {
@@ -160,7 +160,7 @@ export const DoorKeySubMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) 
                                 }}
                                 key={'DoorKeySubMenu' + index}
                             >
-                                Supprimer {key}
+                                Xóa {key}
                             </MenuItemButton>
                         );
                     })}
@@ -180,7 +180,7 @@ export const DoorAdminMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) =
     return (
         <Menu type={MenuType.DoorAdmin}>
             <MainMenu>
-                <MenuTitle title="Porte" />
+                <MenuTitle title="Quản lý Cửa" />
                 <MenuContent>
                     <MenuItemCheckbox
                         checked={door.lock}
@@ -189,7 +189,7 @@ export const DoorAdminMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) =
                             fetchNui(NuiEvent.AdminDoorSetState, door);
                         }}
                     >
-                        Verrouillée
+                        Đang khóa
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={door.holdOpen}
@@ -198,31 +198,31 @@ export const DoorAdminMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) =
                             fetchNui(NuiEvent.AdminDoorSetState, door);
                         }}
                     >
-                        Reste Ouverte
+                        Luôn giữ mở
                     </MenuItemCheckbox>
                     <MenuItemButton
                         onConfirm={async () => {
                             fetchNui(NuiEvent.AdminDoorAddSub, door.id);
                         }}
                     >
-                        Ajouter un battant
+                        Thêm cánh cửa phụ (Double door)
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             fetchNui(NuiEvent.AdminDoorDelete, door.id);
                         }}
                     >
-                        Supprimer la porte
+                        Xóa cánh cửa này
                     </MenuItemButton>
 
-                    <MenuSubTitle>Intéraction</MenuSubTitle>
+                    <MenuSubTitle>Tương tác</MenuSubTitle>
                     <MenuItemButton
                         onConfirm={async () => {
                             fetchNui(NuiEvent.AdminDoorSetTarget, { id: door.id, type: 'draw' });
                         }}
                     >
                         <div className="pr-2 flex items-center justify-between">
-                            <span>Modifier la distance d'affichage</span>
+                            <span>Chỉnh khoảng cách hiển thị</span>
                             <span>{door.target?.draw || defaultDrawDistance}</span>
                         </div>
                     </MenuItemButton>
@@ -232,15 +232,15 @@ export const DoorAdminMenu: FunctionComponent<DoorMenuStateProps> = ({ data }) =
                         }}
                     >
                         <div className="pr-2 flex items-center justify-between">
-                            <span>Modifier la distance d'intéraction</span>
+                            <span>Chỉnh khoảng cách tương tác</span>
                             <span>{door.target?.interaction || defaultInteractionDistance}</span>
                         </div>
                     </MenuItemButton>
 
-                    <MenuSubTitle>Permissions</MenuSubTitle>
-                    <MenuItemSubMenuLink id="gang">Gang</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="job">Métier</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="key">Clef</MenuItemSubMenuLink>
+                    <MenuSubTitle>Phân quyền mở cửa</MenuSubTitle>
+                    <MenuItemSubMenuLink id="gang">Băng đảng</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="job">Nghề nghiệp</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="key">Chìa khóa</MenuItemSubMenuLink>
                 </MenuContent>
             </MainMenu>
             <DoorGangSubMenu data={data} />

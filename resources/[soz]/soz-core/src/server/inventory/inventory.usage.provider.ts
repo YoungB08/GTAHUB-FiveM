@@ -44,19 +44,19 @@ export class InventoryUsageProvider {
         }
 
         if (itemObject.type !== 'weapon' && !itemObject.useable) {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cet objet à un raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vật phẩm này vào phím tắt.');
 
             return;
         }
 
         if (shortcut !== 0 && shortcut <= 2 && item.type !== 'weapon') {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cet objet à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vật phẩm này vào phím tắt này.');
 
             return;
         }
 
         if ((shortcut === 0 || shortcut > 2) && item.type === 'weapon') {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cette arme à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vũ khí này vào phím tắt này.');
 
             return;
         }
@@ -126,25 +126,25 @@ export class InventoryUsageProvider {
         }
 
         if (existingNextShortcut && itemNext.type === 'weapon' && (previousShortcut === 0 || previousShortcut > 2)) {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cette arme à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vũ khí này vào phím tắt này.');
 
             return;
         }
 
         if (existingNextShortcut && itemNext.type !== 'weapon' && previousShortcut !== 0 && previousShortcut <= 2) {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cet objet à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vật phẩm này vào phím tắt này.');
 
             return;
         }
 
         if (itemPrevious.type === 'weapon' && (nextShortcut === 0 || nextShortcut > 2)) {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cette arme à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vũ khí này vào phím tắt này.');
 
             return;
         }
 
         if (itemPrevious.type !== 'weapon' && nextShortcut !== 0 && nextShortcut <= 2) {
-            this.notifier.error(source, 'Vous ne pouvez pas assigner cet objet à ce raccourci.');
+            this.notifier.error(source, 'Bạn không thể gán vật phẩm này vào phím tắt này.');
 
             return;
         }

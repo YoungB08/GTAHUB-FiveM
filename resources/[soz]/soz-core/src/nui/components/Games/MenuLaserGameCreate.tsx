@@ -21,17 +21,17 @@ export const MenuLaserGameCreate: FunctionComponent = () => {
     return (
         <Menu type={MenuType.LaserGameCreate}>
             <MainMenu>
-                <MenuTitle title="Laser Game" />
+                <MenuTitle title="Bắn Súng Laser" />
                 <MenuContent helpPanel={LaserGameHelpPanel}>
                     <MenuItemSelect
-                        title={`Créer une partie`}
+                        title={`Tạo phòng chơi mới`}
                         value={LaserGameTypeEnum.FFA}
                         onConfirm={(_, game_type) => {
                             fetchNui(NuiEvent.LaserGameCreate, game_type);
                         }}
                         description={
                             <div className="flex justify-between items-center">
-                                <span>Prix de la partie</span>
+                                <span>Giá tạo phòng</span>
                                 <span className="mr-1">${getPrice(LaserGamePrice, TaxType.SERVICE)}</span>
                             </div>
                         }

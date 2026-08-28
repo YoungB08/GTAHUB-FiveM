@@ -61,6 +61,6 @@ export class AdminMenuVehicleProvider {
         }
 
         this.vehicleStateService.updateVehicleCondition(netId, { nitro: 3 });
-        this.notifier.notify(source, '~g~3 kits NOS~s~ ont été installé sur le véhicule.');
+        this.notifier.notify(source, '~g~3 bình NOS~s~ đã được lắp đặt trên phương tiện.');
     }
 }

@@ -56,7 +56,7 @@ export class BaunCraftProvider {
         }
 
         if (remaining > 0) {
-            this.notifier.notify(source, `Vous devez avoir au moins 10 cocktails pour créer une caisse.`, 'error');
+            this.notifier.notify(source, `Bạn phải có ít nhất 10 ly cocktail để đóng thành 1 thùng.`, 'error');
 
             return;
         }
@@ -90,13 +90,13 @@ export class BaunCraftProvider {
 
         inventory.add('cocktail_box', 1);
 
-        this.notifier.notify(source, `Vous avez créé un assortiment de cocktails.`, 'success');
+        this.notifier.notify(source, `Bạn đã tạo một thùng cocktail hỗn hợp.`, 'success');
     }
 
     @OnEvent(ServerEvent.BAUN_ICE_CUBE)
     public async onIceCube(source: number, count: number) {
         if (!count) {
-            this.notifier.notify(source, 'Une erreur est survenue lors du choix de la quantité.', 'error');
+            this.notifier.notify(source, 'Đã xảy ra lỗi khi chọn số lượng.', 'error');
             return;
         }
 
@@ -109,7 +109,7 @@ export class BaunCraftProvider {
                 [{ name: 'water_bottle', amount: count, metadata: null }]
             )
         ) {
-            this.notifier.notify(source, 'Vos poches sont pleines.', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy.', 'error');
             return;
         }
 
@@ -117,7 +117,7 @@ export class BaunCraftProvider {
         const secItem = this.itemService.getItem('water_bottle');
 
         if (!inventory.remove('water_bottle', count, false)) {
-            this.notifier.notify(source, `Vous n'avez pas assez de ${secItem.label}.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ ${secItem.label}.`, 'error');
             return;
         }
 
@@ -125,7 +125,7 @@ export class BaunCraftProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez fait ~g~${iceCount}~s~ ${dstItem.label} avec ~g~${count}~s~ ${secItem.label}.`
+            `Bạn đã làm ~g~${iceCount}~s~ ${dstItem.label} từ ~g~${count}~s~ ${secItem.label}.`
         );
     }
 }

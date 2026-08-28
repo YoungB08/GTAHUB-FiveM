@@ -73,7 +73,7 @@ export class BaunRestockProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.hasEnoughItem(item, 1, true)) {
-            this.notifier.notify(source, `Vous n'avez pas de ${itemData.label}.`, 'error');
+            this.notifier.notify(source, `Bạn không có ${itemData.label}.`, 'error');
 
             return;
         }
@@ -84,7 +84,7 @@ export class BaunRestockProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'restock',
-                'Vous commencez à restocker.',
+                'Đang nhập kho...',
                 4000,
                 {
                     dictionary: 'rcmextreme3',
@@ -124,6 +124,6 @@ export class BaunRestockProvider {
             }
         }
 
-        this.notifier.notify(source, `Vous avez arrêté de restocker ${itemData.label}.`, 'success');
+        this.notifier.notify(source, `Bạn đã dừng nhập kho ${itemData.label}.`, 'success');
     }
 }

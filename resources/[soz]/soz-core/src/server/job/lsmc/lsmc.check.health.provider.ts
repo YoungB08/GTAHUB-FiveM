@@ -67,12 +67,12 @@ export class LSMCCheckHealthProvider {
     async setHealthBook(source: number, target: number, field: keyof PlayerHealthBook, value: number) {
         this.playerService.setPlayerMetaDatas(target, { [field]: value, health_book_update_date: Date.now() });
 
-        this.notifier.notify(source, `Carte de santé mise à jour.`, 'success');
+        this.notifier.notify(source, `Sổ theo dõi sức khỏe đã được cập nhật.`, 'success');
     }
 
     @OnEvent(ServerEvent.LSMC_BLOOD_ANALYZE)
     async onBloodAnalyze(source: number) {
-        const targetPlayer = await this.doAnalyze(source, 'Analyse de sang', 'flask_blood_full');
+        const targetPlayer = await this.doAnalyze(source, 'Xét nghiệm máu', 'flask_blood_full');
 
         if (!targetPlayer) {
             return;
@@ -80,7 +80,7 @@ export class LSMCCheckHealthProvider {
 
         this.notifier.notify(
             source,
-            `Analyse complète, glucides: ${targetPlayer.metadata.sugar}, protéines: ${targetPlayer.metadata.protein}.`,
+            `Xét nghiệm hoàn tất: Đường: ${targetPlayer.metadata.sugar}, Protein: ${targetPlayer.metadata.protein}.`,
             'success'
         );
     }
@@ -101,19 +101,19 @@ export class LSMCCheckHealthProvider {
 
         this.notifier.notify(
             source,
-            `<strong>État de santé de ${targetPlayer.charinfo.firstname} ${targetPlayer.charinfo.lastname}</strong>~n~` +
-                `<span style="text-decoration: underline;">Santé :</span> ${healthStateLabel} (${targetPlayer.metadata.health_level})~n~` +
-                `<span style="text-decoration: underline;">Endurance :</span> ${maxStaminaLevelLabel} (${targetPlayer.metadata.max_stamina})~n~` +
-                `<span style="text-decoration: underline;">Force :</span> ${strengthLevelLabel} (${targetPlayer.metadata.strength})~n~` +
-                `<span style="text-decoration: underline;">Stress :</span> ${stressLevelLabel} (${targetPlayer.metadata.stress_level})~n~` +
-                `<span style="text-decoration: underline;">Blessures :</span> ${injuriesLevelLabel}~n~`,
+            `<strong>Tình trạng sức khỏe của ${targetPlayer.charinfo.firstname} ${targetPlayer.charinfo.lastname}</strong>~n~` +
+                `<span style="text-decoration: underline;">Sức khỏe :</span> ${healthStateLabel} (${targetPlayer.metadata.health_level})~n~` +
+                `<span style="text-decoration: underline;">Thể lực :</span> ${maxStaminaLevelLabel} (${targetPlayer.metadata.max_stamina})~n~` +
+                `<span style="text-decoration: underline;">Sức mạnh :</span> ${strengthLevelLabel} (${targetPlayer.metadata.strength})~n~` +
+                `<span style="text-decoration: underline;">Căng thẳng :</span> ${stressLevelLabel} (${targetPlayer.metadata.stress_level})~n~` +
+                `<span style="text-decoration: underline;">Chấn thương :</span> ${injuriesLevelLabel}~n~`,
             'success'
         );
     }
 
     @OnEvent(ServerEvent.LSMC_PEE_ANALYZE)
     async onPeeAnalyze(source: number) {
-        const targetPlayer = await this.doAnalyze(source, 'Analyse urinaire', 'flask_pee_full');
+        const targetPlayer = await this.doAnalyze(source, 'Xét nghiệm nước tiểu', 'flask_pee_full');
 
         if (!targetPlayer) {
             return;
@@ -121,7 +121,7 @@ export class LSMCCheckHealthProvider {
 
         this.notifier.notify(
             source,
-            `Analyse complète, fibre: ${targetPlayer.metadata.fiber}, lipides: ${targetPlayer.metadata.lipid}.`,
+            `Xét nghiệm hoàn tất: Chất xơ: ${targetPlayer.metadata.fiber}, Lipid: ${targetPlayer.metadata.lipid}.`,
             'success'
         );
     }

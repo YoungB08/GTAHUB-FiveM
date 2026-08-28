@@ -184,30 +184,30 @@ export class PlayerDiseaseProvider {
         this.currentDisease = disease;
 
         if (disease === 'rhume') {
-            this.notifier.notify('Vous avez un petit rhume.');
+            this.notifier.notify('Bạn đang bị cảm lạnh nhẹ.');
             this.currentDiseaseLoop = this.commonColdLoop();
         }
 
         if (disease === 'grippe') {
             this.blurService.add('grippe', 100);
 
-            this.notifier.notify('Vous avez la grippe.');
+            this.notifier.notify('Bạn đã bị nhiễm cúm.');
             this.currentDiseaseLoop = this.fluLoop();
         }
 
         if (disease === 'backpain') {
-            this.notifier.notify('Vous avez mal au dos.');
+            this.notifier.notify('Bạn đang bị đau lưng dữ dội.');
             this.currentDiseaseLoop = this.backPainLoop();
         }
 
         if (disease === 'intoxication') {
-            this.notifier.notify('Vous avez mangé un truc pas frais...');
+            this.notifier.notify('Bạn đã ăn phải thức ăn ôi thiu / ngộ độc thực phẩm...');
             this.currentDiseaseLoop = this.intoxicationLoop();
         }
 
         if (disease === 'dyspepsie') {
             this.notifier.notify(
-                "Tu as l'impression de mal digérer ! Consulte un médecin au plus vite ou prend une gélule d'antiacide."
+                'Bạn đang bị khó tiêu / đau dạ dày! Hãy đến gặp bác sĩ LSMC hoặc uống thuốc kháng axit.'
             );
             this.currentDiseaseLoop = this.dyspepsiaLoop();
         }

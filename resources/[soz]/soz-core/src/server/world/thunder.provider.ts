@@ -21,7 +21,7 @@ export class ThunderProvider {
     public thunder(source: number, target: number) {
         const ped = GetPlayerPed(target);
         if (!ped) {
-            this.notifier.error(source, 'Joueur non trouvé - ' + target);
+            this.notifier.error(source, 'Không tìm thấy người chơi - ' + target);
             return;
         }
 
@@ -36,7 +36,7 @@ export class ThunderProvider {
     public thunder2(source: number, target: number) {
         const ped = GetPlayerPed(target);
         if (!ped) {
-            this.notifier.error(source, 'Joueur non trouvé - ' + target);
+            this.notifier.error(source, 'Không tìm thấy người chơi - ' + target);
             return;
         }
 

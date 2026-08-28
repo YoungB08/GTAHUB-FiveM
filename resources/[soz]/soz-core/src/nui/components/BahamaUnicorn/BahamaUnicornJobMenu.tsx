@@ -61,7 +61,7 @@ export const BahamaUnicornJobMenu: FunctionComponent<BahamaUnicornStateProps> = 
                 <MainMenu>
                     <MenuTitle title={JobLabel.baun} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -77,50 +77,50 @@ export const BahamaUnicornJobMenu: FunctionComponent<BahamaUnicornStateProps> = 
                         <MenuItemSubMenuLink
                             id={`recipe_${category}`}
                             key={`recipe_${category}`}
-                        >{`Livre de recettes ${category}`}</MenuItemSubMenuLink>
+                        >{`Sổ tay công thức ${category}`}</MenuItemSubMenuLink>
                     ))}
                     <MenuItemCheckbox
                         checked={state.displayLiquorBlip}
                         onChange={value => displayBlip('displayLiquorBlip', value)}
                     >
-                        Afficher la récolte d'alcools
+                        Hiển thị điểm thu hoạch rượu
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={state.displayFlavorBlip}
                         onChange={value => displayBlip('displayFlavorBlip', value)}
                     >
-                        Afficher la récolte de saveurs
+                        Hiển thị điểm thu hoạch hương liệu
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={state.displayFurnitureBlip}
                         onChange={value => displayBlip('displayFurnitureBlip', value)}
                     >
-                        Afficher la récolte de fournitures
+                        Hiển thị điểm lấy đồ dùng pha chế
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={state.displaySnackBlip}
                         onChange={value => displayBlip('displaySnackBlip', value)}
                     >
-                        Afficher la récolte de snacks
+                        Hiển thị điểm lấy đồ ăn nhẹ (Snacks)
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={state.displayBeerBlip}
                         onChange={value => displayBlip('displayBeerBlip', value)}
                     >
-                        Afficher l'adresse du brasseur de bière
+                        Hiển thị địa chỉ xưởng ủ bia
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={state.displayResellBlip}
                         onChange={value => displayBlip('displayResellBlip', value)}
                     >
-                        Afficher la vente des cocktails
+                        Hiển thị điểm bán Cocktail
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>
             {Object.entries(data.recipes).map(([name, category]) => (
                 <SubMenu id={`recipe_${name}`}>
                     <MenuTitle title={JobLabel.baun} />
-                    <MenuContent subtitle={`Livre de recettes ${name}`}>
+                    <MenuContent subtitle={`Sổ tay công thức ${name}`}>
                         <MenuItemSelect title="" titleWidth={0}>
                             {Object.entries(category.recipes).map(([output, recipe]) => (
                                 <MenuItemSelectOption

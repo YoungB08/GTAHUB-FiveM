@@ -42,7 +42,7 @@ export class LsmcHalloweenProvider {
         const { completed } = await this.progressService.progress(
             source,
             'analyze',
-            'Récupération du contenu des poches',
+            'Đang lục túi đồ...',
             5000,
             {
                 name: 'base',
@@ -67,6 +67,6 @@ export class LsmcHalloweenProvider {
 
         inventory.add(doLooting(this.loots).value.toString(), 1);
 
-        this.notifier.notify(source, `Vous avez récupéré le contenu des poches de ${targetPlayer.name} !`, 'success');
+        this.notifier.notify(source, `Bạn đã lấy các vật phẩm trong túi của ${targetPlayer.name}!`, 'success');
     }
 }

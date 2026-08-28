@@ -10,7 +10,7 @@ export const PoliceSwatPickCaseMenu: FunctionComponent = () => {
     return (
         <Menu type={MenuType.HousingChangePrincipalApartementMenu}>
             <MainMenu>
-                <MenuTitle title="Malette SWAT" />
+                <MenuTitle title="Hòm trang bị SWAT" />
                 <MenuContent>
                     {Object.entries(SwatClassesType).map(([swatClass, label]) => {
                         return (

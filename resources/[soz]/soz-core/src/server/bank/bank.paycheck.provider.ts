@@ -74,17 +74,17 @@ export class BankPaycheckProvider {
                 'money',
                 payment,
                 false,
-                'Versement du salaire'
+                'Thanh toán tiền lương'
             );
 
             if (result) {
                 this.notifier.advancedNotify(
                     player.source,
-                    'Fleeca Banque',
-                    'Mouvement bancaire',
-                    `Votre salaire  ~g~${
-                        player.job.onduty ? 'en service' : 'hors-service'
-                    }~s~ de ~g~${payment}$~s~ a été versé sur votre compte bancaire.`,
+                    'Ngân hàng Fleeca',
+                    'Biến động số dư',
+                    `Tiền lương ~g~${
+                        player.job.onduty ? 'trong ca làm' : 'ngoài ca làm'
+                    }~s~ ~g~$${payment}~s~ đã được chuyển vào tài khoản ngân hàng của bạn.`,
                     'CHAR_BANK_MAZE'
                 );
 
@@ -104,14 +104,14 @@ export class BankPaycheckProvider {
                     'money',
                     gouvConf.SenatSalary,
                     false,
-                    'Indemnité de sénateur'
+                    'Phụ cấp thượng nghị sĩ'
                 );
                 if (result) {
                     this.notifier.advancedNotify(
                         player.source,
-                        'Fleeca Banque',
-                        'Mouvement bancaire',
-                        `Votre indemnité de ~g~sénateur~s~ de ~g~${gouvConf.SenatSalary}$~s~ a été versé sur votre compte bancaire.`,
+                        'Ngân hàng Fleeca',
+                        'Biến động số dư',
+                        `Phụ cấp ~g~thượng nghị sĩ~s~ ~g~$${gouvConf.SenatSalary}~s~ đã được chuyển vào tài khoản ngân hàng của bạn.`,
                         'CHAR_BANK_MAZE'
                     );
 

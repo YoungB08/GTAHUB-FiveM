@@ -1401,7 +1401,7 @@ export class Halloween2023Scenario4Provider {
                         icon: 'global/question',
                         category: 'citizen',
                         action: async () => {
-                            this.notifier.notify("Vous cherchez quelqu'un en particulier ? Personne est ici.", 'info');
+                            this.notifier.notify("Bạn đang tìm ai cụ thể à? Ở đây chẳng có ai cả.", 'info');
                         },
                     },
                 ],
@@ -2787,7 +2787,7 @@ export class Halloween2023Scenario4Provider {
                         category: 'citizen',
                         action: async () => {
                             this.notifier.notify(
-                                "Tu dis avoir vécu l'enfer ces derniers jours ? Arrête tes conneries avant que je ne te foudroie.",
+                                "Bạn nói rằng bạn đã trải qua địa ngục trong những ngày qua à? Hãy dừng mấy chuyện nhảm nhí đó lại trước khi ta giáng sấm sét trừng phạt bạn.",
                                 'info'
                             );
                         },

@@ -92,7 +92,7 @@ export class FoodFieldProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'food-collect-ingredients',
-                'Vous récoltez des ingrédients',
+                'Đang thu hoạch nguyên liệu...',
                 field.harvest.delay,
                 {
                     name: 'weed_stand_checkingleaves_kneeling_01_inspector',
@@ -107,7 +107,7 @@ export class FoodFieldProvider {
             );
 
             if (!completed) {
-                this.notifier.error(player.source, "Vous n'avez pas récolté d'ingrédients");
+                this.notifier.error(player.source, "Bạn chưa thu hoạch được nguyên liệu nào");
 
                 return;
             }
@@ -148,11 +148,11 @@ export class FoodFieldProvider {
                 inventory.add(item.name, item.amount);
 
                 if (!(await this.fieldService.harvestField(fieldIdentifier, item.amount))) {
-                    this.notifier.error(source, 'Le champ est vide');
+                    this.notifier.error(source, 'Cánh đồng đã hết nguyên liệu');
 
                     return;
                 } else {
-                    this.notifier.notify(source, `Vous avez récolté ${item.amount} ${itemData.label}`);
+                    this.notifier.notify(source, `Bạn đã thu hoạch ${item.amount} ${itemData.label}`);
                 }
 
                 this.monitor.traceEvent('job_cm_food_collect', {

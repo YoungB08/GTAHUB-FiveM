@@ -16,9 +16,9 @@ import { VehicleRepository } from '../repository/vehicle.repository';
 import { VehicleStateService } from './vehicle.state.service';
 
 const RadarMessage = {
-    Title: 'RADAR AUTOMATIQUE',
-    FlashVehicle: 'Votre véhicule a été flashé !',
-    FlashPolice: 'Un véhicule a été flashé !',
+    Title: 'RADAR TỰ ĐỘNG',
+    FlashVehicle: 'Phương tiện của bạn đã bị camera bắn tốc độ!',
+    FlashPolice: 'Một phương tiện đã bị camera bắn tốc độ!',
 };
 
 @Provider()
@@ -49,32 +49,30 @@ export class VehicleRadarProvider {
 
     private disabledEndTimes: Record<number, number> = {};
 
+    public disableRadar(radarId: number, duration: number) {
+        this.disabledEndTimes[radarId] = Date.now() + duration;
+    }
+
     @OnEvent(ServerEvent.VEHICLE_RADAR_TRIGGER)
-    public async radarTrigger(
+    public async trigger(
         source: number,
         radarID: number,
-        vehicleID: number,
+        vehiclePlate: string,
         vehicleClass: number,
+        vehicleModel: number,
+        vehicleType: string,
+        vehicleSpeed: number,
         streetName: string
     ) {
-        const player = this.playerService.getPlayer(source);
         const radar = await this.radarRepository.find(radarID);
-        const vehicle = NetworkGetEntityFromNetworkId(vehicleID);
-        const vehicleSpeed = Math.round(GetEntitySpeed(vehicle) * 3.6);
-        const state = this.vehicleStateService.getVehicleState(vehicleID);
-        const vehiclePlate = GetVehicleNumberPlateText(vehicle);
-        const vehicleModel = GetEntityModel(vehicle);
-        let fine: number = 0;
-        if (state.volatile.isPlayerVehicle) {
-            fine = Math.round((vehicleSpeed - radar.speed) * 6);
-        }
-        const vehicleType = GetVehicleType(vehicle);
 
-        if (!player || !radar) {
+        if (!radar) {
             return;
         }
 
-        if (state.volatile.fakeplate) {
+        const player = this.playerService.getPlayer(source);
+
+        if (!player) {
             return;
         }
 
@@ -89,15 +87,15 @@ export class VehicleRadarProvider {
         if (vehicleSpeed - 5 > radar.speed) {
             TriggerClientEvent(ClientEvent.VEHICLE_RADAR_FLASHED, source);
 
-            let radarMessage = `Plaque: ~b~${vehiclePlate}~s~~n~`;
-            radarMessage += `Vitesse: ~r~${vehicleSpeed} km/h~s~ (~g~${radar.speed} km/h~s~)~n~`;
+            let radarMessage = `Biển số: ~b~${vehiclePlate}~s~~n~`;
+            radarMessage += `Tốc độ: ~r~${vehicleSpeed} km/h~s~ (~g~${radar.speed} km/h~s~)~n~`;
 
             if (RadarAllowedVehicle.includes(vehicleModel)) {
                 this.notifier.advancedNotify(
                     source,
                     RadarMessage.Title,
                     RadarMessage.FlashVehicle,
-                    radarMessage + '~g~Véhicule autorisé~s~',
+                    radarMessage + '~g~Phương tiện được phép~s~',
                     'CHAR_BLOCKED',
                     'info'
                 );
@@ -113,7 +111,7 @@ export class VehicleRadarProvider {
             if (vehicleSpeed > dbRadar.speed_record) {
                 radarMessage =
                     radarMessage +
-                    `Nouveau Record: ~b~${await this.playerService.getNameFromCitizenId(
+                    `Kỷ lục mới: ~b~${await this.playerService.getNameFromCitizenId(
                         player.citizenid
                     )}~s~ ~o~${vehicleSpeed}km/h~s~~n~`;
 
@@ -129,14 +127,16 @@ export class VehicleRadarProvider {
             } else if (dbRadar.citizenid) {
                 radarMessage =
                     radarMessage +
-                    `Record: ~b~${await this.playerService.getNameFromCitizenId(dbRadar.citizenid)}~s~ ~o~${
+                    `Kỷ lục: ~b~${await this.playerService.getNameFromCitizenId(dbRadar.citizenid)}~s~ ~o~${
                         dbRadar.speed_record
                     }km/h~s~~n~`;
             }
 
+            const fine = Math.round(((vehicleSpeed - radar.speed) * 0.6) ** 1.35 + 20);
+
             let licenceAction = 'no_action';
             if (fine > 0) {
-                radarMessage = radarMessage + `Amende: ~r~${fine}$~s~~n~`;
+                radarMessage = radarMessage + `Tiền phạt: ~r~$${fine}~s~~n~`;
 
                 if (vehicleSpeed - radar.speed >= 20) {
                     const licences = player.metadata['licences'];
@@ -163,14 +163,14 @@ export class VehicleRadarProvider {
 
                         if (licences[licenceType] >= 1) {
                             licenceAction = 'remove_point';
-                            radarMessage = radarMessage + 'Point: ~r~-1 Point(s)~s~~n~';
+                            radarMessage = radarMessage + 'Điểm: ~r~-1 Điểm~s~~n~';
                         } else {
                             licenceAction = 'remove_licence';
-                            radarMessage = radarMessage + '~r~Retrait du permis~s~~n~';
+                            radarMessage = radarMessage + '~r~Bị tước bằng lái~s~~n~';
                         }
                     } else {
                         licenceAction = 'no_licence';
-                        radarMessage = radarMessage + '~r~Aucun permis~s~~n~';
+                        radarMessage = radarMessage + '~r~Không có bằng lái~s~~n~';
                     }
 
                     this.playerService.setPlayerMetadata(source, 'licences', licences);
@@ -202,7 +202,7 @@ export class VehicleRadarProvider {
             this.notifier.advancedNotifyOnDutyWorkers(
                 RadarMessage.Title,
                 RadarMessage.FlashPolice,
-                `Plaque: ~b~${vehiclePlate}~s~ ~n~Rue: ~b~${streetName}~s~ ~n~Vitesse: ~r~${vehicleSpeed} km/h~s~`,
+                `Biển số: ~b~${vehiclePlate}~s~ ~n~Đường: ~b~${streetName}~s~ ~n~Tốc độ: ~r~${vehicleSpeed} km/h~s~`,
                 'CHAR_BLOCKED',
                 'info',
                 FDO,

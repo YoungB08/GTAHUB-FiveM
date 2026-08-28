@@ -18,7 +18,7 @@ export const HousingSearchWarrantMenu: FunctionComponent<HousingSearchWarrantMen
     return (
         <Menu type={MenuType.HousingSearchWarrantMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Lệnh Khám Xét Bất Động Sản" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

@@ -62,7 +62,7 @@ export class AdminMenuPlayerProvider {
         const players = await this.getPlayers();
         const player = await this.inputService.askInput<string>(
             {
-                title: 'Rechercher un joueur',
+                title: 'Tìm kiếm người chơi',
                 maxCharacters: 50,
             },
             value => {
@@ -76,7 +76,7 @@ export class AdminMenuPlayerProvider {
                     );
                 });
                 if (!player) {
-                    return Err('Aucun joueur trouvé.');
+                    return Err('Không tìm thấy người chơi nào.');
                 }
                 return Ok(value);
             }
@@ -237,7 +237,7 @@ export class AdminMenuPlayerProvider {
                 break;
             case 'all':
                 TriggerServerEvent(ServerEvent.ADMIN_SET_AIO, player, value);
-                this.notifier.notify(`Les attributs du joueur ~g~${player.name}~s~ ont été modifiés.`, 'info');
+                this.notifier.notify(`Thuộc tính của người chơi ~g~${player.name}~s~ đã được thay đổi.`, 'info');
                 break;
         }
     }
@@ -252,7 +252,7 @@ export class AdminMenuPlayerProvider {
         const current = await emitRpc<number>(RpcServerEvent.ADMIN_GET_REPUTATION, player.id);
         const value = await this.inputService.askInput(
             {
-                title: `Changer la Réputation (actuelle ${current})`,
+                title: `Thay đổi Danh tiếng (hiện tại ${current})`,
                 maxCharacters: 7,
             },
             PositiveNumberValidator
@@ -273,11 +273,11 @@ export class AdminMenuPlayerProvider {
     @OnNuiEvent(NuiEvent.AdminMenuPlayerHandleResetCrimi)
     public async handleResetCrimi(player: AdminPlayer): Promise<void> {
         const value = await this.inputService.askInput({
-            title: `Entrer 'OUI' pour confirmer le Reset Criminalité de ce personnage`,
+            title: `Nhập 'CO' để xác nhận Đặt lại Tội phạm cho nhân vật này`,
             maxCharacters: 7,
         });
 
-        if (value === 'OUI') {
+        if (value === 'CO' || value === 'OUI') {
             TriggerServerEvent(ServerEvent.ADMIN_RESET_CRIMI, player.id);
         }
         return;

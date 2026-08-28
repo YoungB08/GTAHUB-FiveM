@@ -16,28 +16,28 @@ export const MONEY_OPTIONS = [
 ];
 
 export const HEALTH_OPTIONS = [
-    { label: 'Tuer', value: 'kill' },
-    { label: 'Réanimer', value: 'revive' },
+    { label: 'Hạ gục (Kill)', value: 'kill' },
+    { label: 'Hồi sinh (Revive)', value: 'revive' },
 ];
 
 export const MOVEMENT_OPTIONS = [
-    { label: 'Bloquer', value: 'freeze' },
-    { label: 'Débloquer', value: 'unfreeze' },
+    { label: 'Đóng băng', value: 'freeze' },
+    { label: 'Hủy đóng băng', value: 'unfreeze' },
 ];
 
 export const VOCAL_OPTIONS = [
-    { label: 'Statut', value: 'status' },
-    { label: 'Muter', value: 'mute' },
-    { label: 'Démuter', value: 'unmute' },
+    { label: 'Trạng thái', value: 'status' },
+    { label: 'Tắt tiếng (Mute)', value: 'mute' },
+    { label: 'Bật tiếng (Unmute)', value: 'unmute' },
 ];
 
 export const LICENCES = [
-    { label: 'Voiture', value: 'car' },
-    { label: 'Poids lourd', value: 'truck' },
-    { label: 'Moto', value: 'motorcycle' },
-    { label: 'Hélicoptère', value: 'heli' },
-    { label: 'Bateau', value: 'boat' },
-    { label: 'Arme', value: 'weapon' },
+    { label: 'Ô tô', value: 'car' },
+    { label: 'Xe tải nặng', value: 'truck' },
+    { label: 'Xe máy', value: 'motorcycle' },
+    { label: 'Trực thăng', value: 'heli' },
+    { label: 'Thuyền / Cano', value: 'boat' },
+    { label: 'Vũ khí (Súng)', value: 'weapon' },
 ];
 
 export type GameMasterSubMenuState = {

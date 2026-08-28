@@ -22,7 +22,7 @@ export const GarbageJobMenu: FunctionComponent<FoodStateProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.garbage} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -42,7 +42,7 @@ export const GarbageJobMenu: FunctionComponent<FoodStateProps> = ({ data }) => {
                             });
                         }}
                     >
-                        Afficher les points de collecte
+                        Hiển thị các điểm thu gom rác trên GPS
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>

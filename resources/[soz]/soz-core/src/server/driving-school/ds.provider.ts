@@ -66,12 +66,12 @@ export class DrivingSchoolProvider {
             }
 
             if (!(await this.playerMoneyService.buy(source, lData.price, TaxType.VEHICLE))) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+                this.notifier.notify(source, "Bạn không có đủ tiền", 'error');
                 return;
             }
         } else {
             if (!inventory.remove('licence_gift')) {
-                this.notifier.notify(source, "Le bon n'est pas valide", 'error');
+                this.notifier.notify(source, "Phiếu quà tặng không hợp lệ", 'error');
                 return;
             }
         }
@@ -87,13 +87,13 @@ export class DrivingSchoolProvider {
         const license = DrivingSchoolConfig.licenses[licenseType];
 
         if (!license) {
-            this.notifier.notify(source, 'Erreur lors de la délivrance de votre permis', 'error');
+            this.notifier.notify(source, 'Lỗi khi cấp giấy phép lái xe của bạn', 'error');
 
             return;
         }
 
         this.playerService.addLicence(source, license);
-        this.notifier.notify(source, `Félicitations ! Vous venez d'obtenir votre ${license.label}`, 'success');
+        this.notifier.notify(source, `Chúc mừng! Bạn vừa nhận được ${license.label}`, 'success');
     }
 
     @Rpc(RpcServerEvent.DRIVING_SCHOOL_SPAWN_VEHICLE)
@@ -104,7 +104,7 @@ export class DrivingSchoolProvider {
     @On(ServerEvent.DRIVING_SCHOOL_UPDATE_VEHICLE_LIMIT)
     public async updateVehicleLimit(source: number, limit: number, price: number) {
         if (!(await this.playerMoneyService.buy(source, price, TaxType.VEHICLE))) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+            this.notifier.notify(source, "Bạn không có đủ tiền", 'error');
             return;
         }
 
@@ -112,7 +112,7 @@ export class DrivingSchoolProvider {
 
         this.notifier.notify(
             source,
-            `Vous venez d'améliorer votre carte grise au niveau ${limit} pour $${await this.priceService.getPrice(
+            `Bạn vừa nâng cấp giới hạn sở hữu phương tiện lên cấp ${limit} với giá $${await this.priceService.getPrice(
                 price,
                 TaxType.VEHICLE
             )}`,

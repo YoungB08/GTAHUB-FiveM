@@ -223,14 +223,14 @@ const Death: FunctionComponent = () => {
     const [feed, setFeed] = useState<JSX.Element[]>([]);
 
     useNuiEvent('laser_game', 'AddKilled', data => {
-        setFeed(old => [...old, <p className="text-red-500">{`Touché(e) par ${data}`}</p>]);
+        setFeed(old => [...old, <p className="text-red-500">{`Bị hạ bởi ${data}`}</p>]);
         setTimeout(() => {
             setFeed(old => old.slice(1));
         }, 3000);
     });
 
     useNuiEvent('laser_game', 'AddKill', data => {
-        setFeed(old => [...old, <p className="text-green-500">{`${data} a été touché(e)`}</p>]);
+        setFeed(old => [...old, <p className="text-green-500">{`Đã bắn trúng ${data}`}</p>]);
         setTimeout(() => {
             setFeed(old => old.slice(1));
         }, 3000);

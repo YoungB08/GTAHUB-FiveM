@@ -166,23 +166,23 @@ export class VampireGameProvider {
         if (this.gameState.hasRole(VampireGameRole.Vampire)) {
             this.instructionalService.display(
                 [
-                    'Tu as ~r~failli à ta tâche...~s~',
-                    "Tu as quand même droit à une nouvelle chance d'ici quelques secondes !",
+                    'Bạn đã ~r~thất bại trong nhiệm vụ của mình...~s~',
+                    "Bạn vẫn có một cơ hội mới trong vài giây nữa!",
                 ],
                 true
             );
         } else if (this.gameState.hasRole(VampireGameRole.Ghoul)) {
             this.instructionalService.display(
                 [
-                    'Tu as ~r~failli à ta tâche...~s~',
-                    "Tu as quand même droit à une nouvelle chance d'ici quelques secondes !",
+                    'Bạn đã ~r~thất bại trong nhiệm vụ của mình...~s~',
+                    "Bạn vẫn có một cơ hội mới trong vài giây nữa!",
                 ],
                 true
             );
         } else {
             this.instructionalService.display(
                 [
-                    "Tu es ~y~inconscient~s~ ! Prie pour qu'un vampire ne te suce pas, car dans le cas contraire tu seras transformé en goule.",
+                    "Bạn đang ~y~bất tỉnh~s~! Hãy cầu nguyện đừng bị ma cà rồng hút máu, nếu không bạn sẽ bị biến thành Ngạ Quỷ (Ghoul).",
                 ],
                 true
             );

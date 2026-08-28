@@ -24,7 +24,7 @@ export class UpwHalloweenProvider {
 
         this.targetFactory.createForModel('prop_storagetank_06', [
             {
-                label: "Un filet d'eau lumineux s'échappe de la cuve...",
+                label: "Một dòng nước phát sáng đang rò rỉ từ bồn chứa...",
                 job: JobType.Upw,
                 category: 'society',
                 action: () => {

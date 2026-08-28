@@ -188,14 +188,14 @@ export class ZkeaFournitureShopProvider {
     @OnNuiEvent(NuiEvent.MuleRent)
     public async rentMule() {
         if (!this.inventoryManager.hasEnoughItem('zkea_crate', 1)) {
-            this.notifier.notify('Je ne te louerai un camion que si tu as fait des achats.', 'error');
+            this.notifier.notify('Tôi chỉ cho bạn thuê xe tải nếu bạn đã mua hàng.', 'error');
             return;
         }
 
         const garage = this.getGaragePlace();
 
         if (!garage) {
-            this.notifier.notify("Il n'y a plus de place disponible.", 'error');
+            this.notifier.notify("Không còn chỗ trống nào trong bãi đỗ.", 'error');
             return;
         }
 
@@ -210,14 +210,14 @@ export class ZkeaFournitureShopProvider {
 
         if (!vehicle) {
             this.notifier.notify(
-                'Vous devez monter dans votre camion de déménagement avant de pouvoir le ranger.',
+                'Bạn phải lên xe tải vận chuyển của mình trước khi có thể cất nó.',
                 'error'
             );
             return;
         }
 
         if (!IsVehicleModel(vehicle, GetHashKey(ZkeaRentVehicleType))) {
-            this.notifier.notify("Vous ne pouvez pas ranger autre chose qu'un camion de déménagement", 'error');
+            this.notifier.notify("Bạn không thể cất phương tiện nào khác ngoài xe tải vận chuyển ZKEA", 'error');
             return;
         }
 
@@ -232,7 +232,7 @@ export class ZkeaFournitureShopProvider {
             ) > DISTANCE_STORE_THRESHOLD
         ) {
             this.notifier.notify(
-                'Gare ton camion sur le parking avant de me rendre les clés. Je ne vais pas le faire à ta place.',
+                'Hãy đỗ xe tải vào bãi đỗ trước khi trả chìa khóa cho tôi. Tôi sẽ không làm điều đó thay bạn đâu.',
                 'error'
             );
             return;

@@ -61,7 +61,7 @@ export class VehicleElectricProvider {
         const energyToFill = Math.floor((getVehicleMaxFuelStorage(vehDef) - vehicleState.condition.fuelLevel) * 0.6); // 100L <=> 60kWh
 
         if (this.currentCharging.has(vehicleNetworkId)) {
-            this.notifier.notify(source, 'Le véhicule est déjà en train de charger.', 'error');
+            this.notifier.notify(source, 'Phương tiện đang trong quá trình sạc điện.', 'error');
 
             return;
         }
@@ -100,7 +100,7 @@ export class VehicleElectricProvider {
         );
 
         if (maxEnergyForMoney <= 0) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
             this.currentCharging.delete(vehicleNetworkId);
             TriggerClientEvent(ClientEvent.VEHICLE_CHARGE_STOP, source);
 
@@ -108,7 +108,7 @@ export class VehicleElectricProvider {
         }
 
         if (reservedEnergy <= 0) {
-            this.notifier.notify(source, 'La station vient de se vider.', 'error');
+            this.notifier.notify(source, 'Trạm sạc hiện đã hết điện tích trữ.', 'error');
             this.currentCharging.delete(vehicleNetworkId);
             TriggerClientEvent(ClientEvent.VEHICLE_CHARGE_STOP, source);
 
@@ -122,7 +122,7 @@ export class VehicleElectricProvider {
         const { progress } = await this.progressService.progress(
             source,
             'charging_vehicle',
-            'Remplissage en cours...',
+            'Đang sạc điện...',
             duration,
             {
                 name: 'gar_ig_5_filling_can',
@@ -154,14 +154,14 @@ export class VehicleElectricProvider {
         let leftOver = reservedEnergy - totalFilled;
 
         if (station.price > 0 && !this.playerMoneyService.remove(source, cost)) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
             leftOver = reservedEnergy;
         } else {
             this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
                 fuelLevel: vehicleState.condition.fuelLevel + Math.ceil(totalFilled / 0.6),
             });
 
-            this.notifier.notify(source, `Vous avez payé $${cost} pour ${totalFilled}kWh d'éléctricité.`, 'success');
+            this.notifier.notify(source, `Bạn đã thanh toán $${cost} cho ${totalFilled}kWh điện.`, 'success');
         }
 
         TriggerClientEvent(ClientEvent.VEHICLE_CHARGE_STOP, source);

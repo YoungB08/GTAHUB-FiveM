@@ -458,7 +458,7 @@ export class VehicleGarageProvider {
         const ids = [];
 
         if (this.playerCriminalService.isCriminal(player.citizenid)) {
-            this.notifier.notify(source, 'Vous devez attendre après avoir réalisé une action criminelle', 'error');
+            this.notifier.notify(source, 'Bạn phải đợi sau khi vừa thực hiện hành vi tội phạm', 'error');
 
             return null;
         }
@@ -681,10 +681,10 @@ export class VehicleGarageProvider {
             } else if (houseIdType === 'property') {
                 const property = await this.housingRepository.getPropertyByIdentifier(id);
                 if (!hasPlayerTenantOrRoommateApartment(property, player.citizenid)) {
-                    return Err(`Vous n'avez pas accès à ce garage.`);
+                    return Err(`Bạn không có quyền truy cập gara này.`);
                 }
             } else {
-                return Err("Vous n'avez pas accès à ce garage.");
+                return Err("Bạn không có quyền truy cập gara này.");
             }
         }
 
@@ -708,7 +708,7 @@ export class VehicleGarageProvider {
         const vehicle = await this.checkCanManageVehicle(player, id, garage, vehicleId, 'property');
 
         if (isErr(vehicle)) {
-            this.notifier.notify(source, `Vous ne pouvez pas renommer ce véhicule: ${vehicle.err}.`, 'error');
+            this.notifier.notify(source, `Không thể đổi tên phương tiện: ${vehicle.err}.`, 'error');
 
             return;
         }
@@ -720,7 +720,7 @@ export class VehicleGarageProvider {
             },
         });
 
-        this.notifier.notify(source, `Le véhicule a été renommé en : ${name}.`, 'error');
+        this.notifier.notify(source, `Phương tiện đã được đổi tên thành: ${name}.`, 'error');
     }
 
     @OnEvent(ServerEvent.VEHICLE_GARAGE_STORE)
@@ -744,7 +744,7 @@ export class VehicleGarageProvider {
         if (vehicleState.volatile.dead && garage.type === GarageType.Depot) {
             this.notifier.notify(
                 source,
-                `Ce véhicule est ~r~détruit~s~ ! Il doit être déposé à la casse et non en fourrière.`
+                `Phương tiện này đã bị ~r~phá hủy hoàn toàn~s~! Phải đưa đến bãi phế liệu chứ không thể cất vào bãi giữ xe.`
             );
             return;
         }
@@ -752,13 +752,13 @@ export class VehicleGarageProvider {
         if (!vehicleState.volatile.id) {
             if (garage.type === GarageType.Depot) {
                 if (await this.vehicleSpawner.delete(vehicleNetworkId)) {
-                    this.notifier.notify(source, 'Le véhicule a été mis en fourrière.', 'success');
+                    this.notifier.notify(source, 'Phương tiện đã được đưa vào bãi tạm giữ.', 'success');
 
                     return;
                 }
             }
 
-            this.notifier.notify(source, 'Ce véhicule ne vous appartient pas.', 'error');
+            this.notifier.notify(source, 'Phương tiện này không thuộc sở hữu của bạn.', 'error');
 
             return;
         }
@@ -768,7 +768,7 @@ export class VehicleGarageProvider {
         if (!ALLOWED_VEHICLE_TYPE[garage.category].includes(vehicleType)) {
             this.notifier.notify(
                 source,
-                `Vous ne pouvez pas ranger ce véhicule dans le garage ${garage.name}.`,
+                `Bạn không thể cất loại phương tiện này vào garage ${garage.name}.`,
                 'error'
             );
 
@@ -799,7 +799,7 @@ export class VehicleGarageProvider {
             if (isErr(vehicleResult)) {
                 this.notifier.notify(
                     source,
-                    `Vous ne pouvez pas ranger ce véhicule dans le garage ${garage.name}: ${vehicleResult.err}.`,
+                    `Bạn không thể cất phương tiện này vào garage ${garage.name}: ${vehicleResult.err}.`,
                     'error'
                 );
 
@@ -823,7 +823,7 @@ export class VehicleGarageProvider {
                 : await this.getPrivatePlaces(source, id, garage);
 
         if (freePlaces !== null && freePlaces <= 0 && id != `property_cayo_villa`) {
-            this.notifier.notify(source, `Ce garage est plein, les ${maxPlaces} places sont occupés.`, 'error');
+            this.notifier.notify(source, `Garage này đã đầy, tất cả ${maxPlaces} chỗ đỗ đã có xe.`, 'error');
 
             return;
         }
@@ -884,9 +884,9 @@ export class VehicleGarageProvider {
             }
 
             if (garage.type === GarageType.Depot) {
-                this.notifier.notify(source, 'Le véhicule a été mis en fourrière.', 'success');
+                this.notifier.notify(source, 'Phương tiện đã được đưa vào bãi tạm giữ.', 'success');
             } else {
-                this.notifier.notify(source, 'Le véhicule a été rangé dans le garage.', 'success');
+                this.notifier.notify(source, 'Phương tiện đã được cất vào garage.', 'success');
             }
         } else {
             this.monitor.traceEvent('vehicle_garage_error_in', {
@@ -899,7 +899,7 @@ export class VehicleGarageProvider {
                 duration: delay,
                 money: cost,
             });
-            this.notifier.notify(source, '~r~ERREUR~s~ du rangement du véhicule.', 'error', 40_000);
+            this.notifier.notify(source, '~r~LỖI~s~ khi cất phương tiện vào garage.', 'error', 40_000);
         }
     }
 
@@ -920,7 +920,7 @@ export class VehicleGarageProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (use_ticket && !inventory.hasEnoughItem('parking_ticket_fake', 1, true)) {
-            this.notifier.notify(source, "Vous n'avez pas de ticket de parking.", 'error');
+            this.notifier.notify(source, 'Bạn không có vé gửi xe / vé đỗ xe.', 'error');
 
             return;
         }
@@ -933,7 +933,7 @@ export class VehicleGarageProvider {
                 });
 
                 if (!playerVehicle) {
-                    this.notifier.notify(source, "Ce véhicule n'existe pas", 'error');
+                    this.notifier.notify(source, 'Phương tiện này không tồn tại', 'error');
 
                     return;
                 }
@@ -958,7 +958,7 @@ export class VehicleGarageProvider {
                         !playerVehicle.job &&
                         (garage.type === GarageType.Private || garage.type === GarageType.House)
                     ) {
-                        this.notifier.notify(source, 'Ce véhicule ne vous appartient pas.', 'error');
+                        this.notifier.notify(source, 'Phương tiện này không thuộc sở hữu của bạn.', 'error');
 
                         return;
                     }
@@ -967,7 +967,7 @@ export class VehicleGarageProvider {
                         (garage.type === GarageType.Job || garage.type === GarageType.JobLuxury) &&
                         player.job.id !== garage.job
                     ) {
-                        this.notifier.notify(source, 'Vous ne pouvez pas sortir un véhicule de ce garage.', 'error');
+                        this.notifier.notify(source, 'Bạn không thể lấy xe ra khỏi garage này.', 'error');
 
                         return;
                     }
@@ -983,7 +983,7 @@ export class VehicleGarageProvider {
                             !(await this.jobService.hasPermission(player, player.job.id, permission)) ||
                             !player.job.onduty)
                     ) {
-                        this.notifier.notify(source, "Vous n'avez pas l'autorisation de sortir ce véhicule.", 'error');
+                        this.notifier.notify(source, 'Bạn không có quyền hạn để lấy phương tiện này.', 'error');
 
                         return;
                     }
@@ -997,7 +997,7 @@ export class VehicleGarageProvider {
                     playerVehicle.state !== PlayerVehicleState.InSoftPound &&
                     playerVehicle.state !== PlayerVehicleState.InFedPound
                 ) {
-                    this.notifier.notify(source, 'Ce véhicule est déjà sorti.', 'error');
+                    this.notifier.notify(source, 'Phương tiện này đã được lấy ra ngoài trước đó.', 'error');
 
                     return;
                 }
@@ -1009,7 +1009,7 @@ export class VehicleGarageProvider {
                 });
 
                 if (parkingPlaces.length === 0) {
-                    this.notifier.notify(source, 'Aucune place de parking disponible.', 'error');
+                    this.notifier.notify(source, 'Không còn chỗ đỗ trống phù hợp để xuất xe.', 'error');
 
                     return;
                 }
@@ -1021,7 +1021,7 @@ export class VehicleGarageProvider {
 
                 if (garage.type === GarageType.Depot) {
                     if (vehicle.requiredLicence && !player.metadata.licences[vehicle.requiredLicence]) {
-                        this.notifier.notify(source, `Vous n'avez pas le permis nécessaire.`, 'error');
+                        this.notifier.notify(source, `Bạn không có bằng lái xe phù hợp.`, 'error');
 
                         return;
                     }
@@ -1039,9 +1039,9 @@ export class VehicleGarageProvider {
                         if (playerVehicle.parkingtime > timestamp) {
                             this.notifier.notify(
                                 source,
-                                `Ce véhicule est immobilisé jusqu'au ${new Date(
+                                `Phương tiện này đang bị tạm giữ đến ${new Date(
                                     playerVehicle.parkingtime * 1000
-                                ).toLocaleDateString('fr-FR', FORMAT_LOCALIZED)}`,
+                                ).toLocaleDateString('vi-VN', FORMAT_LOCALIZED)}`,
                                 'error'
                             );
 
@@ -1067,7 +1067,7 @@ export class VehicleGarageProvider {
                         playerVehicle.state === PlayerVehicleState.InFedPound ? null : TaxType.VEHICLE
                     ))
                 ) {
-                    this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+                    this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
 
                     return;
                 }
@@ -1118,7 +1118,7 @@ export class VehicleGarageProvider {
                         position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
                     });
 
-                    this.notifier.notify(source, 'Vous avez sorti votre véhicule.', 'success');
+                    this.notifier.notify(source, 'Bạn đã lấy xe ra khỏi garage thành công.', 'success');
 
                     if (use_ticket) {
                         inventory.remove('parking_ticket_fake', 1, false);
@@ -1126,7 +1126,7 @@ export class VehicleGarageProvider {
                 } else {
                     this.notifier.notify(
                         source,
-                        'Une erreur est survenue lors du spawn du véhicule, veuillez ressayer.',
+                        'Đã xảy ra lỗi khi tạo xe ra bãi đỗ, vui lòng thử lại.',
                         'error'
                     );
 
@@ -1142,7 +1142,7 @@ export class VehicleGarageProvider {
     @OnEvent(ServerEvent.VEHICLE_GARAGE_TRANSFER)
     public async transferVehicleToGarage(source: number, id: number, from: Garage, to: Garage) {
         if (!from.transferList || !from.transferList.includes(to.id)) {
-            this.notifier.notify(source, 'Vous ne pouvez pas transférer ce véhicule dans ce garage.', 'error');
+            this.notifier.notify(source, 'Bạn không thể chuyển phương tiện sang garage này.', 'error');
 
             return;
         }
@@ -1152,7 +1152,7 @@ export class VehicleGarageProvider {
         });
 
         if (!playerVehicle || (playerVehicle.garage !== from.id && playerVehicle.garage !== from.legacyId)) {
-            this.notifier.notify(source, "Ce véhicule n'est pas disponible.", 'error');
+            this.notifier.notify(source, 'Phương tiện này hiện không khả dụng để chuyển.', 'error');
 
             return;
         }
@@ -1161,7 +1161,7 @@ export class VehicleGarageProvider {
         const transferPrice = getTransferPrice(weight);
 
         if (!(await this.playerMoneyService.buy(source, transferPrice, TaxType.TRAVEL))) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
 
             return;
         }
@@ -1175,7 +1175,7 @@ export class VehicleGarageProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez transféré votre véhicule pour ${await this.priceService.getPrice(
+            `Bạn đã chuyển phương tiện thành công với phí ${await this.priceService.getPrice(
                 transferPrice,
                 TaxType.TRAVEL
             )}$.`,

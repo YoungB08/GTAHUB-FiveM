@@ -47,7 +47,7 @@ export class UpwResellProvider {
 
     @OnEvent(ServerEvent.UPW_RESELL)
     public async onResell(source: number) {
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à revendre.', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ bán lại năng lượng.', 'success');
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         while (inventory) {
@@ -60,7 +60,7 @@ export class UpwResellProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'upw_resell',
-                'Vous déposez...',
+                'Đang nạp năng lượng...',
                 UpwConfig.Resale.Duration,
                 {
                     dictionary: 'anim@mp_radio@garage@low',
@@ -87,8 +87,8 @@ export class UpwResellProvider {
 
             await this.bankService.transferFarmMoney(source, UpwConfig.Order.farm, UpwConfig.Order.safe, money);
 
-            this.notifier.notify(source, `Vous avez vendu 1 ~g~${itemDef.label}~s~.`);
+            this.notifier.notify(source, `Bạn đã bán 1 ~g~${itemDef.label}~s~.`);
         }
-        this.notifier.notify(source, 'Vous avez ~r~arrêté~s~ de revendre.');
+        this.notifier.notify(source, 'Bạn đã ~r~dừng~s~ bán lại.');
     }
 }

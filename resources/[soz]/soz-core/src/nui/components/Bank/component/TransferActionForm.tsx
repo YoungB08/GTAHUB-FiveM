@@ -72,7 +72,7 @@ export const TransferActionForm: FunctionComponent<TransferActionFormProps> = ({
     return (
         <Card>
             <form onSubmit={handleSubmit(submitForm)} className="space-y-2.5">
-                <Title size="xsmall">Transfert d'argent</Title>
+                <Title size="xsmall">Chuyển tiền liên tài khoản</Title>
 
                 <div className="relative rounded-md shadow-sm">
                     <Combobox
@@ -83,7 +83,7 @@ export const TransferActionForm: FunctionComponent<TransferActionFormProps> = ({
                     >
                         <div className="relative w-full cursor-default overflow-hidden rounded-md ring-0 text-left focus:outline-none">
                             <Combobox.Input
-                                placeholder="Rechercher un bénéficiaire"
+                                placeholder="Tìm kiếm người nhận / Số tài khoản"
                                 className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 focus:ring-0 placeholder:text-inherit placeholder:opacity-50"
                                 displayValue={(contact: BankContact) => contact.label}
                                 onChange={event => setQuery(event.target.value)}
@@ -181,11 +181,11 @@ export const TransferActionForm: FunctionComponent<TransferActionFormProps> = ({
                     {...register('reason', {
                         maxLength: 90,
                     })}
-                    placeholder="Libellé du transfert (optionel)"
+                    placeholder="Nội dung chuyển tiền (không bắt buộc)"
                     error={errors.reason}
                 />
 
-                <Button disabled={isSubmitting}>Transférer</Button>
+                <Button disabled={isSubmitting}>Thực hiện chuyển tiền</Button>
             </form>
         </Card>
     );

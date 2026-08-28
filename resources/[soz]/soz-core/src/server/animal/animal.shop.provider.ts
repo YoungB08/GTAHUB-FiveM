@@ -58,7 +58,7 @@ export class AnimalShopProvider {
             if (ownedPet) {
                 this.notifier.notify(
                     source,
-                    `Vous possedez déjà ~b~${ownedPet.name || `un animal`}~s~. ~r~ABANDONNE~s~ le si tu en souhaites un autre (pauvre bête).`,
+                    `Bạn đã sở hữu ~b~${ownedPet.name || `một thú cưng`}~s~ rồi. Hãy ~r~BỎ RƠI~s~ nó nếu bạn muốn nuôi con khác (tội nghiệp con vật).`,
                     'info'
                 );
                 return;
@@ -72,7 +72,7 @@ export class AnimalShopProvider {
                 PUBLIC_SERVICES.includes(job) ? null : TaxType.SERVICE
             ))
         ) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+            this.notifier.notify(source, "Bạn không có đủ tiền.", 'error');
             return;
         }
 
@@ -98,7 +98,7 @@ export class AnimalShopProvider {
             await this.prismaService.job_pet.create({ data: newPet });
             this.notifier.notify(
                 source,
-                "Tu as  ~g~acheté~s~ un animal pour ton entreprise ! Reviens me voir si tu souhaites l'emporter avec toi."
+                "Bạn đã ~g~mua~s~ một con thú cho doanh nghiệp của mình! Hãy quay lại gặp tôi nếu bạn muốn dẫn nó đi cùng."
             );
         } else {
             const newPet = {
@@ -110,17 +110,17 @@ export class AnimalShopProvider {
             if (!inventory || isErr(inventory.add('whistle_basic', 1))) {
                 this.notifier.notify(
                     source,
-                    `Je n'ai pas pu te donner ~b~ton sifflet~s~ de dressage, passe à la boutique pour t'en ~y~acheter~s~ un.`,
+                    `Tôi không thể đưa cho bạn ~b~còi huấn luyện~s~, hãy ghé cửa hàng để ~y~mua~s~ một chiếc nhé.`,
                     'error'
                 );
             }
 
             this.notifier.notify(
                 source,
-                "Tu as  ~g~acheté~s~ un animal, utilise ~b~ton sifflet~s~ pour l'appeler ! Reviens me voir pour lui donner un nom."
+                "Bạn đã ~g~mua~s~ một thú cưng, hãy dùng ~b~còi~s~ để gọi nó! Quay lại gặp tôi để đặt tên cho thú cưng nhé."
             );
 
-            this.notifier.notify(source, "Tu peux donner des ordres à ton animal à l'aide du Menu ~g~O~s~ !", 'info');
+            this.notifier.notify(source, "Bạn có thể ra lệnh cho thú cưng bằng Menu ~g~O~s~ !", 'info');
             TriggerClientEvent(ClientEvent.PET_SYNC_ANIMAL, source, true);
         }
     }
@@ -139,7 +139,7 @@ export class AnimalShopProvider {
         this.playerHealthProvider.increaseStress(source, PlayerStressOnAbandon);
         this.notifier.notify(
             source,
-            `Vous avez ~r~abandonné~s~ votre animal, son regard était triste, et vous vous sentez ~r~stressé~s~..`
+            `Bạn đã ~r~bỏ rơi~s~ thú cưng của mình, ánh mắt nó thật buồn bã, và bạn cảm thấy ~r~căng thẳng (stress)~s~..`
         );
         TriggerClientEvent(ClientEvent.PET_SYNC_ANIMAL, source, true);
     }

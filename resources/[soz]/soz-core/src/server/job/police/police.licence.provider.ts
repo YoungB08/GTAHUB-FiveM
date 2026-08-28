@@ -31,7 +31,7 @@ export class PoliceLicenceProvider {
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     player.source,
-                    `Vous êtes trop loin de la personne pour lui retirer des points`
+                    `Bạn đang ở quá xa người này để thực hiện trừ điểm bằng lái`
                 );
                 return;
             }
@@ -44,12 +44,12 @@ export class PoliceLicenceProvider {
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     player.source,
-                    `Vous avez retiré ~b~${nbPoints} point${nbPoints > 1 ? 's' : ''}~s~ sur le ~b~${label}~s~`
+                    `Bạn đã trừ ~b~${nbPoints} điểm~s~ trên bằng ~b~${label}~s~`
                 );
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     target.source,
-                    `~b~${nbPoints} point${nbPoints > 1 ? 's' : ''}~s~ ont été retirés de votre ~b~${label}~s~ !`
+                    `~b~${nbPoints} điểm~s~ đã bị trừ trên bằng ~b~${label}~s~ của bạn!`
                 );
                 this.playerService.setPlayerMetadata(target.source, 'licences', licences);
             }
@@ -68,7 +68,7 @@ export class PoliceLicenceProvider {
                     TriggerClientEvent(
                         ClientEvent.NOTIFICATION_DRAW,
                         player.source,
-                        `Le permis ~b~${PlayerLicenceLabels[licenceType]}~s~ est déjà invalide`
+                        `Bằng ~b~${PlayerLicenceLabels[licenceType]}~s~ hiện đã không còn hiệu lực`
                     );
                     return;
                 }
@@ -77,12 +77,12 @@ export class PoliceLicenceProvider {
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     player.source,
-                    `Vous avez retiré le permis ~b~${PlayerLicenceLabels[licenceType]}~s~`
+                    `Bạn đã tước bằng ~b~${PlayerLicenceLabels[licenceType]}~s~`
                 );
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     target.source,
-                    `Votre permis ~b~${PlayerLicenceLabels[licenceType]}~s~ a été retiré !`
+                    `Bằng ~b~${PlayerLicenceLabels[licenceType]}~s~ của bạn đã bị tước!`
                 );
                 this.playerService.setPlayerMetadata(target.source, 'licences', licences);
             }
@@ -101,7 +101,7 @@ export class PoliceLicenceProvider {
                     TriggerClientEvent(
                         ClientEvent.NOTIFICATION_DRAW,
                         player.source,
-                        `Le permis ~b~${PlayerLicenceLabels[licenceType]}~s~ est déjà valide`
+                        `Bằng ~b~${PlayerLicenceLabels[licenceType]}~s~ đã có hiệu lực từ trước`
                     );
                     return;
                 }
@@ -110,12 +110,12 @@ export class PoliceLicenceProvider {
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     player.source,
-                    `Vous avez donné le permis ~b~${PlayerLicenceLabels[licenceType]}~s~`
+                    `Bạn đã cấp bằng ~b~${PlayerLicenceLabels[licenceType]}~s~`
                 );
                 TriggerClientEvent(
                     ClientEvent.NOTIFICATION_DRAW,
                     target.source,
-                    `Vous avez reçu le permis ~b~${PlayerLicenceLabels[licenceType]}~s~`
+                    `Bạn đã nhận được bằng ~b~${PlayerLicenceLabels[licenceType]}~s~`
                 );
                 this.playerService.setPlayerMetadata(target.source, 'licences', licences);
             }

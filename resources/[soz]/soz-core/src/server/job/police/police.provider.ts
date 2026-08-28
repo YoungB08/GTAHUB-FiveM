@@ -129,14 +129,14 @@ export class PoliceProvider {
         }
 
         if (player.metadata.armor.hidden) {
-            this.notifier.notify(source, `Vous n'avez pas de gilet sur vous.`, 'error');
+            this.notifier.notify(source, `Bạn đang không mặc áo giáp.`, 'error');
             return;
         }
 
         if (state.nbArmorPlates >= state.maxArmorPlates || state.usedArmorPlates >= state.maxArmorPlates) {
             this.notifier.notify(
                 source,
-                `Vous ne pouvez pas rajouter plus de plaque balistique sur ce gilet.`,
+                `Bạn không thể gắn thêm tấm lót chống đạn vào áo giáp này nữa.`,
                 'error'
             );
             return;

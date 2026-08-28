@@ -62,7 +62,7 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
             <div className="flex flex-col gap-2.5 w-4/6">
                 <div className="flex flex-none gap-2.5">
                     <Card className="w-1/2">
-                        <Title size="small">Solde bancaire</Title>
+                        <Title size="small">Số dư tài khoản</Title>
 
                         <div className="flex flex-col justify-center items-center py-2.5">
                             <Title size="xlarge">
@@ -72,7 +72,7 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
                     </Card>
 
                     <Card className="w-1/2">
-                        <Title size="small">Portefeuille</Title>
+                        <Title size="small">Ví tiền mặt</Title>
 
                         <div className="flex flex-col justify-center items-center py-2.5">
                             <Title size="xlarge">
@@ -83,7 +83,7 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
                 </div>
 
                 <Card className="flex flex-col grow gap-5 min-h-0">
-                    <Title size="xsmall">Annuaire</Title>
+                    <Title size="xsmall">Danh bạ người nhận</Title>
 
                     <div className="grid grid-cols-2 gap-2.5 overflow-y-auto scrollbar-thin scrollbar-thumb-black/20">
                         {contacts.map(contact => (
@@ -92,7 +92,7 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
 
                         {contacts.length === 0 && (
                             <div className="col-span-3 flex items-center justify-center text-gray-300 py-10">
-                                Vous n'avez pas de bénéficiaire
+                                Chưa có người nhận nào trong danh bạ
                             </div>
                         )}
                     </div>
@@ -102,13 +102,13 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
             {/* Right pane */}
             <div className="w-2/6 space-y-2.5">
                 <Card className="space-y-2.5">
-                    <Title size="xsmall">Nouveau bénéficiaire</Title>
+                    <Title size="xsmall">Thêm người nhận mới</Title>
 
                     <form onSubmit={handleSubmit(submitForm)} className="mt-2">
                         <div className="flex flex-col gap-4 text-sm">
                             <div>
                                 <label htmlFor="label" className="block text-sm font-medium leading-6">
-                                    Nom
+                                    Tên gợi nhớ
                                 </label>
                                 <Input
                                     type="text"
@@ -117,14 +117,14 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
                                         maxLength: 50,
                                         required: true,
                                     })}
-                                    placeholder="Mon compte"
+                                    placeholder="Ví dụ: Anh Nam, Cửa hàng..."
                                     error={errors.label}
                                 />
                             </div>
 
                             <div>
                                 <label htmlFor="accountid" className="block text-sm font-medium leading-6">
-                                    IBAN
+                                    Số tài khoản (IBAN)
                                 </label>
                                 <Input
                                     type="text"
@@ -140,7 +140,7 @@ export const ContactPage: FunctionComponent<HistoryProps> = ({ account, contacts
                         </div>
 
                         <div className="flex justify-end mt-4">
-                            <Button>Ajouter</Button>
+                            <Button>Thêm vào danh bạ</Button>
                         </div>
                     </form>
                 </Card>

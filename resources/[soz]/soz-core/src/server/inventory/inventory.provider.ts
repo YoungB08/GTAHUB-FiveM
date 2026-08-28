@@ -160,7 +160,7 @@ export class InventoryProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(targetId)) as Vector3;
 
         if (getDistance(playerPosition, targetPosition) > 2) {
-            this.notifier.error(source, "Personne n'est à portée de vous");
+            this.notifier.error(source, "Không có ai ở gần bạn");
 
             return;
         }
@@ -172,7 +172,7 @@ export class InventoryProvider {
         const markedMoneyAmount = this.playerMoneyService.get(source, 'marked_money');
 
         if (amount > markedMoneyAmount + moneyAmount) {
-            this.notifier.error(source, "Vous n'avez pas assez d'argent");
+            this.notifier.error(source, "Bạn không có đủ tiền");
 
             return;
         }
@@ -191,8 +191,8 @@ export class InventoryProvider {
         this.playerMoneyService.add(targetId, moneyToGive, 'money');
         this.playerMoneyService.add(targetId, markedMoneyToGive, 'marked_money');
 
-        this.notifier.notify(source, `Vous avez donné ~r~${amount}$`);
-        this.notifier.notify(targetId, `Vous avez reçu ~g~${amount}$`);
+        this.notifier.notify(source, `Bạn đã đưa ~r~$${amount}~s~`);
+        this.notifier.notify(targetId, `Bạn đã nhận ~g~$${amount}~s~`);
 
         this.monitor.traceEvent('give_money', {
             player_source: source,
@@ -212,7 +212,7 @@ export class InventoryProvider {
         const targetInventory = await this.inventoryFactory.get(targetInventoryId);
 
         if (!sourceInventory || !targetInventory) {
-            this.notifier.error(source, "Impossible de transfer de l'argent dans cette inventaire");
+            this.notifier.error(source, "Không thể chuyển tiền vào túi đồ này");
 
             return null;
         }
@@ -221,7 +221,7 @@ export class InventoryProvider {
         const targetCitizenId = targetInventory.getPlayerCitizenId();
 
         if (!sourceCitizenId || !targetCitizenId) {
-            this.notifier.error(source, "Impossible de transfer de l'argent dans cette inventaire");
+            this.notifier.error(source, "Không thể chuyển tiền vào túi đồ này");
 
             return null;
         }
@@ -230,7 +230,7 @@ export class InventoryProvider {
         const target = this.playerService.getPlayerByCitizenId(targetCitizenId);
 
         if (!player || !target) {
-            this.notifier.error(source, "Impossible de transfer de l'argent dans cette inventaire");
+            this.notifier.error(source, "Không thể chuyển tiền vào túi đồ này");
 
             return null;
         }
@@ -243,7 +243,7 @@ export class InventoryProvider {
         const targetPosition = GetEntityCoords(GetPlayerPed(target.source)) as Vector3;
 
         if (getDistance(playerPosition, targetPosition) > 2) {
-            this.notifier.error(source, "Personne n'est à portée de vous");
+            this.notifier.error(source, "Không có ai ở gần bạn");
 
             return null;
         }
@@ -255,7 +255,7 @@ export class InventoryProvider {
         const markedMoneyAmount = this.playerMoneyService.get(player.source, 'marked_money');
 
         if (amount > markedMoneyAmount + moneyAmount) {
-            this.notifier.error(source, "Pas assez d'argent");
+            this.notifier.error(source, "Không đủ tiền");
 
             return null;
         }
@@ -269,8 +269,8 @@ export class InventoryProvider {
         this.playerMoneyService.add(target.source, moneyToGive, 'money');
         this.playerMoneyService.add(target.source, markedMoneyToGive, 'marked_money');
 
-        this.notifier.notify(player.source, `Vous avez donné ~r~${amount}$`);
-        this.notifier.notify(target.source, `Vous avez reçu ~g~${amount}$`);
+        this.notifier.notify(player.source, `Bạn đã đưa ~r~$${amount}~s~`);
+        this.notifier.notify(target.source, `Bạn đã nhận ~g~$${amount}~s~`);
 
         this.monitor.traceEvent('transfer_money', {
             player_source: source === player.source ? source : target.source,
@@ -303,7 +303,7 @@ export class InventoryProvider {
         }
 
         if (!this.inventoryPositionChecker.checkPlayerDistance(source, inventoryId)) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -311,13 +311,13 @@ export class InventoryProvider {
         const inventoryItem = inventory.getItemAtSlot(inventoryItemSlot);
 
         if (!inventoryItem) {
-            this.notifier.error(source, "Vous n'avez rien jeter.");
+            this.notifier.error(source, "Bạn chưa vứt vật phẩm nào.");
 
             return;
         }
 
         if (!inventory.removeAtSlot(inventoryItem.slot, inventoryItem.amount)) {
-            this.notifier.error(source, "Vous n'avez rien jeter.");
+            this.notifier.error(source, "Bạn chưa vứt vật phẩm nào.");
 
             return;
         }
@@ -326,7 +326,7 @@ export class InventoryProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez jeté ~o~${inventoryItem.amount} ~b~${item?.label || inventoryItem.name}`
+            `Bạn đã vứt ~o~${inventoryItem.amount} ~b~${item?.label || inventoryItem.name}~s~`
         );
 
         TriggerClientEvent(ClientEvent.ANIMATION_GIVE, source);
@@ -366,7 +366,7 @@ export class InventoryProvider {
             !this.inventoryPositionChecker.checkPlayerDistance(source, sourceInventoryId) ||
             !this.inventoryPositionChecker.checkPlayerDistance(source, targetInventoryId)
         ) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -375,7 +375,7 @@ export class InventoryProvider {
         }
 
         if (sourceItem.amount < amount) {
-            this.notifier.error(source, 'Quantité trop élevée.');
+            this.notifier.error(source, 'Số lượng quá lớn.');
 
             return;
         }
@@ -458,7 +458,7 @@ export class InventoryProvider {
                         ]
                     )
                 ) {
-                    this.notifier.error(source, 'Impossible de porter cet objet');
+                    this.notifier.error(source, 'Không thể mang theo vật phẩm này');
 
                     return;
                 }
@@ -481,7 +481,7 @@ export class InventoryProvider {
                         ]
                     )
                 ) {
-                    this.notifier.error(source, 'Pas assez de place pour échanger les objets.');
+                    this.notifier.error(source, 'Không đủ chỗ để đổi vật phẩm.');
 
                     return;
                 }
@@ -496,7 +496,7 @@ export class InventoryProvider {
                     targetItem.name !== sourceItem.name &&
                     targetInventory.type() === InventoryType.Player
                 ) {
-                    this.notifier.error(source, "Vous ne pouvez porter ~r~qu'un seul exemplaire~s~ de cet objet.");
+                    this.notifier.error(source, "Bạn chỉ có thể mang ~r~duy nhất một món~s~ vật phẩm này.");
 
                     return;
                 }
@@ -507,7 +507,7 @@ export class InventoryProvider {
                     targetItem.name !== sourceItem.name &&
                     sourceInventory.type() === InventoryType.Player
                 ) {
-                    this.notifier.error(source, "Vous ne pouvez porter ~r~qu'un seul exemplaire~s~ de cet objet.");
+                    this.notifier.error(source, "Bạn chỉ có thể mang ~r~duy nhất một món~s~ vật phẩm này.");
 
                     return;
                 }
@@ -517,7 +517,7 @@ export class InventoryProvider {
                     (targetItemDef.notGiveable || sourceItemDef.notGiveable) &&
                     !this.permissionService.isStaff(source)
                 ) {
-                    this.notifier.error(source, 'Vous ne pouvez pas ~r~transférer~s~ de cet objet.');
+                    this.notifier.error(source, 'Bạn không thể ~r~chuyển giao~s~ vật phẩm này.');
 
                     return 0;
                 }
@@ -527,7 +527,7 @@ export class InventoryProvider {
                         (sourceInventory.type() !== InventoryType.Player && targetItem.metadata?.notStorable)) &&
                     !this.permissionService.isStaff(source)
                 ) {
-                    this.notifier.error(source, 'Vous ne pouvez pas ~r~stocker~s~ de cet objet.');
+                    this.notifier.error(source, 'Bạn không thể ~r~cất giữ~s~ vật phẩm này.');
 
                     return 0;
                 }
@@ -594,7 +594,7 @@ export class InventoryProvider {
                     if (targetPlayer) {
                         this.notifier.notify(
                             targetPlayer.source,
-                            `On vous a échangé ~o~${targetItem.amount} ~b~${targetItemDef?.label || targetItem.name}~s~ contre ~o~${amount} ~b~${sourceItemDef?.label || sourceItem.name}`
+                            `Bạn đã nhận đổi ~o~${targetItem.amount} ~b~${targetItemDef?.label || targetItem.name}~s~ lấy ~o~${amount} ~b~${sourceItemDef?.label || sourceItem.name}~s~`
                         );
                     }
                 }
@@ -633,7 +633,7 @@ export class InventoryProvider {
         }
 
         if (!this.inventoryPositionChecker.checkPlayerDistance(source, inventoryId)) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -651,7 +651,7 @@ export class InventoryProvider {
         }
 
         if (!this.inventoryPositionChecker.checkPlayerDistance(source, inventoryId)) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -675,7 +675,7 @@ export class InventoryProvider {
         if (inventoryItem.type === 'weapon') {
             if (isInventoryItemExpired(inventoryItem)) {
                 const item = this.itemService.getItem(inventoryItem.name);
-                this.notifier.notify(source, `${item.label} est périmé(e).`, 'error');
+                this.notifier.notify(source, `${item.label} đã hết hạn sử dụng.`, 'error');
                 return;
             }
 
@@ -702,7 +702,7 @@ export class InventoryProvider {
         }
 
         if (!this.inventoryPositionChecker.checkPlayerDistance(source, inventoryId)) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -719,7 +719,7 @@ export class InventoryProvider {
         }
 
         if (target.metadata.isdead || target.metadata.inlaststand) {
-            this.notifier.error(source, "Le joueur est dans un état où il ne peut pas consommer d'objet.");
+            this.notifier.error(source, "Người chơi đang ở trạng thái không thể sử dụng vật phẩm.");
 
             return;
         }
@@ -730,12 +730,12 @@ export class InventoryProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez forcé le joueur à utiliser ~b~${itemObject.label || inventoryItem.name}`
+            `Bạn đã ép người chơi sử dụng ~b~${itemObject.label || inventoryItem.name}~s~`
         );
 
         this.notifier.notify(
             target.source,
-            `Vous avez été forcé à utiliser ~b~${itemObject.label || inventoryItem.name}`
+            `Bạn bị ép buộc phải sử dụng ~b~${itemObject.label || inventoryItem.name}~s~`
         );
 
         await inventory.observe();
@@ -757,7 +757,7 @@ export class InventoryProvider {
         }
 
         if (!this.inventoryPositionChecker.checkPlayerDistance(source, inventoryId)) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
@@ -772,7 +772,7 @@ export class InventoryProvider {
             label,
         });
 
-        this.notifier.notify(source, `Vous avez ajouté l'étiquette ~g~${label}`);
+        this.notifier.notify(source, `Bạn đã gắn nhãn ~g~${label}~s~`);
 
         await inventory.observe();
     }
@@ -792,7 +792,7 @@ export class InventoryProvider {
         const itemObject = this.itemService.getItem(inventoryItem.name);
         this.notifier.notify(
             source,
-            `Vous avez gravé votre ~b~${itemObject.label}~s~ avec l'inscription ~b~${label}~s~ pour ~g~$${price}~s~ !`
+            `Bạn đã khắc lên ~b~${itemObject.label}~s~ dòng chữ ~b~${label}~s~ với giá ~g~$${price}~s~ !`
         );
 
         await inventory.observe();
@@ -822,13 +822,13 @@ export class InventoryProvider {
             !this.inventoryPositionChecker.checkPlayerDistance(source, sourceInventory.id) ||
             !this.inventoryPositionChecker.checkPlayerDistance(source, targetInventory.id)
         ) {
-            this.notifier.error(source, "Vous n'êtes pas à portée de l'inventaire.");
+            this.notifier.error(source, "Bạn không ở trong phạm vi của túi đồ.");
 
             return;
         }
 
         if (targetInventory.id === sourceInventory.id) {
-            this.notifier.error(source, "Vous ne pouvez pas donner d'objet à vous-même.");
+            this.notifier.error(source, "Bạn không thể tự đưa đồ cho chính mình.");
 
             return;
         }
@@ -872,7 +872,7 @@ export class InventoryProvider {
             targetInventory.type() === InventoryType.PlayerClothing &&
             targetInventory.hasEnoughItem(sourceItem.name, 1, false)
         ) {
-            this.notifier.error(source, "Vous ne pouvez porter ~r~qu'un seul exemplaire~s~ de cet objet.");
+            this.notifier.error(source, "Bạn chỉ có thể mang ~r~duy nhất một món~s~ vật phẩm này.");
 
             return 0;
         }
@@ -883,7 +883,7 @@ export class InventoryProvider {
             targetInventory.hasEnoughItem(sourceItem.name, 1, false) &&
             targetInventory.type() === InventoryType.Player
         ) {
-            this.notifier.error(source, "Vous ne pouvez porter ~r~qu'un seul exemplaire~s~ de cet objet.");
+            this.notifier.error(source, "Bạn chỉ có thể mang ~r~duy nhất một món~s~ vật phẩm này.");
 
             return 0;
         }
@@ -893,7 +893,7 @@ export class InventoryProvider {
             itemObject.notGiveable &&
             !this.permissionService.isStaff(source)
         ) {
-            this.notifier.error(source, 'Vous ne pouvez pas ~r~transférer~s~ de cet objet.');
+            this.notifier.error(source, 'Bạn không thể ~r~chuyển giao~s~ vật phẩm này.');
 
             return 0;
         }
@@ -903,13 +903,13 @@ export class InventoryProvider {
             sourceItem.metadata?.notStorable &&
             !this.permissionService.isStaff(source)
         ) {
-            this.notifier.error(source, 'Vous ne pouvez pas ~r~stocker~s~ de cet objet.');
+            this.notifier.error(source, 'Bạn không thể ~r~cất giữ~s~ vật phẩm này.');
 
             return 0;
         }
 
         if (!sourceInventory.removeAtSlot(sourceItem.slot, amount)) {
-            this.notifier.error(source, "Impossible de retirer l'objet de l'inventaire.");
+            this.notifier.error(source, "Không thể lấy vật phẩm khỏi túi đồ.");
 
             return 0;
         }
@@ -980,7 +980,7 @@ export class InventoryProvider {
                 if (targetPlayer) {
                     this.notifier.notify(
                         targetPlayer.source,
-                        `Vous avez reçu ~o~${amount} ~b~${itemObject.label || sourceItem.name}`
+                        `Bạn đã nhận được ~o~${amount} ~b~${itemObject.label || sourceItem.name}~s~`
                     );
                 }
             }
@@ -993,7 +993,7 @@ export class InventoryProvider {
                 if (targetPlayer) {
                     this.notifier.notify(
                         targetPlayer.source,
-                        `On vous a pris ~o~${amount} ~b~${itemObject.label || sourceItem.name}`
+                        `Bạn đã bị lấy đi ~o~${amount} ~b~${itemObject.label || sourceItem.name}~s~`
                     );
                 }
             }

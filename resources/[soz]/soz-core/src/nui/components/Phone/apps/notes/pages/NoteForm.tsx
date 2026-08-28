@@ -54,7 +54,7 @@ export const NoteForm: FunctionComponent = () => {
     };
 
     const handleDeleteNote = () => {
-        sendAlert('Supprimer la note ?', 'Cette action est irréversible.', () => {
+        sendAlert('Xóa ghi chú?', 'Thao tác này không thể hoàn tác.', () => {
             deleteNote(note.id)
                 .then(() => {
                     navigate(-1);

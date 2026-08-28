@@ -120,7 +120,7 @@ export class VehicleFuelProvider {
                         y: station.position[1],
                         z: station.position[2],
                     },
-                    name: 'Station essence',
+                    name: 'Cây xăng / Trạm nhiên liệu',
                     sprite: 361,
                     color: 4,
                     alpha: 100,
@@ -142,7 +142,7 @@ export class VehicleFuelProvider {
 
         this.targetFactory.createForModel(this.fuelStationRepository.getModels(), [
             {
-                label: "Remplir la station d'essence",
+                label: "Bơm xăng vào trạm",
                 icon: 'fuel/pistolet',
                 job: JobType.Oil,
                 category: 'society',
@@ -172,7 +172,7 @@ export class VehicleFuelProvider {
                 blackoutJob: JobType.Oil,
             },
             {
-                label: 'Remplir la station de kérosène',
+                label: 'Bơm dầu Kerosene vào trạm',
                 icon: 'fuel/pistolet',
                 category: 'society',
                 action: entity => {
@@ -199,7 +199,7 @@ export class VehicleFuelProvider {
                 blackoutJob: JobType.Oil,
             },
             {
-                label: 'État de la station',
+                label: 'Kiểm tra mức nhiên liệu trạm',
                 icon: 'fuel/check',
                 category: 'society',
                 action: (entity: number) => {
@@ -233,7 +233,7 @@ export class VehicleFuelProvider {
             },
             {
                 icon: 'fuel/pistolet',
-                label: 'Prendre le pistolet',
+                label: 'Cầm vòi bơm nhiên liệu',
                 category: 'citizen',
                 action: (entity: number) => {
                     this.toggleStationPistol(entity);
@@ -263,7 +263,7 @@ export class VehicleFuelProvider {
             },
             {
                 icon: 'fuel/pistolet',
-                label: 'Prendre le pistolet',
+                label: 'Cầm vòi bơm nhiên liệu',
                 subLabel: `$${this.publicOilStationPrice.toFixed(2)}/L`,
                 category: 'citizen',
                 action: (entity: number) => {
@@ -294,7 +294,7 @@ export class VehicleFuelProvider {
             },
             {
                 icon: 'fuel/pistolet',
-                label: 'Prendre le pistolet',
+                label: 'Cầm vòi bơm nhiên liệu',
                 subLabel: `$${this.publicKeroseneStationPrice.toFixed(2)}/L`,
                 category: 'citizen',
                 action: (entity: number) => {
@@ -325,7 +325,7 @@ export class VehicleFuelProvider {
             },
             {
                 icon: 'fuel/pistolet',
-                label: 'Reposer le pistolet',
+                label: 'Gác lại vòi bơm',
                 category: 'citizen',
                 action: (entity: number) => {
                     this.toggleStationPistol(entity);
@@ -363,7 +363,7 @@ export class VehicleFuelProvider {
 
         this.targetFactory.createForAllVehicle([
             {
-                label: 'Remplir le véhicule',
+                label: 'Bơm nhiên liệu vào xe',
                 icon: 'fuel/remplir',
                 category: 'citizen',
                 blackoutGlobal: true,
@@ -417,7 +417,7 @@ export class VehicleFuelProvider {
         const model = GetEntityModel(vehicle);
 
         if (IsThisModelABicycle(model)) {
-            this.notifier.notify("~r~Ce véhicule fonctionne uniquement à l'huile de coude", 'error');
+            this.notifier.notify('~r~Phương tiện này (xe đạp) chạy bằng sức người!', 'error');
             await this.disableStationPistol();
 
             return;
@@ -430,7 +430,7 @@ export class VehicleFuelProvider {
                 isVehicleModelElectric(model)) &&
             station.fuel === FuelType.Essence
         ) {
-            this.notifier.notify("~r~Vous ne pouvez pas remplir ce véhicule avec de l'essence.", 'error');
+            this.notifier.notify('~r~Bạn không thể bơm xăng cho loại phương tiện này.', 'error');
             await this.disableStationPistol();
 
             return;
@@ -442,7 +442,7 @@ export class VehicleFuelProvider {
             !IsThisModelAPlane(model) &&
             station.fuel === FuelType.Kerosene
         ) {
-            this.notifier.notify('~r~Vous ne pouvez pas remplir ce véhicule avec du kérosene.', 'error');
+            this.notifier.notify('~r~Bạn không thể bơm dầu Kerosene cho phương tiện này.', 'error');
             await this.disableStationPistol();
 
             return;
@@ -451,7 +451,7 @@ export class VehicleFuelProvider {
         const refreshStation = await emitRpc<FuelStation>(RpcServerEvent.OIL_GET_STATION, station.id);
 
         if (refreshStation.stock <= 0) {
-            this.notifier.notify("La station ne contient pas assez d'essence.", 'error');
+            this.notifier.notify('Trạm không còn đủ nhiên liệu.', 'error');
             await this.disableStationPistol();
 
             return;
@@ -460,14 +460,14 @@ export class VehicleFuelProvider {
         const driver = GetPedInVehicleSeat(vehicle, VehicleSeat.Driver);
 
         if (driver) {
-            this.notifier.notify('Vous ne pouvez pas remplir un véhicule avec un conducteur au volant.', 'error');
+            this.notifier.notify('Bạn không thể bơm nhiên liệu khi có tài xế ngồi sau tay lái.', 'error');
             await this.disableStationPistol();
 
             return;
         }
 
         if (GetIsVehicleEngineRunning(vehicle)) {
-            this.notifier.notify('Vous ne pouvez pas remplir un véhicule avec le moteur allumé.', 'error');
+            this.notifier.notify('Bạn không thể bơm nhiên liệu khi động cơ xe đang bật.', 'error');
             await this.disableStationPistol();
 
             return;
@@ -477,7 +477,7 @@ export class VehicleFuelProvider {
         const condition = await this.vehicleStateService.getVehicleCondition(vehicle);
 
         if (condition.fuelLevel > 0.99 * getVehicleMaxFuelStorage(vehDef)) {
-            this.notifier.notify('Le véhicule est déjà plein.', 'error');
+            this.notifier.notify('Bình nhiên liệu của xe đã đầy.', 'error');
             await this.disableStationPistol();
 
             return;
@@ -611,7 +611,7 @@ export class VehicleFuelProvider {
 
         const { completed } = await this.progressService.progress(
             'get_fuel_level',
-            'Vous vérifiez le niveau...',
+            'Đang kiểm tra mức nhiên liệu...',
             5000,
             {
                 task: 'PROP_HUMAN_PARKING_METER',
@@ -623,7 +623,7 @@ export class VehicleFuelProvider {
         );
 
         if (completed) {
-            this.notifier.notify(`Statut de la cuve: ~b~${refreshStation.stock}L`, 'success');
+            this.notifier.notify(`Trạng thái bồn chứa: ~b~${refreshStation.stock}L`, 'success');
         }
     }
 

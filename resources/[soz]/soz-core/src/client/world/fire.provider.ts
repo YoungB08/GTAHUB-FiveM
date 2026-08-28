@@ -184,7 +184,7 @@ export class FireProvider {
                 [
                     {
                         category: 'citizen',
-                        label: 'Prendre la tenue',
+                        label: 'Mặc trang phục cứu hỏa',
                         icon: 'fire/clothes',
                         canInteract: this.isClothType.bind(this, 'FIRE', false),
                         action: async () => {
@@ -201,7 +201,7 @@ export class FireProvider {
                     },
                     {
                         category: 'citizen',
-                        label: 'Rendre la tenue',
+                        label: 'Cởi trang phục cứu hỏa',
                         icon: 'fire/clothes',
                         canInteract: this.isClothType.bind(this, 'FIRE'),
                         action: async () => {
@@ -213,7 +213,7 @@ export class FireProvider {
                     },
                     {
                         category: 'citizen',
-                        label: 'Sortir un camion',
+                        label: 'Lấy xe cứu hỏa',
                         icon: 'fire/truck',
                         canInteract: this.isClothType.bind(this, 'FIRE'),
                         action: async () => {
@@ -235,7 +235,7 @@ export class FireProvider {
                             );
 
                             if (!parking) {
-                                this.notifier.notify("L'emplacement de parking est occupé.", 'error');
+                                this.notifier.notify("Vị trí đỗ xe đang bị chiếm chỗ.", 'error');
                                 return null;
                             }
 
@@ -244,7 +244,7 @@ export class FireProvider {
                     },
                     {
                         category: 'citizen',
-                        label: 'Rentrer un camion',
+                        label: 'Cất xe cứu hỏa',
                         icon: 'fire/truck',
                         canInteract: this.isClothType.bind(this, 'FIRE'),
                         action: async () => {
@@ -253,7 +253,7 @@ export class FireProvider {
 
                             if (!vehicle) {
                                 this.notifier.notify(
-                                    'Vous devez monter dans le camion de pompier avant de pouvoir le ranger.',
+                                    'Bạn phải lên xe cứu hỏa trước khi có thể cất nó.',
                                     'error'
                                 );
                                 return;
@@ -261,7 +261,7 @@ export class FireProvider {
 
                             if (GetEntityModel(vehicle) !== joaat('firetruk')) {
                                 this.notifier.notify(
-                                    "Vous ne pouvez pas ranger autre chose qu'un camion de pompier",
+                                    "Bạn không thể cất phương tiện nào khác ngoài xe cứu hỏa",
                                     'error'
                                 );
                                 return;
@@ -270,7 +270,7 @@ export class FireProvider {
                             const position = GetEntityCoords(vehicle) as Vector3;
                             if (getDistance(position, station.position) > DISTANCE_THRESHOLD) {
                                 this.notifier.notify(
-                                    'Vous devez vous rapprocher le camion de pompier pour pouvoir le ranger.',
+                                    'Bạn phải đưa xe cứu hỏa lại gần trạm hơn để có thể cất nó.',
                                     'error'
                                 );
                                 return;

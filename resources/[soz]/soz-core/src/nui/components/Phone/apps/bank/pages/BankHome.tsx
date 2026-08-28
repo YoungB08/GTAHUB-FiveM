@@ -25,7 +25,7 @@ export const BankHome = memo(() => {
     const fakeIconList = [
         { title: 'Virement', icon: PlusIcon },
         { title: 'Mes cartes', icon: CreditCardIcon },
-        { title: 'Détails', icon: MenuIcon },
+        { title: 'Chi tiết', icon: MenuIcon },
         { title: 'Plus', icon: DotsHorizontalIcon },
     ];
 

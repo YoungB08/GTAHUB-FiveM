@@ -57,7 +57,7 @@ export const FoodJobMenu: FunctionComponent<FoodStateProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.food} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -73,14 +73,14 @@ export const FoodJobMenu: FunctionComponent<FoodStateProps> = ({ data }) => {
                         <MenuItemSubMenuLink
                             id={`recipe_${category}`}
                             key={`recipe_${category}`}
-                        >{`Livre de recettes ${data.recipes[category].icon} ${category}`}</MenuItemSubMenuLink>
+                        >{`Sổ tay công thức ${data.recipes[category].icon} ${category}`}</MenuItemSubMenuLink>
                     ))}
                     {data.state.easterEnabled && (
                         <MenuItemCheckbox
                             checked={data.state.displayEasterEggBlip}
                             onChange={value => displayBlip('displayEasterEggBlip', value)}
                         >
-                            Afficher le point de collecte de Pâques
+                            Hiển thị điểm thu thập Trứng Phục Sinh
                         </MenuItemCheckbox>
                     )}
                 </MenuContent>
@@ -88,7 +88,7 @@ export const FoodJobMenu: FunctionComponent<FoodStateProps> = ({ data }) => {
             {Object.entries(data.recipes).map(([name, category]) => (
                 <SubMenu id={`recipe_${name}`}>
                     <MenuTitle title={JobLabel.food} />
-                    <MenuContent subtitle={`Livre de recettes ${data.recipes[name].icon} ${name}`}>
+                    <MenuContent subtitle={`Sổ tay công thức ${data.recipes[name].icon} ${name}`}>
                         <MenuItemSelect title="" titleWidth={0}>
                             {Object.entries(category.recipes).map(([output, recipe]) => (
                                 <MenuItemSelectOption

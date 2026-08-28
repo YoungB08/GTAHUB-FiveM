@@ -39,7 +39,7 @@ export class RopeService {
     ): Promise<number | null> {
         const position = GetEntityCoords(PlayerPedId()) as Vector3;
         if (this.ropeState) {
-            this.notifier.notify("Vous vous surestimez. Vous n'êtes pas assez musclé pour tirer deux cordes.", 'error');
+            this.notifier.notify("Bạn đánh giá quá cao bản thân rồi. Bạn không đủ cơ bắp để kéo hai sợi dây cùng lúc.", 'error');
             return null;
         }
         const initLength = getDistance(position, attachPosition);

@@ -43,7 +43,7 @@ export class UpwVehicleProvider {
         this.targetFactory.createForAllVehicle([
             {
                 icon: 'mechanic/car_battery',
-                label: 'Changer la batterie',
+                label: 'Thay bình ắc quy',
                 action: this.changerVehicleBattery.bind(this),
                 blackoutGlobal: true,
                 blackoutJob: JobType.Upw,
@@ -59,7 +59,7 @@ export class UpwVehicleProvider {
         const orderZone = UpwConfig.Order.zone;
         this.targetFactory.createForBoxZone(orderZone.name, orderZone, [
             {
-                label: 'Commander une voiture éléctrique',
+                label: 'Đặt mua xe điện',
                 icon: 'mechanic/order',
                 job: JobType.Upw,
                 category: 'society',
@@ -80,7 +80,7 @@ export class UpwVehicleProvider {
                 },
             },
             {
-                label: 'Prix des chargeurs',
+                label: 'Giá trạm sạc',
                 icon: 'fuel/plug',
                 job: JobType.Upw,
                 blackoutJob: JobType.Upw,
@@ -95,7 +95,7 @@ export class UpwVehicleProvider {
     public async setChargerPrice() {
         const newPrice = await this.inputService.askInput(
             {
-                title: 'Nouveau prix :',
+                title: 'Giá mới :',
                 maxCharacters: 5,
                 defaultValue: '1.00',
             },

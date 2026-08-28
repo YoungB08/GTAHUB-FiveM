@@ -42,11 +42,11 @@ export class BaunResellProvider {
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à revendre.', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ bán lại.', 'success');
         const { completed } = await this.progressService.progress(
             source,
             'resell',
-            'Revendre',
+            'Đang bán lại thùng cocktail...',
             BaunConfig.Resell.duration * item.amount,
             {
                 name: 'base',
@@ -71,6 +71,6 @@ export class BaunResellProvider {
             position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
         });
 
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de revendre.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ bán lại.', 'success');
     }
 }

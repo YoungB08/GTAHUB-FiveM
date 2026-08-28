@@ -32,30 +32,30 @@ export interface NuiAdminPlayerSubMenuMethodMap {
 }
 
 export const TELEPORT_OPTIONS = [
-    { label: 'Vers le joueur', value: 'goto' },
-    { label: 'Du joueur à moi', value: 'bring' },
+    { label: 'Dịch chuyển đến người chơi (Go to)', value: 'goto' },
+    { label: 'Kéo người chơi lại mình (Bring)', value: 'bring' },
 ];
 
 export const EFFECTS_OPTIONS = [
-    { label: 'Alcoolique', value: 'alcohol' },
-    { label: 'Drogué', value: 'drug' },
-    { label: 'Normal', value: 'normal' },
+    { label: 'Say rượu', value: 'alcohol' },
+    { label: 'Phê thuốc', value: 'drug' },
+    { label: 'Bình thường', value: 'normal' },
 ];
 
 export const DISEASE_OPTIONS = [
-    { label: 'Rhume', value: 'rhume' },
-    { label: 'Grippe', value: 'grippe' },
-    { label: 'Intoxication', value: 'intoxication' },
-    { label: 'Rougeur', value: 'rougeur' },
-    { label: 'Mal au dos', value: 'backpain' },
-    { label: 'Soigner', value: false },
+    { label: 'Cảm lạnh', value: 'rhume' },
+    { label: 'Cúm', value: 'grippe' },
+    { label: 'Ngộ độc thực phẩm', value: 'intoxication' },
+    { label: 'Phát ban đỏ', value: 'rougeur' },
+    { label: 'Đau lưng', value: 'backpain' },
+    { label: 'Chữa khỏi bệnh', value: false },
 ];
 
 const SCENARIO_OPTIONS = [
-    { label: 'Scenario 1', value: 'scenario1' },
-    { label: 'Scenario 2', value: 'scenario2' },
-    { label: 'Scenario 3', value: 'scenario3' },
-    { label: 'Scenario 4', value: 'scenario4' },
+    { label: 'Kịch bản 1', value: 'scenario1' },
+    { label: 'Kịch bản 2', value: 'scenario2' },
+    { label: 'Kịch bản 3', value: 'scenario3' },
+    { label: 'Kịch bản 4', value: 'scenario4' },
 ];
 
 export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permission, parties }) => {
@@ -87,13 +87,13 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
         <>
             <SubMenu id="players">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Michel ? C'est toi ?">
+                <MenuContent subtitle="Danh sách & Quản lý người chơi">
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuPlayerHandleSearchPlayer);
                         }}
                     >
-                        🔎 Rechercher un joueur: {searchFilter}
+                        🔎 Tìm kiếm người chơi: {searchFilter}
                     </MenuItemButton>
                     {players
                         .filter(player => {
@@ -125,18 +125,18 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 disabled={!isAdminOrStaffOrGM}
                                 description={
                                     <ul>
-                                        <MenuSubTitle>Contrôle du mode observateur</MenuSubTitle>
-                                        <MenuItemText> Tab : Basculer le mode caméra</MenuItemText>
-                                        <MenuItemText> Retour : Quitter le mode observateur</MenuItemText>
-                                        <MenuItemText> Maj Gauche : Accélérer la caméra libre</MenuItemText>
-                                        <MenuItemText> Controle Gauche : Ralentir la caméra libre</MenuItemText>
+                                        <MenuSubTitle>Điều khiển chế độ Quan sát</MenuSubTitle>
+                                        <MenuItemText> Tab : Chuyển đổi góc nhìn Camera</MenuItemText>
+                                        <MenuItemText> Backspace : Thoát chế độ quan sát</MenuItemText>
+                                        <MenuItemText> Shift trái : Tăng tốc Camera tự do</MenuItemText>
+                                        <MenuItemText> Ctrl trái : Giảm tốc Camera tự do</MenuItemText>
                                     </ul>
                                 }
                             >
-                                Observer le joueur
+                                Quan sát người chơi (Spectate)
                             </MenuItemButton>
                             <MenuItemSelect
-                                title={'Santé du joueur'}
+                                title={'Sức khỏe người chơi'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleHealthOption, {
                                         action: HEALTH_OPTIONS[selectedIndex].value,
@@ -151,7 +151,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Mouvement du joueur'}
+                                title={'Trạng thái di chuyển'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleMovementOption, {
                                         action: MOVEMENT_OPTIONS[selectedIndex].value,
@@ -166,7 +166,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Vocal en jeu'}
+                                title={'Voice Chat trong game'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleVocalOption, {
                                         action: VOCAL_OPTIONS[selectedIndex].value,
@@ -181,7 +181,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Debug Vocal'}
+                                title={'Debug Voice'}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerSetVoipDebug, {
                                         player,
@@ -189,11 +189,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption value={true}>Activer</MenuItemSelectOption>
-                                <MenuItemSelectOption value={false}>Désactiver</MenuItemSelectOption>
+                                <MenuItemSelectOption value={true}>Bật</MenuItemSelectOption>
+                                <MenuItemSelectOption value={false}>Tắt</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Téléportation'}
+                                title={'Dịch chuyển (Teleport)'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleTeleportOption, {
                                         action: TELEPORT_OPTIONS[selectedIndex].value,
@@ -208,7 +208,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Effets'}
+                                title={'Hiệu ứng say / ảo giác'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleEffectsOption, {
                                         action: EFFECTS_OPTIONS[selectedIndex].value,
@@ -223,7 +223,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Rendre malade'}
+                                title={'Gây bệnh tật / Chữa trị'}
                                 disabled={!isAdminOrStaff}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleDiseaseOption, {
@@ -244,7 +244,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleResetSkin, player);
                                 }}
                             >
-                                Réinitialiser le skin du joueur
+                                Khôi phục ngoại hình mặc định
                             </MenuItemButton>
                             <MenuItemButton
                                 disabled={!isAdminOrStaff}
@@ -252,10 +252,10 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     await fetchNui(NuiEvent.AdminMenuPlayerSearch, player);
                                 }}
                             >
-                                Fouiller
+                                Khám xét người chơi (Search)
                             </MenuItemButton>
                             <MenuItemSubMenuLink id={`player-pet-${player.citizenId}`}>
-                                🐕 Gérer l'animal
+                                🐕 Quản lý thú cưng
                             </MenuItemSubMenuLink>
                             <MenuItemButton
                                 disabled={!isAdminOrStaff}
@@ -263,11 +263,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleOpenGunSmith, player);
                                 }}
                             >
-                                Ouvrir le GunSmith
+                                Mở bàn chế tạo vũ khí (GunSmith)
                             </MenuItemButton>
-                            <MenuSubTitle>Hygiène de vie</MenuSubTitle>
+                            <MenuSubTitle>Chỉ số cơ thể & Thể chất</MenuSubTitle>
                             <MenuItemSelect
-                                title={'Force'}
+                                title={'Sức mạnh'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetAttribute, {
                                         player,
@@ -276,11 +276,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption key={'strength_min_option'}>Min</MenuItemSelectOption>
-                                <MenuItemSelectOption key={'strength_max_option'}>Max</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'strength_min_option'}>Thấp nhất</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'strength_max_option'}>Cao nhất</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Endurance'}
+                                title={'Thể lực (Stamina)'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetAttribute, {
                                         player,
@@ -289,11 +289,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption key={'stamina_min_option'}>Min</MenuItemSelectOption>
-                                <MenuItemSelectOption key={'stamina_max_option'}>Max</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'stamina_min_option'}>Thấp nhất</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'stamina_max_option'}>Cao nhất</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Stress'}
+                                title={'Căng thẳng (Stress)'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetAttribute, {
                                         player,
@@ -302,11 +302,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption key={'stress_min_option'}>Min</MenuItemSelectOption>
-                                <MenuItemSelectOption key={'stress_max_option'}>Max</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'stress_min_option'}>Thấp nhất</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'stress_max_option'}>Cao nhất</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Carence'}
+                                title={'Thiếu dưỡng chất'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetAttribute, {
                                         player,
@@ -315,11 +315,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption key={'deficiency_option'}>Avec</MenuItemSelectOption>
-                                <MenuItemSelectOption key={'no_deficiency_option'}>Sans</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'deficiency_option'}>Có</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'no_deficiency_option'}>Không</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Self AIO'}
+                                title={'Tất cả chỉ số (AIO)'}
                                 onConfirm={async selectedIndex => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetAttribute, {
                                         player,
@@ -328,11 +328,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption key={'aio_min_option'}>Min</MenuItemSelectOption>
-                                <MenuItemSelectOption key={'aio_max_option'}>Max</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'aio_min_option'}>Thấp nhất</MenuItemSelectOption>
+                                <MenuItemSelectOption key={'aio_max_option'}>Cao nhất</MenuItemSelectOption>
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={`Blessure`}
+                                title={`Mức chấn thương`}
                                 value={player.injuries || 0}
                                 onConfirm={async index => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleInjuriesUpdate, {
@@ -392,7 +392,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     player.plate = value;
                                 }}
                             >
-                                Plaque ZEVENT 2024
+                                Biển số ZEVENT 2024
                             </MenuItemCheckbox>
                             <MenuItemCheckbox
                                 disabled={!isAdminOrStaff}
@@ -406,7 +406,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     player.specialPlate = value;
                                 }}
                             >
-                                Plaque Special ZEVENT 2024 (J.Madison)
+                                Biển số đặc biệt ZEVENT 2024
                             </MenuItemCheckbox>
                             <MenuItemButton
                                 disabled={!isAdminOrStaff}
@@ -414,7 +414,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleSetReputation, player);
                                 }}
                             >
-                                Changer la réputation
+                                Thay đổi điểm danh tiếng
                             </MenuItemButton>
                             <MenuItemCheckbox
                                 disabled={!isAdminOrStaff}
@@ -424,7 +424,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     player.canCraftMissive = value;
                                 }}
                             >
-                                Représentant de Corbin
+                                Đại diện tổ chức Corbin
                             </MenuItemCheckbox>
                             <MenuItemButton
                                 disabled={!isAdminOrStaff}
@@ -432,17 +432,17 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleResetCrimi, player);
                                 }}
                             >
-                                Reset Criminalité
+                                Đặt lại điểm Tội phạm
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerHandleResetClientState, player);
                                 }}
                             >
-                                Reset Client State
+                                Đặt lại Client State
                             </MenuItemButton>
                             <MenuItemSelect
-                                title="Parti politique"
+                                title="Đảng phái chính trị"
                                 value={player.partyMember?.partyId || null}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerSetSenateParty, {
@@ -451,7 +451,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
+                                <MenuItemSelectOption value={null}>Không có</MenuItemSelectOption>
                                 {parties.map(party => (
                                     <MenuItemSelectOption value={party.id} key={`party_${party.id}`}>
                                         {party.name}
@@ -459,105 +459,7 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
                             <MenuItemSelect
-                                title={'Reset Halloween 2022'}
-                                onConfirm={async selectedIndex => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerHandleResetHalloween, {
-                                        player,
-                                        year: 'halloween2022',
-                                        scenario: SCENARIO_OPTIONS[selectedIndex].value,
-                                    });
-                                }}
-                                titleWidth={60}
-                            >
-                                {SCENARIO_OPTIONS.map(option => (
-                                    <MenuItemSelectOption key={'scenario_option_' + option.value}>
-                                        {option.label}
-                                    </MenuItemSelectOption>
-                                ))}
-                            </MenuItemSelect>
-                            <MenuItemSelect
-                                title={'Reset Halloween 2023'}
-                                onConfirm={async selectedIndex => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerHandleResetHalloween, {
-                                        player,
-                                        year: 'halloween2023',
-                                        scenario: SCENARIO_OPTIONS[selectedIndex].value,
-                                    });
-                                }}
-                                titleWidth={60}
-                            >
-                                {SCENARIO_OPTIONS.map(option => (
-                                    <MenuItemSelectOption key={'scenario_option_' + option.value}>
-                                        {option.label}
-                                    </MenuItemSelectOption>
-                                ))}
-                            </MenuItemSelect>
-                            <MenuItemCheckbox
-                                disabled={!isAdminOrStaff}
-                                checked={player.plate}
-                                onChange={async value => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerSetPlate, { type: 'plate', player, value });
-                                    player.plate = value;
-                                }}
-                            >
-                                Plaque ZEVENT 2024
-                            </MenuItemCheckbox>
-                            <MenuItemCheckbox
-                                disabled={!isAdminOrStaff}
-                                checked={player.specialPlate}
-                                onChange={async value => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerSetPlate, {
-                                        type: 'special_plate',
-                                        player,
-                                        value,
-                                    });
-                                    player.specialPlate = value;
-                                }}
-                            >
-                                Plaque Special ZEVENT 2024 (J.Madison)
-                            </MenuItemCheckbox>
-                            <MenuItemButton
-                                disabled={!isAdminOrStaff}
-                                onConfirm={async () => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerHandleSetReputation, player);
-                                }}
-                            >
-                                Changer la réputation
-                            </MenuItemButton>
-                            <MenuItemButton
-                                disabled={!isAdminOrStaff}
-                                onConfirm={async () => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerHandleResetCrimi, player);
-                                }}
-                            >
-                                Reset Criminalité
-                            </MenuItemButton>
-                            <MenuItemButton
-                                onConfirm={async () => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerHandleResetClientState, player);
-                                }}
-                            >
-                                Reset Client State
-                            </MenuItemButton>
-                            <MenuItemSelect
-                                title="Parti politique"
-                                value={player.partyMember?.partyId || null}
-                                onConfirm={async (_, value) => {
-                                    await fetchNui(NuiEvent.AdminMenuPlayerSetSenateParty, {
-                                        player,
-                                        value,
-                                    });
-                                }}
-                            >
-                                <MenuItemSelectOption value={null}>Aucun</MenuItemSelectOption>
-                                {parties.map(party => (
-                                    <MenuItemSelectOption value={party.id} key={`party_${party.id}`}>
-                                        {party.name}
-                                    </MenuItemSelectOption>
-                                ))}
-                            </MenuItemSelect>
-                            <MenuItemSelect
-                                title={'Mode zombie'}
+                                title={'Chế độ Zombie'}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerSetZombie, {
                                         player,
@@ -565,11 +467,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     });
                                 }}
                             >
-                                <MenuItemSelectOption value={true}>Activer</MenuItemSelectOption>
-                                <MenuItemSelectOption value={false}>Désactiver</MenuItemSelectOption>
+                                <MenuItemSelectOption value={true}>Bật</MenuItemSelectOption>
+                                <MenuItemSelectOption value={false}>Tắt</MenuItemSelectOption>
                             </MenuItemSelect>
 
-                            <MenuSubTitle>Vampire</MenuSubTitle>
+                            <MenuSubTitle>Ma cà rồng (Vampire)</MenuSubTitle>
                             <MenuItemCheckbox
                                 disabled={!isAdminOrStaff}
                                 checked={player.vampireGameExcluded}
@@ -581,11 +483,11 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                     player.vampireGameExcluded = enabled;
                                 }}
                             >
-                                Exclure du jeu vampire
+                                Loại khỏi trò chơi Vampire
                             </MenuItemCheckbox>
 
                             <MenuItemSelect
-                                title={'Vampire Game Role'}
+                                title={'Vai trò game Vampire'}
                                 onConfirm={async (_, value) => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerSetHalloweenRole, {
                                         player,
@@ -600,20 +502,20 @@ export const PlayerSubMenu: FunctionComponent<PlayerSubMenuProps> = ({ permissio
                                 ))}
                             </MenuItemSelect>
 
-                            <MenuSubTitle>What if</MenuSubTitle>
+                            <MenuSubTitle>Sự kiện What if</MenuSubTitle>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerResetWhatIfClan, player);
                                 }}
                             >
-                                Reset Clan
+                                Đặt lại Clan
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminMenuPlayerResetWhatIfInfection, player);
                                 }}
                             >
-                                Reset Infection
+                                Đặt lại Lây nhiễm
                             </MenuItemButton>
                         </MenuContent>
                     </SubMenu>

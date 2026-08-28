@@ -31,52 +31,52 @@ export const CeremonySubMenu: FunctionComponent<CeremonySubMenuProps> = ({ permi
         <>
             <SubMenu id="ceremony">
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Cérémonie">
-                    <MenuItemSubMenuLink id="christmas">Gestion de la scène</MenuItemSubMenuLink>
+                <MenuContent subtitle="Sự kiện Buổi lễ">
+                    <MenuItemSubMenuLink id="christmas">Quản lý sân khấu</MenuItemSubMenuLink>
                     <MenuItemCheckbox
                         checked={state.disableNpc}
                         onChange={async value => {
                             await fetchNui(NuiEvent.AdminMenuMeteorDisableNpc, value);
                         }}
                     >
-                        Désactiver le spawn de PNJ
+                        Tắt spawn NPC thường dân
                     </MenuItemCheckbox>
                     <MenuItemSelect
-                        title={`Forcer l'heure`}
+                        title={`Ép thời gian`}
                         value={-1}
                         onConfirm={async (index, value) => {
                             await fetchNui(NuiEvent.AdminMenuCeremonyTime, { value: value === -1 ? null : value });
                         }}
                     >
                         <MenuItemSelectOption value={-1} key={`time_${-1}`}>
-                            Reset
+                            Đặt lại (Mặc định)
                         </MenuItemSelectOption>
                         {Array(24)
                             .fill(0)
                             .map((_, index) => (
                                 <MenuItemSelectOption value={index} key={`time_${index}`}>
-                                    {index}
+                                    {index} giờ
                                 </MenuItemSelectOption>
                             ))}
                     </MenuItemSelect>
 
-                    <MenuSubTitle>Cérémonie parade</MenuSubTitle>
+                    <MenuSubTitle>Diễu hành buổi lễ</MenuSubTitle>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuCeremonyParadeStart, true);
                         }}
                     >
-                        Lancer la parade
+                        Bắt đầu diễu hành
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuCeremonyParadeStart, false);
                         }}
                     >
-                        Arreter la parade
+                        Dừng diễu hành
                     </MenuItemButton>
                     <MenuItemSelect
-                        title={`Annonce`}
+                        title={`Phát thanh thông báo`}
                         onConfirm={async (index, value) => {
                             await fetchNui(NuiEvent.AdminMenuCeremonyParadeSound, { type: value, volume });
                         }}
@@ -88,7 +88,7 @@ export const CeremonySubMenu: FunctionComponent<CeremonySubMenuProps> = ({ permi
                         ))}
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title={`Volume annonce`}
+                        title={`Âm lượng thông báo`}
                         onChange={async index => {
                             setVolume(index + 1);
                         }}
@@ -102,20 +102,20 @@ export const CeremonySubMenu: FunctionComponent<CeremonySubMenuProps> = ({ permi
                             ))}
                     </MenuItemSelect>
 
-                    <MenuSubTitle>Cérémonie jeux de lumière</MenuSubTitle>
+                    <MenuSubTitle>Hiệu ứng ánh sáng buổi lễ</MenuSubTitle>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuPublicCeremonyStart);
                         }}
                     >
-                        Lumière sur les bâtiments publics
+                        Thắp sáng các tòa nhà công cộng
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuFinalCeremonyStart);
                         }}
                     >
-                        Lumière sur la ville
+                        Thắp sáng toàn thành phố
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>

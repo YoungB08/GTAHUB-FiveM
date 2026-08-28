@@ -43,17 +43,17 @@ const DISTANCE_STORE_VEHICLE_THRESHOLD = 15.0;
 
 const BlipConfigMap: Partial<Record<GarageType, Partial<Record<GarageCategory, BlipConfig | null>>>> = {
     [GarageType.Private]: {
-        [GarageCategory.Car]: { name: 'Parking Privé', sprite: 357, color: 5 },
-        [GarageCategory.Sea]: { name: 'Port Privé', sprite: 356, color: 5 },
+        [GarageCategory.Car]: { name: 'Bãi đỗ xe riêng', sprite: 357, color: 5 },
+        [GarageCategory.Sea]: { name: 'Bến thuyền riêng', sprite: 356, color: 5 },
     },
     [GarageType.Public]: {
-        [GarageCategory.Car]: { name: 'Parking Public', sprite: 357, color: 3 },
-        [GarageCategory.Air]: { name: 'Héliport Public', sprite: 360, color: 3 },
-        [GarageCategory.All]: { name: 'Parking Public', sprite: 357, color: 3 },
-        [GarageCategory.Sea]: { name: 'Port Public', sprite: 356, color: 3 },
+        [GarageCategory.Car]: { name: 'Bãi đỗ xe công cộng', sprite: 357, color: 3 },
+        [GarageCategory.Air]: { name: 'Sân bay trực thăng công cộng', sprite: 360, color: 3 },
+        [GarageCategory.All]: { name: 'Bãi đỗ xe công cộng', sprite: 357, color: 3 },
+        [GarageCategory.Sea]: { name: 'Bến cảng công cộng', sprite: 356, color: 3 },
     },
     [GarageType.Depot]: {
-        [GarageCategory.All]: { name: 'Fourrière', sprite: 68, color: 3 },
+        [GarageCategory.All]: { name: 'Bãi giam giữ xe (Tịch thu)', sprite: 68, color: 3 },
     },
 };
 
@@ -146,7 +146,7 @@ export class VehicleGarageProvider {
                 this.interactionProvider.createInteractionForCoords(
                     garage.category == GarageCategory.Sea ? coordsWithOffset : coords,
                     {
-                        label: 'Parking public',
+                        label: 'Bãi đỗ xe công cộng',
                         action: () => {
                             this.enterGarage(garageIdentifier, garage);
                         },
@@ -160,7 +160,7 @@ export class VehicleGarageProvider {
                 this.interactionProvider.createInteractionForCoords(
                     garage.id === 'lsmc_privateparking' ? coordsWithOffset : coords,
                     {
-                        label: 'Parking privé',
+                        label: 'Bãi đỗ xe riêng',
                         action: () => {
                             this.enterGarage(garageIdentifier, garage);
                         },
@@ -185,7 +185,7 @@ export class VehicleGarageProvider {
                     this.interactionProvider.createInteractionForCoords(
                         coordsWithOffset,
                         {
-                            label: 'Fourrière',
+                            label: 'Bãi giam giữ xe',
                             action: () => {
                                 this.enterGarage(garageIdentifier, garage);
                             },
@@ -208,7 +208,7 @@ export class VehicleGarageProvider {
                 this.interactionProvider.createInteractionForCoords(
                     coordsWithOffset,
                     {
-                        label: 'Parking entreprise',
+                        label: 'Bãi đỗ xe doanh nghiệp',
                         canInteract: () => {
                             const player = this.playerService.getPlayer();
                             return player && player.job.id == garage.job;
@@ -232,7 +232,7 @@ export class VehicleGarageProvider {
                 this.interactionProvider.createInteractionForCoords(
                     coordsWithOffset,
                     {
-                        label: 'Parking entreprise luxe',
+                        label: 'Bãi đỗ xe VIP doanh nghiệp',
                         action: () => {
                             this.enterGarage(garageIdentifier, garage);
                         },
@@ -253,7 +253,7 @@ export class VehicleGarageProvider {
                 this.interactionProvider.createInteractionForCoords(
                     coordsWithOffset,
                     {
-                        label: 'Parking VIP',
+                        label: 'Bãi đỗ xe VIP Casino',
                         canInteract: () => this.casinoVipService.hasVipSubscription(),
                         action: () => this.enterGarage(garageIdentifier, garage),
                     },
@@ -266,7 +266,7 @@ export class VehicleGarageProvider {
         this.targetFactory.createForAllVehicle(
             [
                 {
-                    label: 'Fourriérer',
+                    label: 'Đưa vào bãi giam xe',
                     icon: 'mechanic/CarFourriere',
                     category: 'society',
                     action: async entity => {
@@ -284,7 +284,7 @@ export class VehicleGarageProvider {
                     canInteract: (): boolean => !!this.getClosestPound(),
                 },
                 {
-                    label: 'Fourrière Fédérale',
+                    label: 'Tịch thu Liên bang (Federal Impound)',
                     icon: 'mechanic/CarFourriere',
                     category: 'society',
                     action: async entity => {
@@ -296,7 +296,7 @@ export class VehicleGarageProvider {
 
                         const value = await this.inputService.askInput<number>(
                             {
-                                title: "Delai d'immobilisation du véhicule en heures (0-72)",
+                                title: 'Thời gian tạm giữ phương tiện (0-72 giờ)',
                                 defaultValue: '',
                                 maxCharacters: 30,
                             },
@@ -306,7 +306,7 @@ export class VehicleGarageProvider {
                                 }
                                 const int = parseInt(value);
                                 if (isNaN(int) || int < 0 || int > 72) {
-                                    return Err('Valeur incorrecte');
+                                    return Err('Giá trị không hợp lệ');
                                 }
                                 return Ok(int);
                             }
@@ -320,7 +320,7 @@ export class VehicleGarageProvider {
 
                         const cost = await this.inputService.askInput<number>(
                             {
-                                title: `Coût de sortie`,
+                                title: `Chi phí chuộc xe ($)`,
                                 maxCharacters: 30,
                             },
                             PositiveNumberValidator
@@ -387,7 +387,7 @@ export class VehicleGarageProvider {
         const vehicle = GetPlayersLastVehicle();
 
         if (!vehicle) {
-            this.notifier.notify('Vous devez monter dans un véhicule avant de pouvoir le ranger.', 'error');
+            this.notifier.notify('Bạn phải ngồi vào phương tiện trước khi có thể cất vào bãi.', 'error');
 
             return;
         }
@@ -410,7 +410,7 @@ export class VehicleGarageProvider {
         }
 
         if (!isNear) {
-            this.notifier.notify('Vous devez vous rapprocher du parking pour ranger votre véhicule.', 'error');
+            this.notifier.notify('Bạn cần di chuyển phương tiện lại gần bãi đỗ xe hơn.', 'error');
 
             return;
         }
@@ -427,7 +427,7 @@ export class VehicleGarageProvider {
         });
 
         if (!vehicle) {
-            this.notifier.notify('Aucune remorque à proximité.', 'error');
+            this.notifier.notify('Không có rơ-moóc / thùng kéo nào ở gần đây.', 'error');
             return;
         }
 
@@ -438,7 +438,7 @@ export class VehicleGarageProvider {
 
     public async doStoreVehicle(id: string, garage: Garage, vehicle: number, delai = 0, cost = 0) {
         if (IsEntityDead(vehicle) && garage.type === GarageType.Depot) {
-            this.notifier.notify(`Ce véhicule est ~r~détruit~s~ ! Il doit être déposé à la casse et non en fourrière.`);
+            this.notifier.notify(`Phương tiện này đã bị ~r~phá hủy~s~! Phải đưa đến bãi phế liệu chứ không thể đưa vào bãi giam xe.`);
             return;
         }
 
@@ -490,7 +490,7 @@ export class VehicleGarageProvider {
         const garage = this.garageRepository.get()[propertyId];
 
         if (!garage) {
-            this.notifier.notify('Aucun garage trouvé.', 'error');
+            this.notifier.notify('Không tìm thấy garage.', 'error');
 
             return;
         }
@@ -502,16 +502,16 @@ export class VehicleGarageProvider {
     public async renameVehicle({ id, garage, vehicle }: { id: number; garage: Garage; vehicle: number }) {
         const input = await this.inputService.askInput(
             {
-                title: 'Nom du véhicule',
+                title: 'Đặt tên phương tiện',
                 maxCharacters: 30,
             },
             input => {
                 if (input.length < 5) {
-                    return Err('Le nom doit faire au moins 5 caractères.');
+                    return Err('Tên phải có ít nhất 5 ký tự.');
                 }
 
                 if (input.length > 30) {
-                    return Err('Le nom doit faire au plus 30 caractères.');
+                    return Err('Tên không được vượt quá 30 ký tự.');
                 }
 
                 return Ok(input);
@@ -562,7 +562,7 @@ export class VehicleGarageProvider {
         }
 
         if (garageWithFreePlaces.parkingPlaces.length === 0) {
-            this.notifier.notify("Il n'y a plus de place disponible dans ce parking.", 'error');
+            this.notifier.notify('Hiện không còn chỗ trống khả dụng trong bãi đỗ xe này.', 'error');
 
             return;
         }

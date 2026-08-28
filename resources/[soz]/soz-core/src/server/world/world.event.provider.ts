@@ -97,7 +97,7 @@ export class WorldEventProvider {
         if (this.currentEvent) {
             await this.stopCurrentEvent();
 
-            this.notifier.notify(source, "L'événement en cours a été stoppé");
+            this.notifier.notify(source, "Sự kiện đang diễn ra đã được dừng lại");
         }
     }
 
@@ -111,7 +111,7 @@ export class WorldEventProvider {
 
         for (const object of objects) {
             if (object.inventoryId === inventoryId) {
-                this.notifier.notify(source, `Le contenu a été ~g~signalé~s~.`);
+                this.notifier.notify(source, `Vật phẩm bên trong đã được ~g~báo cáo~s~.`);
                 const inventory = await this.inventoryFactory.get(object.inventoryId);
 
                 if (inventory) {
@@ -138,7 +138,7 @@ export class WorldEventProvider {
 
         for (const object of objects) {
             if (object.inventoryId === inventoryId) {
-                this.notifier.notify(source, `Le conteneur a a été ~g~dévérouillé~s~.`);
+                this.notifier.notify(source, `Thùng chứa đã được ~g~mở khóa~s~.`);
 
                 this.currentEvent.unlockInvs.add(object.inventoryId);
                 TriggerClientEvent(
@@ -252,7 +252,7 @@ export class WorldEventProvider {
     @Get('/event/current')
     public async httpCurrentEvent(): Promise<Response> {
         if (!this.currentEvent) {
-            return Response.notFound("Il n'y a pas d'événement en cours");
+            return Response.notFound("Không có sự kiện nào đang diễn ra");
         }
 
         return Response.json(this.currentEvent);
@@ -265,7 +265,7 @@ export class WorldEventProvider {
 
         if (scenes.length === 0) {
             if (source) {
-                this.notifier.error(source, 'Aucune scène persistée trouvée pour cet événement');
+                this.notifier.error(source, 'Không tìm thấy cảnh lưu trữ nào cho sự kiện này');
             }
 
             return;
@@ -365,7 +365,7 @@ export class WorldEventProvider {
         }
 
         if (source) {
-            this.notifier.notify(source, `La scène ${scene.name} pour l'event ${event.name} a été lancée avec succès`);
+            this.notifier.notify(source, `Cảnh ${scene.name} cho sự kiện ${event.name} đã được khởi chạy thành công`);
         }
     }
 

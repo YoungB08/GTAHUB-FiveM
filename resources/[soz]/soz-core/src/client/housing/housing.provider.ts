@@ -82,7 +82,7 @@ export class HousingProvider {
     }) {
         const apartment = this.housingRepository.findApartment(propertyId, apartmentId);
         if (!apartment) {
-            this.notifier.notify("Vous ne possédez pas cette d'habitation !", 'error');
+            this.notifier.notify("Bạn không sở hữu căn nhà này!", 'error');
             return;
         }
 
@@ -94,7 +94,7 @@ export class HousingProvider {
         const editedTier: Partial<ApartementTiers> = {};
         for (const type of Object.keys(TYPE_LABEL)) {
             if (apartmentTier[type] < apartment[type]) {
-                this.notifier.notify('Vous ne pouvez pas rétrograder de palier !', 'error');
+                this.notifier.notify('Bạn không thể hạ cấp bậc tiện ích!', 'error');
                 return;
             } else if (apartmentTier[type] > apartment[type]) {
                 editedTier[type] = apartmentTier[type];
@@ -104,7 +104,7 @@ export class HousingProvider {
         const requiredMoney = price + isApartmentTrailer && hasParking ? parkingPrice : 0;
 
         if (money < requiredMoney) {
-            this.notifier.notify("Vous n'avez pas assez d'argent !", 'error');
+            this.notifier.notify("Bạn không có đủ tiền!", 'error');
             return;
         }
 
@@ -126,7 +126,7 @@ export class HousingProvider {
 
         const apartment = this.housingRepository.findApartment(propertyId, apartmentId);
         if (!apartment || apartment.owner !== player.citizenid) {
-            this.notifier.notify("Vous ne possédez pas cette d'habitation !", 'error');
+            this.notifier.notify("Bạn không sở hữu căn nhà này!", 'error');
             return;
         }
         const property = this.housingRepository.findProperty(propertyId);

@@ -302,7 +302,7 @@ export class Halloween2023Scenario3Provider {
             },
             [
                 {
-                    label: 'Alimenter',
+                    label: 'Cấp điện',
                     icon: 'upw/deposer',
                     category: 'citizen',
                     canInteract: () =>
@@ -310,7 +310,7 @@ export class Halloween2023Scenario3Provider {
                     action: async () => {
                         const { completed } = await this.progressService.progress(
                             'halloween_elec',
-                            "Vous rebanchez l'électicité...",
+                            "Đang kết nối lại nguồn điện...",
                             5000,
                             {
                                 dictionary: 'missfbi4prepp1',
@@ -327,7 +327,7 @@ export class Halloween2023Scenario3Provider {
                             return;
                         }
 
-                        this.notifier.notify('Alimentation électique réactivée');
+                        this.notifier.notify('Nguồn điện đã được kích hoạt lại');
                         this.electricity = true;
                     },
                 },

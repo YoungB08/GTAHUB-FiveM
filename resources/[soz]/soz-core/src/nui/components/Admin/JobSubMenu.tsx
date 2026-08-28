@@ -34,9 +34,9 @@ export const JobSubMenu: FunctionComponent<JobSubMenuProps> = ({ permission }) =
     return (
         <SubMenu id="job">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="Pour se construire un avenir">
+            <MenuContent subtitle="Quản lý nghề nghiệp & Chức vụ">
                 <MenuItemSelect
-                    title="Changer de métier"
+                    title="Thay đổi nghề nghiệp"
                     value={player.job.id}
                     onConfirm={async (index, jobId) => {
                         await fetchNui(NuiEvent.AdminSetJob, { jobId });
@@ -53,7 +53,7 @@ export const JobSubMenu: FunctionComponent<JobSubMenuProps> = ({ permission }) =
                     })}
                 </MenuItemSelect>
                 <MenuItemSelect
-                    title="Changer de grade"
+                    title="Thay đổi cấp bậc (Grade)"
                     value={player.job.grade.toString()}
                     onConfirm={async (selectedIndex, grade) => {
                         await fetchNui(NuiEvent.AdminSetJob, { jobId: player.job.id, jobGrade: grade });
@@ -74,7 +74,7 @@ export const JobSubMenu: FunctionComponent<JobSubMenuProps> = ({ permission }) =
                         await fetchNui(NuiEvent.AdminToggleDuty, value);
                     }}
                 >
-                    Passer en service
+                    Vào ca làm việc (On Duty)
                 </MenuItemCheckbox>
             </MenuContent>
         </SubMenu>

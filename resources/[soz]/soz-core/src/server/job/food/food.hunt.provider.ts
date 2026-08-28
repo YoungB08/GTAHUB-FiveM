@@ -59,7 +59,7 @@ export class FoodHuntProvider {
 
         const entity = NetworkGetEntityFromNetworkId(entityNetId);
 
-        const { completed } = await this.progressService.progress(source, 'food_hunt', 'Dépeçage en cours...', 5000, {
+        const { completed } = await this.progressService.progress(source, 'food_hunt', 'Đang lột da/xẻ thịt...', 5000, {
             dictionary: 'anim@gangops@facility@servers@bodysearch@',
             name: 'player_search',
             options: {
@@ -73,7 +73,7 @@ export class FoodHuntProvider {
         }
 
         if (!DoesEntityExist(entity)) {
-            this.notifier.notify(source, "L'animal ne respire plus...", 'info');
+            this.notifier.notify(source, "Con vật đã không còn thở nữa...", 'info');
 
             return;
         }
@@ -97,7 +97,7 @@ export class FoodHuntProvider {
                 if (isOk(inventory.add(itemId, quantity))) {
                     rewardSuccess = true;
 
-                    this.notifier.notify(source, `Vous avez récupéré ${quantity} ${item.label}`, 'success');
+                    this.notifier.notify(source, `Bạn đã thu thập ${quantity} ${item.label}`, 'success');
 
                     this.monitor.traceEvent('job_cm_food_hunting', {
                         player_source: source,
@@ -111,7 +111,7 @@ export class FoodHuntProvider {
         }
 
         if (!rewardSuccess) {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
 
             return;
         }

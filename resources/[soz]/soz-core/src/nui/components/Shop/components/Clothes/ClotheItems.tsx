@@ -144,7 +144,7 @@ export const ClotheItems: FunctionComponent<ClothesMainCategoriesProps> = ({
 
                                     <div className="flex flex-col justify-center items-center w-full grow">
                                         <div className="flex justify-between items-center gap-4 w-full px-2">
-                                            <span className="text-base font-medium">Variation</span>
+                                            <span className="text-base font-medium">Biến thể</span>
                                             <span>
                                                 {selectedItem
                                                     ? selectedModelItems.findIndex(
@@ -160,7 +160,7 @@ export const ClotheItems: FunctionComponent<ClothesMainCategoriesProps> = ({
                                             onChange={e => handleSelectItem(e.target.value)}
                                         >
                                             <option value="" disabled selected={!selectedItem}>
-                                                Sélectionnez une variante
+                                                Chọn một biến thể màu sắc
                                             </option>
                                             {selectedModelItems.map(item => (
                                                 <option key={index + item.id} value={item.id} className="text-black">
@@ -183,23 +183,22 @@ export const ClotheItems: FunctionComponent<ClothesMainCategoriesProps> = ({
 
                                                 <span className="inline-flex items-center rounded-md px-2 py-1 text-gray-100">
                                                     {selectedItem?.stock === 0 ? (
-                                                        <span className="text-red-300">Plus aucun stock</span>
+                                                        <span className="text-red-300">Hết hàng</span>
                                                     ) : selectedItem?.stock <= 5 ? (
                                                         <span className="text-orange-300">
-                                                            Plus que {selectedItem?.stock} article
-                                                            {selectedItem?.stock > 1 && 's'}
+                                                            Còn lại {selectedItem?.stock} chiếc
                                                         </span>
                                                     ) : (
-                                                        <span className="text-green-300">En stock</span>
+                                                        <span className="text-green-300">Còn hàng</span>
                                                     )}
                                                 </span>
 
                                                 <button
-                                                    className="bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-md"
+                                                    className="bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-md font-semibold"
                                                     disabled={selectedItem.stock === 0}
                                                     onClick={buyItem}
                                                 >
-                                                    Acheter
+                                                    Mua ngay
                                                 </button>
                                             </>
                                         )}

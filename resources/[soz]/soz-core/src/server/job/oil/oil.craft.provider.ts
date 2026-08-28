@@ -82,7 +82,7 @@ export class OilCraftProvider {
         const baseRemoveAmount = inventory.getItemCount(itemToRemove.name);
 
         if (baseRemoveAmount < multiplier) {
-            this.notifier.notify(source, `Vous n'avez pas assez de ${itemToRemove.label}.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ ${itemToRemove.label}.`, 'error');
 
             return;
         }
@@ -94,7 +94,7 @@ export class OilCraftProvider {
         const { completed } = await this.progressService.progress(
             source,
             'craft_essence_jerrycan',
-            'Vous transformez...',
+            'Đang chế tạo...',
             duration,
             {
                 dictionary: 'amb@prop_human_bum_bin@base',
@@ -115,7 +115,7 @@ export class OilCraftProvider {
                 [{ name: itemIdToAdd, amount: addAmount }]
             )
         ) {
-            this.notifier.notify(source, `Vous êtes trop chargé.`, 'error');
+            this.notifier.notify(source, `Bạn đang mang quá nặng.`, 'error');
 
             return;
         }
@@ -128,7 +128,7 @@ export class OilCraftProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez transformé ${removeAmount} x ${itemToRemove.label} en ${addAmount} x ${itemToAdd.label}.`,
+            `Bạn đã chế tạo ${removeAmount} x ${itemToRemove.label} thành ${addAmount} x ${itemToAdd.label}.`,
             'success'
         );
 

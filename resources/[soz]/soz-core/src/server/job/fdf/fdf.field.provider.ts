@@ -137,7 +137,7 @@ export class FDFFieldProvider {
             if (player.job.id != JobType.FDF || !player.job.onduty) {
                 this.notifier.notify(
                     source,
-                    'Seul les employés de Ferme de Fou en service peuvent utiliser ca',
+                    'Chỉ có nhân viên nông trại Ferme de Fou đang làm việc mới có thể sử dụng vật phẩm này',
                     'error'
                 );
                 return;
@@ -145,7 +145,7 @@ export class FDFFieldProvider {
 
             const ped = GetPlayerPed(source);
             if (GetVehiclePedIsIn(GetPlayerPed(source), false)) {
-                this.notifier.notify(source, "Impossible d'utiliser cela dans un vehicule", 'error');
+                this.notifier.notify(source, "Không thể sử dụng vật phẩm này khi đang ở trên phương tiện", 'error');
                 return;
             }
 
@@ -155,14 +155,14 @@ export class FDFFieldProvider {
                 config.fieldConfig.fields[fieldId].isPointInside(coords)
             );
             if (!field) {
-                this.notifier.notify(source, "Impossible d'utiliser cela en dehors d'un champs", 'error');
+                this.notifier.notify(source, "Không thể sử dụng vật phẩm này ở ngoài cánh đồng", 'error');
                 return;
             }
 
             const progress = await this.progressService.progress(
                 source,
                 'fdf_add_seeds',
-                'Plantation en cours...',
+                'Đang gieo hạt giống...',
                 10000,
                 {
                     task: 'WORLD_HUMAN_GARDENER_PLANT',
@@ -184,18 +184,18 @@ export class FDFFieldProvider {
                 const id = `fdf_crop_${getLocationHash(coords)}`;
                 const items = this.cropsPerField.get(field);
                 if (!items) {
-                    this.notifier.notify(source, 'Impossible de placer un plant dans un champs non labouré', 'error');
+                    this.notifier.notify(source, 'Không thể gieo hạt giống vào cánh đồng chưa được cày bừa', 'error');
                     break;
                 }
                 if (items.size > 0) {
                     const [first] = items.values();
                     if (first.type != type) {
-                        this.notifier.notify(source, 'Impossible de mélanger les cultures dans le même champ', 'error');
+                        this.notifier.notify(source, 'Không thể trồng nhiều loại nông sản khác nhau trên cùng một cánh đồng', 'error');
                         break;
                     }
 
                     if (items.size >= config.fieldConfig.maxprop) {
-                        this.notifier.notify(source, 'Il y a trop de plants dans ce champs', 'error');
+                        this.notifier.notify(source, 'Có quá nhiều cây trồng trên cánh đồng này', 'error');
                         break;
                     }
 
@@ -204,14 +204,14 @@ export class FDFFieldProvider {
                     );
 
                     if (cropField !== field) {
-                        this.notifier.notify(source, "Une des graines n'est pas dans le champ.", 'error');
+                        this.notifier.notify(source, "Một trong các hạt giống nằm ngoài phạm vi cánh đồng.", 'error');
                         continue;
                     }
 
                     if (Array.from(items.values()).find(item => getDistance(item.coords, coords) < 1.5)) {
                         this.notifier.notify(
                             source,
-                            "Une des graines est trop proche d'un autre plant et n'a pas été plantée.",
+                            "Một trong các hạt giống quá gần cây khác và chưa được trồng.",
                             'warning'
                         );
                         continue;
@@ -222,7 +222,7 @@ export class FDFFieldProvider {
                 if (remainingBeforePlow <= 0) {
                     this.notifier.notify(
                         source,
-                        'La terre doit de nouveau être travaillée avant de pouvoir y semer de nouvelles graines',
+                        'Đất cần được cày bừa lại trước khi có thể gieo thêm hạt giống mới',
                         'error'
                     );
                     break;
@@ -231,7 +231,7 @@ export class FDFFieldProvider {
                 const date = new Date();
 
                 if (!inventory.removeAtSlot(inventoryItem.slot, 1)) {
-                    this.notifier.notify(source, "Tu n'as pas assez de graines.", 'error');
+                    this.notifier.notify(source, "Bạn không có đủ hạt giống.", 'error');
                     break;
                 }
 
@@ -268,7 +268,7 @@ export class FDFFieldProvider {
             if (cropsPlanted) {
                 this.notifier.notify(
                     source,
-                    `Tu as planté ~y~${cropsPlanted}~s~ graines de ~b~${this.itemService.getItem(type).label}.~s~`
+                    `Bạn đã gieo ~y~${cropsPlanted}~s~ hạt giống ~b~${this.itemService.getItem(type).label}.~s~`
                 );
             }
 
@@ -331,9 +331,7 @@ export class FDFFieldProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez ${FDFCropConfig[crop.type].fieldConfig.hillingLabel} ${hilledCrops} plant${
-                hilledCrops > 1 ? 's' : ''
-            }, il${hilledCrops > 1 ? 's' : ''} ser${hilledCrops > 1 ? 'ont' : 'a'} récoltable un peu plus tôt.`
+            `Bạn đã ${FDFCropConfig[crop.type].fieldConfig.hillingLabel} ${hilledCrops} cây, cây sẽ sẵn sàng thu hoạch sớm hơn một chút.`
         );
 
         crop.hilled = true;
@@ -357,7 +355,7 @@ export class FDFFieldProvider {
             await this.removeCrop(source, crop, nbItem, id);
             this.notifier.notify(
                 source,
-                `Vous avez récolté ~y~${nbItem}~s~ ~g~${this.itemService.getItem(crop.type).label}~s~.`
+                `Bạn đã thu hoạch ~y~${nbItem}~s~ ~g~${this.itemService.getItem(crop.type).label}~s~.`
             );
             return FDFHarvestStatus.SUCCESS;
         } else {
@@ -423,7 +421,7 @@ export class FDFFieldProvider {
             if (!inventory.canCarryItem(currentCrop.type, nbItem)) {
                 this.notifier.notify(
                     source,
-                    `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`,
+                    `Túi đồ của bạn không có đủ chỗ trống để thu hoạch.`,
                     'error'
                 );
                 return 0;
@@ -436,9 +434,9 @@ export class FDFFieldProvider {
         }
         this.notifier.notify(
             source,
-            `Vous avez récolté ~y~${harvestCount}~s~ ~g~${
+            `Bạn đã thu hoạch ~y~${harvestCount}~s~ ~g~${
                 this.itemService.getItem(crop.type).label
-            }~s~ sur ~y~${removedCrops}~s~ plant${removedCrops > 1 ? 's' : ''}.`
+            }~s~ từ ~y~${removedCrops}~s~ cây.`
         );
     }
 
@@ -451,7 +449,7 @@ export class FDFFieldProvider {
 
         this.notifier.notify(
             source,
-            `Vous avez détruit un plant de ~r~${this.itemService.getItem(crop.type).label}~s~.`
+            `Bạn đã phá hủy một cây ~r~${this.itemService.getItem(crop.type).label}~s~.`
         );
 
         this.objectProvider.deleteObject(id);
@@ -481,7 +479,7 @@ export class FDFFieldProvider {
         this.cropRemainingBeforePlow.set(name, config.maxprop);
         this.notifier.notify(
             source,
-            `Vous avez terminé de ~g~labourer~s~ champ, il est maintenant prêt pour accueillir les plantations.`
+            `Bạn đã hoàn thành ~g~cày bừa~s~ cánh đồng, đất hiện đã sẵn sàng để gieo trồng.`
         );
 
         this.monitor.traceEvent('job_fdf_field_plow', {
@@ -531,14 +529,14 @@ export class FDFFieldProvider {
         if (isOk(result)) {
             this.notifier.notify(
                 source,
-                `Vous avez récupéré ~g~${MILK_QTY}~s~ seau de ~b~${this.itemService.getItem(MILK_ITEM).label}.`,
+                `Bạn đã thu thập được ~g~${MILK_QTY}~s~ xô ~b~${this.itemService.getItem(MILK_ITEM).label}.`,
                 'success'
             );
         } else if (result.err == 'not_enough_space') {
-            this.notifier.error(source, 'Vos poches sont pleines...');
+            this.notifier.error(source, 'Túi đồ của bạn đã đầy...');
             return false;
         } else {
-            this.notifier.error(source, `Il y a eu une erreur: ${MILK_ITEM} ${ADD_ERROR_MESSAGE[result.err]}`);
+            this.notifier.error(source, `Đã xảy ra lỗi: ${MILK_ITEM} ${ADD_ERROR_MESSAGE[result.err]}`);
             return false;
         }
         return true;
@@ -556,11 +554,11 @@ export class FDFFieldProvider {
 
         this.notifier.notify(
             source,
-            `<span style="text-decoration: underline;">État de la plantation.</span>~n~` +
+            `<span style="text-decoration: underline;">Tình trạng cây trồng.</span>~n~` +
                 (diff > 0
-                    ? `<strong>Temps avant récolte :</strong> ${formatDuration(diff)}~n~`
-                    : '<strong>Prêt à être récolté</strong>~n~') +
-                `<strong>${config.hillLabel} :</strong> ${crop.hilled ? 'Oui' : 'Non'}`,
+                    ? `<strong>Thời gian đến khi thu hoạch :</strong> ${formatDuration(diff)}~n~`
+                    : '<strong>Sẵn sàng thu hoạch</strong>~n~') +
+                `<strong>${config.hillLabel} :</strong> ${crop.hilled ? 'Đã làm' : 'Chưa'}`,
             'success'
         );
     }

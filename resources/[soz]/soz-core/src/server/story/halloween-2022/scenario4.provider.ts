@@ -113,7 +113,7 @@ export class Halloween2022Scenario4Provider {
                         part7: ScenarioState.Running,
                     },
                 });
-                this.notifier.notify(source, 'Vous avez récupéré un objet clé permettant d’ouvrir la porte.', 'info');
+                this.notifier.notify(source, 'Bạn đã nhận được một vật phẩm chìa khóa để mở cửa.', 'info');
                 return Halloween2022Scenario4.dialog['part6'];
             case 'part7':
                 if (inventory.canCarryItem('halloween2022_story', 1)) {

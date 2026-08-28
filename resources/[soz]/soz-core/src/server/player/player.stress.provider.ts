@@ -48,9 +48,9 @@ export class PlayerStressProvider {
         this.playerHealthProvider.increaseStress(source, stressPoints);
 
         if (stressPoints > 0) {
-            this.notifier.notify(source, 'Un événement vous a ~r~angoissé~s~.', 'error');
+            this.notifier.notify(source, 'Một sự kiện vừa làm bạn cảm thấy ~r~căng thẳng~s~.', 'error');
         } else {
-            this.notifier.notify(source, 'Vous vous sentez moins ~g~angoissé~s~.', 'success');
+            this.notifier.notify(source, 'Bạn cảm thấy bớt ~g~căng thẳng~s~.', 'success');
         }
 
         if (lastUsedAt === undefined || updateTimer > this.playerLastStressTypeUsedAt[player.citizenid][type]) {

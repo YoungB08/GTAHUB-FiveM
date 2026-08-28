@@ -54,7 +54,7 @@ export class EasterShopProvider {
         const progress = await this.progressService.progress(
             source,
             'switch_clothes',
-            "Changement d'habits...",
+            'Đang thay trang phục...',
             1000,
             {
                 name: 'put_on_mask',
@@ -96,7 +96,7 @@ export class EasterShopProvider {
         }
 
         if (!(await this.playerMoneyService.buy(source, item.price, TaxType.SUPPLY))) {
-            this.notifier.notify(source, "Vous avez n'avez pas assez d'argent.", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
             return;
         }
 
@@ -114,7 +114,7 @@ export class EasterShopProvider {
         const taxed = await this.priceService.getPrice(item.price, TaxType.SUPPLY);
         this.notifier.notify(
             source,
-            `Vous avez acheté ~b~${this.itemService.getItem(item.id).label}~s~ pour ~r~${taxed}$~s~`,
+            `Bạn đã mua ~b~${this.itemService.getItem(item.id).label}~s~ với giá ~r~${taxed}$~s~`,
             'success'
         );
     }

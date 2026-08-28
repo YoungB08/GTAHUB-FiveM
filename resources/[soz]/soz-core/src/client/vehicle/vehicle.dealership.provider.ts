@@ -313,18 +313,18 @@ export class VehicleDealershipProvider {
 
         const amount = await this.inputService.askInput<number>(
             {
-                title: "Montant de l'enchère",
+                title: "Số tiền đấu giá",
                 defaultValue: auction.nextMinBid.toString(),
             },
             (input: string) => {
                 const amount = parseInt(input);
 
                 if (!amount) {
-                    return Err('Montant invalide.');
+                    return Err('Số tiền không hợp lệ.');
                 }
 
                 if (amount < auction.nextMinBid) {
-                    return Err("Le montant doit être supérieur au prix d'enchère minimum.");
+                    return Err("Số tiền phải lớn hơn hoặc bằng giá đấu tối thiểu.");
                 }
 
                 return Ok(amount);
@@ -538,7 +538,7 @@ export class VehicleDealershipProvider {
         }
 
         if (!this.jobService.hasPermission(player.job.id, JobPermission.SocietyDealershipVehicle)) {
-            this.notifier.notify("Vous n'avez pas les droits d'accéder au concessionnaire.", 'error');
+            this.notifier.notify("Bạn không có quyền truy cập đại lý xe doanh nghiệp.", 'error');
 
             return;
         }
@@ -548,7 +548,7 @@ export class VehicleDealershipProvider {
         this.nuiMenu.openMenu(
             MenuType.VehicleDealership,
             {
-                name: 'Concessionnaire entreprise',
+                name: 'Đại lý xe doanh nghiệp',
                 dealershipId: DealershipType.Job,
                 vehicles,
             },

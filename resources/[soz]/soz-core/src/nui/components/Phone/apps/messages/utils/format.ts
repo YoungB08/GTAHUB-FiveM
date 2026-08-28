@@ -3,11 +3,11 @@ import { isPosition } from './position';
 
 export const formatMessage = (message?: string, isEmitter?: boolean): string => {
     if (isImage(message)) {
-        return `Vous avez ${isEmitter ? 'envoyé' : 'reçu'} une image`;
+        return `Bạn đã ${isEmitter ? 'gửi' : 'nhận'} một hình ảnh`;
     }
 
     if (isPosition(message)) {
-        return `Vous avez ${isEmitter ? 'envoyé' : 'reçu'} une position`;
+        return `Bạn đã ${isEmitter ? 'gửi' : 'nhận'} một vị trí`;
     }
 
     return message;

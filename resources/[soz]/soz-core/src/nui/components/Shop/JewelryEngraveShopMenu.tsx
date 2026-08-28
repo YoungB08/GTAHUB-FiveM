@@ -26,8 +26,8 @@ export const JewelryEngraveShopMenu: FunctionComponent<MenuJewelryEngraveShopPro
     return (
         <Menu type={MenuType.JewelryEngraveShop}>
             <MainMenu>
-                <MenuTitle title="Bijouterie" />
-                <MenuContent subtitle="Service de gravure">
+                <MenuTitle title="Tiệm Kim hoàn & Trang sức" />
+                <MenuContent subtitle="Dịch vụ Khắc chữ Trang sức">
                     {data.engravableItems.map(({ inventoryItem, item }) => (
                         <MenuItemButton
                             onConfirm={async () => {
@@ -39,7 +39,7 @@ export const JewelryEngraveShopMenu: FunctionComponent<MenuJewelryEngraveShopPro
                     ))}
                     <MenuItemText>
                         <div className="pr-2 flex items-center justify-between">
-                            <span>Prix de la gravure</span>
+                            <span>Phí dịch vụ khắc</span>
                             <span>💸 ${getPrice(ENGRAVE_PRICE, TaxType.SUPPLY)}</span>
                         </div>
                     </MenuItemText>

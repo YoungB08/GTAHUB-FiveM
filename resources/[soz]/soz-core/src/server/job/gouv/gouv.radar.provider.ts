@@ -51,14 +51,14 @@ export class GouvRadarProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove('radar', 1, false)) {
-            this.notifier.notify(source, `Vous n'avez pas de radar sur vous.`);
+            this.notifier.notify(source, `Bạn không có máy đo tốc độ/radar trên người.`);
 
             return;
         }
 
         await this.radarRepository.add(position);
 
-        this.notifier.notify(source, `Le radar a été ~b~placé~s~ avec succès.`);
+        this.notifier.notify(source, `Radar bắn tốc độ đã được ~b~đặt~s~ thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_RADAR_SET_DISABLED)
@@ -75,7 +75,7 @@ export class GouvRadarProvider {
 
         await this.radarRepository.setEnabled(id, !disabled);
 
-        this.notifier.notify(source, `Le radar a été ${disabled ? '~r~désactivé~s~' : '~g~activé~s~'} avec succès.`);
+        this.notifier.notify(source, `Radar bắn tốc độ đã được ${disabled ? '~r~vô hiệu hóa~s~' : '~g~kích hoạt~s~'} thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_RADAR_SET_SPEED)
@@ -92,7 +92,7 @@ export class GouvRadarProvider {
 
         await this.radarRepository.setSpeed(id, speed);
 
-        this.notifier.notify(source, `La vitesse a été définit à ~g~${speed}~s~ km/h avec succès.`);
+        this.notifier.notify(source, `Tốc độ giới hạn đã được cài đặt thành ~g~${speed}~s~ km/h thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_RADAR_REMOVE)
@@ -110,7 +110,7 @@ export class GouvRadarProvider {
         const { completed } = await this.progressService.progress(
             source,
             'remove_radar',
-            'Suppression du radar en cours...',
+            'Đang tháo dỡ radar...',
             60000,
             {
                 task: 'world_human_const_drill',
@@ -124,7 +124,7 @@ export class GouvRadarProvider {
 
         await this.radarRepository.remove(id);
 
-        this.notifier.notify(source, `Le radar a été ~r~détruit~s~ avec succès.`);
+        this.notifier.notify(source, `Radar bắn tốc độ đã được ~r~phá dỡ~s~ thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_RADAR_STATS)
@@ -140,9 +140,9 @@ export class GouvRadarProvider {
         month.setDate(month.getDate() - 1);
 
         const info = {
-            'Dernières 24h': yesterday,
-            'Dernière semaine': week,
-            'Dernier mois': month,
+            '24 giờ qua': yesterday,
+            'Tuần qua': week,
+            'Tháng qua': month,
         };
 
         let msg = '';
@@ -159,7 +159,7 @@ export class GouvRadarProvider {
             const result = (await clickhouseData.json()).data[0];
             const count = result['count()'];
             const sum = result['sum(money)'] ?? 0;
-            msg += `<span style="text-decoration: underline;">${label} :</span>~n~~b~${count}~s~ flashs pour ~g~${sum}$~s~.~n~`;
+            msg += `<span style="text-decoration: underline;">${label} :</span>~n~~b~${count}~s~ lần phạt vi phạm, thu về ~g~${sum}$~s~.~n~`;
         }
 
         this.notifier.notify(source, msg);

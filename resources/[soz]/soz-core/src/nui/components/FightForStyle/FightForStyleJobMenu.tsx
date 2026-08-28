@@ -58,7 +58,7 @@ export const FightForStyleJobMenu: FunctionComponent<FightForStyleStateProps> = 
                 <MainMenu>
                     <MenuTitle title={JobLabel.ffs} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -74,20 +74,20 @@ export const FightForStyleJobMenu: FunctionComponent<FightForStyleStateProps> = 
                         <MenuItemSubMenuLink
                             id={`recipe_${category}`}
                             key={`recipe_${category}`}
-                        >{`Livre de recettes ${data.recipes[category].icon} ${category}`}</MenuItemSubMenuLink>
+                        >{`Sổ tay công thức ${data.recipes[category].icon} ${category}`}</MenuItemSubMenuLink>
                     ))}
                     <MenuItemCheckbox
                         checked={blips['ffs_cotton_bale']}
                         onChange={value => displayBlip('ffs_cotton_bale', value)}
                     >
-                        Afficher la récolte de balles de coton
+                        Hiển thị điểm thu hoạch kiện bông gòn
                     </MenuItemCheckbox>
                 </MenuContent>
             </MainMenu>
             {Object.entries(data.recipes).map(([name, category]) => (
                 <SubMenu id={`recipe_${name}`}>
                     <MenuTitle title={JobLabel.ffs} />
-                    <MenuContent subtitle={`Livre de recettes ${data.recipes[name].icon} ${name}`}>
+                    <MenuContent subtitle={`Sổ tay công thức ${data.recipes[name].icon} ${name}`}>
                         <MenuItemSelect title="" titleWidth={0}>
                             {Object.entries(category.recipes).map(([output, recipe]) => (
                                 <MenuItemSelectOption

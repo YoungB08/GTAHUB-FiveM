@@ -120,13 +120,13 @@ export class OilTankerProvider {
         const inventory = await this.inventoryFactory.getVehicleInventory(entityNetId, vehicleClass, state);
 
         if (!inventory) {
-            this.notifier.error(source, "Le tanker n'a pas d'inventaire.");
+            this.notifier.error(source, "Xe téc không có cốp đồ/khoang chứa.");
 
             return;
         }
 
         if (this.tankerUsed.has(source)) {
-            this.notifier.error(source, 'Vous utilisez deja le tanker.');
+            this.notifier.error(source, 'Bạn đã đang sử dụng xe téc rồi.');
 
             return;
         }
@@ -139,7 +139,7 @@ export class OilTankerProvider {
                 const canRefillTanker = inventory.canCarryItem('petroleum', HARVEST_AMOUNT);
 
                 if (!canRefillTanker) {
-                    this.notifier.notify(source, 'Le tanker est plein.');
+                    this.notifier.notify(source, 'Xe téc đã đầy dầu thô.');
 
                     break;
                 }
@@ -147,7 +147,7 @@ export class OilTankerProvider {
                 const { completed } = await this.progressService.progress(
                     source,
                     'fill_tanker',
-                    'Vous remplissez...',
+                    'Đang bơm nạp dầu...',
                     12000,
                     {
                         dictionary: 'timetable@gardener@filling_can',
@@ -169,18 +169,18 @@ export class OilTankerProvider {
                 const isHarvested = await this.fieldProvider.harvestField(field, HARVEST_AMOUNT);
 
                 if (!isHarvested) {
-                    this.notifier.error(source, 'Le champ est vide.');
+                    this.notifier.error(source, 'Mỏ dầu đã cạn kiệt.');
 
                     break;
                 }
 
                 if (isErr(inventory.add('petroleum', HARVEST_AMOUNT))) {
-                    this.notifier.error(source, 'Votre remorque ~r~ne peut plus~s~ recevoir de pétrole.');
+                    this.notifier.error(source, 'Rơ-moóc của bạn ~r~không thể chứa thêm~s~ dầu thô.');
 
                     break;
                 }
 
-                this.notifier.notify(source, `Vous avez ~g~rempli~s~ ${HARVEST_AMOUNT}L de pétrole.`);
+                this.notifier.notify(source, `Bạn đã ~g~bơm nạp~s~ ${HARVEST_AMOUNT}L dầu thô.`);
 
                 this.monitor.traceEvent('job_mtp_fill_oil_tanker', {
                     player_source: source,
@@ -199,19 +199,19 @@ export class OilTankerProvider {
         const inventory = await this.inventoryFactory.getVehicleInventory(entityNetId, vehicleClass, state);
 
         if (!inventory) {
-            this.notifier.error(source, "Le tanker n'a pas d'inventaire.");
+            this.notifier.error(source, "Xe téc không có cốp đồ/khoang chứa.");
 
             return;
         }
 
         if (this.tankerUsed.has(source)) {
-            this.notifier.error(source, 'Vous utilisez deja le tanker.');
+            this.notifier.error(source, 'Bạn đã đang sử dụng xe téc rồi.');
 
             return;
         }
 
         if (inventory.getItemCount('petroleum') < HARVEST_AMOUNT) {
-            this.notifier.notify(source, 'Votre remorque ~r~ne contient pas~s~ assez de pétrole.');
+            this.notifier.notify(source, 'Rơ-moóc của bạn ~r~không có đủ~s~ dầu thô.');
 
             return;
         }
@@ -219,12 +219,12 @@ export class OilTankerProvider {
         try {
             this.tankerUsed.set(source, entityNetId);
 
-            this.notifier.notify(source, 'Vous avez ~g~relié~s~ le Tanker à ~g~la raffinerie~s~.');
+            this.notifier.notify(source, 'Bạn đã ~g~kết nối~s~ xe téc với ~g~nhà máy lọc dầu~s~.');
 
             // eslint-disable-next-line no-constant-condition
             while (true) {
                 if (inventory.getItemCount('petroleum') < HARVEST_AMOUNT) {
-                    this.notifier.notify(source, 'Votre remorque ~r~ne contient pas~s~ assez de pétrole.');
+                    this.notifier.notify(source, 'Rơ-moóc của bạn ~r~không có đủ~s~ dầu thô.');
 
                     return;
                 }
@@ -232,7 +232,7 @@ export class OilTankerProvider {
                 const { completed } = await this.progressService.progress(
                     source,
                     'refine_tanker',
-                    'Vous raffinez...',
+                    'Đang lọc dầu...',
                     10000,
                     {
                         dictionary: 'timetable@gardener@filling_can',
@@ -274,13 +274,13 @@ export class OilTankerProvider {
                         ]
                     )
                 ) {
-                    this.notifier.notify(source, 'Votre remorque ~r~ne peut plus~s~ recevoir de pétrole raffiné.');
+                    this.notifier.notify(source, 'Rơ-moóc của bạn ~r~không thể chứa thêm~s~ dầu đã lọc.');
 
                     return;
                 }
 
                 if (!inventory.remove('petroleum', HARVEST_AMOUNT)) {
-                    this.notifier.notify(source, 'Votre remorque ~r~ne peut plus~s~ recevoir de pétrole raffiné.');
+                    this.notifier.notify(source, 'Rơ-moóc của bạn ~r~không thể chứa thêm~s~ dầu đã lọc.');
 
                     return;
                 }
@@ -288,7 +288,7 @@ export class OilTankerProvider {
                 inventory.add('petroleum_refined', 3 * HARVEST_AMOUNT);
                 inventory.add('petroleum_residue', HARVEST_AMOUNT);
 
-                this.notifier.notify(source, `Vous avez ~g~raffiné~s~ ${HARVEST_AMOUNT}L de pétrole.`);
+                this.notifier.notify(source, `Bạn đã ~g~lọc~s~ ${HARVEST_AMOUNT}L dầu.`);
 
                 this.monitor.traceEvent('job_mtp_refining_oil', {
                     player_source: source,
@@ -307,7 +307,7 @@ export class OilTankerProvider {
         const inventory = await this.inventoryFactory.getVehicleInventory(entityNetId, vehicleClass, state);
 
         if (!inventory) {
-            this.notifier.error(source, "Le tanker n'a pas d'inventaire.");
+            this.notifier.error(source, "Xe téc không có cốp đồ/khoang chứa.");
 
             return;
         }
@@ -318,7 +318,7 @@ export class OilTankerProvider {
             const keroseneItemAmount = inventory.getItemCount('kerosene');
 
             if (essenceItemAmount < 10 && keroseneItemAmount < 10) {
-                this.notifier.error(source, "Vous n'avez pas de carburant à vendre.");
+                this.notifier.error(source, "Bạn không có nhiên liệu để bán.");
 
                 return;
             }
@@ -326,7 +326,7 @@ export class OilTankerProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'resell_tanker',
-                'Vous remplissez...',
+                'Đang bơm xả nhiên liệu...',
                 3_000,
                 {
                     dictionary: 'timetable@gardener@filling_can',
@@ -355,7 +355,7 @@ export class OilTankerProvider {
                     position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
                 });
 
-                this.notifier.notify(source, "Vous avez ~g~revendu~s~ 100L d'essence.");
+                this.notifier.notify(source, "Bạn đã ~g~bán lại~s~ 100L xăng.");
             } else if (inventory.remove('kerosene', 10)) {
                 await this.bankService.transferFarmMoney(source, 'farm_mtp', 'safe_oil', 500);
 
@@ -366,7 +366,7 @@ export class OilTankerProvider {
                     position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
                 });
 
-                this.notifier.notify(source, 'Vous avez ~g~revendu~s~ 100L de kérosène.');
+                this.notifier.notify(source, 'Bạn đã ~g~bán lại~s~ 100L dầu hỏa.');
             }
         }
     }

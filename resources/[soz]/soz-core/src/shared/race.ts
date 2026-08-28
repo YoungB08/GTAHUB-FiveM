@@ -36,22 +36,22 @@ export function getRacePNJPosID(race: Race) {
 }
 
 export enum RaceCheckpointMenuOptions {
-    delete = 'Supprimer',
-    edit = 'Modifier Zone',
-    goto = 'Téléportation',
+    delete = 'Xóa',
+    edit = 'Sửa vùng (Zone)',
+    goto = 'Dịch chuyển đến',
 }
 export enum RaceUpdateMenuOptions {
-    npc = 'PNJ',
-    start = 'Départ',
-    garage = 'garage',
+    npc = 'NPC',
+    start = 'Vạch xuất phát',
+    garage = 'Gara đỗ xe',
 }
 export enum RaceLaunchMenuOptions {
-    test = 'Tester',
-    play = 'Jouer',
+    test = 'Chạy thử (Test)',
+    play = 'Bắt đầu đua',
 }
 export enum RaceVehConfigurationOptions {
-    current = 'Véhicule Actuel',
-    default = 'Par défaut',
+    current = 'Xe hiện tại',
+    default = 'Mặc định',
 }
 
 export function getDurationStr(ms: number) {

@@ -240,19 +240,19 @@ export class PhoneManager {
 
         const hasPhone = this.inventoryManager.hasEnoughItem('phone', 1);
         if (!hasPhone) {
-            this.notifier.error("Vous n'avez pas de téléphone");
+            this.notifier.error("Bạn không có điện thoại");
             return false;
         }
 
         const playerState = this.playerService.getState();
         if (playerState.isInventoryBusy) {
-            this.notifier.error('Action en cours');
+            this.notifier.error('Đang thực hiện hành động khác');
             return false;
         }
 
         const player = this.playerService.getPlayer();
         if (player.metadata.inlaststand || player.metadata.ishandcuffed) {
-            this.notifier.error('Vous ne pouvez pas accéder à votre téléphone');
+            this.notifier.error('Bạn không thể dùng điện thoại lúc này');
             return false;
         }
 

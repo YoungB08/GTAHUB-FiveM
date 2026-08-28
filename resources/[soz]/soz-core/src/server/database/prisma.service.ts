@@ -4,6 +4,14 @@ import { Provider } from '@core/decorators/provider';
 import { OnceLoader } from '@core/loader/once.loader';
 import { Logger } from '@core/logger';
 import { Prisma, PrismaClient } from '@prisma/client';
+import path from 'path';
+
+const resourcePath = typeof GetResourcePath === 'function' ? GetResourcePath(GetCurrentResourceName()) : '';
+const isWindows = process.platform === 'win32';
+const engineName = isWindows ? 'query-engine-windows.exe' : 'query-engine-linux-musl';
+if (!process.env.PRISMA_QUERY_ENGINE_BINARY && resourcePath) {
+    process.env.PRISMA_QUERY_ENGINE_BINARY = path.join(resourcePath, 'build', engineName);
+}
 
 @Provider()
 export class PrismaService extends PrismaClient<Prisma.PrismaClientOptions, 'query' | 'error' | 'warn' | 'info'> {
@@ -25,6 +33,18 @@ export class PrismaService extends PrismaClient<Prisma.PrismaClientOptions, 'que
                     url: GetConvar('mysql_connection_string', ''),
                 },
             },
+            ...({
+                __internal: {
+                    configOverride: (config: any) => ({
+                        ...config,
+                        dirname: resourcePath,
+                        relativeEnvPaths: {
+                            rootEnvPath: null,
+                            schemaEnvPath: null,
+                        },
+                    }),
+                },
+            } as any),
         });
 
         this.$on('query', e => {

@@ -66,10 +66,10 @@ export const ZkeaFournitureMenu: FunctionComponent = () => {
     return (
         <Menu type={MenuType.ZkeaFournitureMenu}>
             <MainMenu>
-                <MenuTitle title="Zkea - Fournitures" />
+                <MenuTitle title="Siêu thị Nội thất ZKEA" />
                 <MenuContent>
                     <MenuItemStringInput onChange={handleFilter} value={textFilter}>
-                        Filtre:
+                        Tìm kiếm:
                     </MenuItemStringInput>
                     {Object.keys(fournitures).map(type => (
                         <MenuItemSubMenuLink
@@ -85,10 +85,10 @@ export const ZkeaFournitureMenu: FunctionComponent = () => {
             </MainMenu>
             {Object.entries(fournitures).map(([type, fournitures]) => (
                 <SubMenu id={`zkea_fourniture${type}`} key={`zkea_fourniture${type}`}>
-                    <MenuTitle title="Zkea - Fournitures" />
-                    <MenuContent subtitle={`Zkea - ${type}`}>
+                    <MenuTitle title="Siêu thị Nội thất ZKEA" />
+                    <MenuContent subtitle={`ZKEA - ${type}`}>
                         <MenuItemStringInput onChange={handleFilter} value={textFilter}>
-                            Filtre:
+                            Tìm kiếm:
                         </MenuItemStringInput>
                         {Object.values(fournitures)
                             .sort((a, b) => {
@@ -112,7 +112,7 @@ export const ZkeaFournitureMenu: FunctionComponent = () => {
                                     }}
                                     description={
                                         ZkeaFourniture[fourniture.model]?.collision !== true
-                                            ? '⚠ : Sans collision'
+                                            ? '⚠ : Không có va chạm vật lý'
                                             : null
                                     }
                                 >

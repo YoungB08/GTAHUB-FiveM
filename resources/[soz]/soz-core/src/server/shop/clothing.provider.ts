@@ -556,6 +556,6 @@ export class ClothingProvider {
                 }
             }
         }
-        this.notifier.notify(source, 'Magasins de vêtements restockés');
+        this.notifier.notify(source, 'Đã nhập lại hàng cho các cửa hàng quần áo');
     }
 }

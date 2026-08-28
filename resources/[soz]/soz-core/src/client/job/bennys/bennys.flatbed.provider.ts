@@ -66,7 +66,7 @@ export class BennysFlatbedProvider {
             {
                 icon: 'mechanic/Mettre',
                 job: JobType.Bennys,
-                label: 'Remorquer',
+                label: 'Kéo xe lên thùng',
                 category: 'society',
                 action: (entity: number) => {
                     this.attachVehicle(entity);
@@ -77,7 +77,7 @@ export class BennysFlatbedProvider {
             {
                 icon: 'mechanic/Attacher',
                 job: JobType.Bennys,
-                label: 'Prendre le crochet',
+                label: 'Lấy móc kéo',
                 category: 'society',
                 action: (entity: number) => {
                     this.toggleFlatbedAttach(entity);
@@ -100,7 +100,7 @@ export class BennysFlatbedProvider {
             {
                 icon: 'mechanic/Attacher',
                 job: JobType.Bennys,
-                label: 'Déposer le crochet',
+                label: 'Bỏ móc kéo',
                 category: 'society',
                 action: entity => {
                     this.toggleFlatbedAttach(entity);
@@ -120,7 +120,7 @@ export class BennysFlatbedProvider {
             {
                 icon: 'mechanic/Retirer',
                 job: JobType.Bennys,
-                label: 'Démorquer',
+                label: 'Hạ xe xuống',
                 category: 'society',
                 action: (entity: number) => {
                     TriggerServerEvent(
@@ -168,7 +168,7 @@ export class BennysFlatbedProvider {
             return;
         }
 
-        this.ropeService.deleteRope();
+        this.ropeService.deleteRope(this.currentFlatbedAttach.rope);
 
         this.currentFlatbedAttach = null;
 
@@ -344,7 +344,7 @@ export class BennysFlatbedProvider {
         const flatbedState = await this.vehicleStateService.getVehicleState(this.currentFlatbedAttach?.entity);
 
         if (flatbedState.flatbedAttachedVehicle) {
-            this.notifier.notify('Un véhicule est déjà attaché au flatbed.', 'error');
+            this.notifier.notify('Đã có một phương tiện được kéo trên xe cứu hộ.', 'error');
 
             return;
         }
@@ -352,14 +352,14 @@ export class BennysFlatbedProvider {
         const state = await this.vehicleStateService.getVehicleState(vehicle);
 
         if (state.flatbedAttachedVehicle) {
-            this.notifier.notify('Les châteaux de flatbed sont interdits, merci de prendre un jeu de cartes.', 'error');
+            this.notifier.notify('Nghiêm cấm xếp chồng xe cứu hộ (flatbed), vui lòng không làm trò này.', 'error');
 
             return;
         }
 
         const driverFlatBed = GetPedInVehicleSeat(this.currentFlatbedAttach.entity, VehicleSeat.Driver);
         if (driverFlatBed && IsPedAPlayer(driverFlatBed)) {
-            this.notifier.notify("Impossible de remorquer lorsqu'une autre personne conduit le flatbed", 'error');
+            this.notifier.notify("Không thể cẩu xe khi có người khác đang lái xe cứu hộ", 'error');
 
             return;
         }
@@ -367,7 +367,7 @@ export class BennysFlatbedProvider {
         const driver = GetPedInVehicleSeat(vehicle, VehicleSeat.Driver);
         if (driver && IsPedAPlayer(driver)) {
             this.notifier.notify(
-                "Impossible de remorquer lorsqu'une autre personne conduit le véhicule cible",
+                "Không thể cẩu xe khi có người khác đang ngồi ở ghế lái xe mục tiêu",
                 'error'
             );
 
@@ -388,7 +388,7 @@ export class BennysFlatbedProvider {
         );
 
         if (!controlFlatbed) {
-            this.notifier.notify('Impossible de prendre le contrôle du flatbed, ressayer plus tard', 'error');
+            this.notifier.notify('Không thể điều khiển xe cứu hộ, vui lòng thử lại sau', 'error');
 
             return;
         }
@@ -403,7 +403,7 @@ export class BennysFlatbedProvider {
         );
 
         if (!controlTarget) {
-            this.notifier.notify('Impossible de prendre le controle du vehicule cible, ressayer plus tard', 'error');
+            this.notifier.notify('Không thể điều khiển phương tiện mục tiêu, vui lòng thử lại sau', 'error');
 
             return;
         }
@@ -412,13 +412,13 @@ export class BennysFlatbedProvider {
         const attached = await this.attachVehicleToFlatbed(this.currentFlatbedAttach.entity, vehicle, height);
 
         if (!attached) {
-            this.notifier.notify('Echec du remorquage, ressayer plus tard', 'error');
+            this.notifier.notify('Kéo xe thất bại, vui lòng thử lại sau', 'error');
 
             return;
         }
 
         this.soundService.playAround('seatbelt/buckle', 5, 0.2);
-        this.notifier.notify('Le véhicule a été attaché au flatbed.');
+        this.notifier.notify('Phương tiện đã được gắn chắc chắn lên xe cứu hộ.');
 
         const vehicleFlatbedNetworkId = NetworkGetNetworkIdFromEntity(this.currentFlatbedAttach.entity);
 

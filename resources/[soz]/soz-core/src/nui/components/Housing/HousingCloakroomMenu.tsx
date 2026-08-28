@@ -29,14 +29,14 @@ export const HousingCloakroomMenu: FunctionComponent<HousingCloakroomMenuProps> 
     return (
         <Menu type={MenuType.HousingCloakroomMenu}>
             <MainMenu>
-                <MenuTitle title={data.gang ? 'Hub criminel' : 'Habitation'} />
+                <MenuTitle title={data.gang ? 'Khu Vực Băng Đảng' : 'Tủ Đồ Cá Nhân'} />
                 <MenuContent>
                     <MenuItemButton
                         onConfirm={() => {
                             fetchNui(NuiEvent.HousingCloakroomSave, {});
                         }}
                     >
-                        Sauvegarder la tenue
+                        Lưu bộ trang phục hiện tại
                     </MenuItemButton>
                     {data.items.map(item => {
                         return (
@@ -63,9 +63,9 @@ export const HousingCloakroomMenu: FunctionComponent<HousingCloakroomMenuProps> 
                                 title={item.name}
                                 key={item.id}
                             >
-                                <MenuItemSelectOption value="apply">Se changer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="rename">Renommer</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="apply">Mặc trang phục này</MenuItemSelectOption>
+                                <MenuItemSelectOption value="rename">Đổi tên</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">Xóa</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}

@@ -44,7 +44,7 @@ export class PawlHarvestProvider {
         }
 
         if (!inventory.canCarryItem('tree_trunk', 1)) {
-            this.notifier.error(source, "Vous ne pouvez pas recevoir d'objet !");
+            this.notifier.error(source, "Bạn không thể nhận thêm vật phẩm!");
 
             return false;
         }
@@ -52,7 +52,7 @@ export class PawlHarvestProvider {
         const treeHarvest = await this.fieldProvider.harvestTree(fieldId, treeId);
 
         if (!treeHarvest) {
-            this.notifier.error(source, 'Impossible de récolter cet arbre !');
+            this.notifier.error(source, 'Không thể khai thác cây này!');
 
             return false;
         }
@@ -77,7 +77,7 @@ export class PawlHarvestProvider {
         }
 
         if (!inventory.canCarryItem('sap', 20)) {
-            this.notifier.error(source, "Vous ne pouvez pas recevoir d'objet !");
+            this.notifier.error(source, "Bạn không thể nhận thêm vật phẩm!");
 
             return false;
         }
@@ -85,7 +85,7 @@ export class PawlHarvestProvider {
         const tree = await this.fieldProvider.getTree(fieldId, treeId);
 
         if (!tree) {
-            this.notifier.error(source, 'Impossible de récolter cet arbre !');
+            this.notifier.error(source, 'Không thể khai thác cây này!');
 
             return false;
         }

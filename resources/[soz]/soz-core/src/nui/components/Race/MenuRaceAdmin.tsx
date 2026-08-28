@@ -30,9 +30,9 @@ export const MenuRaceAdmin: FunctionComponent = () => {
     return (
         <Menu type={MenuType.RaceAdmin}>
             <MainMenu>
-                <MenuTitle title="Courses" />
+                <MenuTitle title="Quản lý Đường đua" />
                 <MenuContent>
-                    <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceAdd)}>➕ Ajouter une course</MenuItemButton>
+                    <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceAdd)}>➕ Tạo đường đua mới</MenuItemButton>
                     {races
                         .sort((itemA, itemB) => itemA.name.localeCompare(itemB.name))
                         .map(race => {
@@ -59,35 +59,35 @@ export const RaceSubMenu: FunctionComponent<MenuRaceSubProps> = ({ data }) => {
     return (
         <>
             <SubMenu id={data.id.toString()}>
-                <MenuTitle title="Courses" />
+                <MenuTitle title="Quản lý Đường đua" />
                 <MenuContent subtitle={data.name}>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceRename, data.id)}>
-                        Renommer la course
+                        Đổi tên đường đua
                     </MenuItemButton>
-                    <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceDelete, data.id)}>Supprimer</MenuItemButton>
+                    <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceDelete, data.id)}>Xóa đường đua</MenuItemButton>
                     <MenuItemCheckbox
                         checked={data.enabled}
                         onChange={value => fetchNui(NuiEvent.RaceEnable, { raceId: data.id, enabled: value })}
                     >
-                        Activer la course
+                        Kích hoạt đường đua
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.display}
                         onChange={value => fetchNui(NuiEvent.RaceDisplay, { raceId: data.id, enabled: value })}
                     >
-                        Afficher la course
+                        Hiển thị trên bản đồ
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         checked={data.fps}
                         onChange={value => fetchNui(NuiEvent.RaceFps, { raceId: data.id, enabled: value })}
                     >
-                        Course en vue FPS
+                        Bắt buộc góc nhìn thứ nhất (FPS)
                     </MenuItemCheckbox>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceTPStart, data.id)}>
-                        Téléportation au départ
+                        Dịch chuyển đến vạch xuất phát
                     </MenuItemButton>
                     <MenuItemSelect
-                        title="Changer la position du"
+                        title="Đổi vị trí"
                         onConfirm={async (_, option) => {
                             await fetchNui(NuiEvent.RaceUpdateLocation, {
                                 raceId: data.id,
@@ -103,10 +103,10 @@ export const RaceSubMenu: FunctionComponent<MenuRaceSubProps> = ({ data }) => {
                         ))}
                     </MenuItemSelect>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceUpdateCarModel, data.id)}>
-                        Voiture: {data.carModel}
+                        Mẫu xe: {data.carModel}
                     </MenuItemButton>
                     <MenuItemSelect
-                        title="Véhicule configuration"
+                        title="Cấu hình xe"
                         onConfirm={async (_, option) => {
                             await fetchNui(NuiEvent.RaceVehConfiguration, {
                                 raceId: data.id,
@@ -122,10 +122,10 @@ export const RaceSubMenu: FunctionComponent<MenuRaceSubProps> = ({ data }) => {
                         ))}
                     </MenuItemSelect>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.RaceClearRanking, data.id)}>
-                        Vider le classement
+                        Xóa dữ liệu bảng xếp hạng
                     </MenuItemButton>
                     <MenuItemSelect
-                        title="Lancer"
+                        title="Khởi chạy"
                         onConfirm={async (_, option) => {
                             await fetchNui(NuiEvent.RaceMenuLaunch, {
                                 raceId: data.id,
@@ -140,7 +140,7 @@ export const RaceSubMenu: FunctionComponent<MenuRaceSubProps> = ({ data }) => {
                         ))}
                     </MenuItemSelect>
                     <MenuItemSelect
-                        title="Ajouter un checkpoint après"
+                        title="Thêm checkpoint sau mốc"
                         value={data.checkpoints.length}
                         onConfirm={async (_, index) => {
                             await fetchNui(NuiEvent.RaceAddCheckpoint, {

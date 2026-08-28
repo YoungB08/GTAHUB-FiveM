@@ -52,18 +52,18 @@ export class DmcRestockProvider {
         const toAddAmount = Math.min(maxAmount, availableAmount);
         const msg =
             availableAmount == 0
-                ? 'Aucune pièce ajoutée au stock LS Custom. Le stock est déjà plein.'
+                ? 'Không có phụ tùng nào được thêm vào kho LS Custom. Kho đã đầy.'
                 : maxAmount > availableAmount
-                  ? `${toAddAmount} pièce(s) ajoutée(s) au stock LS Custom. Le stock est maintenant plein.`
-                  : `${toAddAmount} pièce(s) ajoutée(s) au stock LS Custom.`;
+                  ? `Đã thêm ${toAddAmount} phụ tùng vào kho LS Custom. Kho hiện đã đầy.`
+                  : `Đã thêm ${toAddAmount} phụ tùng vào kho LS Custom.`;
 
         if (toAddAmount == 0) {
             this.notifier.notify(source, msg, 'error');
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à restocker le LS Custom', 'success');
-        const { completed } = await this.progressService.progress(source, 'restock', 'Restockage', 2000 * toAddAmount, {
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ bổ sung hàng cho LS Custom', 'success');
+        const { completed } = await this.progressService.progress(source, 'restock', 'Đang bổ sung phụ tùng...', 2000 * toAddAmount, {
             name: 'givetake1_a',
             dictionary: 'mp_common',
             flags: 1,

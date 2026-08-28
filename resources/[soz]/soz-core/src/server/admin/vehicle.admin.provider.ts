@@ -28,7 +28,7 @@ export class VehicleAdminProvider {
             },
         });
 
-        const message = `Prix du ~b~${modelName}~s~: ~g~${vehicle.price}`;
+        const message = `Giá của ~b~${modelName}~s~: ~g~$${vehicle.price}`;
         this.notifier.notify(source, message, 'success');
     }
 
@@ -46,7 +46,7 @@ export class VehicleAdminProvider {
             },
         });
 
-        const message = `Nouveau prix du ~b~${modelName}~s~: ~g~${price}`;
+        const message = `Giá mới của ~b~${modelName}~s~: ~g~$${price}`;
         this.notifier.notify(source, message, 'success');
     }
 }

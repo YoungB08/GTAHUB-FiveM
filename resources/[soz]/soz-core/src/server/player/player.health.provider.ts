@@ -149,7 +149,7 @@ export class PlayerHealthProvider {
 
                 playerState.lostStrength += 1;
 
-                this.notifier.notify(source, 'Vous vous sentez ~r~moins puissant~s~.', 'error');
+                this.notifier.notify(source, 'Bạn cảm thấy ~r~yếu hơn~s~.', 'error');
             }
 
             const staminaTimeDiff = now - playerState.lastMaxStaminaUpdate;
@@ -166,7 +166,7 @@ export class PlayerHealthProvider {
 
                 playerState.lostStamina += 1;
 
-                this.notifier.notify(source, 'Vous vous sentez ~r~moins athlétique~s~.', 'error');
+                this.notifier.notify(source, 'Bạn cảm thấy ~r~kém dẻo dai hơn~s~.', 'error');
             }
 
             const stressTimeDiff = now - playerState.lastStressLevelUpdate;
@@ -185,7 +185,7 @@ export class PlayerHealthProvider {
                     STRESS_MAX
                 );
 
-                this.notifier.notify(source, 'Vous vous sentez moins ~g~angoissé~s~.', 'success');
+                this.notifier.notify(source, 'Bạn cảm thấy bớt ~g~căng thẳng~s~.', 'success');
             }
 
             this.playerService.setPlayerMetadata(source, 'gym_state', playerState);
@@ -253,15 +253,13 @@ export class PlayerHealthProvider {
             if (minutes < 8) {
                 this.notifier.notify(
                     source,
-                    `Tu as couru durant ${minutes} ${
-                        minutes === 1 ? 'minute' : 'minutes'
-                    } ! Tu te sens de plus en plus endurant, continue comme ça.`,
+                    `Bạn đã chạy bộ trong ${minutes} phút ! Bạn cảm thấy thể lực dẻo dai hơn, hãy tiếp tục phát huy.`,
                     'success'
                 );
             } else if (minutes === 8) {
                 this.notifier.notify(
                     source,
-                    "Tu as couru tes 8 minutes de la journée ! Tu te sens en forme pour toute la journée. Courir n'améliore plus ton endurance, et ce, jusqu'au lendemain.",
+                    "Bạn đã hoàn thành 8 phút chạy bộ trong ngày! Bạn cảm thấy tràn đầy năng lượng cho cả ngày. Chạy thêm sẽ không tăng thể lực cho đến ngày mai.",
                     'success'
                 );
             }
@@ -287,7 +285,7 @@ export class PlayerHealthProvider {
 
         playerState.yoga = true;
 
-        this.notifier.notify(source, 'Vous vous sentez moins ~g~angoissé~s~.', 'success');
+        this.notifier.notify(source, 'Bạn cảm thấy bớt ~g~căng thẳng~s~.', 'success');
 
         await this.increaseStress(source, this.yogaAndNaturalMultiplier(source) * -8);
         this.playerService.setPlayerMetadata(source, 'gym_state', playerState);
@@ -316,13 +314,13 @@ export class PlayerHealthProvider {
 
             this.notifier.notify(
                 source,
-                `Damn la team Los Santos ! Merci à toi d'avoir acheté notre abonnement de sport MUSCLE PEACH d'une semaine à ${displayPrice}$ ! Tu peux désormais te changer dans nos vestiaires.`,
+                `Cảm ơn bạn đã đăng ký gói tập 1 tuần tại phòng tập MUSCLE PEACH với giá $${displayPrice}! Bây giờ bạn có thể sử dụng phòng thay đồ của chúng tôi.`,
                 'success'
             );
         } else {
             this.notifier.notify(
                 source,
-                `Tu ne possèdes pas ${displayPrice}$ ! Si tu souhaites profiter de nos installations et de notre vestiaire, reviens avec de l'argent.`,
+                `Bạn không có đủ $${displayPrice}! Hãy quay lại khi có đủ tiền để sử dụng cơ sở vật chất và phòng thay đồ của chúng tôi.`,
                 'error'
             );
         }

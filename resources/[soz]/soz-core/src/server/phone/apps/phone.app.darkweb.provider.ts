@@ -79,7 +79,7 @@ export class PhoneAppDarkWebProvider {
         }
 
         if (!this.playerMoneyService.remove(source, THREAD_PRICE, 'marked_money')) {
-            this.notifier.error(source, "Vous n'avez pas assez d'argent");
+            this.notifier.error(source, "Bạn không có đủ tiền");
             return;
         }
 

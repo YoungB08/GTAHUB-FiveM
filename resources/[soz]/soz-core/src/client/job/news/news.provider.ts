@@ -77,7 +77,7 @@ export class NewsProvider {
             this.interactionProvider.createInteractionForModels(
                 model,
                 {
-                    label: 'Récupérer',
+                    label: 'Thu hồi thiết bị',
                     job: { [JobType.News]: 0, [JobType.YouNews]: 0 },
                     action: object => {
                         this.objectProvider.collectObject(object);
@@ -100,7 +100,7 @@ export class NewsProvider {
             },
             [
                 {
-                    label: 'Imprimer',
+                    label: 'In báo chí',
                     icon: 'news/imprimer',
                     category: 'society',
                     action: () => {
@@ -126,7 +126,7 @@ export class NewsProvider {
             },
             [
                 {
-                    label: 'Imprimer',
+                    label: 'In báo chí',
                     icon: 'news/imprimer',
                     category: 'society',
                     action: () => {
@@ -149,7 +149,7 @@ export class NewsProvider {
             }),
             [
                 {
-                    label: 'Rentrer dans le studio',
+                    label: 'Vào trường quay Studio',
                     item: 'press_card',
                     icon: 'housing/enter',
                     category: 'society',
@@ -169,7 +169,7 @@ export class NewsProvider {
             }),
             [
                 {
-                    label: 'Sortir du studio',
+                    label: 'Rời khỏi trường quay Studio',
                     icon: 'housing/enter',
                     category: 'society',
                     action: () => {
@@ -190,7 +190,7 @@ export class NewsProvider {
 
         if (this.currentZone) {
             this.clearSell();
-            this.notifier.notify('Vous avez annulé la livraison de journaux', 'info');
+            this.notifier.notify('Bạn đã hủy giao báo', 'info');
 
             return;
         }
@@ -208,7 +208,7 @@ export class NewsProvider {
             },
             [
                 {
-                    label: 'Livrer',
+                    label: 'Giao báo',
                     icon: 'news/livrer',
                     category: 'society',
                     action: () => {
@@ -219,12 +219,12 @@ export class NewsProvider {
             ]
         );
         this.blipFactory.create('news:sell:blip', {
-            name: 'Livraison de journaux',
+            name: 'Điểm giao báo',
             coords: { x: this.currentZone[0], y: this.currentZone[1], z: this.currentZone[2] },
             route: true,
         });
 
-        this.notifier.notify('Une station a besoin de journaux. Sa position est sur ton ~y~GPS', 'info');
+        this.notifier.notify('Một sạp báo đang cần giao bổ sung. Vị trí đã được đánh dấu trên ~y~GPS', 'info');
     }
 
     @OnEvent(ClientEvent.NEWS_NEWSPAPER_SOLD)

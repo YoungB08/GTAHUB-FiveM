@@ -30,7 +30,7 @@ export const MandatoryJobMenu: FunctionComponent<MandatoryStateProps> = ({ data 
                 <MainMenu>
                     <MenuTitle title={JobLabel.mdr} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -48,14 +48,14 @@ export const MandatoryJobMenu: FunctionComponent<MandatoryStateProps> = ({ data 
                             await fetchNui(NuiEvent.ToggleRadar, value);
                         }}
                     >
-                        Afficher les radars sur le GPS
+                        Hiển thị các trạm đo tốc độ (Radar) trên GPS
                     </MenuItemCheckbox>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.RedCallMendatory);
                         }}
                     >
-                        🚨 Code Rouge
+                        🚨 Báo động Khẩn cấp (Code Red)
                     </MenuItemButton>
                 </MenuContent>
             </MainMenu>

@@ -110,7 +110,7 @@ export class Halloween2023Scenario3Provider {
                     return;
                 }
                 inventory.add('halloween_document_z', 1);
-                this.notifier.notify(source, `Vous avez récupéré un document.`, 'success');
+                this.notifier.notify(source, `Bạn đã nhận được một tài liệu.`, 'success');
 
                 this.playerService.setPlayerMetadata(source, 'halloween2023', {
                     ...player.metadata.halloween2023,

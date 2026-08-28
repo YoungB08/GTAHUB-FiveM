@@ -190,7 +190,7 @@ export class VampireGameProvider {
         }
 
         if (this.gameState.started) {
-            this.notifier.error(source, 'Le jeu est déjà en cours');
+            this.notifier.error(source, 'Trò chơi đã đang diễn ra');
             return;
         }
 
@@ -206,7 +206,7 @@ export class VampireGameProvider {
             );
         });
 
-        this.notifier.notify(-1, 'Quelque chose de sombre se prépare... Restez sur vos gardes !', 'info');
+        this.notifier.notify(-1, 'Một điều gì đó đen tối đang chuẩn bị xảy ra... Hãy cẩn thận đề phòng!', 'info');
         await wait(10_000);
 
         for (const player of this.serverStateService.getPlayers()) {
@@ -239,7 +239,7 @@ export class VampireGameProvider {
             started: this.gameState.started,
         });
 
-        this.notifier.notify(source, 'Le jeu a été lancé', 'info');
+        this.notifier.notify(source, 'Trò chơi đã được bắt đầu', 'info');
     }
 
     @OnEvent(ServerEvent.ADMIN_HALLOWEEN_STOP_GAME)
@@ -249,7 +249,7 @@ export class VampireGameProvider {
         }
 
         if (!this.gameState.started) {
-            this.notifier.error(source, "Le jeu n'est pas en cours");
+            this.notifier.error(source, "Trò chơi chưa bắt đầu");
             return;
         }
 
@@ -266,7 +266,7 @@ export class VampireGameProvider {
         }
 
         if (VampireGameEnemyRoles.includes(this.gameState.playerRoles.get(player.citizenid))) {
-            this.notifier.error(source, "Vous n'avez pas le droit de faire cette action");
+            this.notifier.error(source, "Bạn không có quyền thực hiện hành động này");
             return;
         }
 
@@ -275,13 +275,13 @@ export class VampireGameProvider {
             .findIndex(obj => obj[0] === objective[0] && obj[1] === objective[1] && obj[2] === objective[2]);
 
         if (objectiveIndex === -1) {
-            this.notifier.error(source, 'Objectif invalide');
+            this.notifier.error(source, 'Mục tiêu không hợp lệ');
             return;
         }
 
         let [name, label, animation]: [string, string, ProgressAnimation] = [
             'halloween_repair',
-            'Réparation en cours ...',
+            'Đang sửa chữa ...',
             {
                 task: 'world_human_welding',
             },
@@ -290,7 +290,7 @@ export class VampireGameProvider {
         if (collection === 'prop_fire_hydrant') {
             [name, label, animation] = [
                 'halloween_get',
-                'Récupération en cours ...',
+                'Đang thu thập ...',
                 {
                     name: 'base',
                     dictionary: 'amb@prop_human_bum_bin@base',
@@ -300,7 +300,7 @@ export class VampireGameProvider {
         } else if (collection === 'prop_gas_pump') {
             [name, label, animation] = [
                 'halloween_get',
-                'Récupération en cours ...',
+                'Đang thu thập ...',
                 {
                     dictionary: 'anim@heists@ornate_bank@thermal_charge',
                     name: 'thermal_charge',
@@ -334,7 +334,7 @@ export class VampireGameProvider {
 
         this.notifier.notify(
             source,
-            `L'objectif ~g~${VampireGameLabel(collection)}~s~ vient d'être validé ! Consulte ta carte pour rejoindre un autre objectif.`,
+            `Mục tiêu ~g~${VampireGameLabel(collection)}~s~ vừa được hoàn thành! Hãy kiểm tra bản đồ để đến mục tiêu khác.`,
             'success'
         );
 
@@ -347,7 +347,7 @@ export class VampireGameProvider {
         this.callFunctionOnNonEnemyPlayers(player => {
             this.notifier.notify(
                 player.source,
-                'Les Mortels ont ~g~réussi~s~ la première phase ! Leur périple continue avec de ~y~nouveaux objectifs à accomplir~s~.',
+                'Phe Người Phàm đã ~g~vượt qua~s~ giai đoạn đầu tiên! Hành trình tiếp tục với các ~y~mục tiêu mới cần hoàn thành~s~.',
                 'info',
                 45_000
             );
@@ -366,7 +366,7 @@ export class VampireGameProvider {
         }
 
         if (VampireGameEnemyRoles.includes(this.gameState.playerRoles.get(player.citizenid))) {
-            this.notifier.error(source, "Vous n'avez pas le droit de faire cette action");
+            this.notifier.error(source, "Bạn không có quyền thực hiện hành động này");
             return;
         }
 
@@ -436,7 +436,7 @@ export class VampireGameProvider {
                 this.callFunctionOnNonEnemyPlayers(player => {
                     this.notifier.notify(
                         player.source,
-                        `L'objectif ~g~${VampireGameLabel(objective)}~s~ vient d'être validé ! Consulte ta carte pour rejoindre un autre objectif.`,
+                        `Mục tiêu ~g~${VampireGameLabel(objective)}~s~ vừa được hoàn thành! Hãy kiểm tra bản đồ để đến mục tiêu khác.`,
                         'success'
                     );
                 });
@@ -447,7 +447,7 @@ export class VampireGameProvider {
 
                 this.notifier.notify(
                     player.source,
-                    `L'objectif ~b~${VampireGameLabel(objective)}~s~ ne peut pas être validé ! ~o~${currentPlayers}~s~/~b~${requiredPlayers} joueurs~s~ réfléchissent.`,
+                    `Mục tiêu ~b~${VampireGameLabel(objective)}~s~ chưa thể hoàn thành! Hiện có ~o~${currentPlayers}~s~/~b~${requiredPlayers} người chơi~s~ đang kích hoạt.`,
                     'error'
                 );
             }
@@ -466,7 +466,7 @@ export class VampireGameProvider {
             this.callFunctionOnNonEnemyPlayers(player => {
                 this.notifier.notify(
                     player.source,
-                    `Tous les mortels ont reçu de quoi se défendre, les balles d’argent peuvent tuer les vampires ! La chasse se retourne contre eux, survivez ${this.mortalObjectivePart3Duration} minutes pour sortir victorieux de cette bataille.`,
+                    `Tất cả Người Phàm đã nhận được vũ khí tự vệ, đạn bạc có thể tiêu diệt Ma Cà Rồng! Cuộc săn lùng đã đảo chiều, hãy sống sót trong ${this.mortalObjectivePart3Duration} phút để giành chiến thắng trong trận chiến này.`,
                     'info',
                     45_000
                 );
@@ -475,7 +475,7 @@ export class VampireGameProvider {
             this.callFunctionOnEnemyPlayers(player => {
                 this.notifier.notify(
                     player.source,
-                    `Les mortels ont reçu de quoi se défendre, les balles d’argent peuvent te tuer ! Ne deviens pas la proie de ces chasseurs ! Il ne te reste que ${this.mortalObjectivePart3Duration} minutes pour les traquer et leur faire regretter leur audace.`,
+                    `Phe Người Phàm đã nhận được vũ khí tự vệ, đạn bạc có thể giết chết bạn! Đừng để trở thành con mồi của những thợ săn này! Bạn chỉ còn ${this.mortalObjectivePart3Duration} phút để săn lùng họ và khiến họ phải trả giá.`,
                     'info',
                     45_000
                 );
@@ -590,19 +590,19 @@ export class VampireGameProvider {
         const targetRole = this.gameState.playerRoles.get(playerTarget.citizenid);
 
         if (![...VampireGameEnemyRoles, VampireGameRole.Alchemist].includes(sourceRole)) {
-            this.notifier.error(source, "Vous n'avez pas le droit de faire cette action");
+            this.notifier.error(source, "Bạn không có quyền thực hiện hành động này");
         }
 
         if (role === VampireGameRole.Ghoul) {
             if (VampireGameEnemyRoles.includes(targetRole)) {
-                this.notifier.error(source, 'La cible doit être un Mortel');
+                this.notifier.error(source, 'Mục tiêu phải là Người Phàm');
                 return;
             }
 
             const { completed } = await this.progressService.progress(
                 source,
                 'vampire',
-                'Ça suce fort',
+                'Đang hút máu mạnh mẽ...',
                 3000,
                 {
                     name: 'base',
@@ -626,7 +626,7 @@ export class VampireGameProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'analyze',
-                'Injection du sérum',
+                'Đang tiêm huyết thanh...',
                 3000,
                 {
                     name: 'base',
@@ -823,10 +823,10 @@ export class VampireGameProvider {
 
         if (value) {
             this.gameState.excludedPlayers.add(citizenId);
-            this.notifier.notify(source, `Le joueur ${citizenId} a été exclu du jeu`, 'info');
+            this.notifier.notify(source, `Người chơi ${citizenId} đã bị loại khỏi trò chơi`, 'info');
         } else {
             this.gameState.excludedPlayers.delete(citizenId);
-            this.notifier.notify(source, `Le joueur ${citizenId} a été réintégré au jeu`, 'info');
+            this.notifier.notify(source, `Người chơi ${citizenId} đã được đưa trở lại trò chơi`, 'info');
         }
 
         await this.updateConfiguration();
@@ -839,7 +839,7 @@ export class VampireGameProvider {
         }
 
         this.gameDuration = value;
-        this.notifier.notify(source, `La durée du jeu a été mise à jour, durée maximum: ${value} minutes`, 'info');
+        this.notifier.notify(source, `Thời lượng trò chơi đã được cập nhật, thời gian tối đa: ${value} phút`, 'info');
 
         await this.updateConfiguration();
     }
@@ -852,11 +852,11 @@ export class VampireGameProvider {
 
         this.roleMaxNumber[role] = value;
         if (value <= 0) {
-            this.notifier.notify(source, `Le rôle ${role} a été désactivé`, 'info');
+            this.notifier.notify(source, `Vai trò ${role} đã bị tắt`, 'info');
             return;
         }
 
-        this.notifier.notify(source, `Le rôle ${role} a été mis à jour, chance de drop: ${value}%`, 'info');
+        this.notifier.notify(source, `Vai trò ${role} đã được cập nhật, tỷ lệ rơi: ${value}%`, 'info');
 
         await this.updateConfiguration();
     }
@@ -898,11 +898,11 @@ export class VampireGameProvider {
 
         this.mortalObjectivePart1[collection] = value;
         if (value <= 0) {
-            this.notifier.notify(source, `La collection ${collection} a été désactivée`, 'info');
+            this.notifier.notify(source, `Bộ sưu tập ${collection} đã bị tắt`, 'info');
             return;
         }
 
-        this.notifier.notify(source, `La collection ${collection} a été mise à jour, props maximum: ${value}`, 'info');
+        this.notifier.notify(source, `Bộ sưu tập ${collection} đã được cập nhật, số lượng tối đa: ${value}`, 'info');
 
         await this.updateConfiguration();
     }
@@ -915,11 +915,11 @@ export class VampireGameProvider {
 
         this.mortalObjectivePart2[objective] = value;
         if (value <= 0) {
-            this.notifier.notify(source, `L'objectif ${objective} a été désactivée`, 'info');
+            this.notifier.notify(source, `Mục tiêu ${objective} đã bị tắt`, 'info');
             return;
         }
 
-        this.notifier.notify(source, `L'objectif ${objective} a été mise à jour, joueur requis: ${value}`, 'info');
+        this.notifier.notify(source, `Mục tiêu ${objective} đã được cập nhật, số người chơi yêu cầu: ${value}`, 'info');
 
         await this.updateConfiguration();
     }
@@ -931,7 +931,7 @@ export class VampireGameProvider {
         }
 
         this.mortalObjectivePart3Duration = value;
-        this.notifier.notify(source, `La durée de l'objectif 3 a été mise à jour, durée: ${value} minutes`, 'info');
+        this.notifier.notify(source, `Thời gian của mục tiêu 3 đã được cập nhật: ${value} phút`, 'info');
 
         await this.updateConfiguration();
     }
@@ -947,7 +947,7 @@ export class VampireGameProvider {
         const now = Date.now();
 
         if (now - lastTp < 60 * 1000) {
-            this.notifier.notify(source, 'Tu dois ~r~attendre~s~ avant de pouvoir te téléporter !');
+            this.notifier.notify(source, 'Bạn cần ~r~chờ~s~ trước khi có thể dịch chuyển!');
             return;
         }
 
@@ -972,7 +972,7 @@ export class VampireGameProvider {
                 if (reason === 'cancel') {
                     this.notifier.notify(
                         -1,
-                        'Le tournage est terminé, l’ensemble de l’île peut retourner à ses occupations.',
+                        'Cảnh quay đã kết thúc, toàn bộ cư dân trên đảo có thể trở lại hoạt động bình thường.',
                         'info',
                         45_000
                     );
@@ -981,7 +981,7 @@ export class VampireGameProvider {
                 if (reason === 'vampire_victory') {
                     this.notifier.notify(
                         -1,
-                        'Les Vampires ont gagné ce scénario ! Le tournage est terminé, l’ensemble de l’île peut retourner à ses occupations, bravo pour votre prestation.',
+                        'Phe Ma Cà Rồng đã chiến thắng kịch bản này! Cảnh quay đã kết thúc, cảm ơn sự tham gia xuất sắc của tất cả mọi người.',
                         'info',
                         45_000
                     );
@@ -990,7 +990,7 @@ export class VampireGameProvider {
                 if (reason === 'mortal_victory') {
                     this.notifier.notify(
                         -1,
-                        'Les Mortels ont gagné ce scénario ! Le tournage est terminé, l’ensemble de l’île peut retourner à ses occupations, bravo pour votre prestation.',
+                        'Phe Người Phàm đã chiến thắng kịch bản này! Cảnh quay đã kết thúc, cảm ơn sự tham gia xuất sắc của tất cả mọi người.',
                         'info',
                         45_000
                     );

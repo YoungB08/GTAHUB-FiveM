@@ -88,7 +88,7 @@ export class Halloween2022Scenario2Provider {
                     inventory.add('old_relic', 1);
                     this.notifier.notify(
                         source,
-                        `Une ancienne relique ? Je devrais la ramener au vieux monsieur pour lui raconter la vraie histoire !`,
+                        `Một cổ vật xưa cũ? Tôi nên mang nó về cho ông lão để kể cho ông ấy nghe câu chuyện thực sự!`,
                         'success'
                     );
                     this.playerService.setPlayerMetadata(source, 'halloween2022', {

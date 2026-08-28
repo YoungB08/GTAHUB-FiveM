@@ -57,7 +57,7 @@ export class VehicleConditionProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove('repairkit', 1, false)) {
-            this.notifier.notify(source, "Vous n'avez pas de kit de réparation.");
+            this.notifier.notify(source, 'Bạn không có bộ dụng cụ sửa chữa động cơ (Repair Kit).');
 
             return;
         }
@@ -70,7 +70,7 @@ export class VehicleConditionProvider {
             return;
         }
 
-        this.notifier.notify(source, 'Votre véhicule a été réparé mécaniquement.');
+        this.notifier.notify(source, 'Phương tiện của bạn đã được sửa chữa động cơ thành công.');
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             engineHealth: 1000,
@@ -85,7 +85,7 @@ export class VehicleConditionProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove('bodyrepairkit', 1, false)) {
-            this.notifier.notify(source, "Vous n'avez pas de kit de réparation carosserie.");
+            this.notifier.notify(source, 'Bạn không có bộ dụng cụ sửa chữa thân vỏ xe (Body Repair Kit).');
 
             return;
         }
@@ -98,7 +98,7 @@ export class VehicleConditionProvider {
             return;
         }
 
-        this.notifier.notify(source, 'La carosserie de votre véhicule a été réparée.');
+        this.notifier.notify(source, 'Thân vỏ phương tiện của bạn đã được sửa chữa thành công.');
         this.vehicleBusinessProvider.repairVehicule(vehicleNetworkId);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
@@ -114,7 +114,7 @@ export class VehicleConditionProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove('cleaningkit', 1, false)) {
-            this.notifier.notify(source, "Vous n'avez pas de kit de nettoyage.");
+            this.notifier.notify(source, 'Bạn không có bộ dụng cụ vệ sinh xe (Cleaning Kit).');
 
             return;
         }
@@ -122,7 +122,7 @@ export class VehicleConditionProvider {
         const { completed } = await this.progressService.progress(
             source,
             'cleaning_vehicle',
-            'Nettoyage du véhicule...',
+            'Đang vệ sinh / rửa xe...',
             5000,
             {
                 task: 'WORLD_HUMAN_MAID_CLEAN',
@@ -136,12 +136,12 @@ export class VehicleConditionProvider {
         );
 
         if (!completed) {
-            this.notifier.notify(source, 'Vous avez interrompu le lavage du véhicule.');
+            this.notifier.notify(source, 'Bạn đã hủy thao tác rửa xe.');
 
             return;
         }
 
-        this.notifier.notify(source, 'Votre véhicule a été lavé.');
+        this.notifier.notify(source, 'Phương tiện của bạn đã được rửa sạch.');
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             dirtLevel: 0,
@@ -166,7 +166,7 @@ export class VehicleConditionProvider {
         }
 
         if (repairTime === 0) {
-            this.notifier.notify(source, 'Aucune roue à réparer.');
+            this.notifier.notify(source, 'Không có bánh xe nào bị thủng để sửa.');
 
             return;
         }
@@ -174,7 +174,7 @@ export class VehicleConditionProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove('wheel_kit', 1, false)) {
-            this.notifier.notify(source, "Vous n'avez pas de kit anti crevaison.");
+            this.notifier.notify(source, 'Bạn không có bộ vá lốp xe (Wheel Kit).');
 
             return;
         }
@@ -203,7 +203,7 @@ export class VehicleConditionProvider {
 
         this.notifier.notify(
             source,
-            'Vos roues sont temporairement réparées, rendez vous rapidement chez un garagiste pour les changer.'
+            'Bánh xe đã được vá tạm thời, hãy nhanh chóng đến gara để thay lốp mới.'
         );
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
@@ -234,7 +234,7 @@ export class VehicleConditionProvider {
         const { completed } = await this.progressService.progress(
             source,
             'repairing_vehicle',
-            'Réparation du véhicule...',
+            'Đang sửa chữa phương tiện...',
             repairTime,
             animation,
             {
@@ -247,7 +247,7 @@ export class VehicleConditionProvider {
         );
 
         if (!completed) {
-            this.notifier.notify(source, 'Vous avez interrompu la réparation du véhicule.');
+            this.notifier.notify(source, 'Bạn đã hủy thao tác sửa xe.');
 
             return false;
         }
@@ -326,7 +326,7 @@ export class VehicleConditionProvider {
     @OnEvent(ServerEvent.VEHICLE_WASH)
     public async onVehicleWash(source: number, vehicleId: number) {
         if (!(await this.playerMoneyService.buy(source, 45, TaxType.VEHICLE))) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+            this.notifier.notify(source, 'Bạn không có đủ tiền', 'error');
 
             return;
         }
@@ -334,7 +334,7 @@ export class VehicleConditionProvider {
         const { completed } = await this.progressService.progress(
             source,
             'cleaning_vehicle',
-            'Lavage du véhicule...',
+            'Đang rửa xe...',
             10000,
             {
                 task: 'WORLD_HUMAN_MAID_CLEAN',
@@ -352,9 +352,9 @@ export class VehicleConditionProvider {
                 dirtLevel: 0,
             });
 
-            this.notifier.notify(source, 'Votre véhicule a été lavé.', 'success');
+            this.notifier.notify(source, 'Phương tiện của bạn đã được rửa sạch.', 'success');
         } else {
-            this.notifier.notify(source, 'Lavage échoué.', 'error');
+            this.notifier.notify(source, 'Rửa xe thất bại.', 'error');
         }
     }
 

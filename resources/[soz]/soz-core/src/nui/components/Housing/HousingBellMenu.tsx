@@ -18,7 +18,7 @@ export const HousingBellMenu: FunctionComponent<HousingBellMenuProps> = ({ data 
     return (
         <Menu type={MenuType.HousingBellMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

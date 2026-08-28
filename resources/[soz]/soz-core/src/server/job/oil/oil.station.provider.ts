@@ -137,7 +137,7 @@ export class OilStationProvider {
             !this.permissionService.isAdmin(source) &&
             !(await this.jobService.hasPermission(player, JobType.Oil, JobPermission.FuelerChangePrice))
         ) {
-            this.notifier.notify(source, "Vous n'avez pas la permission de faire ça.", 'error');
+            this.notifier.notify(source, "Bạn không có quyền thực hiện hành động này.", 'error');
 
             return;
         }
@@ -152,7 +152,7 @@ export class OilStationProvider {
             },
         });
 
-        this.notifier.notify(source, `Vous avez changé le prix de l'essence à $${price}.`);
+        this.notifier.notify(source, `Bạn đã đổi giá xăng thành $${price}.`);
     }
 
     @OnEvent(ServerEvent.OIL_REFILL_ESSENCE_STATION)
@@ -180,17 +180,17 @@ export class OilStationProvider {
         const duration = itemCount * 500;
 
         if (itemCount > availableCount) {
-            this.notifier.notify(source, "Vous n'avez pas assez d'essence dans la citerne.");
+            this.notifier.notify(source, "Bạn không có đủ xăng trong téc chứa.");
 
             return;
         }
 
-        this.notifier.notify(source, 'Vous avez ~g~relié~s~ là citerne à ~g~la station service~s~.');
+        this.notifier.notify(source, 'Bạn đã ~g~nối~s~ téc chứa với ~g~cây xăng~s~.');
 
         const { progress } = await this.progressService.progress(
             source,
             'fill',
-            'Rechargement en cours',
+            'Đang bơm nạp xăng...',
             duration,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -217,7 +217,7 @@ export class OilStationProvider {
             const itemUsed = Math.ceil(reallyRefilled / 10);
 
             if (!inventory.remove('essence', itemUsed)) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'essence dans la citerne.");
+                this.notifier.notify(source, "Bạn không có đủ xăng trong téc chứa.");
 
                 return;
             }
@@ -226,7 +226,7 @@ export class OilStationProvider {
                 await this.bankService.transferFarmMoney(source, 'farm_mtp', 'safe_oil', reallyRefilled * 3);
             }
 
-            this.notifier.notify(source, `Vous avez ~g~ajouté~s~ ${reallyRefilled}L d'essence dans la station.`);
+            this.notifier.notify(source, `Bạn đã ~g~nạp~s~ ${reallyRefilled}L xăng vào trạm xăng.`);
 
             await this.prismaService.fuel_storage.update({
                 where: {
@@ -258,7 +258,7 @@ export class OilStationProvider {
         const availableCount = inventory.getItemCount('kerosene');
 
         if (itemCount > availableCount) {
-            this.notifier.notify(source, "Vous n'avez pas assez de kérosène.");
+            this.notifier.notify(source, "Bạn không có đủ dầu hỏa/nhiên liệu máy bay.");
 
             return;
         }
@@ -266,7 +266,7 @@ export class OilStationProvider {
         const { progress } = await this.progressService.progress(
             source,
             'fill',
-            'Vous remplissez...',
+            'Đang nạp dầu hỏa...',
             20000,
             {
                 dictionary: 'timetable@gardener@filling_can',
@@ -285,7 +285,7 @@ export class OilStationProvider {
         const itemUsed = Math.ceil(refilled / 10);
 
         if (!inventory.remove('kerosene', itemUsed)) {
-            this.notifier.notify(source, "Vous n'avez pas assez de kérosène.");
+            this.notifier.notify(source, "Bạn không có đủ dầu hỏa/nhiên liệu máy bay.");
 
             return;
         }
@@ -300,7 +300,7 @@ export class OilStationProvider {
             await this.bankService.transferFarmMoney(source, 'farm_mtp', 'safe_oil', refilled * 3);
         }
 
-        this.notifier.notify(source, `Vous avez ~g~ajouté~s~ ${refilled}L de kérosène dans la station.`);
+        this.notifier.notify(source, `Bạn đã ~g~nạp~s~ ${refilled}L dầu hỏa vào trạm xăng.`);
 
         await this.prismaService.fuel_storage.update({
             where: {

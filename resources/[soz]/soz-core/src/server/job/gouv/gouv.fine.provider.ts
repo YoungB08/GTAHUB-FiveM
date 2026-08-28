@@ -36,7 +36,7 @@ export class GouvFineProvider {
 
         await this.fineRepository.add(label, category, min, max);
 
-        this.notifier.notify(source, `L'amende ~g~${label}~s~ a été ajoutée avec succès.`);
+        this.notifier.notify(source, `Mức phạt ~g~${label}~s~ đã được thêm thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_FINE_REMOVE)
@@ -53,7 +53,7 @@ export class GouvFineProvider {
 
         await this.fineRepository.remove(id);
 
-        this.notifier.notify(source, `L'amende a été supprimée avec succès.`);
+        this.notifier.notify(source, `Mức phạt đã được xóa thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_FINE_SET_LABEL)
@@ -70,7 +70,7 @@ export class GouvFineProvider {
 
         await this.fineRepository.setLabel(id, label);
 
-        this.notifier.notify(source, `Le label de l'amende a été modifié avec succès.`);
+        this.notifier.notify(source, `Tên mức phạt đã được cập nhật thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_FINE_SET_MIN_PRICE)
@@ -87,7 +87,7 @@ export class GouvFineProvider {
 
         await this.fineRepository.setMinPrice(id, price);
 
-        this.notifier.notify(source, `Le prix minimum de l'amende a été modifié avec succès.`);
+        this.notifier.notify(source, `Số tiền phạt tối thiểu đã được cập nhật thành công.`);
     }
 
     @OnEvent(ServerEvent.GOUV_FINE_SET_MAX_PRICE)
@@ -104,6 +104,6 @@ export class GouvFineProvider {
 
         await this.fineRepository.setMaxPrice(id, price);
 
-        this.notifier.notify(source, `Le prix maximum de l'amende a été modifié avec succès.`);
+        this.notifier.notify(source, `Số tiền phạt tối đa đã được cập nhật thành công.`);
     }
 }

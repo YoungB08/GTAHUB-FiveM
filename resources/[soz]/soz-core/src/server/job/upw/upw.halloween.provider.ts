@@ -23,7 +23,7 @@ export class UpwHalloweenProvider {
         const { completed } = await this.progressService.progress(
             source,
             'upw.halloween.blessed_water',
-            "Vous récupérez de l'eau bénite",
+            'Đang lấy nước thánh...',
             5000,
             {
                 name: 'weed_stand_checkingleaves_kneeling_01_inspector',
@@ -39,11 +39,11 @@ export class UpwHalloweenProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (isErr(inventory.add('halloween_blessed_water', 1))) {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
 
             return;
         }
 
-        this.notifier.notify(source, "Vous avez récupéré de ~g~l'eau bénite~s~", 'success');
+        this.notifier.notify(source, 'Bạn đã lấy được ~g~nước thánh~s~', 'success');
     }
 }

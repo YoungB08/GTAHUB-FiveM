@@ -408,7 +408,7 @@ export class AdminMenuMapperProvider {
     public async addApartment({ propertyId }: { propertyId: number }): Promise<Property[]> {
         const apartmentIdentifier = await this.inputService.askInput(
             {
-                title: "Identifiant de l'interieur",
+                title: "Mã định danh nội thất (Identifier)",
                 defaultValue: '',
             },
             NotEmptyStringValidator
@@ -422,7 +422,7 @@ export class AdminMenuMapperProvider {
 
         const apartmentName = await this.inputService.askInput(
             {
-                title: "Nom de l'intérieur",
+                title: "Tên nội thất (Interior name)",
                 defaultValue: '',
             },
             NotEmptyStringValidator
@@ -444,7 +444,7 @@ export class AdminMenuMapperProvider {
     public async addProperty(): Promise<Property[]> {
         const propertyName = await this.inputService.askInput(
             {
-                title: 'Identifiant de la propriété',
+                title: 'Mã định danh bất động sản (Property ID)',
                 defaultValue: '',
             },
             NotEmptyStringValidator
@@ -461,7 +461,7 @@ export class AdminMenuMapperProvider {
     public async setApartmentName({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
         const apartmentName = await this.inputService.askInput(
             {
-                title: "Nom de l'interieur",
+                title: "Tên nội thất (Interior name)",
                 defaultValue: '',
             },
             NotEmptyStringValidator
@@ -485,7 +485,7 @@ export class AdminMenuMapperProvider {
         if (price === null) {
             const apartmentPrice = await this.inputService.askInput(
                 {
-                    title: "Prix de l'intérieur",
+                    title: "Giá nội thất/căn hộ",
                     defaultValue: '',
                 },
                 PositiveNumberValidator
@@ -505,7 +505,7 @@ export class AdminMenuMapperProvider {
     public async setApartmentIdentifier({ apartmentId }: { apartmentId: number }): Promise<Property[]> {
         const apartmentIdentifier = await this.inputService.askInput(
             {
-                title: "Identifiant de l'interieur",
+                title: "Mã định danh nội thất (Identifier)",
                 defaultValue: '',
             },
             NotEmptyStringValidator
@@ -637,7 +637,7 @@ export class AdminMenuMapperProvider {
     @OnNuiEvent(NuiEvent.AdminMenuMapperAddZone)
     public async addZone({ type }: { type: ZoneType }) {
         const name = await this.inputService.askInput({
-            title: 'Nom de la zone',
+            title: 'Tên khu vực (Zone)',
             defaultValue: '',
         });
 
@@ -717,9 +717,9 @@ export class AdminMenuMapperProvider {
         }
 
         if (value) {
-            this.notifier.notify('Blips affichés');
+            this.notifier.notify('Đã hiện Blips');
         } else {
-            this.notifier.notify('Blips cachés');
+            this.notifier.notify('Đã ẩn Blips');
         }
     }
 
@@ -727,7 +727,7 @@ export class AdminMenuMapperProvider {
     public async renameZone({ id }: { id: number }) {
         const existing = this.zoneRepository.find(id);
         const name = await this.inputService.askInput({
-            title: 'Nom de la zone',
+            title: 'Tên khu vực (Zone)',
             defaultValue: existing.data.name,
         });
 
@@ -820,7 +820,7 @@ export class AdminMenuMapperProvider {
     public async addPropertyCulling({ propertyId }: { propertyId: number }): Promise<Property[]> {
         const cullingString = await this.inputService.askInput(
             {
-                title: 'Hash du batiment',
+                title: 'Mã Hash của tòa nhà',
                 defaultValue: '',
             },
             NotEmptyStringValidator

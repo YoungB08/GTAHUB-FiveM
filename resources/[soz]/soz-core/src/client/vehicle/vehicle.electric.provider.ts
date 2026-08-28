@@ -312,16 +312,16 @@ export class VehicleElectricProvider {
             return;
         }
         if (stationToRefill.stock > stationToRefill.max_stock - 1) {
-            this.notifier.notify('La station est pleine !', 'success');
+            this.notifier.notify('Trạm sạc đã đầy!', 'success');
             return;
         }
         if (!this.inventoryManager.hasEnoughItem(cell, 1, true)) {
-            this.notifier.notify("Vous n'avez plus de cellule de ce type.", 'warning');
+            this.notifier.notify("Bạn không còn loại pin này trong túi đồ.", 'warning');
             return;
         }
         const { completed } = await this.progressService.progress(
             'refill_station',
-            'Vous rechargez la station...',
+            'Đang nạp năng lượng cho trạm sạc...',
             10000,
             {
                 dictionary: 'anim@mp_radio@garage@low',

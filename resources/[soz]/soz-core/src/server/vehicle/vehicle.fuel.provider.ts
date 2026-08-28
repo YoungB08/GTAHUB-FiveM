@@ -55,7 +55,7 @@ export class VehicleFuelProvider {
         }
 
         if (this.currentFilling.has(vehicleNetworkId)) {
-            this.notifier.notify(source, 'Le véhicule est déjà en train de se faire remplir.', 'error');
+            this.notifier.notify(source, 'Phương tiện đang trong quá trình tiếp nhiên liệu.', 'error');
 
             return;
         }
@@ -104,7 +104,7 @@ export class VehicleFuelProvider {
             );
 
             if (maxFuelMoney <= 0) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+                this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
                 this.currentFilling.delete(vehicleNetworkId);
                 TriggerClientEvent(ClientEvent.VEHICLE_FUEL_STOP, source);
 
@@ -112,7 +112,7 @@ export class VehicleFuelProvider {
             }
 
             if (reservedFuel <= 0) {
-                this.notifier.notify(source, 'La station vient de se vider.', 'error');
+                this.notifier.notify(source, 'Trạm xăng hiện đã hết nhiên liệu.', 'error');
                 this.currentFilling.delete(vehicleNetworkId);
                 TriggerClientEvent(ClientEvent.VEHICLE_FUEL_STOP, source);
 
@@ -124,7 +124,7 @@ export class VehicleFuelProvider {
             const { progress } = await this.progressService.progress(
                 source,
                 'filling_vehicle',
-                'Remplissage en cours...',
+                'Đang bơm nhiên liệu...',
                 duration,
                 {
                     name: 'gar_ig_5_filling_can',
@@ -156,14 +156,14 @@ export class VehicleFuelProvider {
             let leftOver = reservedFuel - totalFilled;
 
             if (station.price > 0 && !this.playerMoneyService.remove(source, cost)) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'argent.", 'error');
+                this.notifier.notify(source, 'Bạn không có đủ tiền.', 'error');
                 leftOver = reservedFuel;
             } else {
                 this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
                     fuelLevel: vehicleState.condition.fuelLevel + totalFilled,
                 });
 
-                this.notifier.notify(source, `Vous avez payé $${cost} pour ${totalFilled}L de carburant.`, 'success');
+                this.notifier.notify(source, `Bạn đã thanh toán $${cost} cho ${totalFilled}L nhiên liệu.`, 'success');
             }
 
             TriggerClientEvent(ClientEvent.VEHICLE_FUEL_STOP, source);

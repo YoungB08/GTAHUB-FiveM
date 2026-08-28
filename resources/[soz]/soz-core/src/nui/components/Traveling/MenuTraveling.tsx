@@ -28,10 +28,10 @@ export const MenuTraveling: FunctionComponent = () => {
     return (
         <Menu type={MenuType.Traveling}>
             <MainMenu>
-                <MenuTitle title="Prise de vue" />
+                <MenuTitle title="Góc máy quay (Cinematic Camera)" />
                 <MenuContent>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.TravelingAdd)}>
-                        ➕ Ajouter une prise de vue
+                        ➕ Tạo góc máy quay mới
                     </MenuItemButton>
                     {travelings
                         .sort((itemA, itemB) => itemA.name.localeCompare(itemB.name))
@@ -73,10 +73,10 @@ const MenuSubTraveling: FunctionComponent<MenuTravelingSubProps> = ({ data }) =>
     return (
         <>
             <SubMenu id={data.id.toString()}>
-                <MenuTitle title={`Prise de vue: ${data.name}`} />
+                <MenuTitle title={`Góc máy: ${data.name}`} />
                 <MenuContent>
                     <MenuItemSelect
-                        title="➕ Ajouter un point après"
+                        title="➕ Thêm điểm quay sau mốc"
                         value={data.points.length}
                         onConfirm={async (_, index) => {
                             await fetchNui(NuiEvent.TravelingPointAdd, {
@@ -114,28 +114,28 @@ const MenuSubTraveling: FunctionComponent<MenuTravelingSubProps> = ({ data }) =>
                                             <span className="mr-1">{point.fov}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
-                                            <span>Délai</span>
+                                            <span>Thời gian chờ</span>
                                             <span className="mr-1">{point.wait}</span>
                                         </div>
                                     </>
                                 }
                             >
-                                <MenuItemSelectOption value="editPos">Editer position/rotation</MenuItemSelectOption>
-                                <MenuItemSelectOption value="editFov">Editer FOV</MenuItemSelectOption>
-                                <MenuItemSelectOption value="editDelay">Editer délai</MenuItemSelectOption>
-                                <MenuItemSelectOption value="tp">Téléporter</MenuItemSelectOption>
-                                <MenuItemSelectOption value="delete">Supprimer</MenuItemSelectOption>
+                                <MenuItemSelectOption value="editPos">Chỉnh vị trí / góc xoay</MenuItemSelectOption>
+                                <MenuItemSelectOption value="editFov">Chỉnh FOV</MenuItemSelectOption>
+                                <MenuItemSelectOption value="editDelay">Chỉnh thời gian chờ</MenuItemSelectOption>
+                                <MenuItemSelectOption value="tp">Dịch chuyển đến</MenuItemSelectOption>
+                                <MenuItemSelectOption value="delete">Xóa điểm này</MenuItemSelectOption>
                             </MenuItemSelect>
                         );
                     })}
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.TravelingLaunch, data.id)}>
-                        ✅ Lancer
+                        ✅ Bắt đầu chạy góc quay
                     </MenuItemButton>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.TravelingRename, data.id)}>
-                        ✎ Renommer
+                        ✎ Đổi tên
                     </MenuItemButton>
                     <MenuItemButton onConfirm={() => fetchNui(NuiEvent.TravelingDelete, data.id)}>
-                        ❌ Supprimer
+                        ❌ Xóa góc quay
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>

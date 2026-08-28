@@ -54,7 +54,7 @@ export const DarkChatMessages = memo(() => {
     }, [messages, number, conversationId]);
 
     useAppTitleGetBackUpdater(() => navigate(-1), undefined, 'text-teal-500');
-    useAppTitleUpdater(true, conversation?.label || 'Erreur');
+    useAppTitleUpdater(true, conversation?.label || 'Lỗi');
     useAppTitleActionsUpdater([
         {
             display: !participant?.notification,

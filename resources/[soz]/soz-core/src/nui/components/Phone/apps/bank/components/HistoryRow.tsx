@@ -53,7 +53,7 @@ export const HistoryRow: FunctionComponent<HistoryRowProps> = ({ statement }) =>
             >
                 <div className="grow min-w-0 truncate overflow-hidden">
                     {statement.source_accountid === '' || statement.target_accountid === '' ? (
-                        <span>Action effectuée sur votre compte</span>
+                        <span>Giao dịch được thực hiện trên tài khoản của bạn</span>
                     ) : (
                         <>
                             {title} <span>{targetWithLabel(statement)}</span>

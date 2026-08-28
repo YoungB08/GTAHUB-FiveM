@@ -50,7 +50,7 @@ export class RaceProvider {
 
         this.raceRepository.setupTp(race);
 
-        this.notifier.notify(source, `Course ~g~${race.name}~s~ créée`, 'success');
+        this.notifier.notify(source, `Đã tạo đường đua ~g~${race.name}~s~`, 'success');
     }
 
     @OnEvent(ServerEvent.RACE_UPDATE)
@@ -60,7 +60,7 @@ export class RaceProvider {
 
         let race = await this.raceRepository.find(id);
         if (!race) {
-            this.notifier.notify(source, `Course ~g~${id}~s~ inconnue`, 'error');
+            this.notifier.notify(source, `Không tìm thấy đường đua ~g~${id}~s~`, 'error');
             return;
         }
 
@@ -90,7 +90,7 @@ export class RaceProvider {
 
         this.raceRepository.setupTp(race);
 
-        this.notifier.notify(source, `Course ~g~${race.name}~s~ mise à jour`, 'success');
+        this.notifier.notify(source, `Đã cập nhật đường đua ~g~${race.name}~s~`, 'success');
     }
 
     @OnEvent(ServerEvent.RACE_DELETE)
@@ -103,7 +103,7 @@ export class RaceProvider {
 
         this.raceRepository.delete(raceId);
 
-        this.notifier.notify(source, `Course ~g~${dbRace.name}~s~ supprimmée`, 'success');
+        this.notifier.notify(source, `Đã xóa đường đua ~g~${dbRace.name}~s~`, 'success');
     }
 
     @OnEvent(ServerEvent.RACE_FINISH)
@@ -158,7 +158,7 @@ export class RaceProvider {
         const races = await this.raceRepository.get();
         const race = races[raceId];
 
-        this.notifier.notify(source, `Classement de la course ~g~${race.name}~s~ supprimée`, 'success');
+        this.notifier.notify(source, `Đã xóa bảng xếp hạng đường đua ~g~${race.name}~s~`, 'success');
     }
 
     @Rpc(RpcServerEvent.RACE_SERVER_START)

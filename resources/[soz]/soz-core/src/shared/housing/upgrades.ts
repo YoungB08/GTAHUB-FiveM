@@ -2,21 +2,21 @@ export const MAX_TIER = 9;
 export const MAX_TRAILER_TIER = 4;
 
 export const TYPE_LABEL = {
-    tier: 'Stockage',
-    money_tier: 'Coffre Fort',
-    cloth_tier: 'Tenues',
-    park_tier: 'Garage',
+    tier: 'Dung tích kho đồ',
+    money_tier: 'Két sắt tiền mặt',
+    cloth_tier: 'Tủ quần áo',
+    park_tier: 'Garage đỗ xe',
 };
 
 export const FOURNITURE_PER_TIER = 20;
 
 export const TYPE_DESCRPTION = {
-    tier: 'Le stockage et le frigo peuvent contenir plus de choses.',
-    money_tier: "Le coffre-fort peut contenir plus d'argent.",
-    cloth_tier: 'La penderie peut contenir plus de tenue.',
-    park_tier: 'Le garage peut contenir plus de véhicule.',
-    park_trailer: "Votre caravane peut disposer d'un garage.",
-    all: `Toutes les améliorations augmentent votre stock de meuble (${FOURNITURE_PER_TIER}/amélioration).`,
+    tier: 'Kho lưu trữ và tủ lạnh sẽ chứa được nhiều vật phẩm hơn.',
+    money_tier: 'Két sắt sẽ chứa được nhiều tiền mặt hơn.',
+    cloth_tier: 'Tủ đồ sẽ lưu trữ được nhiều bộ trang phục hơn.',
+    park_tier: 'Garage sẽ chứa được nhiều phương tiện hơn.',
+    park_trailer: 'Nhà lưu động của bạn sẽ có thêm vị trí đỗ xe garage.',
+    all: `Mỗi cấp nâng cấp giúp tăng thêm sức chứa nội thất (+${FOURNITURE_PER_TIER} món đồ/cấp).`,
 };
 
 export const HousingTiers = {

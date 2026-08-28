@@ -54,8 +54,8 @@ export class MdrProvider {
         const expiration = new Date(dlc);
         this.notifier.notify(
             target,
-            `Le ticket nouvel arrivant présenté est valable jusqu'à ${expiration.toLocaleDateString(
-                'fr-FR',
+            `Vé người mới đến được xuất trình có giá trị đến ${expiration.toLocaleDateString(
+                'vi-VN',
                 FORMAT_LOCALIZED
             )}`,
             'info'
@@ -68,7 +68,7 @@ export class MdrProvider {
 
         while (this.canWash(source)) {
             if (!first) {
-                this.notifier.notify(source, 'Vous ~g~commencez~s~ à réhabiliter des billets.', 'info');
+                this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ hoàn lương tiền bẩn.', 'info');
                 first = true;
             }
 
@@ -79,14 +79,14 @@ export class MdrProvider {
                     player_source: source,
                 });
 
-                this.notifier.notify(source, `Vous avez réhabilité ~r~1000$~s~ en ~g~$200~s~.`);
+                this.notifier.notify(source, `Bạn đã hoàn lương ~r~1000$~s~ thành ~g~$200~s~.`);
             } else {
-                this.notifier.notify(source, 'Vous avez ~r~arrêté~s~ de réhabiliter.');
+                this.notifier.notify(source, 'Bạn đã ~r~dừng~s~ hoàn lương tiền.');
                 return;
             }
         }
 
-        this.notifier.notify(source, "Vous n'avez pas assez d'agent sale.", 'error');
+        this.notifier.notify(source, "Bạn không có đủ tiền bẩn.", 'error');
     }
 
     private canWash(source: number): boolean {
@@ -98,7 +98,7 @@ export class MdrProvider {
         const { completed } = await this.progressService.progress(
             source,
             'hub_wash',
-            'Réhabilitation en cours...',
+            'Đang xử lý tiền hoàn lương...',
             4000,
             {
                 dictionary: 'anim@mp_radio@garage@low',

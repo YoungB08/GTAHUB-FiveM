@@ -442,11 +442,11 @@ export class WhatIf2Provider {
 
                 if (isInside && !this.hubMessageDisplayed) {
                     this.notifier.notify(
-                        'Bienvenue dans le campement des ~b~' +
+                        'Chào mừng đến căn cứ an toàn của phe ~b~' +
                             guild +
-                            's~s~, ici les murs tiennent encore. Un maigre rempart contre ~r~l’enfer extérieur~s~.~n~' +
-                            'Aucune créature, aucune arme, aucune trahison ~h~~r~n’a sa place~s~~/h~ entre ces barrières.~n~' +
-                            'Reprenez votre souffle, échangez, préparez-vous… car au-delà de cette limite, ~b~c’est la ~h~survie~/h~~s~, rien d’autre.',
+                            '~s~, tại đây các bức tường vẫn còn trụ vững trước ~r~địa ngục bên ngoài~s~.~n~' +
+                            'Không quái vật, không vũ khí, không sự phản bội nào ~h~~r~được phép hiện diện~s~~/h~ tại đây.~n~' +
+                            'Hãy nghỉ ngơi, giao thương và chuẩn bị… vì vượt qua ranh giới này, ~b~chỉ có sự ~h~sinh tồn~/h~~s~ mà thôi.',
                         'info',
                         20000
                     );
@@ -1076,7 +1076,7 @@ export class WhatIf2Provider {
         }
 
         this.isInfected = false;
-        this.notifier.notify(`Vous avez réussis a vous injecter un sérum a temps !`);
+        this.notifier.notify(`Bạn đã tiêm huyết thanh kháng virus kịp thời!`);
         this.blurService.remove('zombie-infected', 500);
     }
 
@@ -1149,7 +1149,7 @@ export class WhatIf2Provider {
         if (model == null) {
             model = await this.inputService.askInput(
                 {
-                    title: 'Nom du modèle',
+                    title: 'Tên Model',
                 },
                 NotEmptyStringValidator
             );
@@ -1159,7 +1159,7 @@ export class WhatIf2Provider {
             }
 
             if (ForbiddenPropModels.includes(joaat(model))) {
-                this.notifier.notify(`Ce modèle est interdit`, 'error');
+                this.notifier.notify(`Mô hình này bị cấm đặt`, 'error');
                 return;
             }
         }
@@ -1185,7 +1185,7 @@ export class WhatIf2Provider {
                     this.nuiDispatch.dispatch('whatif', 'hammer_props', props);
                 }
             } else {
-                this.notifier.error('~r~Le modèle est trop loin !');
+                this.notifier.error('~r~Mô hình ở quá xa vị trí của bạn!');
             }
         }
     }
@@ -1223,7 +1223,7 @@ export class WhatIf2Provider {
                     newObj.noCollision
                 );
             } else {
-                this.notifier.error('~r~Le modèle est trop loin !');
+                this.notifier.error('~r~Mô hình ở quá xa vị trí của bạn!');
             }
         }
     }
@@ -1357,13 +1357,13 @@ export class WhatIf2Provider {
 
             const remainingMinutes = 20 + Math.floor((this.isInfectedAt + 60000 - Date.now()) / 60000);
             this.notifier.error(
-                `Vous avez été infecté ! Vous avez ~b~${remainingMinutes} minutes~s~ pour trouver et vous injecter un ~b~sérum~s~ avant que la fièvre ne vous consume.`
+                `Bạn đã bị nhiễm virus! Bạn có ~b~${remainingMinutes} phút~s~ để tìm và tiêm ~b~huyết thanh kháng độc~s~ trước khi bị biến đổi.`
             );
         }
 
         if (infectionTime < INFECTED_TIME_BEFORE_DEATH) return;
 
-        this.notifier.error(`Vous avez succombé à vos blessures...`);
+        this.notifier.error(`Bạn đã gục ngã vì vết thương nhiễm trùng...`);
         SetEntityHealth(PlayerPedId(), 0);
 
         this.isInfected = false;
@@ -1544,7 +1544,7 @@ export class WhatIf2Provider {
             return;
         }
 
-        const outfitSelection = await this.playerWardrobe.selectOutfit(config, 'Tenue de survivant');
+        const outfitSelection = await this.playerWardrobe.selectOutfit(config, 'Trang phục người sống sót');
         if (outfitSelection.canceled) {
             return;
         }
@@ -1586,12 +1586,12 @@ export class WhatIf2Provider {
     public async onRetrieval() {
         const player = this.playerService.getPlayer();
         if (!player || player.metadata.isdead) {
-            this.notifier.error('Rapatriement impossible en étant coma');
+            this.notifier.error('Không thể hồi hương khi đang bất tỉnh / hôn mê');
             return;
         }
 
         const validate = await this.inputService.askConfirm(
-            'Confimer le raptriement (oui), ⚠️Vous perdrez tout ce que vous avez pu récupérer excepter votre marteau'
+            'Xác nhận hồi hương về căn cứ an toàn? ⚠️Bạn sẽ mất toàn bộ vật phẩm thu thập được ngoại trừ búa xây dựng'
         );
 
         if (!validate) {

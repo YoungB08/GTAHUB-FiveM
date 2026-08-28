@@ -18,7 +18,7 @@ export const HousingSellMenu: FunctionComponent<HousingSellMenuProps> = ({ data 
     return (
         <Menu type={MenuType.HousingSellMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (
@@ -35,7 +35,7 @@ export const HousingSellMenu: FunctionComponent<HousingSellMenuProps> = ({ data 
                                     <span>{apartment.label}</span>
                                     <span>
                                         💸 $
-                                        {Intl.NumberFormat('fr-FR').format(getResellPrice(apartment, data.property))}
+                                        {Intl.NumberFormat('vi-VN').format(getResellPrice(apartment, data.property))}
                                     </span>
                                 </div>
                             </MenuItemButton>

@@ -33,7 +33,7 @@ export class VehicleTowProvider {
 
         this.towRopeRepository.addRope(towRope);
 
-        this.notifier.notify(source, 'Le cable de remorquage a été ~g~installé~s~');
+        this.notifier.notify(source, 'Dây kéo xe đã được ~g~lắp đặt~s~');
     }
 
     public async unregister(vehNetId: number) {
@@ -48,7 +48,7 @@ export class VehicleTowProvider {
         const towRope = await this.towRopeRepository.find(id);
         this.towRopeRepository.delete(id);
 
-        this.notifier.notify(source, 'Le cable de remorquage a été ~r~enlevé~s~');
+        this.notifier.notify(source, 'Dây kéo xe đã được ~r~tháo bỏ~s~');
 
         const owner1 = NetworkGetEntityOwner(NetworkGetEntityFromNetworkId(towRope.netId1));
         TriggerClientEvent(ClientEvent.VEH_FEATURE_SURFACE_RESET, owner1, towRope.netId1);

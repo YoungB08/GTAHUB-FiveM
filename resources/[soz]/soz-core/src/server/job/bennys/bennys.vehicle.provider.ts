@@ -45,7 +45,7 @@ export class BennysVehicleProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.hasEnoughItem('repair_part_motor', 1, true)) {
-            this.notifier.error(source, `Vous n'avez pas de pièce de réparation moteur.`);
+            this.notifier.error(source, `Bạn không có phụ tùng sửa động cơ.`);
 
             return;
         }
@@ -62,7 +62,7 @@ export class BennysVehicleProvider {
             return;
         }
 
-        this.notifier.notify(source, `Le moteur a été réparé.`);
+        this.notifier.notify(source, `Động cơ đã được sửa chữa.`);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             engineHealth: 1000,
@@ -81,7 +81,7 @@ export class BennysVehicleProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.hasEnoughItem('repair_part_body', 1, true)) {
-            this.notifier.error(source, `Vous n'avez pas de pièce de réparation carosserie.`);
+            this.notifier.error(source, `Bạn không có phụ tùng sửa thân xe/vỏ xe.`);
 
             return;
         }
@@ -98,7 +98,7 @@ export class BennysVehicleProvider {
             return;
         }
 
-        this.notifier.notify(source, `La carrosserie a été réparée.`);
+        this.notifier.notify(source, `Thân vỏ xe đã được sửa chữa.`);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             bodyHealth: 1000,
@@ -122,7 +122,7 @@ export class BennysVehicleProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.hasEnoughItem('repair_part_fuel_tank', 1, true)) {
-            this.notifier.error(source, `Vous n'avez pas de pièce de réparation réservoir.`);
+            this.notifier.error(source, `Bạn không có phụ tùng sửa bình nhiên liệu.`);
 
             return;
         }
@@ -139,7 +139,7 @@ export class BennysVehicleProvider {
             return;
         }
 
-        this.notifier.notify(source, `Le réservoir d'essence a été réparé.`);
+        this.notifier.notify(source, `Bình nhiên liệu đã được sửa chữa.`);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             tankHealth: 1000,
@@ -192,7 +192,7 @@ export class BennysVehicleProvider {
             return;
         }
 
-        this.notifier.notify(source, `Les roues ont été réparées.`);
+        this.notifier.notify(source, `Các bánh xe đã được sửa chữa.`);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             tireTemporaryRepairDistance: {},
@@ -229,7 +229,7 @@ export class BennysVehicleProvider {
         const { completed } = await this.progressService.progress(
             source,
             'repairing_vehicle',
-            'Réparation du véhicule...',
+            'Đang sửa chữa phương tiện...',
             repairTime,
             animation,
             {
@@ -242,7 +242,7 @@ export class BennysVehicleProvider {
         );
 
         if (!completed) {
-            this.notifier.notify(source, 'Vous avez interrompu la réparation du véhicule.');
+            this.notifier.notify(source, 'Bạn đã hủy sửa chữa phương tiện.');
 
             return false;
         }
@@ -256,7 +256,7 @@ export class BennysVehicleProvider {
         const { completed } = await this.progressService.progress(
             source,
             'cleaning_vehicle',
-            'Nettoyage du véhicule...',
+            'Đang rửa phương tiện...',
             5000,
             {
                 task: 'WORLD_HUMAN_MAID_CLEAN',
@@ -270,12 +270,12 @@ export class BennysVehicleProvider {
         );
 
         if (!completed) {
-            this.notifier.notify(source, 'Vous avez interrompu le lavage du véhicule.');
+            this.notifier.notify(source, 'Bạn đã hủy rửa phương tiện.');
 
             return;
         }
 
-        this.notifier.notify(source, `Le véhicule est bien lavé.`);
+        this.notifier.notify(source, `Phương tiện đã được rửa sạch sẽ.`);
 
         this.vehicleStateService.updateVehicleCondition(vehicleNetworkId, {
             dirtLevel: 0,

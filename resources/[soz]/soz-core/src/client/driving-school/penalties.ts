@@ -50,7 +50,7 @@ export abstract class Penalty {
             return;
         }
 
-        this.context.notifier.notify(`AVERTISSEMENT: ${this.warningMsg}`, 'warning');
+        this.context.notifier.notify(`CẢNH BÁO: ${this.warningMsg}`, 'warning');
     }
 
     protected displayFailMsg(): void {
@@ -58,7 +58,7 @@ export abstract class Penalty {
             return;
         }
 
-        this.context.notifier.notify(`ÉCHEC: ${this.failMsg}`, 'error');
+        this.context.notifier.notify(`THI TRƯỢT: ${this.failMsg}`, 'error');
     }
 
     private isGracePeriodExceeded(): boolean {
@@ -72,8 +72,8 @@ class DamagePenalty extends Penalty {
     private WARNING_THRESHOLD = 995;
     private FAIL_THRESHOLD = 950;
 
-    protected warningMsg = 'Ne casse pas tout ! Attention aux dégâts.';
-    protected failMsg = "C'est trop de dégâts ! On arrête les frais.";
+    protected warningMsg = 'Đừng phá xe! Chú ý các va chạm hư hỏng.';
+    protected failMsg = 'Xe đã bị hư hỏng quá nặng! Bài thi kết thúc tại đây.';
 
     public isValid(): boolean {
         /**
@@ -107,7 +107,7 @@ class DamagePenalty extends Penalty {
 class DeadPenalty extends Penalty {
     protected ignoreGracePeriod = true;
 
-    protected failMsg = 'Pas de permis pour les morts...';
+    protected failMsg = 'Không thể cấp bằng lái cho người đã bất tỉnh/chết...';
 
     public isValid(): boolean {
         const player = this.context.playerService.getPlayer();
@@ -117,8 +117,8 @@ class DeadPenalty extends Penalty {
 }
 
 class OutOfVehiclePenalty extends Penalty {
-    protected warningMsg = 'Remonte dans le vehicule !';
-    protected failMsg = 'Pour passer le permis, il faut être DANS le véhicule !';
+    protected warningMsg = 'Hãy quay lại xe ngay!';
+    protected failMsg = 'Để thi bằng lái, bạn phải ở TRONG phương tiện!';
 
     public isValid(): boolean {
         const playerPed = PlayerPedId();
@@ -132,8 +132,8 @@ class OverspeedPenalty extends Penalty {
 
     private MAX_SPEED = 90.5;
 
-    protected warningMsg = 'Attention à ta vitesse ! Ne dépasse pas les 90 km/h.';
-    protected failMsg = "Tu n'as pas su maîtriser ta vitesse. On arrête là...";
+    protected warningMsg = 'Chú ý tốc độ! Không được vượt quá 90 km/h.';
+    protected failMsg = 'Bạn không kiểm soát được tốc độ của mình. Dừng thi tại đây...';
 
     public isValid(): boolean {
         const speed = Math.ceil(GetEntitySpeed(this.context.vehicle) * 3.6);
@@ -143,8 +143,8 @@ class OverspeedPenalty extends Penalty {
 }
 
 class PhonePenalty extends Penalty {
-    protected warningMsg = 'Range ce téléphone ! Regarde la route !';
-    protected failMsg = 'Le téléphone est interdit au volant !';
+    protected warningMsg = 'Cất điện thoại đi! Hãy tập trung nhìn đường!';
+    protected failMsg = 'Nghiêm cấm sử dụng điện thoại khi đang lái xe!';
 
     public isValid(): boolean {
         return !this.context.phoneService.isPhoneVisible() && !this.context.phoneService.hasAnActiveCall();
@@ -154,8 +154,8 @@ class PhonePenalty extends Penalty {
 class SeatbeltPenalty extends Penalty {
     public exclude = [DrivingSchoolLicenseType.Moto];
 
-    protected warningMsg = 'Boucle ta ceinture ! La sécurité avant tout.';
-    protected failMsg = "La ceinture ce n'est pas pour les ienchs ! C'est terminé.";
+    protected warningMsg = 'Hãy thắt dây an toàn! An toàn là trên hết.';
+    protected failMsg = 'Bạn không thắt dây an toàn! Bài thi kết thúc.';
 
     public isValid(): boolean {
         return this.context.seatbeltProvider.isSeatbeltOnForPlayer();
@@ -165,7 +165,7 @@ class SeatbeltPenalty extends Penalty {
 class UndrivablePenalty extends Penalty {
     protected ignoreGracePeriod = true;
 
-    protected failMsg = "C'est perdu ! Ce véhicule n'ira plus très loin...";
+    protected failMsg = 'Bạn đã thi trượt! Xe này không thể tiếp tục di chuyển nữa...';
 
     public isValid(): boolean {
         return !this.context.undrivableVehicles.includes(this.context.vehicle);

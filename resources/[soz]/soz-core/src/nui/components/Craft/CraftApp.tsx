@@ -114,12 +114,12 @@ export const CraftApp: FunctionComponent = () => {
                                     checked={showUnavailable}
                                     onChange={() => setShowUnavailable(show => !show)}
                                 />
-                                <label className="ml-2">Afficher les objets indisponibles</label>
+                                <label className="ml-2">Hiển thị vật phẩm chưa đủ điều kiện</label>
                             </div>
                         </div>
                         <div className="flex justify-end items-center w-1/5">
                             <ApplicationButton variant="secondary" onClick={() => setCraftList(null)}>
-                                Fermer
+                                Đóng (ESC)
                             </ApplicationButton>
                         </div>
                     </header>
@@ -404,7 +404,7 @@ const SelectedItem: FunctionComponent<SelectedItemProps> = ({ selected, craftLis
                         +
                     </ApplicationButton>
                     <ApplicationButton type="button" variant="secondary" onClick={resetForm}>
-                        Tout
+                        Tối đa
                     </ApplicationButton>
                 </div>
 
@@ -415,11 +415,11 @@ const SelectedItem: FunctionComponent<SelectedItemProps> = ({ selected, craftLis
                         onClick={cancelDrugTransform}
                         btnClassName="text-xl uppercase py-4"
                     >
-                        Annuler
+                        Hủy chế tạo
                     </ApplicationButton>
                 ) : (
                     <ApplicationButton type="submit" disabled={!canCraft} btnClassName="text-xl uppercase py-4">
-                        Fabriquer
+                        Bắt đầu Chế tạo
                     </ApplicationButton>
                 )}
             </form>

@@ -137,7 +137,7 @@ export class ShopProvider {
         TriggerClientEvent(ClientEvent.ANIMATION_GIVE, source);
 
         if (!canCarryCart) {
-            this.notifier.notify(source, 'Vous ne pouvez pas porter cette quantité...', 'error');
+            this.notifier.notify(source, 'Bạn không thể mang theo số lượng này...', 'error');
 
             return false;
         }
@@ -148,7 +148,7 @@ export class ShopProvider {
                 : this.playerMoneyService.remove(source, cartAmount, moneyType as BankMoneyType);
 
             if (!hasRemovedMoney) {
-                this.notifier.notify(source, "Vous n'avez pas assez d'argent", 'error');
+                this.notifier.notify(source, 'Bạn không có đủ tiền', 'error');
 
                 return false;
             }
@@ -162,7 +162,7 @@ export class ShopProvider {
                     return false;
                 }
 
-                this.notifier.notify(source, `Vous n'avez pas assez de ${itemDef.label}`, 'error');
+                this.notifier.notify(source, `Bạn không có đủ ${itemDef.label}`, 'error');
                 return false;
             }
         }
@@ -181,7 +181,7 @@ export class ShopProvider {
             const price = await this.priceService.getPrice(cartAmount, taxType);
             this.notifier.notify(
                 source,
-                `Votre achat a bien été validé ! Merci. Prix : ~g~$${price?.toLocaleString('fr-FR') ?? 0}`,
+                `Đơn hàng của bạn đã được thanh toán thành công! Giá : ~g~$${price?.toLocaleString('vi-VN') ?? 0}`,
                 'success'
             );
         } else {
@@ -189,7 +189,7 @@ export class ShopProvider {
 
             this.notifier.notify(
                 source,
-                `Votre achat a bien été validé ! Merci. Prix : ~g~${cartAmount?.toLocaleString('fr-FR') ?? 0}~s~ ~b~${itemDef?.label || moneyType}~s~`,
+                `Đơn hàng của bạn đã được thanh toán thành công! Giá : ~g~${cartAmount?.toLocaleString('vi-VN') ?? 0}~s~ ~b~${itemDef?.label || moneyType}~s~`,
                 'success'
             );
         }
@@ -275,7 +275,7 @@ export class ShopProvider {
         const inventory = await this.inventoryFactory.getOrCreate('cabinet_storage', InventoryType.CabinetStorage);
         const amount = inventory.getItemCount('cabinet_zkea');
 
-        this.notifier.notify(source, `Il reste ${amount} ~b~meubles Zkea~s~ en stock.`, 'info');
+        this.notifier.notify(source, `Còn lại ${amount} ~b~nội thất Zkea~s~ trong kho.`, 'info');
     }
 
     @OnEvent(ServerEvent.LSC_CHECK_STOCK)
@@ -284,14 +284,14 @@ export class ShopProvider {
         const amount = inventory.getItemCount('ls_custom_upgrade_part');
         this.notifier.notify(
             source,
-            `Il reste ${amount || 0} ~b~Pièces d'amélioration certifiées~s~ en stock.`,
+            `Còn lại ${amount || 0} ~b~Linh kiện nâng cấp chứng nhận~s~ trong kho.`,
             'info'
         );
     }
 
     public async shopBarberBuy(source: number, product: BarberShopItem, isInCayo = false) {
         if (!(await this.shopPay(source, product.price, isInCayo ? null : TaxType.SUPPLY))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
         this.playerService.updateSkin(
@@ -316,22 +316,22 @@ export class ShopProvider {
             false
         );
 
-        let label = 'coiffure';
+        let label = 'kiểu tóc';
         switch (product.overlay) {
             case 'Hair':
                 break;
             case 'Makeup':
-                label = 'maquillage';
+                label = 'trang điểm';
                 break;
             case 'FaceTrait':
-                label = 'lentilles';
+                label = 'kính áp tròng';
                 break;
 
             default:
                 break;
         }
 
-        const notif = `Vous avez changé de ~b~${label}~s~ pour ~g~$${await this.priceService.getPrice(
+        const notif = `Bạn đã thay đổi ~b~${label}~s~ với giá ~g~$${await this.priceService.getPrice(
             product.price,
             isInCayo ? null : TaxType.SUPPLY
         )}.`;
@@ -353,7 +353,7 @@ export class ShopProvider {
         }
 
         if (!(await this.shopPay(source, ENGRAVE_PRICE, TaxType.SUPPLY))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
 
@@ -363,7 +363,7 @@ export class ShopProvider {
 
     public async shopJewelryBuy(source: number, product: JewelryShopItem, isInCayo: boolean) {
         if (!(await this.shopPay(source, product.price, isInCayo ? null : TaxType.SUPPLY))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
 
@@ -405,7 +405,7 @@ export class ShopProvider {
         // Notify player
         this.notifier.notify(
             source,
-            `Vous avez acheté un.e ~b~${product.label}~s~ pour ~g~$${await this.priceService.getPrice(
+            `Bạn đã mua ~b~${product.label}~s~ với giá ~g~$${await this.priceService.getPrice(
                 product.price,
                 isInCayo ? null : TaxType.SUPPLY
             )}.`,
@@ -426,13 +426,13 @@ export class ShopProvider {
         ) {
             const stock = shopItem.stock;
             if (stock <= 0) {
-                this.notifier.notify(source, `Ce produit n'est plus en stock`, 'error');
+                this.notifier.notify(source, `Sản phẩm này hiện đã hết hàng`, 'error');
                 return;
             }
         }
 
         if (!(await this.shopPay(source, product.price, isInCayo ? null : TaxType.SUPPLY))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
 
@@ -552,11 +552,11 @@ export class ShopProvider {
         const modelHash = this.playerService.getPlayer(source).skin.Model.Hash;
         const overlayField = modelHash === GetHashKey('mp_m_freemode_01') ? 'HashNameMale' : 'HashNameFemale';
         if (!product || !product.Collection || !product[overlayField] || !product[overlayField].length) {
-            this.notifier.notify(source, `Une erreur s'est produite, désolé.`, 'error');
+            this.notifier.notify(source, `Đã xảy ra lỗi khi xăm hình, xin lỗi quý khách.`, 'error');
             return;
         }
         if (!(await this.shopPay(source, product.Price, isInCayo ? null : TaxType.SUPPLY))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
         this.playerService.updateSkin(
@@ -577,7 +577,7 @@ export class ShopProvider {
         );
         this.notifier.notify(
             source,
-            `Vous venez de vous faire tatouer pour ~g~$${await this.priceService.getPrice(
+            `Bạn vừa xăm hình với giá ~g~$${await this.priceService.getPrice(
                 product.Price,
                 isInCayo ? null : TaxType.SUPPLY
             )}`,
@@ -600,7 +600,7 @@ export class ShopProvider {
             },
             false
         );
-        this.notifier.notify(source, `Vous venez de vous faire retirer tous vos tatouages`, 'success');
+        this.notifier.notify(source, `Bạn vừa xóa tất cả hình xăm trên cơ thể`, 'success');
     }
 
     public async shopGeneralBuy(source: number, product: ShopProduct, quantity: number, taxType: TaxType) {
@@ -611,7 +611,7 @@ export class ShopProvider {
         const player = this.playerService.getPlayer(source);
 
         if (product.requiredLicense && !player.metadata.licences[product.requiredLicense]) {
-            this.notifier.notify(source, "Vous n'avez pas le permis nécessaire", 'error');
+            this.notifier.notify(source, 'Bạn không có giấy phép / bằng lái cần thiết', 'error');
             return;
         }
 
@@ -622,19 +622,19 @@ export class ShopProvider {
             return;
         }
         if (!(await this.shopPay(source, product.price * quantity, taxType))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
         if (isOk(inventory.add(product.id, quantity, product.metadata))) {
             this.notifier.notify(
                 source,
-                `Vous avez acheté ~b~${quantity} ${product.item.label}~s~ pour ~g~$${await this.priceService.getPrice(
+                `Bạn đã mua ~b~${quantity} ${product.item.label}~s~ với giá ~g~$${await this.priceService.getPrice(
                     product.price * quantity,
                     taxType
                 )}`
             );
         } else {
-            this.notifier.notify(source, `Oups, une erreur est survenue... Réessaye !`, 'error');
+            this.notifier.notify(source, `Rất tiếc, đã xảy ra lỗi... Vui lòng thử lại!`, 'error');
         }
     }
 
@@ -650,7 +650,7 @@ export class ShopProvider {
             !this.featureProvider.isFeatureEnabled(Feature.WhatIfSecondEpisode)
         ) {
             if (cabinetStorageInventory.getItemCount('cabinet_zkea') < 1) {
-                this.notifier.error(source, "Achat de meuble impossible car Zkea n'a pas assez de stock.");
+                this.notifier.error(source, "Không thể mua đồ nội thất vì Zkea hiện đã hết hàng tồn kho.");
 
                 return;
             }
@@ -684,26 +684,26 @@ export class ShopProvider {
         }
 
         if (!(await this.shopPay(source, product.price, taxType))) {
-            this.notifier.notify(source, `Ah mais t'es pauvre en fait ! Reviens quand t'auras de quoi payer.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền để thanh toán.`, 'error');
             return;
         }
 
         if (crate) {
             if (!playerInventory.removeAtSlot(crate.slot, 1)) {
-                this.notifier.notify(source, `Oups, une erreur est survenue... Réessaye !`, 'error');
+                this.notifier.notify(source, `Rất tiếc, đã xảy ra lỗi... Vui lòng thử lại!`, 'error');
                 return;
             }
         }
         const addRequest = playerInventory.add('zkea_crate', 1, newMeta);
 
         if (isErr(addRequest)) {
-            this.notifier.notify(source, `Oups, une erreur est survenue... Réessaye !`, 'error');
+            this.notifier.notify(source, `Rất tiếc, đã xảy ra lỗi... Vui lòng thử lại!`, 'error');
             return;
         }
 
         this.notifier.notify(
             source,
-            `Vous avez acheté ~b~1 ${product.name}~s~ pour ~g~$${await this.priceService.getPrice(
+            `Bạn đã mua ~b~1 ${product.name}~s~ với giá ~g~$${await this.priceService.getPrice(
                 product.price,
                 taxType
             )}`
@@ -717,7 +717,7 @@ export class ShopProvider {
     @OnEvent(ServerEvent.ZKEA_RENT_MULE)
     public async onRentMule(source: number, position: Vector4) {
         if (!(await this.playerMoneyService.buy(source, MuleRentPrice + MuleRentDeposite, TaxType.SERVICE))) {
-            this.notifier.notify(source, `Vous n'avez pas assez d'argent.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền.`, 'error');
             return;
         }
 
@@ -731,10 +731,10 @@ export class ShopProvider {
             TriggerClientEvent(ClientEvent.ANIMATION_GIVE, source);
 
             const taxedPrice = await this.priceService.getPrice(MuleRentPrice + MuleRentDeposite, TaxType.SERVICE);
-            this.notifier.notify(source, `Vous avez payé ~r~${taxedPrice}$~s~`, 'info');
+            this.notifier.notify(source, `Bạn đã thanh toán ~r~${taxedPrice}$~s~`, 'info');
             this.notifier.notify(
                 source,
-                `Tiens, v'la les clés, et m'le casse pas ! Si tu veux récupérer ta caution, ramène moi le camion.`,
+                `Đây là chìa khóa xe, đừng làm hỏng xe đấy nhé! Trả lại xe để nhận lại tiền cọc.`,
                 'success'
             );
         }
@@ -750,7 +750,7 @@ export class ShopProvider {
 
         const vehicleState = this.vehicleStateService.getVehicleState(networkId);
         if (!vehicleState.volatile) {
-            this.notifier.notify(source, 'Ce véhicule ne vous appartient pas.', 'error');
+            this.notifier.notify(source, 'Xe tải này không thuộc về bạn.', 'error');
             return;
         }
 
@@ -765,18 +765,18 @@ export class ShopProvider {
                     MuleRentDeposite,
                     'money',
                     false,
-                    'Restitution de la caution du camion de location ZKEA'
+                    'Hoàn tiền đặt cọc xe tải thuê ZKEA'
                 );
                 this.notifier.notify(
                     source,
-                    'Vous avez rendu votre camion de location, la caution a été rendu au locataire.',
+                    'Bạn đã trả xe tải thuê thành công, tiền cọc đã được hoàn lại vào tài khoản.',
                     'success'
                 );
             } else {
-                this.notifier.notify(source, 'Impossible de ranger votre camion.', 'error');
+                this.notifier.notify(source, 'Không thể cất xe tải của bạn.', 'error');
             }
         } else {
-            this.notifier.notify(source, 'Ce camion ne vous appartient pas.', 'error');
+            this.notifier.notify(source, 'Xe tải này không thuộc về bạn.', 'error');
         }
     }
 

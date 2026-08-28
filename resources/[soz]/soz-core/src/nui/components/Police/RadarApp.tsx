@@ -45,7 +45,7 @@ export const RadarApp: FunctionComponent = () => {
                 }}
                 className="text-green-500 text-center"
             >
-                {speed ? speed : '- RECHERCHE EN COURS -'}
+                {speed ? speed : '- ĐANG QUÉT TỐC ĐỘ -'}
             </div>
         </div>
     );

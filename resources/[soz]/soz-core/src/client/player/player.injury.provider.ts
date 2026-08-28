@@ -103,7 +103,7 @@ export class PlayerInjuryProvider {
 
         if (!this.criticalHealthNotification) {
             setStealthKills(false);
-            this.notifier.notify('Vous avez ~r~besoin~s~ de soins !', 'info');
+            this.notifier.notify('Bạn đang bị thương nặng và ~r~cần được sơ cứu y tế~s~!', 'info');
             this.criticalHealthNotification = true;
 
             await this.playerWalkstyleProvider.updateWalkStyle('injury', 'move_injured_generic');

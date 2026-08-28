@@ -29,13 +29,13 @@ export const CharacterSubMenu: FunctionComponent<CharacterSubMenuProps> = ({ cha
     return (
         <SubMenu id="character">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="L'homme au mille visages">
+            <MenuContent subtitle="Quản lý hồ sơ nhân vật">
                 {Object.keys(characters).length > 0 && (
                     <MenuItemSelect
                         onConfirm={async (index, value) => {
                             await fetchNui(NuiEvent.AdminMenuCharacterSwitch, value);
                         }}
-                        title="Changer de personnage"
+                        title="Chuyển đổi nhân vật"
                     >
                         {Object.keys(characters).map(citizenId => (
                             <MenuItemSelectOption key={citizenId} value={citizenId}>
@@ -49,7 +49,7 @@ export const CharacterSubMenu: FunctionComponent<CharacterSubMenuProps> = ({ cha
                         await fetchNui(NuiEvent.AdminMenuCharacterCreateNew);
                     }}
                 >
-                    Créer nouveau personnage
+                    Tạo nhân vật mới
                 </MenuItemButton>
             </MenuContent>
         </SubMenu>

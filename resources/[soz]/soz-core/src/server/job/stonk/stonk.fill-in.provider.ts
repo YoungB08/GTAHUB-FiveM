@@ -59,7 +59,7 @@ export class StonkFillInProvider {
                 JobPermission.CashTransfer_FillIn
             ))
         ) {
-            this.notifier.notify(source, `Vous n'avez pas les accréditations nécessaires.`, 'error');
+            this.notifier.notify(source, `Bạn không có quyền hạn cần thiết.`, 'error');
             return;
         }
 
@@ -69,11 +69,11 @@ export class StonkFillInProvider {
 
         let currentBalance = await this.bankService.getAccountMoney(accountName);
         if (currentBalance >= maxBalance) {
-            this.notifier.notify(source, "C'est déjà ~r~rempli~s~");
+            this.notifier.notify(source, "Tài khoản cây ATM đã ~r~đầy~s~");
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à remplir.', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ nạp tiền vào cây ATM.', 'success');
 
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
@@ -124,9 +124,9 @@ export class StonkFillInProvider {
                     );
                 }
 
-                this.notifier.notify(source, `Vous avez rempli ${fillAmount} ~g~${outputItemLabel}~s~.`);
+                this.notifier.notify(source, `Bạn đã nạp ${fillAmount} ~g~${outputItemLabel}~s~ vào cây ATM.`);
             } else {
-                this.notifier.notify(source, 'Vous avez ~r~arrêté~s~ de remplir.');
+                this.notifier.notify(source, 'Bạn đã ~r~dừng~s~ nạp tiền vào cây ATM.');
                 return;
             }
 
@@ -149,7 +149,7 @@ export class StonkFillInProvider {
         const { completed } = await this.progressService.progress(
             source,
             'stonk_fill_in',
-            'Vous remplissez...',
+            'Đang nạp tiền vào cây ATM...',
             StonkConfig.resell.duration,
             {
                 dictionary: 'anim@mp_radio@garage@low',

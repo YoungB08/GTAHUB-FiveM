@@ -74,15 +74,15 @@ export class NewsFarmProvider {
 
         if (isErr(result)) {
             if (result.err == 'not_enough_space') {
-                this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+                this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
                 return false;
             } else {
-                this.notifier.notify(source, `Il y a eu une erreur: ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
+                this.notifier.notify(source, `Đã xảy ra lỗi: ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
                 return false;
             }
         }
 
-        this.notifier.notify(source, `Vous avez récupéré ~g~${amount} journaux.`);
+        this.notifier.notify(source, `Bạn đã lấy ~g~${amount} tờ báo.`);
 
         this.monitor.traceEvent('job_news_print_newspaper', {
             player_source: source,
@@ -102,7 +102,7 @@ export class NewsFarmProvider {
         const { completed } = await this.progressService.progress(
             source,
             'news:farm',
-            'Vente de journaux',
+            'Đang bán báo...',
             2000,
             {
                 dictionary: 'anim@narcotics@trash',
@@ -127,7 +127,7 @@ export class NewsFarmProvider {
         const maxAmountInventory = inventory.getItemCount('newspaper');
 
         if (maxAmountInventory === 0) {
-            this.notifier.error(source, "Vous ~r~n'avez plus~s~ de journaux");
+            this.notifier.error(source, "Bạn ~r~không còn~s~ tờ báo nào");
 
             return;
         }
@@ -135,7 +135,7 @@ export class NewsFarmProvider {
         const amount = getRandomInt(Math.min(10, maxAmountInventory), Math.min(maxAmountInventory, 20));
 
         if (!inventory.remove('newspaper', amount, false)) {
-            this.notifier.error(source, 'Impossible de vendre les journaux');
+            this.notifier.error(source, 'Không thể bán báo');
 
             return;
         }
@@ -148,7 +148,7 @@ export class NewsFarmProvider {
             await this.bankService.transferFarmMoney(source, 'farm_you-news', 'safe_you-news', amount * 50);
         }
 
-        this.notifier.notify(source, `Vous avez vendu ~g~${amount} journaux.`);
+        this.notifier.notify(source, `Bạn đã bán ~g~${amount} tờ báo.`);
 
         TriggerClientEvent(ClientEvent.NEWS_NEWSPAPER_SOLD, source);
 

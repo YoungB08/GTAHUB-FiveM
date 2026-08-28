@@ -18,7 +18,7 @@ export const HousingAddRoommateMenu: FunctionComponent<HousingAddRoommateMenuPro
     return (
         <Menu type={MenuType.HousingAddRoommateMenu}>
             <MainMenu>
-                <MenuTitle title="Habitation" />
+                <MenuTitle title="Bất Động Sản & Nhà Ở" />
                 <MenuContent>
                     {data.apartments.map(apartment => {
                         return (

@@ -507,7 +507,7 @@ export class PlayerHealthProvider {
 
         if (playerState.exercise.completed === 0) {
             this.notifier.notify(
-                "Tu as débuté ta Daily Routine ! Effectue 4 exercices afin ~g~d'augmenter ta force~s~.",
+                "Bạn đã bắt đầu thói quen luyện tập hàng ngày! Hoàn thành 4 bài tập để ~g~tăng sức mạnh~s~.",
                 'success'
             );
         }
@@ -516,12 +516,12 @@ export class PlayerHealthProvider {
 
         if (!playerState.exercise[type] && playerState.exercise.completed < 3) {
             this.notifier.notify(
-                `Tu as complété ${playerState.exercise.completed + 1} des exercices de ta Daily Routine, Keep up !`,
+                `Bạn đã hoàn thành ${playerState.exercise.completed + 1}/4 bài tập hàng ngày, cố lên!`,
                 'success'
             );
         } else if (!playerState.exercise[type] && playerState.exercise.completed === 3) {
             this.notifier.notify(
-                "Tu as terminé ta Daily Routine ! Tu te sens en forme pour toute la journée. Il t'est inutile de faire plus de sport, tes muscles ont besoins de repos.",
+                "Bạn đã hoàn thành thói quen luyện tập hàng ngày! Bạn cảm thấy tràn đầy năng lượng. Cơ bắp của bạn cần được nghỉ ngơi nên không cần tập thêm hôm nay nữa.",
                 'success'
             );
         }
@@ -538,7 +538,7 @@ export class PlayerHealthProvider {
         }
 
         if (player.metadata.disease) {
-            this.notifier.notify("Vous êtes ~r~malade~s~, vous ne pouvez pas faire d'exercice.", 'error');
+            this.notifier.notify("Bạn đang bị ~r~bệnh~s~, không thể tập thể dục lúc này.", 'error');
 
             return false;
         }
@@ -566,7 +566,7 @@ export class PlayerHealthProvider {
             });
         const { completed } = await this.progressService.progress(
             'Haltères',
-            'Vous faites des haltères...',
+            'Đang tập nâng tạ...',
             EXERCISE_TIME,
             {},
             {
@@ -584,12 +584,12 @@ export class PlayerHealthProvider {
 
     @OnEvent(ClientEvent.PLAYER_HEALTH_DO_PUSH_UP)
     public async doPushUps(): Promise<void> {
-        await this.doSports('amb@world_human_push_ups@male@', 'pushUp', 'Vous faites des pompes...', 3800, 5166);
+        await this.doSports('amb@world_human_push_ups@male@', 'pushUp', 'Đang chống đẩy (hít đất)...', 3800, 5166);
     }
 
     @OnEvent(ClientEvent.PLAYER_HEALTH_DO_SIT_UP)
     public async doSitUps(): Promise<void> {
-        await this.doSports('amb@world_human_sit_ups@male@', 'sitUp', 'Vous faites des abdos...', 4000, 5000);
+        await this.doSports('amb@world_human_sit_ups@male@', 'sitUp', 'Đang gập bụng...', 4000, 5000);
     }
 
     private async doChinUps(coords: Vector4): Promise<void> {
@@ -598,7 +598,7 @@ export class PlayerHealthProvider {
         await this.doSports(
             'amb@prop_human_muscle_chin_ups@male@',
             'chinUp',
-            'Vous faites des tractions...',
+            'Đang hít xà đơn...',
             2800,
             2100
         );

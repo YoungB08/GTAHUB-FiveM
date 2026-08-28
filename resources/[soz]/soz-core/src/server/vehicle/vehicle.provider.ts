@@ -80,7 +80,7 @@ export class VehicleProvider {
 
         const garageConfig = GarageList[garage];
 
-        this.notifier.notify(source, 'Une version de ce véhicule ~g~a été ajouté~s~ au ' + garageConfig.name);
+        this.notifier.notify(source, 'Một bản sao của phương tiện này ~g~đã được thêm~s~ vào ' + garageConfig.name);
     }
 
     @OnEvent(ServerEvent.VEHICLE_COLLECT_FINGERPRINT)
@@ -89,12 +89,12 @@ export class VehicleProvider {
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!fingerprint) {
-            this.notifier.error(source, "Aucune empreinte n'a été trouvée sur ce véhicule.");
+            this.notifier.error(source, "Không tìm thấy dấu vân tay nào trên phương tiện này.");
             return;
         }
         const result = inventory.add('evidence_fingerprint', 1, {
             evidenceInfos: {
-                generalInfo: `Empreinte de ${fingerprint}`,
+                generalInfo: `Dấu vân tay của ${fingerprint}`,
                 type: 'evidence_fingerprint',
                 zone,
                 support: model,
@@ -105,7 +105,7 @@ export class VehicleProvider {
             this.notifier.error(source, ADD_ERROR_MESSAGE[result.err]);
             return;
         }
-        this.notifier.notify(source, 'Empreinte récupérée.');
+        this.notifier.notify(source, 'Đã thu thập dấu vân tay.');
         this.vehicleStateService.updateVehicleVolatileState(vehicleNetworkId, {
             fingerprint: null,
         });
@@ -116,12 +116,12 @@ export class VehicleProvider {
         const drugTypes = this.vehicleStateService.getVehicleState(vehicleNetworkId).volatile.lastDrugTrace;
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
         if (!drugTypes || drugTypes.length == 0) {
-            this.notifier.error(source, "Aucune trace de drogue n'a été trouvée sur ce véhicule.");
+            this.notifier.error(source, "Không tìm thấy dấu vết ma túy nào trên phương tiện này.");
             return;
         }
         const result = inventory.add('evidence_drug', 1, {
             evidenceInfos: {
-                generalInfo: `Trace de ${drugTypes.join(', ')}`,
+                generalInfo: `Dấu vết của ${drugTypes.join(', ')}`,
                 type: 'evidence_drug',
                 zone,
                 support: model,
@@ -132,7 +132,7 @@ export class VehicleProvider {
             this.notifier.error(source, ADD_ERROR_MESSAGE[result.err]);
             return;
         }
-        this.notifier.notify(source, 'Échantillon de drogue récupéré.');
+        this.notifier.notify(source, 'Đã thu thập mẫu ma túy.');
         this.vehicleStateService.updateVehicleVolatileState(vehicleNetworkId, {
             lastDrugTrace: null,
         });

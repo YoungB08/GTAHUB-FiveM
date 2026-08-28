@@ -19,7 +19,7 @@ export class AdminMenuCharacterProvider {
         const firstName = await this.inputService.askInput(
             {
                 maxCharacters: 30,
-                title: 'Prénom',
+                title: 'Tên',
             },
             NotEmptyStringValidator
         );
@@ -31,7 +31,7 @@ export class AdminMenuCharacterProvider {
         const lastName = await this.inputService.askInput(
             {
                 maxCharacters: 30,
-                title: 'Nom',
+                title: 'Họ',
             },
             NotEmptyStringValidator
         );

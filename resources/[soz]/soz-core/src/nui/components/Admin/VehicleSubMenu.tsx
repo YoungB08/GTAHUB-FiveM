@@ -23,9 +23,9 @@ export type VehicleSubMenuProps = {
 };
 
 export const VEHICLE_OPTIONS = [
-    { label: 'Faire apparaître', value: 'spawn' },
-    { label: 'Voir le prix', value: 'see-car-price' },
-    { label: 'Changer le prix', value: 'change-car-price' },
+    { label: 'Tạo phương tiện (Spawn)', value: 'spawn' },
+    { label: 'Xem giá xe', value: 'see-car-price' },
+    { label: 'Thay đổi giá xe', value: 'change-car-price' },
 ];
 
 type Catalog = Record<keyof VehicleCategory, Vehicle[]>;
@@ -65,37 +65,37 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
         <>
             <SubMenu id="vehicle" key={'vehicle'}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="ça roule vite ?">
+                <MenuContent subtitle="Quản lý & Tùy biến phương tiện">
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleSpawn);
                         }}
                     >
-                        🧞 Faire apparaître un véhicule
+                        🧞 Tạo phương tiện (Spawn xe)
                     </MenuItemButton>
-                    <MenuItemSubMenuLink id={'vehicles_catalog'}>📝 Catalogue des véhicules</MenuItemSubMenuLink>
-                    <MenuItemButton onConfirm={onOpenBennysUpgrade}>🔧 Améliorer le véhicule</MenuItemButton>
-                    <MenuItemButton onConfirm={() => onOpenLSCustom()}>🚀 LS Custom</MenuItemButton>
+                    <MenuItemSubMenuLink id={'vehicles_catalog'}>📝 Danh mục toàn bộ phương tiện</MenuItemSubMenuLink>
+                    <MenuItemButton onConfirm={onOpenBennysUpgrade}>🔧 Nâng cấp phương tiện (Bennys)</MenuItemButton>
+                    <MenuItemButton onConfirm={() => onOpenLSCustom()}>🚀 Độ xe (LS Custom)</MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleRepair);
                         }}
                     >
-                        ⚒ Réparer le véhicule
+                        ⚒ Sửa chữa xe hoàn toàn
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleClean);
                         }}
                     >
-                        🧽 Nettoyer le véhicule
+                        🧽 Rửa sạch xe
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleRefill);
                         }}
                     >
-                        ⛽ Ravitailler le véhicule
+                        ⛽ Đổ đầy bình xăng
                     </MenuItemButton>
                     {permission == 'admin' && (
                         <>
@@ -104,14 +104,14 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
                                     await fetchNui(NuiEvent.AdminMenuVehicleSetFBIConfig);
                                 }}
                             >
-                                👮 Configuration FBI
+                                👮 Cấu hình xe FBI / Đặc nhiệm
                             </MenuItemButton>
                             <MenuItemButton
                                 onConfirm={async () => {
                                     await fetchNui(NuiEvent.AdminMenuVehicleSave);
                                 }}
                             >
-                                ⚠️ Enregistrer une copie du véhicule
+                                ⚠️ Lưu bản sao phương tiện
                             </MenuItemButton>
                         </>
                     )}
@@ -123,7 +123,7 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
                             await fetchNui(NuiEvent.AdminToggleBurstTyres, value);
                         }}
                     >
-                        🞉 Pneus increvables
+                        🞉 Lốp xe chống thủng (Không nổ lốp)
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         disabled={!isStaffOrAdmin}
@@ -133,7 +133,7 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
                             await fetchNui(NuiEvent.AdminToggleNoStall, value);
                         }}
                     >
-                        ⛍ Calage désactivé
+                        ⛍ Tắt chết máy khi va chạm
                     </MenuItemCheckbox>
                     <MenuItemCheckbox
                         disabled={!isStaffOrAdmin}
@@ -143,21 +143,21 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
                             await fetchNui(NuiEvent.AdminToggleNoSurfaceCalc, value);
                         }}
                     >
-                        ⛍ Surface désactivée
+                        ⛍ Tắt ảnh hưởng bề mặt địa hình
                     </MenuItemCheckbox>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleNos);
                         }}
                     >
-                        🏎 NOS
+                        🏎 Bình Nitro (NOS)
                     </MenuItemButton>
                     <MenuItemButton
                         onConfirm={async () => {
                             await fetchNui(NuiEvent.AdminMenuVehicleMapping);
                         }}
                     >
-                        🖳 Cartographie
+                        🖳 Bản đồ ECU động cơ (Mapping)
                     </MenuItemButton>
                     <MenuItemButton
                         disabled={!isStaffOrAdmin}
@@ -165,13 +165,13 @@ export const VehicleSubMenu: FunctionComponent<VehicleSubMenuProps> = ({ permiss
                             await fetchNui(NuiEvent.AdminMenuVehicleDelete);
                         }}
                     >
-                        ❌ Supprimer le véhicule
+                        ❌ Xóa bỏ phương tiện (Delete)
                     </MenuItemButton>
                 </MenuContent>
             </SubMenu>
             <SubMenu id={'vehicles_catalog'} key={'vehicles_catalog'}>
                 <MenuTitle title={permission} />
-                <MenuContent subtitle="Catalogue des véhicules">
+                <MenuContent subtitle="Danh mục phương tiện">
                     {Object.keys(catalog).map(category => (
                         <MenuItemSubMenuLink
                             id={'vehicles_catalog_' + category}

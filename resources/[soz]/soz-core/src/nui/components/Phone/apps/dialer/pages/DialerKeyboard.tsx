@@ -89,7 +89,7 @@ export const DialerKeyboard: FunctionComponent = () => {
                                 className="text-center font-bold text-[#347DD9] cursor-pointer pt-2"
                                 onClick={handleNewContact}
                             >
-                                Ajouter le contact
+                                Thêm liên hệ
                             </p>
                         )}
                     </div>

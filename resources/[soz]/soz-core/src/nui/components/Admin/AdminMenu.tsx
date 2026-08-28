@@ -39,41 +39,41 @@ export const AdminMenu: FunctionComponent<AdminMenuStateProps> = ({ data }) => {
             <MainMenu>
                 <MenuTitle title={data.permission} />
                 <MenuContent>
-                    <MenuItemSubMenuLink id="game_master">🎲 Menu du maître du jeu</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="game_master">🎲 Menu Quản Trò (GameMaster)</MenuItemSubMenuLink>
                     <MenuItemSubMenuLink disabled={!isStaffOrAdminOrGM} id="interactive">
-                        🗺 Informations interactives
+                        🗺 Thông tin tương tác
                     </MenuItemSubMenuLink>
                     <MenuItemSubMenuLink disabled={!isStaffOrAdmin} id="job">
-                        ⛑ Gestion métier
+                        ⛑ Quản lý nghề nghiệp
                     </MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="skin">🐕 Modification du style du joueur</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="skin">🐕 Chỉnh sửa ngoại hình & phong cách</MenuItemSubMenuLink>
                     <MenuItemSubMenuLink disabled={!isStaffOrAdminOrGM} id="vehicle">
-                        🚗 Gestion du véhicule
+                        🚗 Quản lý phương tiện
                     </MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="players">👨‍💻 Gestion des joueurs</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="players">👨‍💻 Quản lý người chơi</MenuItemSubMenuLink>
                     <MenuItemSubMenuLink disabled={!isStaffOrAdminOrGM} id="character">
-                        👨‍💼 Gestion des personnages
+                        👨‍💼 Quản lý nhân vật
                     </MenuItemSubMenuLink>
                     <MenuItemSubMenuLink disabled={!isStaffOrAdmin} id="meteor">
-                        ☄️ Météorite
+                        ☄️ Thiên thạch / Thảm họa
                     </MenuItemSubMenuLink>
                     {ceremonyEnabled && (
                         <MenuItemSubMenuLink disabled={!isStaffOrAdmin} id="ceremony">
-                            🎉 Cérémonie
+                            🎉 Sự kiện Lễ hội
                         </MenuItemSubMenuLink>
                     )}
                     <MenuItemSubMenuLink disabled={!isStaffOrAdminOrGM} id="event">
-                        📅 Gestion des evenements HC
+                        📅 Quản lý sự kiện HC
                     </MenuItemSubMenuLink>
                     {isHalloween && (
                         <MenuItemSubMenuLink disabled={!isStaffOrAdmin} id="halloween">
-                            🎃 Halloween
+                            🎃 Sự kiện Halloween
                         </MenuItemSubMenuLink>
                     )}
                     <MenuItemSubMenuLink disabled={!isStaffOrAdminOrGM} id="casino">
-                        🎰 Gestion du Casino
+                        🎰 Quản lý Casino
                     </MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="developer">🛠 Outils pour développeur</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="developer">🛠 Công cụ Lập trình viên</MenuItemSubMenuLink>
                 </MenuContent>
             </MainMenu>
             <GameMasterSubMenu permission={data.permission} state={data.state.gameMaster} />

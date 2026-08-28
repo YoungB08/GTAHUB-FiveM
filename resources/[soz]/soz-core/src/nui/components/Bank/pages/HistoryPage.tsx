@@ -68,7 +68,7 @@ export const HistoryPage: FunctionComponent<HistoryProps> = ({ bankType, account
                     <Tabs
                         selected={action}
                         onChange={handleAction}
-                        tabs={['Tout voir', 'Dépense', 'Recette', 'Transfert']}
+                        tabs={['Tất cả', 'Chi tiêu', 'Thu vào', 'Chuyển khoản']}
                         className="p-2.5"
                         reverseColor
                     />
@@ -78,7 +78,7 @@ export const HistoryPage: FunctionComponent<HistoryProps> = ({ bankType, account
                     <div className="flex gap-2.5">
                         <Card className="w-1/2">
                             <Title size="xxsmall" className="truncate">
-                                Solde bancaire
+                                Số dư tài khoản
                             </Title>
 
                             <div className="flex flex-col justify-center items-center">
@@ -89,7 +89,7 @@ export const HistoryPage: FunctionComponent<HistoryProps> = ({ bankType, account
                         </Card>
 
                         <Card className="w-1/2">
-                            <Title size="xxsmall">Portefeuille</Title>
+                            <Title size="xxsmall">Ví tiền mặt</Title>
 
                             <div className="flex flex-col justify-center items-center">
                                 <Title size="small">

@@ -51,7 +51,7 @@ export class BossShopProvider {
         }
 
         if (!this.playerMoneyService.remove(source, price)) {
-            this.notifier.notify(source, `Vous n'avez pas assez d'argent.`, 'error');
+            this.notifier.notify(source, `Bạn không có đủ tiền.`, 'error');
             return;
         }
         this.orders.add({
@@ -62,7 +62,7 @@ export class BossShopProvider {
         });
 
         const item = this.itemService.getItem(itemId);
-        this.notifier.notify(source, 'Vous avez commandé un ~g~' + item.label);
+        this.notifier.notify(source, 'Bạn đã đặt mua một ~g~' + item.label);
 
         this.monitor.traceEvent('boss_shop_order', {
             player_source: source,
@@ -95,7 +95,7 @@ export class BossShopProvider {
                 const player = this.playerService.getPlayerByCitizenId(order.citizenId);
                 if (player && player.source) {
                     const item = this.itemService.getItem(order.item);
-                    this.notifier.notify(player.source, 'Votre commande de ~g~' + item.label + '~s~ a été livrée');
+                    this.notifier.notify(player.source, 'Đơn hàng ~g~' + item.label + '~s~ của bạn đã được giao đến kho');
                 }
                 this.orders.delete(order);
             }

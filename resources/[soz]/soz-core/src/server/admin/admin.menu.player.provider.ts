@@ -214,7 +214,7 @@ export class AdminMenuPlayerProvider {
     @OnEvent(ServerEvent.ADMIN_RESET_SKIN)
     public async onResetSkin(source: number, target: number) {
         TriggerClientEvent(ClientEvent.CHARACTER_REQUEST_CHARACTER_WIZARD, target);
-        this.notifier.notify(source, 'Le skin du joueur a été reset.');
+        this.notifier.notify(source, 'Đã đặt lại ngoại hình nhân vật của người chơi.');
     }
 
     @OnEvent(ServerEvent.ADMIN_RESET_HALLOWEEN)
@@ -230,7 +230,7 @@ export class AdminMenuPlayerProvider {
         });
         this.notifier.notify(
             source,
-            `La progression du joueur ~b~${year} (${scenario})~s~ a été réinitialisée.`,
+            `Tiến trình sự kiện ~b~${year} (${scenario})~s~ của người chơi đã được đặt lại.`,
             'info'
         );
     }
@@ -244,7 +244,7 @@ export class AdminMenuPlayerProvider {
     public async onResetClientState(source: number, target: number) {
         this.playerStateService.resetClientState(target);
 
-        this.notifier.notify(source, `L'état client du joueur a été réinitialisée.`, 'info');
+        this.notifier.notify(source, `Trạng thái client của người chơi đã được đặt lại.`, 'info');
     }
 
     @OnEvent(ServerEvent.ADMIN_PLAYER_SET_SENATE_PARTY)
@@ -263,9 +263,9 @@ export class AdminMenuPlayerProvider {
             });
 
             if (deleted) {
-                this.notifier.notify(source, `Le joueur n'est plus dans un parti.`, 'info');
+                this.notifier.notify(source, `Người chơi không còn thuộc đảng phái nào.`, 'info');
             } else {
-                this.notifier.notify(source, `Le joueur n'est pas dans un parti.`, 'info');
+                this.notifier.notify(source, `Người chơi hiện không tham gia đảng phái nào.`, 'info');
             }
 
             this.playerService.setPlayerPartyMember(target, null);
@@ -277,7 +277,7 @@ export class AdminMenuPlayerProvider {
             });
 
             if (!party) {
-                this.notifier.notify(source, `Le parti n'existe pas.`, 'error');
+                this.notifier.notify(source, `Đảng phái không tồn tại.`, 'error');
 
                 return;
             }
@@ -312,7 +312,7 @@ export class AdminMenuPlayerProvider {
                 senateSeatMember: partyMember.senateSeatNumber,
             });
 
-            this.notifier.notify(source, `Le joueur est désormais dans le parti ${party.name}.`, 'info');
+            this.notifier.notify(source, `Người chơi hiện đã gia nhập đảng ${party.name}.`, 'info');
         }
     }
 
@@ -321,10 +321,10 @@ export class AdminMenuPlayerProvider {
         this.playerStateService.resetClientState(target);
 
         if (value) {
-            this.notifier.notify(source, `Le joueur va se transformer en zombie.`, 'info');
+            this.notifier.notify(source, `Người chơi sẽ biến thành zombie.`, 'info');
             this.playerZombieProvider.addZombiePlayer(target);
         } else {
-            this.notifier.notify(source, `Le joueur redevient normal.`, 'info');
+            this.notifier.notify(source, `Người chơi đã trở lại bình thường.`, 'info');
             this.playerZombieProvider.removeZombiePlayer(target);
         }
     }
@@ -358,7 +358,7 @@ export class AdminMenuPlayerProvider {
 
         this.notifier.notify(
             source,
-            value ? `Plaque attribuée à ${player.rpFullName}` : `Plaque retirée à ${player.rpFullName}`,
+            value ? `Đã cấp đĩa/biển cho ${player.rpFullName}` : `Đã thu hồi đĩa/biển của ${player.rpFullName}`,
             'info'
         );
     }

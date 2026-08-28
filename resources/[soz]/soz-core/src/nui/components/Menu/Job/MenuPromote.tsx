@@ -21,7 +21,7 @@ export const MenuPromote: FunctionComponent<MenuPromoteProps> = ({ data }) => {
         <Menu type={MenuType.Promote}>
             <MainMenu>
                 <MenuTitle title={JobLabel[data.job]} />
-                <MenuContent subtitle="Promouvoir un joueur">
+                <MenuContent subtitle="Bổ nhiệm / Thăng chức nhân viên">
                     {data.grades.map(grade => (
                         <MenuItemButton
                             onConfirm={() => {

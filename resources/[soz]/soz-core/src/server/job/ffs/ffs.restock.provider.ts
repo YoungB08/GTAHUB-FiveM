@@ -102,11 +102,11 @@ export class FightForStyleRestockProvider {
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à restocker le magasin de vêtements', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ bổ sung hàng cho cửa hàng quần áo', 'success');
         const { completed } = await this.progressService.progress(
             source,
             'restock',
-            'Restockage',
+            'Đang bổ sung quần áo...',
             2000 * inventoryItem.amount,
             {
                 name: 'base',
@@ -136,7 +136,7 @@ export class FightForStyleRestockProvider {
             position: toVector3Object(GetEntityCoords(GetPlayerPed(source)) as Vector3),
         });
 
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de restocker le magasin de vêtements.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn tất~s~ bổ sung hàng cho cửa hàng quần áo.', 'success');
     }
 
     public async restockLoop(brand: ShopBrand, garment: Garment | LuxuryGarment, amount: number) {

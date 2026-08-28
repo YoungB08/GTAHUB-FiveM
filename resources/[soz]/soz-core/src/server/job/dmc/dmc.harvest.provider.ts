@@ -16,9 +16,9 @@ import { isOk } from '../../../shared/result';
 import { FieldProvider } from '../../field/field.provider';
 
 const fieldMessage = {
-    dmc_iron_field: 'de fer et charbon',
-    dmc_aluminium_field: "d'aluminium",
-    dmc_uranium_field: "d'uranium",
+    dmc_iron_field: 'sắt và than',
+    dmc_aluminium_field: 'nhôm',
+    dmc_uranium_field: 'uranium',
 };
 
 @Provider()
@@ -52,7 +52,7 @@ export class DmcHarvestProvider {
 
     @OnEvent(ServerEvent.DMC_HARVEST)
     async onHarvest(source: number, field: string) {
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à miner.');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ khai khoáng.');
 
         while (await this.doHarvest(source, field)) {
             /* empty */
@@ -63,7 +63,7 @@ export class DmcHarvestProvider {
         const { completed } = await this.progressService.progress(
             source,
             'dmc_harvest',
-            `Récolte ${fieldMessage[field]}...`,
+            `Đang khai thác ${fieldMessage[field]}...`,
             4500,
             {
                 name: 'ground_attack_on_spot',
@@ -79,12 +79,12 @@ export class DmcHarvestProvider {
         );
 
         if (!completed) {
-            this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de miner.`, 'error');
+            this.notifier.notify(source, `Bạn đã ~r~dừng~s~ khai khoáng.`, 'error');
             return false;
         }
 
         if (!(await this.fieldService.harvestField(field, 1))) {
-            this.notifier.notify(source, `La mine est épuisée.`);
+            this.notifier.notify(source, `Mỏ quặng đã cạn kiệt sản lượng.`);
             return false;
         }
 
@@ -101,7 +101,7 @@ export class DmcHarvestProvider {
         if (!inventory.canCarryItems(items)) {
             this.notifier.notify(
                 source,
-                `Vous ne possédez pas suffisamment de place dans votre inventaire pour récolter.`
+                `Túi đồ của bạn không có đủ chỗ trống để thu hoạch.`
             );
             return false;
         }
@@ -110,7 +110,7 @@ export class DmcHarvestProvider {
             const result = inventory.add(item.name, item.amount);
             if (isOk(result)) {
                 const itemInfo = this.itemService.getItem(item.name);
-                this.notifier.notify(source, `Vous avez récolté ~b~${item.amount} ~b~${itemInfo.label}.`);
+                this.notifier.notify(source, `Bạn đã thu hoạch được ~b~${item.amount} ~b~${itemInfo.label}.`);
 
                 this.monitor.traceEvent('job_dmc_harvest', {
                     item_id: item.name,
@@ -121,10 +121,10 @@ export class DmcHarvestProvider {
                     field: field,
                 });
             } else if (result.err == 'not_enough_space') {
-                this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+                this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
                 return false;
             } else {
-                this.notifier.notify(source, `Il y a eu une erreur: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
+                this.notifier.notify(source, `Đã xảy ra lỗi: ${item} ${ADD_ERROR_MESSAGE[result.err]}`, 'error');
                 return false;
             }
         }

@@ -59,11 +59,11 @@ export class StonkResellProvider {
                 JobPermission.CashTransfer_ResaleBags
             ))
         ) {
-            this.notifier.notify(source, `Vous n'avez pas les accréditations nécessaires.`, 'error');
+            this.notifier.notify(source, `Bạn không có quyền hạn cần thiết.`, 'error');
             return;
         }
 
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à déposer.', 'success');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ nạp túi tiền.', 'success');
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         while (inventory.hasEnoughItem(item, 1)) {
@@ -95,9 +95,9 @@ export class StonkResellProvider {
                     );
                 }
 
-                this.notifier.notify(source, `Vous avez déposé ${resellAmount} ~g~${outputItemLabel}~s~.`);
+                this.notifier.notify(source, `Bạn đã nạp ${resellAmount} ~g~${outputItemLabel}~s~.`);
             } else {
-                this.notifier.notify(source, 'Vous avez ~r~arrêté~s~ de déposer.');
+                this.notifier.notify(source, 'Bạn đã ~r~dừng~s~ nạp túi tiền.');
                 return;
             }
         }
@@ -107,7 +107,7 @@ export class StonkResellProvider {
         const { completed } = await this.progressService.progress(
             source,
             'stonk_resell',
-            'Vous déposez...',
+            'Đang nạp túi tiền...',
             StonkConfig.resell.duration,
             {
                 dictionary: 'anim@mp_radio@garage@low',

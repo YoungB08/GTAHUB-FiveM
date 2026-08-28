@@ -85,7 +85,7 @@ export class Halloween2023Scenario4Provider {
                     return;
                 }
                 inventory.add('halloween_demon_analysis', 1);
-                this.notifier.notify(source, `Vous avez récupéré un document.`, 'success');
+                this.notifier.notify(source, `Bạn đã nhận được một tài liệu.`, 'success');
 
                 this.playerService.setPlayerMetadata(source, 'halloween2023', {
                     ...player.metadata.halloween2023,

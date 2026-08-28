@@ -33,7 +33,7 @@ export const PitStopPriceMenu: FunctionComponent = () => {
         <Menu type={MenuType.PitStopPriceMenu}>
             <MainMenu>
                 <MenuTitle title={JobLabel.bennys} />
-                <MenuContent subtitle="Gestion des Prix du Pit Stop">
+                <MenuContent subtitle="Quản lý bảng giá Pit Stop (Bennys)">
                     {Object.entries(prices)
                         .sort((a, b) => a[0].localeCompare(b[0]))
                         .map(([category, price]) => {

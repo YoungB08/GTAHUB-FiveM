@@ -41,7 +41,7 @@ export class PoliceSpeedZoneProvider {
             return;
         }
         if (distance < 1 || distance > 5) {
-            this.notifier.notify(source, `La distance doit être entre 1 et 5.`, 'error');
+            this.notifier.notify(source, `Khoảng cách phải từ 1 đến 5.`, 'error');
             return;
         }
 
@@ -50,7 +50,7 @@ export class PoliceSpeedZoneProvider {
         if (inventory.remove(speedzoneItemName, 1)) {
             TriggerClientEvent(ClientEvent.POLICE_REQUEST_ADD_SPEEDZONE, player.source, LANE_RADIUS * distance, speed);
         } else {
-            this.notifier.notify(source, `Vous ne possédez pas cet objet.`, 'error');
+            this.notifier.notify(source, `Bạn không sở hữu vật phẩm này.`, 'error');
         }
     }
 

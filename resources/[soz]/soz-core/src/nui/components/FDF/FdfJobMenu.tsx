@@ -58,7 +58,7 @@ export const FdfJobMenu: FunctionComponent<FDFStateProps> = ({ data }) => {
                 <MainMenu>
                     <MenuTitle title={JobLabel.fdf} />
                     <MenuContent>
-                        <MenuItemText>Vous n'êtes pas en service.</MenuItemText>
+                        <MenuItemText>Bạn chưa vào ca làm việc.</MenuItemText>
                     </MenuContent>
                 </MainMenu>
             </Menu>
@@ -84,21 +84,21 @@ export const FdfJobMenu: FunctionComponent<FDFStateProps> = ({ data }) => {
                             checked={data.state.displayGarlicBlip}
                             onChange={value => displayBlip('displayGarlicBlip', value)}
                         >
-                            Afficher le champ d'Ail
+                            Hiển thị vườn tỏi
                         </MenuItemCheckbox>
                     )}
                     {Object.keys(data.recipes).map(category => (
                         <MenuItemSubMenuLink
                             id={`recipe_${category}`}
                             key={`recipe_${category}`}
-                        >{`Livre de recettes ${category}`}</MenuItemSubMenuLink>
+                        >{`Sổ tay công thức ${category}`}</MenuItemSubMenuLink>
                     ))}
                 </MenuContent>
             </MainMenu>
             {Object.entries(data.recipes).map(([name, category]) => (
                 <SubMenu id={`recipe_${name}`} key={`recipe_${name}`}>
                     <MenuTitle title={JobLabel.fdf} />
-                    <MenuContent subtitle={`Livre de recettes ${name}`}>
+                    <MenuContent subtitle={`Sổ tay công thức ${name}`}>
                         <MenuItemSelect title="" titleWidth={0}>
                             {Object.entries(category.recipes).map(([output, recipe]) => (
                                 <MenuItemSelectOption

@@ -51,9 +51,9 @@ export class BankProvider {
     public async removeMoneyCommand(source: number, account: string, amount: number) {
         const success = await this.bankService.removeAccountMoney(account, amount, 'money');
         if (success) {
-            this.notifier.notify(source, `Suppression de ~r~${amount}$~s~ du compte ~b~${account}~s~.`, 'success');
+            this.notifier.notify(source, `Đã trừ ~r~$${amount}~s~ khỏi tài khoản ~b~${account}~s~.`, 'success');
         } else {
-            this.notifier.error(source, `~r~Echec~s~ de la suppression d'argent.`);
+            this.notifier.error(source, `~r~Thất bại~s~ khi trừ tiền.`);
         }
     }
 
@@ -75,9 +75,9 @@ export class BankProvider {
 
         this.notifier.advancedNotify(
             source,
-            'Bank Account',
+            'Ngân hàng Fleeca',
             accountId,
-            `Money: ${accountMoney?.toLocaleString()}~n~Marked Money: ${accountMarkedMoney?.toLocaleString()}`,
+            `Số dư: $${accountMoney?.toLocaleString()}~n~Tiền bẩn: $${accountMarkedMoney?.toLocaleString()}`,
             'CHAR_BANK_MAZE'
         );
     }
@@ -167,15 +167,15 @@ export class BankProvider {
             true
         );
         if (!transfer) {
-            this.notifier.error(source, "Impossible de transférer de l'argent.");
+            this.notifier.error(source, "Không thể chuyển tiền.");
             return transfer;
         }
 
         this.notifier.advancedNotify(
             source,
-            'Fleeca Banque',
-            `Transfert: ~r~$${amount}`,
-            "Vous avez transféré de l'argent.",
+            'Ngân hàng Fleeca',
+            `Chuyển tiền: ~r~-$${amount}`,
+            "Bạn đã chuyển tiền thành công.",
             'CHAR_BANK_MAZE'
         );
 
@@ -183,9 +183,9 @@ export class BankProvider {
         if (targetPlayer) {
             this.notifier.advancedNotify(
                 targetPlayer.source,
-                'Fleeca Banque',
-                `Transfert: ~g~$${amount}`,
-                "Vous avez reçu de l'argent.",
+                'Ngân hàng Fleeca',
+                `Nhận tiền: ~g~+$${amount}`,
+                "Bạn đã nhận được tiền.",
                 'CHAR_BANK_MAZE'
             );
         }
@@ -218,8 +218,8 @@ export class BankProvider {
         return this.prismaService.$queryRaw<BankContact[]>(
             Prisma.sql`SELECT c.id, c.citizenid, c.label, c.accountid, pp.avatar
                        FROM bank_contacts c
-                                LEFT JOIN player u ON json_value(u.charinfo, '$.account') = c.accountid
-                                LEFT JOIN phone_profile pp ON json_value(u.charinfo, '$.phone') = pp.number
+                                 LEFT JOIN player u ON json_value(u.charinfo, '$.account') = c.accountid
+                                 LEFT JOIN phone_profile pp ON json_value(u.charinfo, '$.phone') = pp.number
                        WHERE c.citizenid = ${citizenId}`
         );
     }
@@ -227,7 +227,7 @@ export class BankProvider {
     public async payTaxe(citizenId: string, money: number, reason: string): Promise<[boolean, string]> {
         const player = this.playerService.getPlayerByCitizenId(citizenId);
         if (!player) {
-            return [false, 'Joueur inconnu ou pas connecté'];
+            return [false, 'Người chơi không tồn tại hoặc không trực tuyến'];
         }
 
         const success = await this.bankService.transferBankMoney(
@@ -240,10 +240,10 @@ export class BankProvider {
         );
 
         if (!success) {
-            return [false, 'Echec du paiement'];
+            return [false, 'Thanh toán thất bại'];
         }
 
-        this.notifier.advancedNotify(player.source, 'Fleeca Banque', `~r~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
+        this.notifier.advancedNotify(player.source, 'Ngân hàng Fleeca', `~r~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
 
         return [true, null];
     }
@@ -256,12 +256,12 @@ export class BankProvider {
     ): Promise<[boolean, string]> {
         const sourcePlayer = this.playerService.getPlayerByCitizenId(sourceCitizenId);
         if (!sourcePlayer) {
-            return [false, 'Joueur source inconnu ou pas connecté'];
+            return [false, 'Người chuyển tiền không tồn tại hoặc không trực tuyến'];
         }
 
         const destPlayer = this.playerService.getPlayerByCitizenId(destCitizenId);
         if (!destPlayer) {
-            return [false, 'Joueur destinataire inconnu ou pas connecté'];
+            return [false, 'Người nhận tiền không tồn tại hoặc không trực tuyến'];
         }
 
         const success = await this.bankService.transferBankMoney(
@@ -274,11 +274,11 @@ export class BankProvider {
         );
 
         if (!success) {
-            return [false, 'Echec du paiement'];
+            return [false, 'Thanh toán thất bại'];
         }
 
-        this.notifier.advancedNotify(sourcePlayer.source, 'Fleeca Banque', `~r~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
-        this.notifier.advancedNotify(destPlayer.source, 'Fleeca Banque', `~g~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
+        this.notifier.advancedNotify(sourcePlayer.source, 'Ngân hàng Fleeca', `~r~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
+        this.notifier.advancedNotify(destPlayer.source, 'Ngân hàng Fleeca', `~g~$${money}~s~`, reason, 'CHAR_BANK_MAZE');
 
         return [true, null];
     }

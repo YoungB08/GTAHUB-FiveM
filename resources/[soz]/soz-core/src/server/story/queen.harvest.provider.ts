@@ -53,12 +53,12 @@ export class QueenHarvestProvider {
 
     @OnEvent(ServerEvent.HALLOWEEN_BLOOD_HARVEST)
     async onHarvest(source: number) {
-        this.notifier.notify(source, 'Vous ~g~commencez~s~ à sucer');
+        this.notifier.notify(source, 'Bạn ~g~bắt đầu~s~ thu thập máu');
 
-        while (await this.doHarvest(source, 'Vous récupérez du sang.')) {
+        while (await this.doHarvest(source, 'Đang thu thập máu...')) {
             /* empty */
         }
-        this.notifier.notify(source, 'Vous avez ~r~terminé~s~ de récupérez du sang.', 'success');
+        this.notifier.notify(source, 'Bạn đã ~r~hoàn thành~s~ thu thập máu.', 'success');
     }
 
     async doHarvest(source: number, label: string) {
@@ -69,19 +69,19 @@ export class QueenHarvestProvider {
         });
 
         if (!completed) {
-            this.notifier.notify(source, `Vous avez ~r~arrêté~s~ de récupérer du sang.`, 'error');
+            this.notifier.notify(source, `Bạn đã ~r~dừng~s~ thu thập máu.`, 'error');
             return false;
         }
 
         if (!(await this.fieldService.harvestField(BLOOD_FIELD, BLOOD_ITEM_AMOUNT))) {
-            this.notifier.notify(source, `Notre reine n'a plus de sang à donner...`, 'error');
+            this.notifier.notify(source, `Nữ hoàng của chúng ta không còn máu để ban phát...`, 'error');
             return false;
         }
 
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.canCarryItem(BLOOD_ITEM, BLOOD_ITEM_AMOUNT)) {
-            this.notifier.notify(source, `Vous ne possédez pas suffisamment de place dans votre inventaire.`);
+            this.notifier.notify(source, `Bạn không có đủ chỗ trống trong túi đồ.`);
             return false;
         }
 
@@ -90,15 +90,15 @@ export class QueenHarvestProvider {
         if (isOk(result)) {
             this.notifier.notify(
                 source,
-                `Vous avez récupéré deux fioles de ~b~${this.itemService.getItem(BLOOD_ITEM).label}.`
+                `Bạn đã thu thập được hai lọ ~b~${this.itemService.getItem(BLOOD_ITEM).label}.`
             );
         } else if (result.err == 'not_enough_space') {
-            this.notifier.notify(source, 'Vos poches sont pleines...', 'error');
+            this.notifier.notify(source, 'Túi đồ của bạn đã đầy...', 'error');
             return false;
         } else {
             this.notifier.notify(
                 source,
-                `Il y a eu une erreur: ${BLOOD_ITEM} ${ADD_ERROR_MESSAGE[result.err]}`,
+                `Đã xảy ra lỗi: ${BLOOD_ITEM} ${ADD_ERROR_MESSAGE[result.err]}`,
                 'error'
             );
             return false;

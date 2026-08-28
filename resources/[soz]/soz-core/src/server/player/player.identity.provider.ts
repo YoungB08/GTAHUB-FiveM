@@ -33,23 +33,23 @@ export class PlayerIdentityProvider {
         const cards: InventoryCard[] = [
             {
                 type: 'identity',
-                label: "Carte d'identité",
-                description: "Votre carte d'identité au sein de l'état de San Andreas. Ne la perdez pas !",
+                label: "Căn cước công dân",
+                description: "Thẻ căn cước công dân của bạn tại bang San Andreas. Đừng làm mất nhé!",
             },
             {
                 type: 'license',
-                label: 'Permis',
-                description: 'Votre permis de conduire, faites attention et ne perdez pas vos points..',
+                label: 'Bằng lái xe',
+                description: 'Bằng lái xe của bạn, hãy lái xe cẩn thận và đừng để bị trừ điểm..',
             },
             {
                 type: 'health',
-                label: 'Carte de santé',
-                description: 'Votre carte de santé à présenter au centre médical de San Andreas.',
+                label: 'Thẻ y tế',
+                description: 'Thẻ bảo hiểm y tế xuất trình tại trung tâm y tế San Andreas.',
             },
             {
                 type: 'bank',
-                label: 'Carte bancaire',
-                description: 'Votre carte bancaire STONK personnelle.',
+                label: 'Thẻ ngân hàng',
+                description: 'Thẻ ngân hàng STONK cá nhân của bạn.',
                 iban: player.charinfo.account,
             },
         ];
@@ -58,15 +58,15 @@ export class PlayerIdentityProvider {
             cards.push({
                 type: 'casino_premium',
                 label: 'VIP Premium',
-                description: 'Votre carte VIP Premium',
+                description: 'Thẻ VIP Premium Casino của bạn',
                 expiration: player.metadata.casino_vip_premium_subscription_expire_at,
                 point: player.metadata.casino_vip_point ?? 0,
             });
         } else if (player.metadata.casino_vip_standard_subscription_expire_at > Date.now()) {
             cards.push({
                 type: 'casino_standard',
-                label: 'VIP Basique',
-                description: 'Votre carte VIP Basique',
+                label: 'VIP Tiêu chuẩn',
+                description: 'Thẻ VIP Tiêu chuẩn Casino của bạn',
                 expiration: player.metadata.casino_vip_standard_subscription_expire_at,
                 point: player.metadata.casino_vip_point ?? 0,
             });

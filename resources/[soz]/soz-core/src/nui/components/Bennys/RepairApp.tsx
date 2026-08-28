@@ -17,32 +17,32 @@ import IconTank from '../../icons/repair/tank.svg';
 import IconWheel from '../../icons/repair/wheel.svg';
 
 const WHEEL_LABEL = {
-    0: 'Avant gauche',
-    1: 'Avant droite',
-    2: 'Arrière gauche (autre)',
-    3: 'Arrière droite (autre)',
-    4: 'Arrière gauche',
-    5: 'Arrière droite',
+    0: 'Trước trái',
+    1: 'Trước phải',
+    2: 'Sau trái (phụ)',
+    3: 'Sau phải (phụ)',
+    4: 'Sau trái',
+    5: 'Sau phải',
 };
 
 const WINDOWS_LABEL = {
-    0: 'Avant gauche',
-    1: 'Avant droite',
-    2: 'Arrière gauche',
-    3: 'Arrière droite',
-    4: 'Arrière gauche (autre)',
-    5: 'Arrière droite (autre)',
-    6: 'Pare-brise',
-    7: 'Lunette arrière',
+    0: 'Trước trái',
+    1: 'Trước phải',
+    2: 'Sau trái',
+    3: 'Sau phải',
+    4: 'Sau trái (phụ)',
+    5: 'Sau phải (phụ)',
+    6: 'Kính chắn gió trước',
+    7: 'Kính chắn gió sau',
 };
 
 const DOOR_LABELS = {
-    0: 'Avant gauche',
-    1: 'Avant droite',
-    2: 'Arrière gauche',
-    3: 'Arrière droite',
-    4: 'Capot',
-    5: 'Coffre',
+    0: 'Trước trái',
+    1: 'Trước phải',
+    2: 'Sau trái',
+    3: 'Sau phải',
+    4: 'Nắp capo',
+    5: 'Cốp xe',
 };
 
 type PageProps = {
@@ -65,22 +65,22 @@ const EnginePage: FunctionComponent<PageProps> = ({ analyze }) => {
 
     return (
         <>
-            <h3 className="text-3xl mb-4">Moteur</h3>
-            <p>Etat du moteur : {analyze.condition.engineHealth.toFixed(2)} / 1000</p>
-            {analyze.tabletType === 'car' && <p>Huile moteur : {analyze.condition.oilLevel.toFixed(2)} / 100</p>}
-            <p>Kilométrage : {(analyze.condition.mileage / 1000).toFixed(2)} km</p>
-            <h3 className="text-3xl mt-24">Informations véhicule </h3>
-            <p className="capitalize">Modèle : {analyze.vehiculeInformations?.model ?? '---'}</p>
-            <p className="capitalize">Marque : {analyze.vehiculeInformations?.brand ?? '---'}</p>
-            <p className="capitalize">Catégorie : {analyze.vehiculeInformations?.category ?? '---'}</p>
+            <h3 className="text-3xl mb-4">Động cơ</h3>
+            <p>Tình trạng động cơ : {analyze.condition.engineHealth.toFixed(2)} / 1000</p>
+            {analyze.tabletType === 'car' && <p>Dầu nhớt động cơ : {analyze.condition.oilLevel.toFixed(2)} / 100</p>}
+            <p>Quãng đường đã đi (ODO) : {(analyze.condition.mileage / 1000).toFixed(2)} km</p>
+            <h3 className="text-3xl mt-24">Thông tin phương tiện</h3>
+            <p className="capitalize">Mẫu xe : {analyze.vehiculeInformations?.model ?? '---'}</p>
+            <p className="capitalize">Hãng xe : {analyze.vehiculeInformations?.brand ?? '---'}</p>
+            <p className="capitalize">Phân loại : {analyze.vehiculeInformations?.category ?? '---'}</p>
             <p>
-                Immatriculation :{' '}
+                Biển số :{' '}
                 <span
                     className={`transition-all duration-200 cursor-pointer hover:font-bold ${copied ? 'text-green-500 font-bold' : 'text-white'}`}
                     onClick={() => copyPlate(analyze.vehiculeInformations?.plate)}
                 >
                     {analyze.vehiculeInformations?.plate ?? '---'}
-                    {copied ? ' - Copié !' : ''}
+                    {copied ? ' - Đã sao chép !' : ''}
                 </span>
             </p>
         </>
@@ -90,7 +90,7 @@ const EnginePage: FunctionComponent<PageProps> = ({ analyze }) => {
 const WheelPage: FunctionComponent<PageProps> = ({ analyze }) => {
     return (
         <>
-            <h3 className="text-3xl mb-4">Roues</h3>
+            <h3 className="text-3xl mb-4">Bánh xe & Lốp</h3>
             <div className="grid grid-cols-2">
                 {Object.keys(analyze.condition.tireHealth).map(wheel => {
                     const index = parseInt(wheel, 10);
@@ -106,12 +106,12 @@ const WheelPage: FunctionComponent<PageProps> = ({ analyze }) => {
                     return (
                         <div className="my-4" key={wheel}>
                             <h5 className="text-xl">{WHEEL_LABEL[wheel]}</h5>
-                            <p>Pneu neuf : {burstDistance === undefined ? 'Oui' : 'Non'}</p>
+                            <p>Lốp mới : {burstDistance === undefined ? 'Có' : 'Không'}</p>
                             {burstDistance !== undefined && (
-                                <p>Vie restante : {((10000 - burstDistance) / 1000).toFixed(2)} km</p>
+                                <p>Độ bền còn lại : {((10000 - burstDistance) / 1000).toFixed(2)} km</p>
                             )}
-                            <p>Crevaison : {burst ? 'Oui' : 'Non'}</p>
-                            <p>Sur les jantes : {completelyBurst ? 'Oui' : 'Non'}</p>
+                            <p>Thủng lốp : {burst ? 'Có' : 'Không'}</p>
+                            <p>Mất lốp (chỉ còn vành) : {completelyBurst ? 'Có' : 'Không'}</p>
                         </div>
                     );
                 })}
@@ -123,7 +123,7 @@ const WheelPage: FunctionComponent<PageProps> = ({ analyze }) => {
 const WindowsDoorPage: FunctionComponent<PageProps> = ({ analyze }) => {
     return (
         <>
-            <h3 className="text-3xl mb-4">Vitres</h3>
+            <h3 className="text-3xl mb-4">Cửa kính</h3>
 
             <div className="grid grid-cols-2">
                 {Object.keys(analyze.condition.windowStatus).map(index => {
@@ -134,7 +134,7 @@ const WindowsDoorPage: FunctionComponent<PageProps> = ({ analyze }) => {
                     return (
                         <div className="mt-2" key={index}>
                             <h5 className="text-xl">{WINDOWS_LABEL[index]}</h5>
-                            <p>Cassé : {analyze.condition.windowStatus[index] ? 'Oui' : 'Non'}</p>
+                            <p>Vỡ / Hỏng : {analyze.condition.windowStatus[index] ? 'Có' : 'Không'}</p>
                         </div>
                     );
                 })}
@@ -146,14 +146,14 @@ const WindowsDoorPage: FunctionComponent<PageProps> = ({ analyze }) => {
 const DoorPage: FunctionComponent<PageProps> = ({ analyze }) => {
     return (
         <>
-            <h3 className="text-3xl mb-4">Portières</h3>
+            <h3 className="text-3xl mb-4">Cửa xe</h3>
 
             <div className="grid grid-cols-2">
                 {analyze.doors.map(index => {
                     return (
                         <div className="mt-2" key={index}>
                             <h5 className="text-xl">{DOOR_LABELS[index]}</h5>
-                            <p>Cassé : {analyze.condition.doorStatus[index] ? 'Oui' : 'Non'}</p>
+                            <p>Hỏng / Rơi : {analyze.condition.doorStatus[index] ? 'Có' : 'Không'}</p>
                         </div>
                     );
                 })}
@@ -165,8 +165,8 @@ const DoorPage: FunctionComponent<PageProps> = ({ analyze }) => {
 const BodyPage: FunctionComponent<PageProps> = ({ analyze }) => {
     return (
         <>
-            <h3 className="text-3xl mb-4">Carrosserie</h3>
-            <p>Etat de la carrosserie : {analyze.condition.bodyHealth.toFixed(2)} / 1000</p>
+            <h3 className="text-3xl mb-4">Thân vỏ xe</h3>
+            <p>Tình trạng thân vỏ : {analyze.condition.bodyHealth.toFixed(2)} / 1000</p>
         </>
     );
 };
@@ -175,17 +175,17 @@ const TankPage: FunctionComponent<PageProps> = ({ analyze }) => {
     if (analyze.tabletType === 'electric') {
         return (
             <>
-                <h3 className="text-3xl mb-4">Batterie</h3>
-                <p>Durabilité de la batterie : {analyze.condition.oilLevel.toFixed(2)} / 100</p>
-                <p>Charge : {(analyze.condition.fuelLevel * 0.6).toFixed(2)} / 60</p>
+                <h3 className="text-3xl mb-4">Pin / Bình điện</h3>
+                <p>Độ bền của pin : {analyze.condition.oilLevel.toFixed(2)} / 100</p>
+                <p>Mức sạc : {(analyze.condition.fuelLevel * 0.6).toFixed(2)} / 60</p>
             </>
         );
     }
     return (
         <>
-            <h3 className="text-3xl mb-4">Réservoir</h3>
-            <p>Etat du réservoir : {((analyze.condition.tankHealth - 600) * 2.5).toFixed(2)} / 1000</p>
-            <p>Essence : {analyze.condition.fuelLevel.toFixed(2)} / 100</p>
+            <h3 className="text-3xl mb-4">Bình nhiên liệu</h3>
+            <p>Tình trạng bình xăng : {((analyze.condition.tankHealth - 600) * 2.5).toFixed(2)} / 1000</p>
+            <p>Lượng xăng : {analyze.condition.fuelLevel.toFixed(2)} / 100</p>
         </>
     );
 };
@@ -308,7 +308,7 @@ export const MenuRouter: FunctionComponent = () => {
                         </Routes>
                     </div>
                     <a href="#" onClick={() => setRepairData(null)} className="hover:underline text-white text-lg">
-                        Quitter
+                        Thoát
                     </a>
                 </div>
                 <div>
@@ -321,7 +321,7 @@ export const MenuRouter: FunctionComponent = () => {
                         className={engineClass}
                         to="/engine"
                     >
-                        <span>Moteur</span>
+                        <span>Động cơ</span>
                         <IconEngine className="h-8 w-8 mt-2" />
                     </Link>
                     <Link
@@ -334,7 +334,7 @@ export const MenuRouter: FunctionComponent = () => {
                         to="/wheel"
                     >
                         <IconWheel className="h-8 w-8 mb-2" />
-                        <span>Roues</span>
+                        <span>Bánh xe</span>
                     </Link>
                     <Link
                         style={{
@@ -345,7 +345,7 @@ export const MenuRouter: FunctionComponent = () => {
                         className={doorClass}
                         to="/door"
                     >
-                        <span>Portières</span>
+                        <span>Cửa xe</span>
                         <IconDoor className="h-8 w-8 mt-2" />
                     </Link>
                     <Link
@@ -358,7 +358,7 @@ export const MenuRouter: FunctionComponent = () => {
                         to="/body"
                     >
                         <IconBody className="h-8 w-8 mb-2" />
-                        <span>Carrosserie</span>
+                        <span>Thân vỏ</span>
                     </Link>
                     <Link
                         style={{
@@ -369,7 +369,7 @@ export const MenuRouter: FunctionComponent = () => {
                         className={doorWindowClass}
                         to="/window"
                     >
-                        <span>Vitres</span>
+                        <span>Kính xe</span>
                         <IconGlass className="h-7 w-7 mt-3" />
                     </Link>
                     {repairData.tabletType === 'electric' ? (
@@ -383,7 +383,7 @@ export const MenuRouter: FunctionComponent = () => {
                             to="/tank"
                         >
                             <IconBattery className="h-8 w-8 mb-2" />
-                            <span>Batterie</span>
+                            <span>Bình điện</span>
                         </Link>
                     ) : (
                         <Link
@@ -396,7 +396,7 @@ export const MenuRouter: FunctionComponent = () => {
                             to="/tank"
                         >
                             <IconTank className="h-8 w-8 mb-2" />
-                            <span>Réservoir</span>
+                            <span>Bình xăng</span>
                         </Link>
                     )}
                 </div>

@@ -109,7 +109,7 @@ export class TattooShopProvider {
             cameraCurrentVariation: 0,
         };
 
-        this.instructionalService.display([Control.Sprint, 'Pour faire pivoter la caméra']);
+        this.instructionalService.display([Control.Sprint, 'Để xoay góc nhìn camera']);
         await this.updateCamera('ZONE_HEAD', 0);
     }
 
@@ -148,26 +148,26 @@ export class TattooShopProvider {
     @OnNuiEvent(NuiEvent.TattooShopResetTattos)
     public async onResetTattoos() {
         const value = await this.inputService.askInput({
-            title: 'Voulez-vous vraiment retirer tout vos tatouages ? (Tapez "oui" pour confirmer)',
-            maxCharacters: 3,
+            title: 'Bạn có chắc chắn muốn xóa toàn bộ hình xăm? (Nhập "co" để xác nhận)',
+            maxCharacters: 5,
         });
-        if (value && value.toLowerCase() === 'oui') {
+        if (value && (value.toLowerCase() === 'co' || value.toLowerCase() === 'oui' || value.toLowerCase() === 'yes')) {
             TriggerServerEvent(ServerEvent.SHOP_TATTOO_RESET);
         } else {
-            this.notifier.notify('Vous avez annulé votre commande.', 'info');
+            this.notifier.notify('Bạn đã hủy yêu cầu.', 'info');
         }
     }
 
     @OnNuiEvent(NuiEvent.TattooShopBuy)
     public async onBuyTattoo(product: TattooShopItem) {
         const value = await this.inputService.askInput({
-            title: 'Voulez-vous vraiment ce tatouages ? (Tapez "oui" pour confirmer)',
-            maxCharacters: 3,
+            title: 'Bạn có muốn mua hình xăm này không? (Nhập "co" để xác nhận)',
+            maxCharacters: 5,
         });
-        if (value && value.toLowerCase() === 'oui') {
+        if (value && (value.toLowerCase() === 'co' || value.toLowerCase() === 'oui' || value.toLowerCase() === 'yes')) {
             TriggerServerEvent(ServerEvent.SHOP_BUY, product, ShopBrand.Tattoo);
         } else {
-            this.notifier.notify('Vous avez annulé votre commande.', 'info');
+            this.notifier.notify('Bạn đã hủy yêu cầu.', 'info');
         }
     }
 

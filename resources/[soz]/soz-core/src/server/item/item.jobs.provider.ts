@@ -136,6 +136,6 @@ export class ItemJobsProvider {
     }
 
     private notify(source: number) {
-        this.notifier.error(source, "Vous n'êtes pas habilité à utiliser cet objet");
+        this.notifier.error(source, "Bạn không có thẩm quyền để sử dụng vật phẩm này");
     }
 }

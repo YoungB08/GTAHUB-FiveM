@@ -54,7 +54,7 @@ export class JobResellProvider {
         const resellZone = JobResellZones[resellZoneId];
 
         if (!resellZone) {
-            this.notifier.error(source, 'Zone de revente invalide');
+            this.notifier.error(source, 'Khu vực bán lại không hợp lệ');
 
             return;
         }
@@ -62,25 +62,25 @@ export class JobResellProvider {
         const item = this.itemService.getItem(inventoryItem.name);
 
         if (!item) {
-            this.notifier.error(source, "L'objet n'existe pas");
+            this.notifier.error(source, "Vật phẩm không tồn tại");
 
             return;
         }
 
         if (isInventoryItemExpired(inventoryItem)) {
-            this.notifier.error(source, 'Vous ne pouvez pas revendre des produits périmés');
+            this.notifier.error(source, 'Bạn không thể bán sản phẩm đã hết hạn sử dụng');
 
             return;
         }
 
         if (amount <= 0 || amount > inventoryItem.amount) {
-            this.notifier.error(source, 'Quantité invalide');
+            this.notifier.error(source, 'Số lượng không hợp lệ');
 
             return;
         }
 
         if (!item.resellPrice || item.resellZone !== resellZoneId) {
-            this.notifier.error(source, 'Cet objet ne peut pas être revendu');
+            this.notifier.error(source, 'Vật phẩm này không thể bán lại');
 
             return;
         }
@@ -101,9 +101,9 @@ export class JobResellProvider {
 
                 if (createAmount > 0) {
                     targetInventory.add(inventoryItem.name, createAmount);
-                    this.notifier.error(source, `${createAmount} objet(s) ajouté(s) au stock.`);
+                    this.notifier.error(source, `${createAmount} vật phẩm đã được nhập vào kho.`);
                 } else {
-                    this.notifier.error(source, 'Aucun objet ajouté au stock, il est déjà plein.');
+                    this.notifier.error(source, 'Không thể nhập vật phẩm vào kho vì kho đã đầy.');
                 }
             }
         }
@@ -124,14 +124,14 @@ export class JobResellProvider {
         );
 
         if (!resultTransfer) {
-            this.notifier.error(source, "l'acheteur n'a pas assez d'argent.");
+            this.notifier.error(source, "Bên mua không có đủ tiền để thanh toán.");
 
             return;
         }
 
         inventory.removeAtSlot(inventoryItem.slot, amount);
 
-        this.notifier.notify(source, `Vous avez vendu ~o~${amount} ~b~${item.label}`);
+        this.notifier.notify(source, `Bạn đã bán ~o~${amount} ~b~${item.label}`);
 
         this.monitor.traceEvent('job_resell', {
             player_source: source,

@@ -55,7 +55,7 @@ export class BaunHarvestProvider {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             if (!inventory.canCarryItem(item, 1)) {
-                this.notifier.notify(source, `Vous ne pouvez pas porter plus de ${itemData.label}.`, 'error');
+                this.notifier.notify(source, `Bạn không thể mang thêm ${itemData.label}.`, 'error');
 
                 return;
             }
@@ -63,7 +63,7 @@ export class BaunHarvestProvider {
             const { completed } = await this.progressService.progress(
                 source,
                 'harvest-crate',
-                'Récolte en cours...',
+                'Đang thu hoạch...',
                 2000,
                 {
                     dictionary: 'amb@prop_human_bum_bin@base',
@@ -89,14 +89,14 @@ export class BaunHarvestProvider {
             if (isErr(result)) {
                 this.notifier.notify(
                     source,
-                    `Vous ne pouvez pas porter plus de ${itemData.label} : ${result.err}.`,
+                    `Bạn không thể mang thêm ${itemData.label} : ${result.err}.`,
                     'error'
                 );
 
                 return;
             }
 
-            this.notifier.notify(source, `Vous avez récolté ${itemData.label}.`, 'success');
+            this.notifier.notify(source, `Bạn đã thu hoạch ${itemData.label}.`, 'success');
 
             this.monitor.traceEvent('job_baun_harvest', {
                 item_id: item,

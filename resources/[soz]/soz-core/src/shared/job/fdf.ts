@@ -44,12 +44,12 @@ export enum FDFPlowStatus {
 }
 
 export const FDFFieldMenu: Record<FDFFieldBlips, string> = {
-    [FDFFieldBlips.field]: 'Afficher les champs',
-    [FDFFieldBlips.greenhouse]: 'Afficher les serres',
-    [FDFFieldBlips.apple]: 'Afficher les pommiers',
-    [FDFFieldBlips.orange]: 'Afficher les orangers',
-    [FDFFieldBlips.lemon]: 'Afficher les citronniers',
-    [FDFFieldBlips.resell]: 'Afficher les points de vente',
+    [FDFFieldBlips.field]: 'Hiển thị các cánh đồng',
+    [FDFFieldBlips.greenhouse]: 'Hiển thị nhà kính trồng trọt',
+    [FDFFieldBlips.apple]: 'Hiển thị vườn táo',
+    [FDFFieldBlips.orange]: 'Hiển thị vườn cam',
+    [FDFFieldBlips.lemon]: 'Hiển thị vườn chanh',
+    [FDFFieldBlips.resell]: 'Hiển thị điểm bán nông sản',
 };
 
 export const FDFTreeField: Partial<Record<FDFFieldKind, PolygonZone<Vector4>>> = {

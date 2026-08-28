@@ -48,7 +48,7 @@ export const TaxPage = () => {
                             <div className="flex flex-col gap-4 ">
                                 <section className="flex flex-col gap-4">
                                     <span className="font-semibold text-green-500 text-lg">
-                                        Présentation de la taxe
+                                        Thông tin về thuế
                                     </span>
                                     {taxDescription.description}
                                 </section>
@@ -65,7 +65,7 @@ export const TaxPage = () => {
                                 'bg-white text-gray-700 ': theme === 'light',
                             })}
                         >
-                            <span>Montant de la taxe</span>
+                            <span>Mức thuế</span>
                             <span>{tax.value || 'N/A'}%</span>
                         </div>
                     </div>

@@ -26,15 +26,15 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
         <Menu type={MenuType.PoliceJobLicences}>
             <MainMenu>
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="L'ordre et la justice !">
-                    <MenuItemSubMenuLink id="removePoints">Retirer des points sur un permis</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="removePermis">Retirer complètement un permis</MenuItemSubMenuLink>
-                    <MenuItemSubMenuLink id="addPermis">Attribuer un permis</MenuItemSubMenuLink>
+                <MenuContent subtitle="Quản lý giấy phép & bằng lái">
+                    <MenuItemSubMenuLink id="removePoints">Trừ điểm bằng lái xe</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="removePermis">Tước / Thu hồi giấy phép</MenuItemSubMenuLink>
+                    <MenuItemSubMenuLink id="addPermis">Cấp giấy phép mới</MenuItemSubMenuLink>
                 </MenuContent>
             </MainMenu>
             <SubMenu id="removePoints">
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="Retirer des points">
+                <MenuContent subtitle="Trừ điểm bằng lái">
                     {Object.keys(data.playerLicences).map(licence => {
                         const value = data.playerLicences[licence];
                         const label = PlayerLicenceLabels[licence];
@@ -59,7 +59,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
                                             .fill(null)
                                             .map((_, i) => (
                                                 <MenuItemSelectOption value={i + 1}>
-                                                    {i + 1} Point{i + 1 > 1 ? 's' : ''}
+                                                    {i + 1} Điểm
                                                 </MenuItemSelectOption>
                                             ))}
                                     </MenuItemSelect>
@@ -69,7 +69,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
                                     <MenuItemButton disabled>
                                         <div className="flex justify-between">
                                             <div>{label}</div>
-                                            <div>NON POSSÉDÉ</div>
+                                            <div>CHƯA SỞ HỮU</div>
                                         </div>
                                     </MenuItemButton>
                                 );
@@ -82,7 +82,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
             </SubMenu>
             <SubMenu id="removePermis">
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="Retirer complètement un permis">
+                <MenuContent subtitle="Thu hồi / Tước giấy phép">
                     {Object.keys(data.playerLicences).map(licence => {
                         const value = data.playerLicences[licence];
                         const label = PlayerLicenceLabels[licence];
@@ -108,7 +108,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
                                     <MenuItemButton disabled>
                                         <div className="flex justify-between">
                                             <div>{label}</div>
-                                            <div>NON POSSÉDÉ</div>
+                                            <div>CHƯA SỞ HỮU</div>
                                         </div>
                                     </MenuItemButton>
                                 );
@@ -121,7 +121,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
             </SubMenu>
             <SubMenu id="addPermis">
                 <MenuTitle title={data.job} />
-                <MenuContent subtitle="Attribuer un permis">
+                <MenuContent subtitle="Cấp giấy phép mới">
                     {Object.keys(data.playerLicences).map(licence => {
                         const value = data.playerLicences[licence];
                         const label = PlayerLicenceLabels[licence];
@@ -147,7 +147,7 @@ export const LicencesMenu: FunctionComponent<LicencesStateProps> = ({ data }) =>
                                     <MenuItemButton disabled>
                                         <div className="flex justify-between">
                                             <div>{label}</div>
-                                            <div>DÉJÀ POSSÉDÉ</div>
+                                            <div>ĐÃ SỞ HỮU</div>
                                         </div>
                                     </MenuItemButton>
                                 );

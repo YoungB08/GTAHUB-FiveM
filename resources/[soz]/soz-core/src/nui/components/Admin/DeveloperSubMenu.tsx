@@ -37,14 +37,14 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
     return (
         <SubMenu id="developer">
             <MenuTitle title={permission} />
-            <MenuContent subtitle="Si véloces ces développeurs">
+            <MenuContent subtitle="Công cụ Lập trình & Kỹ thuật">
                 <MenuItemCheckbox
                     checked={state.noClip}
                     onChange={async () => {
                         await fetchNui(NuiEvent.AdminToggleNoClip);
                     }}
                 >
-                    No clip
+                    Bay xuyên tường (NoClip)
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.displayCoords}
@@ -52,7 +52,7 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminToggleShowCoordinates, value);
                     }}
                 >
-                    Afficher les coordonnées
+                    Hiển thị tọa độ (Coords)
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.displayMileage}
@@ -60,7 +60,7 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminToggleShowMileage, value);
                     }}
                 >
-                    Afficher le kilométrage
+                    Hiển thị số km đã chạy
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.displayMouseDebug}
@@ -68,10 +68,10 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminToggleShowMouseDebug, value);
                     }}
                 >
-                    Debug entité sous le curseur
+                    Debug thực thể dưới con trỏ chuột
                 </MenuItemCheckbox>
                 <MenuItemSelect
-                    title="📋 Copier les coords"
+                    title="📋 Sao chép tọa độ"
                     onConfirm={async selectedIndex => {
                         await fetchNui(NuiEvent.AdminCopyCoords, coordOptions[selectedIndex].value);
                     }}
@@ -85,10 +85,10 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminChangePlayer);
                     }}
                 >
-                    🧑 Changer de joueur
+                    🧑 Chuyển đổi nhân vật
                 </MenuItemButton>
                 <MenuItemSelect
-                    title="Déclencher une notification"
+                    title="Thử gửi thông báo"
                     onConfirm={async selectedIndex => {
                         await fetchNui(NuiEvent.AdminTriggerNotification, notificationTypeOptions[selectedIndex].value);
                     }}
@@ -104,14 +104,14 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminResetHealthData);
                     }}
                 >
-                    Redonner la faim/soif
+                    Hồi đầy Đói / Khát
                 </MenuItemButton>
                 <MenuItemButton
                     onConfirm={async () => {
                         await fetchNui(NuiEvent.AdminCreateZone);
                     }}
                 >
-                    Créer une zone
+                    Tạo khu vực (Zone) mới
                 </MenuItemButton>
                 <MenuItemCheckbox
                     checked={state.debugPoly}
@@ -121,7 +121,7 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminSetDisplayZones, value);
                     }}
                 >
-                    🧊Affichage des zones
+                    🧊 Hiển thị các vùng (Zones)
                 </MenuItemCheckbox>
                 <MenuItemCheckbox
                     checked={state.doors}
@@ -131,10 +131,10 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminSetDoorManagement, value);
                     }}
                 >
-                    🚪Gestions des portes
+                    🚪 Quản lý các cánh cửa
                 </MenuItemCheckbox>
                 <MenuItemSelect
-                    title="Magasin"
+                    title="Cửa hàng quần áo"
                     onConfirm={async (_, brand) => {
                         await fetchNui(NuiEvent.AdminMenuClothes, brand);
                     }}
@@ -151,7 +151,7 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminMenuOilPrice);
                     }}
                 >
-                    ⛽ Changer le prix des stations
+                    ⛽ Thay đổi giá trạm xăng dầu
                 </MenuItemButton>
                 <MenuItemButton
                     disabled={!isAdminOrStaff}
@@ -159,7 +159,7 @@ export const DeveloperSubMenu: FunctionComponent<DeveloperSubMenuProps> = ({ per
                         await fetchNui(NuiEvent.AdminMenuTraveling);
                     }}
                 >
-                    🎥 Prise de vue
+                    🎥 Quay phim / Góc nhìn du lịch
                 </MenuItemButton>
             </MenuContent>
         </SubMenu>

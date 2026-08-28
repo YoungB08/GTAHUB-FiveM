@@ -84,7 +84,7 @@ export class UpwStationProvider {
         }
 
         if (!inventory.remove('car_charger', 1, false)) {
-            this.notifier.notify(source, "Vous n'avez pas de chargeur de voiture.", 'error');
+            this.notifier.notify(source, "Bạn không có trụ sạc xe điện.", 'error');
 
             return;
         }
@@ -118,7 +118,7 @@ export class UpwStationProvider {
 
         await this.repositoryProvider.refresh('upwCharger');
 
-        this.notifier.notify(source, "Vous avez ~g~terminé~s~ l'installation de la borne de recharge.", 'success');
+        this.notifier.notify(source, "Bạn đã ~g~hoàn thành~s~ lắp đặt trụ sạc xe điện.", 'success');
     }
 
     @Rpc(RpcServerEvent.UPW_GET_STATION)
@@ -152,14 +152,14 @@ export class UpwStationProvider {
             return;
         }
         if (stationToRefill.stock > stationToRefill.max_stock - 1) {
-            this.notifier.notify(source, 'La station est pleine !', 'success');
+            this.notifier.notify(source, 'Trạm sạc đã đầy điện!', 'success');
             return;
         }
 
         const inventory = await this.inventoryFactory.getPlayerInventory(source);
 
         if (!inventory.remove(cell, 1, false)) {
-            this.notifier.notify(source, "Une erreur s'est produite lors de la recharge.", 'error');
+            this.notifier.notify(source, "Đã xảy ra lỗi trong quá trình nạp điện cho trạm.", 'error');
             return;
         }
 
@@ -180,7 +180,7 @@ export class UpwStationProvider {
             await this.bankService.transferFarmMoney(source, 'farm_upw', 'safe_upw', restockPrice);
         }
 
-        this.notifier.notify(source, `Charge... ~b~${newStock}/${stationToRefill.max_stock} kWh`);
+        this.notifier.notify(source, `Đang nạp... ~b~${newStock}/${stationToRefill.max_stock} kWh`);
 
         const currentStation = await this.prismaService.upw_stations.findFirst({
             where: {
@@ -208,7 +208,7 @@ export class UpwStationProvider {
         }
 
         if (!(await this.jobService.hasPermission(player, JobType.Upw, JobPermission.UpwChangePrice))) {
-            this.notifier.notify(source, "Vous n'avez pas la permission de faire ça.", 'error');
+            this.notifier.notify(source, "Bạn không có quyền thực hiện hành động này.", 'error');
 
             return;
         }
@@ -219,7 +219,7 @@ export class UpwStationProvider {
             },
         });
 
-        this.notifier.notify(source, `Vous avez changé le prix des chargeurs à $${price}/kWh.`);
+        this.notifier.notify(source, `Bạn đã đổi giá sạc điện thành $${price}/kWh.`);
     }
 
     public async useCarCharger(source: number) {
@@ -237,12 +237,12 @@ export class UpwStationProvider {
         }
 
         if (!chargerToCreate) {
-            this.notifier.notify(source, 'Cet endroit ne semble pas adapté pour y mettre une borne.', 'error');
+            this.notifier.notify(source, 'Vị trí này không phù hợp để lắp đặt trụ sạc.', 'error');
             return;
         }
 
         if (chargerToCreate.active) {
-            this.notifier.notify(source, 'Il y a déjà une borne ici !', 'error');
+            this.notifier.notify(source, 'Đã có trụ sạc tại vị trí này rồi!', 'error');
             return;
         }
 

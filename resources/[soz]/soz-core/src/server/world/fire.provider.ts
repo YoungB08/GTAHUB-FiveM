@@ -109,7 +109,7 @@ export class FireProvider {
 
         this.firePropagationEnabled = enabled;
 
-        this.notifier.notify(source, `La propagation des foyers est maintenant ${enabled ? 'activée' : 'désactivé'}`);
+        this.notifier.notify(source, `Sự lan truyền của đám cháy hiện đã ${enabled ? 'bật' : 'tắt'}`);
         this.logger.debug(`[World - Fire] Fire propagation is now ${enabled ? 'enabled' : 'disabled'}`);
     }
 
@@ -548,7 +548,7 @@ export class FireProvider {
 
         this.notifier.notify(
             source,
-            `Voilà de quoi sauver Los Santos des flammes, n'oublie pas de le ramener pour qu'il puisse servir à d'autres.`,
+            `Đây là phương tiện cứu hỏa giúp bạn giải cứu Los Santos khỏi biển lửa, đừng quên mang trả lại khi dùng xong để người khác có thể sử dụng nhé.`,
             'success'
         );
     }
@@ -562,6 +562,6 @@ export class FireProvider {
 
         await this.vehicleSpawner.delete(networkId);
 
-        this.notifier.notify(source, `Merci pour votre service.`, 'success');
+        this.notifier.notify(source, `Cảm ơn bạn vì đã cống hiến phục vụ.`, 'success');
     }
 }

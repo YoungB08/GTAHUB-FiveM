@@ -44,7 +44,7 @@ export class AdminMenuSkinProvider {
             model ||
             (await this.inputService.askInput(
                 {
-                    title: 'Modèle du personnage:',
+                    title: 'Mô hình nhân vật (Model):',
                     maxCharacters: 32,
                 },
                 input => {
@@ -56,7 +56,7 @@ export class AdminMenuSkinProvider {
                         return Ok(input);
                     }
 
-                    return Err('Le modèle du personnage est invalide.');
+                    return Err('Mô hình nhân vật không hợp lệ.');
                 }
             ));
 
@@ -82,7 +82,7 @@ export class AdminMenuSkinProvider {
             : GetNumberOfPedPropDrawableVariations(PlayerPedId(), formattedIndex);
         const drawable = await this.inputService.askInput<number>(
             {
-                title: `Drawable id [0-${maxDrawable}] :`,
+                title: `Mã Drawable [0-${maxDrawable}] :`,
                 defaultValue: '',
                 maxCharacters: 5,
             },
@@ -91,10 +91,10 @@ export class AdminMenuSkinProvider {
                     return Ok(null);
                 }
                 if (isNaN(Number(value))) {
-                    return Err('Le drawable id doit être un nombre.');
+                    return Err('Mã drawable phải là một chữ số.');
                 }
                 if (Number(value) < 0 || Number(value) > maxDrawable) {
-                    return Err(`Le drawable id doit être compris entre 0 et ${maxDrawable}.`);
+                    return Err(`Mã drawable phải nằm trong khoảng từ 0 đến ${maxDrawable}.`);
                 }
                 return Ok(Number(value));
             }
@@ -134,7 +134,7 @@ export class AdminMenuSkinProvider {
     @OnNuiEvent(NuiEvent.AdminMenuSkinCopy)
     public async onSkinCopy() {
         this.clipboard.copy(this.clothingService.getClothSet());
-        this.notifier.notify('Tenue copiée dans le presse-papier');
+        this.notifier.notify('Trang phục đã được sao chép vào clipboard');
     }
 
     @OnNuiEvent(NuiEvent.AdminMenuSkinSave)

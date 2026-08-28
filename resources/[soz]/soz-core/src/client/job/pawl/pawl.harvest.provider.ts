@@ -122,7 +122,7 @@ export class PawlHarvestProvider {
             },
             [
                 {
-                    label: 'Récolter',
+                    label: 'Đốn gỗ (Rìu)',
                     icon: 'pawl/harvest',
                     item: 'weapon_hatchet',
                     job: JobType.Pawl,
@@ -134,7 +134,7 @@ export class PawlHarvestProvider {
                     },
                 },
                 {
-                    label: 'Tronçonner',
+                    label: 'Cưa gỗ (Máy cưa)',
                     icon: 'pawl/harvest-chainsaw',
                     item: 'chainsaw',
                     job: JobType.Pawl,
@@ -146,7 +146,7 @@ export class PawlHarvestProvider {
                     },
                 },
                 {
-                    label: 'Récolter la sève',
+                    label: 'Thu hoạch nhựa cây',
                     icon: 'pawl/harvest-sap',
                     item: 'weapon_hatchet',
                     job: JobType.Pawl,
@@ -161,7 +161,7 @@ export class PawlHarvestProvider {
                     },
                 },
                 {
-                    label: 'Récolter des champignons',
+                    label: 'Hái nấm rừng',
                     icon: 'pawl/harvest-mushroom',
                     canInteract: () => {
                         const player = this.playerService.getPlayer();
@@ -195,7 +195,7 @@ export class PawlHarvestProvider {
 
         const { completed } = await this.progressService.progress(
             'harvest-tree',
-            'Vous récoltez...',
+            'Đang đốn cây bằng rìu...',
             30_000,
             {
                 dictionary: 'melee@large_wpn@streamed_core',
@@ -220,13 +220,13 @@ export class PawlHarvestProvider {
         const isHarvest = await emitRpc<boolean>(RpcServerEvent.PAWL_HARVEST_TREE, fieldId, treeId);
 
         if (!isHarvest) {
-            this.notifier.error('Vous avez ~r~raté~s~ la découpe de l’arbre.');
+            this.notifier.error('Bạn đã ~r~thất bại~s~ khi đốn cây.');
 
             return;
         }
 
         this.harvestedTreeSap.delete(treeId);
-        this.notifier.notify('Vous avez ~g~découpé~s~ l’arbre.', 'success');
+        this.notifier.notify('Bạn đã ~g~đốn hạ~s~ cây gỗ thành công.', 'success');
 
         await this.weaponProvider.clearCurrentWeapon();
     }
@@ -235,7 +235,7 @@ export class PawlHarvestProvider {
         const chainsaw = this.inventoryManager.getItem('chainsaw');
 
         if (!chainsaw?.metadata.fuel || chainsaw?.metadata?.fuel < 1) {
-            this.notifier.error("Vous n'avez plus de carburant..");
+            this.notifier.error('Máy cưa đã hết xăng / nhiên liệu..');
             return;
         }
 
@@ -250,7 +250,7 @@ export class PawlHarvestProvider {
 
         const { completed } = await this.progressService.progress(
             'harvest-tree-chainsaw',
-            'Vous tronçonnez...',
+            'Đang cưa thân cây...',
             15_000,
             {
                 dictionary: 'anim@amb@business@cfm@cfm_cut_sheets@',
@@ -281,13 +281,13 @@ export class PawlHarvestProvider {
         const isHarvest = await emitRpc<boolean>(RpcServerEvent.PAWL_HARVEST_TREE, fieldId, treeId);
 
         if (!isHarvest) {
-            this.notifier.error('Vous avez ~r~raté~s~ la découpe de l’arbre.');
+            this.notifier.error('Bạn đã ~r~thất bại~s~ khi đốn cây.');
 
             return;
         }
 
         this.harvestedTreeSap.delete(treeId);
-        this.notifier.notify('Vous avez ~g~tronçonné~s~ l’arbre.', 'success');
+        this.notifier.notify('Bạn đã ~g~cưa hạ~s~ thân cây thành công.', 'success');
     }
 
     private async harvestTreeSap(fieldId: string, treeId: string) {
@@ -308,7 +308,7 @@ export class PawlHarvestProvider {
 
         const { completed } = await this.progressService.progress(
             'harvest-tree-sap',
-            'Vous récoltez...',
+            'Đang cạo lấy nhựa cây...',
             8_000,
             {
                 dictionary: 'melee@large_wpn@streamed_core',
@@ -333,13 +333,13 @@ export class PawlHarvestProvider {
         const isHarvest = await emitRpc<boolean>(RpcServerEvent.PAWL_HARVEST_TREE_SAP, fieldId, treeId);
 
         if (!isHarvest) {
-            this.notifier.error('Vous avez ~r~raté~s~ la récolte de la sève.');
+            this.notifier.error('Bạn đã ~r~thất bại~s~ khi lấy nhựa cây.');
 
             return;
         }
 
         this.harvestedTreeSap.add(treeId);
-        this.notifier.notify('Vous avez ~g~récolté~s~ de la sève.', 'success');
+        this.notifier.notify('Bạn đã ~g~thu hoạch~s~ nhựa cây thành công.', 'success');
     }
 
     private harvestMushroom(identifier: string, tree: PawlFieldTree) {
